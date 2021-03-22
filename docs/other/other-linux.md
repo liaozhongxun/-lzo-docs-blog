@@ -5,6 +5,7 @@ title: Linux
 ## 基础简介
 
 -   安装[国内阿里云镜像](http://mirrors.aliyun.com/centos/)
+-   安装[国内阿里云镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
 -   安装[国内搜狐镜像](http://mirrors.sohu.com/)
     -   比较老版本可能不提供下载，需找较新的版本
     -   选择软件，默认最小安装，初学者建议选择带 GUI 的服务器
@@ -288,6 +289,22 @@ title: Linux
 
 -   归属
 
+    -   `chown`:更改文件或目录的所有者、所属组
+        -   `chown root:admin FilePath`:更改所有者与所属组
+        -   `chown root FilePath`:更改所有者
+        -   `chown :admin FilePath`:更改所属组
+
+-   高级权限
+    -   访问控制列表`facl`
+        -   前面的权限针对，所属组、所属组、其他人三类进行限制
+        -   优先级高于用户的基本权限
+        -   `facl`可以针对某一个用户进行权限设置
+            -   `setfacl -m u:UserName:rwx FilePath`:设置用户`UserName`对`FilePath`的 facl 控制权限为`rwx`
+            -   `setfacl -x u:UserName FilePath`:取消用户`UserName`对`FilePath`的 facl 控制权限
+            -   `setfacl -b FilePath`:取消所有人`FilePath`的 facl 控制权限
+            -   `getfacl FilePath`: 查看`FilePath`facl 详细信息，以及相关用户
+                -   `mask 权限`:某个文件所有用户 facl 权限最大值，文件设置 facl 后，原先组权限位置含义将替换成这个，组的权限在 facl 的 group 中有
+
 ## 文件
 
 > ls -l 查看文件详情
@@ -304,12 +321,13 @@ title: Linux
     -   第一组[rwx]读写执行
         -   `所有者`对文件的操作权限
     -   第二组[rwx]读写执行
-        -   `所属组`对文件的操作权限
+        -   `所属组`对文件的操作权限（文件未设置 facl 权限的话，否则代表 mask 的值）
         -   其他用户的附加组是该文件的所属组，那么那个用户的权限就是第二个[rwx]
         -   或这个所属组的所有成员(`/etc/group`中最后那个位置)，权限都是第二个[rwx]
     -   第三组[rwx]读写执行
         -   `其他用户`对文件的操作权限
         -   其他用户指的是所有者与所属组成员`之外`的用户
+    -   `.` (默认是. 当用 facl 对该文件进行设置时会变成 `+`)
 -   `第二组`：被硬链接的次数
 -   `第三组`：文件所有者(创建文件的用户)
 -   `第四组`：文件所属组(创建文件用户的基本组)
@@ -395,6 +413,33 @@ title: Linux
     -   常用设置
         -   `:set nu |:set nu` 设置行号
 
+## 软件安装
+
+### 源码安装
+
+> 用户获得源代码之后,需要自行编译代码并解决许多软件依赖关系，比较困难
+
+### rpm(RedHat Packet Manager)
+
+-   红帽公司将源码`编译好了`,可以直接使用的`.rpm`软件包
+-   只能在红帽派系发行版本中使用
+-   rpm 软件包直接存在着复杂的依赖关系
+
+### yum 安装
+
+-   自动解决 rpm 的依赖问题(自动安装需要的依赖，不需要手动安装)
+-   配置 yum 源或 yum 仓库(yum repo)
+    -   仓库中存放大量 rpm 软件包，以及软件包相关的元数据文件（repodata 目录下）
+    -   `yum源`配置定义文件以 `.repo`为后缀，存放在`/etc/yum.repos.d/`目录下
+    -   `yum源`获取获取方式
+        -   1、来自网上服务器
+        -   2、本地系统光盘安装(.ios 系统镜像 )
+    -   安装阿里云 yum 源：
+        -   备份或删除 /etc/yum.repos.d/下的 yum 源文件
+        -   wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+        -   `yum makecache` 更新 yum 源
+        -   `yum repolist` 查看 yum 源
+
 ## 其他
 
 ### 提升效率
@@ -408,6 +453,8 @@ title: Linux
 
 -   $SHELL :一般全大写的系统自带环境变量
 -   echo $PATH :查看环境变量
+-   echo $? :查看上一条命令执行结果的对错(0:正确，非 0:错误)
+
 -   uname :查看系统信息
 
 ### 注意事项
