@@ -62,6 +62,7 @@ title: VsCode 编辑器
 - Image Preview (鼠标移入img路径显示图片)
 - [codelf 右键变量命名](https://unbug.github.io/codelf/)
 - power mode (输入效果)[^①]
+- Polacode (代码图片生成 ctrl+shilt+p 输入 Polacode -> 选择需要的代码-生成)
 
 [^①]:Powermode: Enabled 开启插件  
 Powermode: Presets 设置效果  
