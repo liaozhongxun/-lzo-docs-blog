@@ -516,6 +516,30 @@ title: Linux
         -   `yum makecache` 更新 yum 源
         -   `yum repolist` 查看 yum 源
 
+## 配置文件
+
+### .bashrc
+
+> bash 在每次启动时都会加载 `.bashrc` 文件内容
+
+-   别名
+    -   `alias ll = "ls -lha"`:执行`ll`就相当于执行`ls -lha`
+-   颜色设置
+    -   用户名颜色
+        -   `echo "PS1='\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\h \[\e[35;40m\]\W\[\e[0m\]]\$'" >> ~/.bashrc`
+        -   https://blog.csdn.net/woshizhangliang999/article/details/103553567
+-   函数
+
+```shell
+    # 执行 md dir 创建dir并进入
+    md () {
+        mkdir -p $1
+        cd $1
+    }
+```
+
+### .vimrc
+
 ## 其他
 
 ### 提升效率
@@ -527,11 +551,11 @@ title: Linux
 
 ### 不重要
 
--   $SHELL :一般全大写的系统自带环境变量
--   echo $PATH :查看环境变量
--   echo $? :查看上一条命令执行结果的对错(0:正确，非 0:错误)
-
--   uname :查看系统信息
+-   `$SHELL` :一般全大写的系统自带环境变量
+-   `echo $PATH` :查看环境变量
+-   `echo $?` :查看上一条命令执行结果的对错(0:正确，非 0:错误)
+    `source ~/.bashrc`：更新配置文件立即生效
+-   `uname` :查看系统信息
 
 ### 注意事项
 

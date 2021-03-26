@@ -2,27 +2,31 @@
 title: 插件
 ---
 
-## npm插件
-### puer 
-> 轻松开起本地服务器  
+## npm 插件
+
+### puer
+
+> 轻松开起本地服务器
 
 ```shell
 npm install puer -g
 # 直接使用
-puer --port xxxx 
+puer --port xxxx
 ```
 
-### nodemon 
-> node服务器改动时自动重启服务  
+### nodemon
+
+> node 服务器改动时自动重启服务
 
 ```shell
 npm install nodemon -g
 # 直接使用
-nodemon server.js  
+nodemon server.js
 ```
 
-### apidoc 
-> 根据指定注释格式生成api文档
+### apidoc
+
+> 根据指定注释格式生成 api 文档
 
 [官网](https://apidocjs.com/#install)
 
@@ -45,20 +49,22 @@ npm install apidoc -g
 apidoc -i myapp/ -o apidoc/ -t mytemplate/
 
 ```
+
 根目录下 apidoc.json 全局配置
+
 ```json
 //apidoc.json
 {
-  "name": "example",
-  "version": "0.1.0",
-  "description": "apiDoc basic example",
-  "title": "Custom apiDoc browser title",
-  "url" : "https://api.github.com/v1"
+    "name": "example",
+    "version": "0.1.0",
+    "description": "apiDoc basic example",
+    "title": "Custom apiDoc browser title",
+    "url": "https://api.github.com/v1"
 }
 ```
 
+### bower
 
-### bower 
 > 第三方插件下载工具,也是一个包管理器
 
 ```shell
@@ -68,24 +74,26 @@ bower install xxxx
 ```
 
 ### json-server 生成 REST API
-> 快速生成模拟可访问**REST** API接口,post请求时配置文件自动添加请求数据记录,并且每个接口都能使用GET、POST、PUT(更新)、DELETE(删除)请求
+
+> 快速生成模拟可访问**REST** API 接口,post 请求时配置文件自动添加请求数据记录,并且每个接口都能使用 GET、POST、PUT(更新)、DELETE(删除)请求
 
 REST API
-- 同一个请求路径可以进行多个操作
-- 请求方式可以可以用到GET、PPST、PUT、DELETE
-- 浏览器的运行动作post、get、put、delete与CRUD统一
-  - 新增 (create，使用 POST )
-  - 读取 (read，使用 GET )
-  - 更新 (update，使用 PUT )
-  - 删除 (destroy，使用 DELETE)
+
+-   同一个请求路径可以进行多个操作
+-   请求方式可以可以用到 GET、PPST、PUT、DELETE
+-   浏览器的运行动作 post、get、put、delete 与 CRUD 统一
+    -   新增 (create，使用 POST )
+    -   读取 (read，使用 GET )
+    -   更新 (update，使用 PUT )
+    -   删除 (destroy，使用 DELETE)
 
 非 REST API
-- 请求方式与CRUD无关
-- 一个路径只对应一个操作
-- 一般只用GET/POST
 
+-   请求方式与 CRUD 无关
+-   一个路径只对应一个操作
+-   一般只用 GET/POST
 
-[github地址](https://github.com/typicode/json-server#getting-started)
+[github 地址](https://github.com/typicode/json-server#getting-started)
 
 ```shell
 npm install -g json-server
@@ -105,7 +113,8 @@ json-server --watch db.json
 ```
 
 ### vuex-persistedstate
-> vuex持久化
+
+> vuex 持久化
 
 ```shell
 import createPersistedState from "vuex-persistedstate"
@@ -114,7 +123,9 @@ const store = new Vuex.Store({
     plugins: [createPersistedState()]
 })
 ```
+
 ### vconsole
+
 > [移动端的控制台](https://www.npmjs.com/package/vconsole)
 
 ```shell
@@ -123,45 +134,59 @@ npm install vconsole -D
 import vConsole from 'vconsole'
 Vue.prototype.$vConsole = new vConsole();
 ```
+
 ### spy-debugger 移动真机调试
-1、安装[github入口](https://github.com/wuchangming/spy-debugger)
+
+1、安装[github 入口](https://github.com/wuchangming/spy-debugger)
+
 ```javascript
 npm install spy-debugger -g
 ```
+
 2、命令行输入 spy-debugger  
-3、手机与电脑连接同一个局域网，根据提示 找到手机的WiFi长按 -> 修改网络 -> 显示高级 -> 代理 ->手动  
+3、手机与电脑连接同一个局域网，根据提示 找到手机的 WiFi 长按 -> 修改网络 -> 显示高级 -> 代理 ->手动  
 4、对应主机名与端口 保存  
 5、在生成的网址中调试手机访问的页面
 
 ### 内网穿透 端口映射工具
-> 内网穿透,反向代理  大概意思是将您的本地主机公开到外网，公共端点和本地运行的 Web 服务器之间建立一个安全的通道，便于测试和共享
+
+> 内网穿透,反向代理 大概意思是将您的本地主机公开到外网，公共端点和本地运行的 Web 服务器之间建立一个安全的通道，便于测试和共享
 
 [localtunnel](https://www.npmjs.com/package/localtunnel)
 
 #### 安装及使用
+
 ```shell
-  npm install -g localtunnel  
+  npm install -g localtunnel
   lt --port <要映射的端口>
   lt --subdomain <个性前缀> --port <要映射的端口>
   # 前缀不能太简单,出现tunnel server offline: Request failed with status code 403, retry 1s
 
   # 本地开启服务 localhost:<被映射的端口>,访问生成的地址就能访问这个本地服务了
 ```
+
 #### 其他类似工具推荐
+
 花生壳、PubYun、NoIP、DynDNS、Ngrok、Tunnel、pagekite 等
 
-
 ### 乱七八糟小插件
-- [nprogress](https://www.npmjs.com/package/nprogress)  路由跳转上方出现进度条
-- [fastclick](https://www.npmjs.com/package/fastclick)  解决移动端click 300ms延迟问题
----
-## web常用插件
-### 
-+ [日期时间(Day.js)](https://www.cnblogs.com/cjrfan/p/9154539.html)
 
-## jQuery插件
-### fullpage.js 
-> 基于jQuery的全屏特效插件 [fullpage官网](http://fullpage.81hu.com/)  [bilibili视频](https://www.bilibili.com/video/BV1Ks411V7Kg?p=49)
+-   [nprogress](https://www.npmjs.com/package/nprogress) 路由跳转上方出现进度条
+-   [fastclick](https://www.npmjs.com/package/fastclick) 解决移动端 click 300ms 延迟问题
+
+---
+
+## web 常用插件
+
+###
+
+-   [日期时间(Day.js)](https://www.cnblogs.com/cjrfan/p/9154539.html)
+
+## jQuery 插件
+
+### fullpage.js
+
+> 基于 jQuery 的全屏特效插件 [fullpage 官网](http://fullpage.81hu.com/) [bilibili 视频](https://www.bilibili.com/video/BV1Ks411V7Kg?p=49)
 
 ```javascript
 bower install fullpage.js
@@ -201,6 +226,3 @@ $(document).ready(function(){
     })
 })
 ```
-
-
-
