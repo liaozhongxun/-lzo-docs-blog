@@ -100,6 +100,7 @@ title: Linux
     -   -d ： 查看目录`自己的`信息
     -   -h ： 以 k、M 格式显示文件大小
     -   -R ：当前目录为根节点，列出所有子节点
+    -   -i:查看文件唯一编号 inode
     -   --help ：单词一般都有两个杠
 -   `touch <file-name>`：创建空文件
 -   `mkdir <name1> <name2>`：创建空文件夹
@@ -113,6 +114,7 @@ title: Linux
     -   `-r` ：复制目标可以是目录
     -   `-p` ：保留复制目标文件属性
 -   `mv <old-file> <new-file> `： 剪切（剪切目录不要 -r）
+-   `dd if=/dev/zero of=/tmp/test bs=1M count=60`:构造一个 60 个 1M 大小的文件，从/dev/zero 文件放到/tmp/test 下
 
 -   文件查找
     -   `locate <file name>`:返回文件所在路径,根据索引数据库查找，一段时间后数据库自动更新
@@ -328,6 +330,8 @@ title: Linux
 
 -   其他
 
+### 其他特殊权限 （暂时跳过 课程 1 66~75 ）
+
 ## 文件
 
 > ls -l 查看文件详情
@@ -440,7 +444,8 @@ title: Linux
 
 ### 磁盘分区与格式化
 
--   硬盘
+-   存储设备
+
     -   硬盘接口 IDE(I)、SCSI(S)(服务器常用)、SATA(A)、NVMe(V)等
     -   分区：早期硬盘只能有四个主分区，后面越来越多，四个不够，就可以拿一个变成扩展分区,扩展分区里可以创建很多的逻辑分区（如果需要的分区不超过四个就没必要使用逻辑分区）
     -   Linux 中每个磁盘，以及磁盘中的每个分区都是用`文件表示`的
@@ -482,18 +487,111 @@ title: Linux
             -   根目录默认，被单做挂载点的目录会被从这边分离出去
             -   不论指定那个目录作为挂载点，成功后都会与从原来的地方分离开，成为空目录，卸载后复原
             -   `mount [-t 文件系统类型] 设备文件名 挂载点目录`
+                -   `mount -a`:安装 `/etc/fstab` 配置项目自动挂载
             -   `df`:查看所以以及挂载设备
                 -   `-h`
                 -   `-T`
-            -   `umount 挂载点`
+            -   `umount 挂载点`:卸载
+                -   前提 设备不能处于 busy 状态
             -   Linux 至少`/`、`/boot(启动引导)`，swap 交换分区三个分区
         -   新硬盘经过分区、格式化、挂载之后就可以正常使用了
+    -   光盘
+        -   `mount /dev/cdroom /xxxx`
+    -   U 盘插入之后会多个 sdxx,虚拟机的话要先断开与主机的链接
+        -   右键 -> 可移动设备 -> 找到 USB - >断开与主机的链接
+    -   iso 镜像文件
+
+        -   `mount -o loop isoPosition /xxx`
+
+    -   配置文件自动挂载`/etc/fstab`
+        -   得到设备 UUID:`blkid /dev/sdb1`
+        -   属性
+            -   UUID=7051740a-3450-4f9f-9879-aa3ba007d06b, /boot, xfs, defaults , 0, 0
+            -   UUID 或分区名 挂载点 文件系统类型 挂载选项(入 iso 的-o ，一般 default) 是否备份(0 不要) 是否开机检测硬盘(0 不要，1 先检查，2 后检测)
+
+### quota 磁盘配额
+
+-   对磁盘容量或文件数量进行限制
+-   磁盘配额需要手动启用,只在指定的分区中有效
+-   主要针对系统中指定的`用户`，`组`进行限制，没指定的不受影响
+    -   如果是组，那么组内`基本组`成员使用的`容量`或`文件数量`,`之和`不能超过限制
+    -   ` user` 的附加组为` wheel`,给 `wheel` 设置权限配额,`与 suser 无关`
+-   限制方法
+    -   软限制：可以短时间超过,但指定时间得处理掉
+    -   硬限制：绝对不能超过限制
+-   设置配置文件 `/etc/fstab`
+
+    -   `quota -u UserName`:`查看用户`在哪个分区存在配额限制
+    -   `quota -g GroupName`:查看`指定组`在哪个分区存在配额限制
+    -   `repquota 分区挂载点目录`:`查看该分区`限制的用户详细
+
+    -   通过挂载选项启用配额:`defaults,acl,uquota,gquota`
+        -   `acl`: 使新分区支持 facl 权限列表
+        -   `gquota`: 对组设置权限配额
+        -   `uquota`: 对用户设置权限配额
+    -   `edquota -u UserName`: 如果挂载选择存在 uquota
+
+        -   编辑选项:
+
+            -   `Filesystem`:分区
+
+            -   `blocks`:对磁盘空间进行限制(值是已用空间)
+            -   `soft`:软限制(单位 k)
+            -   `hard`:硬限制(手动输入限制大小,单位 k)
+
+            -   `inodes`:文件个数进行限制(值是已消耗个数)
+            -   `soft`:软限制(个)
+            -   `hard`:硬限制(手动输入限制个数,单位个)
+
+    -   `edquota -g GroupName`: 如果挂载选择存在 gquota
+
+### RAID 磁盘阵列（暂时跳过 课程 1 92~104 ）
+
+> RAID 将多块`独立的硬盘`按照`不同方式`组合起来形成一个`硬盘组`，从而提供比单个硬盘`更高的储存性能`和`提供数据备份`的技术
+
+-   组合方式一 | `READ0`
+    -   优点:将`数据`保持到`多块`硬盘，多块硬盘`同时`进行工作，从而`提升效率`
+    -   缺点:一块硬盘坏了，数据就没用了
+-   组合方式二 | `READ1`
+    -   优点:将写入一个硬盘的数据原样复制到其他硬盘，不提升效率，但是提升物理安全性
+    -   缺点:不提升效率
+-   组合方式三 | `READ1 + 0`
+    -   至少需要四块硬盘，合并前面两种
+-   组合方式四 | `READ5`
 
 ## 软件安装
 
+### 预备知识
+
+-   知识点
+    -   block:Linux 基本存储单位，大小是 8 个扇区(512B)组合而成,大小 4k
+-   `du`:查看文件占用磁盘空间（ll 查看的是文件的大小）
+    -   `-h`:人性化显示
+    -   `-s`:汇总，查看目录占用磁盘空间
+-   `tar`:文件的打包 tar 可以调用 gzip、bzip2、xz 等方式进行压缩或解压
+
+    -   参数: tar [选项] 打包或压缩后的文件名 需要打包的源文件或目录
+    -   `tar -zcvf newName.tar /etc`:参数 f 必须放最后 f 与新文件名有关
+
+        -   `-c`:穿件 tar 格式包文件，并不会对包文件进行压缩
+        -   `-v`:查看列出打包详情
+        -   `-f`:新文件名
+
+        -   `-z`:选定压缩方式为`gzip`,`.tar.gz`，结果:大、快
+        -   `-j`:选定压缩方式为`bzip2`,`.tar.bz2`，结果:中、中
+        -   `-J`:选定压缩方式为`xz`,`.tar.xz`,结果:小、慢
+
+    -   `tar -xf newName.tar -C 解到目录`:解包
+        -   `-x`:解包
+    -   `tar -zxf newName.tar.gz -C 解到目录`:解压缩解包（解压-z|j|J 可以省略）
+        -   `-z`:解 gzip 压缩
+        -   `-j`:解 bzip2 压缩
+        -   `-J`:解 xz 压缩
+    -   `tar -tf newName.tar.gz`:不解压的情况查看包的内容
+
 ### 源码安装
 
-> 用户获得源代码之后,需要自行编译代码并解决许多软件依赖关系，比较困难
+> 用户获得源代码之后,需要自行编译代码并解决许多软件依赖关系，比较困难，`适合所有发行版`
 
 ### rpm(RedHat Packet Manager)
 
@@ -515,6 +613,21 @@ title: Linux
         -   wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
         -   `yum makecache` 更新 yum 源
         -   `yum repolist` 查看 yum 源
+-   yum 源文件详解
+    -   `[xxxxx]`:yum 源的名称，自定义且唯一
+    -   `name=xxxx xx`:自定义 yum 源的描述这个 yum 源的信息
+    -   `baseurl`:指定 yum 源的访问路径
+        -   `baseurl=http://xxx`:指向外部网站
+        -   `baseurl=ftp://xxx`:指向 FTP 服务器
+        -   `baseurl=file://xxx`:指向本地的某个目录
+    -   `enabled`:1 启用，0 禁用，没有的话默认为 1
+    -   `gpgcheck`:检测 rpm 包来源的合法性
+        -   0 不检查
+        -   1 检查，并且要加 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 指定公钥位置
+        -   数字签名
+        -   centos7 的公钥位置：`/etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7`
+-   yum 指令
+    `yum list`:查看系统已安装的软件包(@开头)与可安装的软件包(无@)
 
 ## 配置文件
 
@@ -559,6 +672,13 @@ title: Linux
 
 ### 注意事项
 
+### 中文设置
+
+-   `echo $LANG`:查看当前编码
+-   `locale`:查看系统拥有的编码
+-   `yum groupinstall chinese-support`:安装中文包
+-   `LANG="zh_CN.UTF-8"`:临时改成中文
+
 -   去除 centos 滴滴提示音
 
 ```shell
@@ -576,3 +696,5 @@ vi ~/.bashrc
         -   echo LANG="zh_CN.gbk" >> /etc/locale.conf
     -   开启网卡（最小化安装时没开的 不能使用 ifconfig 指令）
         -   echo ONBOOT=yes >> /etc/sysconfig/network-scripts/ifcfg-ens33
+
+[课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
