@@ -593,11 +593,35 @@ title: Linux
 
 > 用户获得源代码之后,需要自行编译代码并解决许多软件依赖关系，比较困难，`适合所有发行版`
 
+-   必须存在编译软件 如:gcc
+    -   `wget`:将程序源码下载到本地
+-   步骤
+    -   解包：`tar`
+        -   得到源码并解压,得到源码文件，并进入
+    -   配置：`./configure`
+        -   `./configure --prefix=/usr/local/xxxxx`:配置程序安装目录
+        -   配置结果保存在源码目录的`makefile`文件里
+    -   编译:`make`
+        -   将源码转二进制数
+    -   安装与部署：`make install`
+-   使用
+    -   进入`/usr/local/xxxxx/bin
+    -   执行 ./xxxxx.probe 主程序
+
 ### rpm(RedHat Packet Manager)
 
 -   红帽公司将源码`编译好了`,可以直接使用的`.rpm`软件包
 -   只能在红帽派系发行版本中使用
 -   rpm 软件包直接存在着复杂的依赖关系
+-   结构
+    -   `软件名称`-`版本号`-`发布号`.`硬件平台`.rpm
+    -   `yum info xxx`可以查看 rpm 包详细信息
+-   `rpm -q 服务`:查询服务是否安装
+    -   `rpm -qa | grep ssh`:查询已安装与 ssh 有关的软件包信息
+    -   `-qi`:已安装软件包的详细信息
+    -   `-ql`:查看服务各个文件的安装目录
+        `-qc`:查看`服务配置文件`位置
+        `-qf file`:查看`文件属于哪个服务安装`的
 
 ### yum 安装
 
@@ -627,7 +651,15 @@ title: Linux
         -   数字签名
         -   centos7 的公钥位置：`/etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7`
 -   yum 指令
-    `yum list`:查看系统已安装的软件包(@开头)与可安装的软件包(无@)
+    -   `yum list`:查看系统已安装的软件包(@开头)与可安装的软件包(无@)
+    -   `yum repolist`:yum 源列表
+    -   `yum info 服务`:查看 info 信息
+    -   `yum install 服务`:安装服务
+        -   `yum install 服务 -y`:不用询问
+    -   `yum remove 服务`:删除软件包
+    -   `yum clean all`:清除
+-   常用服务
+    -   `lrzsz`:虚拟机文件上传下载
 
 ## 配置文件
 
@@ -672,12 +704,15 @@ title: Linux
 
 ### 注意事项
 
-### 中文设置
+### xshell 中文设置
 
 -   `echo $LANG`:查看当前编码
 -   `locale`:查看系统拥有的编码
 -   `yum groupinstall chinese-support`:安装中文包
 -   `LANG="zh_CN.UTF-8"`:临时改成中文
+-   `yum-langpacks`:语言包
+
+    -   配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
 
 -   去除 centos 滴滴提示音
 
