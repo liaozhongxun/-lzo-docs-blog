@@ -661,6 +661,14 @@ title: Linux
 -   常用服务
     -   `lrzsz`:虚拟机文件上传下载
 
+### debian 包安装
+
+-   `apt`
+    -   `apt install 服务`:安装
+    -   `apt remove 服务`:卸载
+    -   `apt upgrade`:更新已安装的服务
+-   `sl、htop 、`
+
 ## 配置文件
 
 ### .bashrc
@@ -711,8 +719,9 @@ title: Linux
 -   `yum groupinstall chinese-support`:安装中文包
 -   `LANG="zh_CN.UTF-8"`:临时改成中文
 -   `yum-langpacks`:语言包
+    /etc/locale.gen
 
-    -   配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
+        -   配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
 
 -   去除 centos 滴滴提示音
 
