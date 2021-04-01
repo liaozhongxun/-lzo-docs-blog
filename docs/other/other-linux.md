@@ -32,7 +32,7 @@ title: Linux
     -   shell 通常有`自带`一些命令称为`内部命令`如 cd、pwd,但是大多数都是`外部命令`,通过 `stype cd` 查看
     -   外部命令 (`which ls`通过 which 查看指定命令位置)
         -   每个外部命令都对应一个可执行文件，存在系统中
-        -   普通命令:/bin、/usr/bin、/usr/local/bin
+        -   普通命令:/bin、/usr/bin、/usr/local/bin 
         -   管理员命令:/sbin、/usr/sbin、/usr/local/sbin
 
 -   终端：通常把一套键盘鼠标显示屏这样的输入输出设备叫做`终端`
