@@ -20,3 +20,5 @@ title: window
 2、人物简介差不多了，还差几个自动对不上，明天对一下
 3、相关视频的签到非全屏情况下可以用了，但是签到接口一直返回"message: "Invalid object name 'CustomerWatchSignInItem'."
 4、直播的签到，和问答明天需要模拟直播环境才能调试
+
+

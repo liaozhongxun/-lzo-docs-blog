@@ -4,8 +4,8 @@ title: Linux
 
 ## 基础简介
 
--   安装[国内阿里云镜像](http://mirrors.aliyun.com/centos/)
--   安装[国内阿里云镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
+-   安装[国内阿里云centos镜像](http://mirrors.aliyun.com/centos/)
+-   安装[国内阿里云ubuntu镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
 -   安装[国内搜狐镜像](http://mirrors.sohu.com/)
     -   比较老版本可能不提供下载，需找较新的版本
     -   选择软件，默认最小安装，初学者建议选择带 GUI 的服务器
@@ -770,3 +770,6 @@ vi ~/.bashrc
         -   echo ONBOOT=yes >> /etc/sysconfig/network-scripts/ifcfg-ens33
 
 [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
+[发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
+[国内deepin](https://www.deepin.org/zh/)
+[国内优麒麟](https://www.ubuntukylin.com/downloads/)
