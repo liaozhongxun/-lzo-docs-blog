@@ -4,8 +4,8 @@ title: Linux
 
 ## 基础简介
 
--   安装[国内阿里云centos镜像](http://mirrors.aliyun.com/centos/)
--   安装[国内阿里云ubuntu镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
+-   安装[国内阿里云镜像](http://mirrors.aliyun.com/centos/)
+-   安装[国内阿里云镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
 -   安装[国内搜狐镜像](http://mirrors.sohu.com/)
     -   比较老版本可能不提供下载，需找较新的版本
     -   选择软件，默认最小安装，初学者建议选择带 GUI 的服务器
@@ -27,12 +27,15 @@ title: Linux
     -   通过字符界面操作的指令叫做 shell 指令（cat /etc/shells）查看 Shell 目录
     -   Linux 默认使用的是目录中的 `/bin/bash`(通过 echo $SHELL 可以查看)
     -   进入图形界面： `ctrl+alt+f1`
-    -   进入字符界面： `ctrl+alt+f2~6` ,打开五个字符 Shell
+    -   进入字符界面： `ctrl+alt+f2~6` ,打开五个字符 Shell(`虚拟终端 tty`)
+    -   通过远程连的终端： 伪终端`pts`
+    -   `tty`指令查看当前终端设备文件
+
     -   echo 查看$变量值
     -   shell 通常有`自带`一些命令称为`内部命令`如 cd、pwd,但是大多数都是`外部命令`,通过 `stype cd` 查看
     -   外部命令 (`which ls`通过 which 查看指定命令位置)
         -   每个外部命令都对应一个可执行文件，存在系统中
-        -   普通命令:/bin、/usr/bin、/usr/local/bin 
+        -   普通命令:/bin、/usr/bin、/usr/local/bin
         -   管理员命令:/sbin、/usr/sbin、/usr/local/sbin
 
 -   终端：通常把一套键盘鼠标显示屏这样的输入输出设备叫做`终端`
@@ -692,8 +695,26 @@ title: Linux
         -   `D`:不可中断的等待状态
         -   `Z`:僵尸状态
         -   `T`:暂停状态
+        -   下级分类
+            -   `S+`:前台进程
+            -   `l`:多线程进程
+            -   `N`:低优先级进程
+            -   `<`:高优先级进程
+            -   `s`:改进程是会话领导者
+    -   属性
+        -   `PID`:名称
+        -   `PPID`:父级 ID
+        -   `UID`:启动进程的用户(系统自建的一些用户就是拿来启动特定进程的)
+        -   `STAT`:进程状态
     -   管理
-        `pidof 进程`:查看指定进程 PID(处理起始进程 PID 固定为 1，其他的都是随机变化的)
+        -   `pidof 进程`:查看指定进程 PID(处理起始进程 PID 固定为 1，其他的都是随机变化的)
+        -   `ps`:当前用户当前终端启动的线程
+            -   `a`:显示与当前终端有关的所有进程
+            -   `x`:显示与当前终端无关的所有进程
+            -   `u`:显示影响用户的信息(用户名、cpu、内存等)
+            -   `-aux`: 风格一
+            -   `-ef`:风格二
+        -   `systemctl start httpd`:启动 httpd 这个服务
     -
 -   服务
 
@@ -770,6 +791,3 @@ vi ~/.bashrc
         -   echo ONBOOT=yes >> /etc/sysconfig/network-scripts/ifcfg-ens33
 
 [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
-[发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
-[国内deepin](https://www.deepin.org/zh/)
-[国内优麒麟](https://www.ubuntukylin.com/downloads/)
