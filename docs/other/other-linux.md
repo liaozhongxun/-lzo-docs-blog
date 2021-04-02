@@ -791,3 +791,6 @@ vi ~/.bashrc
         -   echo ONBOOT=yes >> /etc/sysconfig/network-scripts/ifcfg-ens33
 
 [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
+[发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
+[国内deepin](https://www.deepin.org/zh/)
+[国内优麒麟](https://www.ubuntukylin.com/downloads/)
