@@ -706,6 +706,8 @@ title: Linux
         -   `PPID`:父级 ID
         -   `UID`:启动进程的用户(系统自建的一些用户就是拿来启动特定进程的)
         -   `STAT`:进程状态
+        -   `SZ|%MEM`:用掉的內存的大小、百分比
+        -   
     -   管理
         -   `pidof 进程`:查看指定进程 PID(处理起始进程 PID 固定为 1，其他的都是随机变化的)
         -   `ps`:当前用户当前终端启动的线程
@@ -768,9 +770,9 @@ title: Linux
 -   `yum groupinstall chinese-support`:安装中文包
 -   `LANG="zh_CN.UTF-8"`:临时改成中文
 -   `yum-langpacks`:语言包
-    /etc/locale.gen
-
-        -   配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
+-   `/etc/locale.conf`:centos7 语言配置文件
+-   /etc/locale.gen
+          -   配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
 
 -   去除 centos 滴滴提示音
 
@@ -779,7 +781,7 @@ title: Linux
 vi /etc/inputrc
 # 将 #set bell-style none 把这一行的#去掉
 # 2、执行
-vi ~/.bashrc
+vim ~/.bashrc | /etc/profile
 # 添加：setterm –blength 0
 3、执行：reboot
 ```
@@ -792,5 +794,5 @@ vi ~/.bashrc
 
 [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
 [发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
-[国内deepin](https://www.deepin.org/zh/)
-[国内优麒麟](https://www.ubuntukylin.com/downloads/)
+[国内 deepin](https://www.deepin.org/zh/)
+[国内优麒麟](https://www.ubuntukylin.com/downloads/) epid
