@@ -388,7 +388,7 @@ title: Linux
 -   `srv`
 -   `tmp`
 -   `sys`
--   `opt`
+-   `/opt`:第三方应用程序
 
 ## vi 与 vim
 
@@ -511,6 +511,13 @@ title: Linux
         -   属性
             -   UUID=7051740a-3450-4f9f-9879-aa3ba007d06b, /boot, xfs, defaults , 0, 0
             -   UUID 或分区名 挂载点 文件系统类型 挂载选项(入 iso 的-o ，一般 default) 是否备份(0 不要) 是否开机检测硬盘(0 不要，1 先检查，2 后检测)
+
+-   手动安装发行版分区
+    -   300M 左右- 挂载 boot 和 esp - fat32 ：引导分区
+    -   10G+ - 挂载 opt - ext4 ：第三方程序
+    -   20G+ - 挂载 / - ext4
+    -   8G - 无挂载 - linuxswap:虚拟内存交互分区
+    -   其他 - 挂载 /home - ext4
 
 ### quota 磁盘配额
 
@@ -707,7 +714,7 @@ title: Linux
         -   `UID`:启动进程的用户(系统自建的一些用户就是拿来启动特定进程的)
         -   `STAT`:进程状态
         -   `SZ|%MEM`:用掉的內存的大小、百分比
-        -   
+        -
     -   管理
         -   `pidof 进程`:查看指定进程 PID(处理起始进程 PID 固定为 1，其他的都是随机变化的)
         -   `ps`:当前用户当前终端启动的线程
@@ -771,8 +778,7 @@ title: Linux
 -   `LANG="zh_CN.UTF-8"`:临时改成中文
 -   `yum-langpacks`:语言包
 -   `/etc/locale.conf`:centos7 语言配置文件
--   /etc/locale.gen
-          -   配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
+-   /etc/locale.gen - 配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
 
 -   去除 centos 滴滴提示音
 
@@ -795,4 +801,6 @@ vim ~/.bashrc | /etc/profile
 [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
 [发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
 [国内 deepin](https://www.deepin.org/zh/)
-[国内优麒麟](https://www.ubuntukylin.com/downloads/) epid
+[国内优麒麟](https://www.ubuntukylin.com/downloads/)
+[manjaro](https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/m/ma/manjaro/xfce/21.0-pre1/)
+[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
