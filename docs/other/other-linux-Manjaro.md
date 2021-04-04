@@ -107,10 +107,17 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
         -   `yay -S google-chrome`
         -   `yay -Ss xxx`:查询
 
-### 输入法
-
--   ctrl+空格切换
-
+### oh-my-zsh终端美化
+- 基本配置
+    - 查看本地 `/etc/shells` 是否有zsh (没有就安装)
+    - 安装 `oh-my-zsh`
+    - 根据提示将 .zshrc 复制到本地 ~/.zshrc
+    - 将shell切换到 /bin/zsh `chsh -s /bin/zsh`
+    - 重启
+    - source ~/.zshrc
+- 主题
+    - .zshrc 中 ZSH_THEME="主题名称"
+    - 主题都在 `/usr/share/oh-my-zsh/theme`下
 ### 安装 bed 程序
 
 下载 yay -S debtap  
@@ -126,6 +133,11 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 
 ### 启动项
 - 将desktop 放到~/.config/autostart 、
-
+- 开机黑色问题
+    - `/etc/default/grub`
+        - 注释hidden那一行
+        - 去除下面的quiet
+    -  `update-grup`:跟新
+    
 ### 快捷服务
 - `node-fanyi`:终端翻译
