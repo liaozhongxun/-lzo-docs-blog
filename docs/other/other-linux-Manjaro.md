@@ -34,6 +34,7 @@ title: Linux
         -   `ctrl+alt+m`：任务管理器
         -   `xfce4-settings-manager`：设置
         -   `ctrl+esc`：右键菜单
+    - `exo-open path`：`xfce`图形界面打开指定文件夹
 
 ## manjaro 的指令
 
@@ -115,3 +116,16 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 下载 yay -S debtap  
 更新 sudo debtap -u
 安装 debtap xxx.deb
+
+### wifi设置
+- iw dev 查看 interface 后面无线网卡名
+- 安装 create_ap
+- rm -f /tmp/create_ap.all.lock 
+- sudo create_ap 无线网卡名 无线网卡名 热点名 热点密码
+- 
+
+### 启动项
+- 将desktop 放到~/.config/autostart 、
+
+### 快捷服务
+- `node-fanyi`:终端翻译
