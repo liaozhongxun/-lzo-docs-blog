@@ -381,7 +381,7 @@ title: Linux
 -   `/mnt`：`临时`挂载存储设备
 -   `/media`：系统自动挂载可移动存储设备
 -   `/var`：存放`经常变化`的文件
--   `/proc`：存放进程文件
+-   `/proc`：存放进程文件,伪文件系统（存的是内存里的数据）
 -   `/run`：存放临时文件，重启消失
 -   `/lib、/lib64` ： 链接库
 
@@ -722,9 +722,25 @@ title: Linux
             -   `x`:显示与当前终端无关的所有进程
             -   `u`:显示影响用户的信息(用户名、cpu、内存等)
             -   `-aux`: 风格一
-            -   `-ef`:风格二
+            -   `-ef`:风格二（可以看到 PPID）
+        -   `top`:查看动态进程信息(htop 插件的作用)
+            -   第一行:`当前时间` up `运行多久`,`几个用户上线`, load average:`过去1、5、15分钟内CPU平均负载`
+            -   第二行:Tasks 任务:`任务总数`,`运行态个数`,`就绪态个数`,`阻塞态个数`,`僵死态个数`
+            -   第三行:%CPU:`用户开进程占比`,`系统进程占比`,,`闲置CPU`
+            -   第四行:Mem 内存:总内存，可用量，已用量，缓冲或缓存
+            -   第五行:虚拟内存信息
+        -   `who`:查看当前那些用户在登录
         -   `systemctl start httpd`:启动 httpd 这个服务
-    -
+    -   控制进程
+        -   手工启动
+            -   前台启动
+            -   后台启动
+                -   某些操作一直监听不会断，在指令后面添加 `& `转入后台运行,打印编号[n]
+                -   或`ctrl+z`临时转入后台
+                -   `jobs -l` 查看后台进程列表
+                -   `fg n`:中断进程
+                -   `kill 进程ID`:中断进程
+        -   调度启动
 -   服务
 
 ## 配置文件
@@ -804,3 +820,4 @@ vim ~/.bashrc | /etc/profile
 [国内优麒麟](https://www.ubuntukylin.com/downloads/)
 [manjaro](https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/m/ma/manjaro/xfce/21.0-pre1/)
 [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
+[archlinux](https://wiki.archlinux.org/)
