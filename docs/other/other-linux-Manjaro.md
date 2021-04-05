@@ -34,7 +34,6 @@ title: Linux
         -   `ctrl+alt+m`：任务管理器
         -   `xfce4-settings-manager`：设置
         -   `ctrl+esc`：右键菜单
-    - `exo-open path`：`xfce`图形界面打开指定文件夹
 
 ## manjaro 的指令
 
@@ -46,6 +45,7 @@ title: Linux
     -   `-Syu`:更改系统本身
     -   `-Sc`:清除缓存
     -   `-Scc`:清除已下载的安装包
+
     -   `R`:删除服务
     -   `Rs`:删除服务，以及相关依赖
     -   `Rns`:删除服务，以及相关依赖,以及全局变量
@@ -107,37 +107,8 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
         -   `yay -S google-chrome`
         -   `yay -Ss xxx`:查询
 
-### oh-my-zsh终端美化
-- 基本配置
-    - 查看本地 `/etc/shells` 是否有zsh (没有就安装)
-    - 安装 `oh-my-zsh`
-    - 根据提示将 .zshrc 复制到本地 ~/.zshrc
-    - 将shell切换到 /bin/zsh `chsh -s /bin/zsh`
-    - 重启
-    - source ~/.zshrc
-- 主题
-    - .zshrc 中 ZSH_THEME="主题名称"
-    - 主题都在 `/usr/share/oh-my-zsh/theme`下
 ### 安装 bed 程序
 
 下载 yay -S debtap  
 更新 sudo debtap -u
 安装 debtap xxx.deb
-
-### wifi设置
-- iw dev 查看 interface 后面无线网卡名
-- 安装 create_ap
-- rm -f /tmp/create_ap.all.lock 
-- sudo create_ap 无线网卡名 无线网卡名 热点名 热点密码
-- 
-
-### 启动项
-- 将desktop 放到~/.config/autostart 、
-- 开机黑色问题
-    - `/etc/default/grub`
-        - 注释hidden那一行
-        - 去除下面的quiet
-    -  `update-grup`:跟新
-    
-### 快捷服务
-- `node-fanyi`:终端翻译
