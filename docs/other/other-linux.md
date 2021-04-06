@@ -756,9 +756,41 @@ title: Linux
             -   `last`:登录信息，查看某个用户从哪里登录过系统`通过日志`
             -   找到用户后 通过杀死终端进程把用户踢走
         -   资源占用信息
-            -   `cat /prop/cpuinfo `:查看 cpu 信息
+            -   `cat /proc/cpuinfo `:查看 cpu 信息
+            -   `free`:查看内存情况
+                -   `-h`:人性化显示
+                -   `-s 3`:动态显示 3 秒更新
+                -   available:可用容量，大于空闲分区 free，不够用可以从缓存中取一部分
+                -   如果用户从来没使用过交换分区(used 0),说明物理内存充足
 -   服务
-    -   `netstat -antp`:查看系统网络服务
+
+    -   概念
+        -   服务实在系统后台运行、并等待用户或其他软件调用的一类特殊程序
+        -   父进程是初始化进程 PPID 为 1，与终端无关
+        -   服务程序结尾一般带`d`
+        -   比较重要的是一项对外提供功能的网络服务,运行后，通常系统中都会开发相应的端口
+    -   指令
+
+        -   `pstree`:查看进程数
+        -   `systemd`:cenos7 的初始化进程（之前的是`init`）
+
+            -   核心概念 unit(单元)
+
+                -   Server unit
+                    -   systemd 通过 unit 管理功能，每个`unit`都有一个配置文件，存在/usr/lib/systemd/system 或 /etc/systemd/system 中
+                    -   配置文件都以`.service`结尾
+                -   Target unit
+
+                    -   .target 结尾
+                    -   设置运行级别
+
+                -   。。。。
+
+        -   `systemctl`:服务管理
+            -   `start|stop|status|restart|reload <server-name>`:启动|停止|查看状态|重启|重新加载 服务
+            -   restart 与 reload 的差别，重启是停止再启动，重新加载是不停止重新读取配置文件
+            -   `systemctl enable sshd.service`:设置开机自启
+        -   `netstat -antp`:查看系统网络服务
 
 ## 配置文件
 

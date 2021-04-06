@@ -76,16 +76,19 @@ Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 #清华源
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 
-# [antergos]
-# SigLevel = TrustAll
-# Server = https://mirrors.tuna.tsinghua.edu.cn/antergos/$repo/$arch
+[antergos]
+SigLevel = TrustAll
+Server = https://mirrors.tuna.tsinghua.edu.cn/antergos/$repo/$arch
 
-# [arch4edu]
-# SigLevel = TrustAll
-# Server = https://mirrors.tuna.tsinghua.edu.cn/arch4edu/$arch
+[arch4edu]
+SigLevel = TrustAll
+Server = https://mirrors.tuna.tsinghua.edu.cn/arch4edu/$arch
+
+
+sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 ```
 
--   先排列源
+-   更新源列表
     -   sudo pacman-mirrors -g
 -   同步并优化（类似磁盘整理，固态硬盘无需操作）
     -   sudo pacman-optimize && sync
@@ -101,6 +104,8 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 -   安装 `ARU `包管理工具
 
     -   `sudo pacman -S yay fakeroot binutils` yay 与需要用到的包基本工具不然最后肯会报错
+    -   `yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save` #这一句会被添加到/.config/yay/config.json
+    -   `yay -P -g`
 
     -   安装谷歌
         -   `yay -S google-chrome`
@@ -166,6 +171,12 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 -   状态面板首选项-项目-添加全局菜单-重启
 -   xfconf-query -c xsettings -p /Gtk/ShellShowsMenubar -n -t bool -s true
 -   xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true
+
+### Albert 搜索插件
+
+-   安装
+-   勾选 Autostart on login 自动登录
+-   第一项就是快捷键
 
 ### 添加主题
 
