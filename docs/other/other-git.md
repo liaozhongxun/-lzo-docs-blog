@@ -92,12 +92,31 @@ git log # 查看日志记录
 ```
 
 ### 撤销
+> git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit。看似达到的效果是一样的，其实完全不同：  
+>1、上面我们说的如果你已经push到线上代码库，reset删除指定commit以后，你git push可能导致一大堆冲突，但是revert 不会。  
+>2、如果在日后现有分支和历史分支需要合并的时候，reset恢复部分的代码依然会出现在历史分支里，但是revert方向提交的commit并不会出现在历史分支里。  
+>3、reset是在正常的commit历史中，删除了指定的commit，这时HEAD是向后移动了。而revert是在正常的commit历史中再commit一次，只不过是反向提交，它的HEAD是一直向前的。  
 
-```shell
-git reset file # 取消暂存，变为之前的状态
-git reset --hard  commit_id # --hard – 强制将缓存区和工作目录都同步到你指定的提交
-git revert commit_id
-```
+-   撤销指定 commit
+    -   reset
+        -   `git reset --hard commit_id`
+            -   `--soft`:保留源码，只回退 commit 信息到某个版本，不涉及 index 的回退。如果还需要提交，直接 commit 即可。
+            -   `--mixed`：会保留源码，只是将 git commit 和 index 的信息回退到了某个版本。（git reset 默认的就是--mixed 模式，即 git reset 等价于 git reset --mixed）
+            -   `--hard`：源码也会回退到某个版本，commit 和 index 都会回退到某个版本。(注意这种方式是会改变本地代码仓库源码)
+        -   当然有人在 push 代码以后，也使用 reset --hard 回退代码到某个版本之前。但是这样会有一个问题，你线上的代码没有变，线上 commit、index 都没有变，当你把本地代码修改完提交的时候你会发现全是冲突........所以，这种情况你要使用下面的方式
+    -   revert
+        -   同时回滚远程线上代码
+        -   `git revert commit_id`
+-   撤销工作区修改
+    -   未 add
+        -   `git checkout files`
+    -   已经 git add
+        -   `git reset HEAD` 撤销暂存状态回到 add 前,再`git checkout files`回到修改前
+        -   `git reset file`撤销指定文件
+        -   `git reset`撤销所有文件
+        -   `HEAD` 代表回到 HEAD 指向的 commit
+    -   已 add 并再次修改
+        -   先 1 在 2
 
 ### 远程仓库
 
@@ -207,10 +226,10 @@ git clone https://github.com/liaozhongxun/xxx.git
 
 [参考资料 后续继续](https://www.bilibili.com/video/BV1yz4y1y7RQ?p=40)
 
+## git 服务器环境搭建
 
-## git服务器环境搭建
+-   进入 /usr/src 下载 gitisos
 
-- 进入 /usr/src 下载 gitisos 
 ```shell
 yum install -y python python-setuptools git-core # 系统一般有自动基本可以不用安装
 git clone git://github.com/res0nat0r/gitosis.git
@@ -218,12 +237,14 @@ cd gitosis
 python setup.py install
 ```
 
-- 管理员客户端通过ssh 生成公钥
+-   管理员客户端通过 ssh 生成公钥
+
 ```shell
 ssh-keygen -t rsa # 用户目录下 /.ssh/id_rsa.pub
 ```
 
-- 初始化项目
+-   初始化项目
+
 ```shell
 #新建一个git用户
 useradd -m git
@@ -234,7 +255,7 @@ gitosis-init< 管理员id_rsa.pub所在路径
 # 确保/home/git/repositories/gitosis-admin.git/hooks/post-update具有执行权限
 ```
 
-- 管理员的客户端
+-   管理员的客户端
 
 ```shell
 git clone git@< server ip >:gitosis-admin.git
@@ -242,7 +263,7 @@ git clone git@< server ip >:gitosis-admin.git
 # gitosis-admin项目下有一个gitosis.conf文件和一个keydir目录
 ```
 
-1、`gitosis.conf`用来配置git项目和用户,`keydir`存放用户的公钥,公钥必须pub结尾
+1、`gitosis.conf`用来配置 git 项目和用户,`keydir`存放用户的公钥,公钥必须 pub 结尾
 
 ```shell
 [gitosis]
@@ -252,7 +273,7 @@ members = lzoxunc@LAPTOP-DGM7G15T
 writable = gitosis-admin  # 对应keydir下有一个 lzoxunc@LAPTOP-DGM7G15T.pub 公钥文件
 ```
 
-- 添加新项目
+-   添加新项目
 
 ```shell
 [gitosis]
@@ -267,11 +288,11 @@ members = lzoxunc@LAPTOP-DGM7G15T username2 #多个用户用空格分开,这时k
 # 多用户，只要username2客户端可以ping 通服务器ip 那么就可以正常使用了
 ```
 
-- 发布内容
+-   发布内容
 
 > 这时 /home/git/repositories 下只有 gitosis-admin.get 一个项目
 
-``` shell
+```shell
 #  new-project members 存在的用户客户端任意位置
 mkdir new-project
 cd new-project
