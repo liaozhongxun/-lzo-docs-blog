@@ -185,3 +185,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   `WhiteSur-icon-theme`:图标
     -   `WhiteSur-cursors`:指针
 -   安装成功 “开始菜单-->设置管理->外观设置" 中选择
+  
+### plank || latte-dock
+### 实时资源监控插件conky
+https://blog.csdn.net/qq493168649/article/details/106857913
