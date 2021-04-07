@@ -185,7 +185,51 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   `WhiteSur-icon-theme`:图标
     -   `WhiteSur-cursors`:指针
 -   安装成功 “开始菜单-->设置管理->外观设置" 中选择
-  
+
+### fzf 全局搜索插件
+
+### lazygit
+
+-   面板(左右键切换面板)
+
+    -   左边面板
+
+    -   右边面板(预览界面)
+
+-   操作
+    -   `x`:帮助
+
 ### plank || latte-dock
-### 实时资源监控插件conky
-https://blog.csdn.net/qq493168649/article/details/106857913
+
+### 实时资源监控插件 conky
+
+### 终端文件管理器 ranger
+
+-   基础操作
+    -   上下左右
+    -   vim 快捷键
+    -   [、]:上下切换所在目录`上级目录`的 `文件或目录`
+    -   退出
+        -   `q`:退出到打开的位置
+        -   `shift+S`:终端进入当前选择的目录 并 退出
+-   功能
+    -   `o` 排序模式(`当前文件夹`)
+        -   `os`：文件从大到小
+        -   `on`：文件名排序
+        -   `oc`：修改日期排序
+    -   `/`:搜索
+        -   `n/N`:向下或上查找
+    -   `cw|a|A`:重命名
+    -   复制粘贴删除
+        -   `dd`:剪切
+        -   `dD`:删除
+        -   `yy`:复制
+        -   `pp`:粘贴
+        -   `po`:粘贴并覆盖
+        -   `yp`:复制路径
+        -   `dU`:查看文件大小
+    -   `v`:选择目录下文件
+    -   `w`任务管理器
+    -   `zh`:显示隐藏文件
+-   配置文件夹`~/.config/ranger`
+    -   如果要用自己的配置文件,环境变量设置: RANGER_LOAD_DEFAULT_RC=FALSE
