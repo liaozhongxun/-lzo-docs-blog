@@ -131,6 +131,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -   主题
     -   .zshrc 中 ZSH_THEME="主题名称"
     -   主题都在 `/usr/share/oh-my-zsh/theme`下
+    -   推荐主题:`duellj`、`suvash`
 
 ### 安装 bed 程序
 
@@ -236,3 +237,37 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -   修改默认文本编辑器
     -   echo export EDITOR=/usr/bin/vim >> ~/.bashrc
     -   echo export EDITOR=/usr/bin/vim >> ~/.zshrc
+
+
+
+## 常用软件
+  - yay -S vlc #视频播放器
+  - yay -S mpv #视频播放器
+  - yay -S netease-cloud-music #网易云音乐
+  - yay -S gimp #图像编辑器
+  - yay -S redshift #红移
+  - yay -S haroopad #markdown编辑器
+  - yay -S Typora #markdown编辑器
+  - yay -S freeMind #思维图
+  - yay -S pspp #spss
+  - yay -S uget #下载工具
+  - yay -S qbittorrent #BT下载
+  - yay -S zotero #文献管理软件
+  - yay -S filezilla  #FTP工具
+  - yay -S filelight #磁盘使用空间
+  - yay -S baobab #磁盘使用情况分析器
+  - yay -S hardinfo #硬件检测工具
+  - yay -S acroread #pdf阅读
+  - yay -S pdfsam #pdf编辑
+  - yay -S masterpdfeditor  #pdf阅读编辑
+
+  - yay -s deepin-wine
+  - yay -S deepin-wxwork  #企业微信 
+  - yay -S deepin-wine-wechat #微信
+  - yay -S deepin-qq-eim  #QQ
+  - yay -S deepin-baidu-pan #百度网盘
+  - yay -S deepin-wine-tim #TIM
+  - yay -S deepin-screenshot #截屏软件
+  - ###另外：安装QQ 可以参考[https://aur.archlinux.org/packages/deepin.com.qq.office/]
+  - yay -S deepin.com.qq.office  ##TIM
+  - yay -S deepin.com.qq.im  ## QQ
