@@ -131,7 +131,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 - 主题
   - .zshrc 中 ZSH_THEME="主题名称"
   - 主题都在 `/usr/share/oh-my-zsh/theme`下
-  - 推荐主题:`duellj`、`suvash`
+  - 推荐主题:`duellj`、`suvash`、`xiong-chiamiov`
 
 ### 安装 bed 程序
 
