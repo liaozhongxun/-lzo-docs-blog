@@ -135,9 +135,11 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 
 ### 安装 bed 程序
 
-下载 yay -S debtap  
-更新 sudo debtap -u
-安装 debtap xxx.deb
+yay -S debtap #安装包
+sudo debtap -u #升级
+sudo debtap xxxx.deb #解压
+#debtap -q xxx.deb #静默解压
+sudo pacman -U x.tar.xz #安装
 
 ### wifi 设置
 
@@ -190,8 +192,11 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 ### lazygit
 
 -   面板(左右键切换面板)
+    - 有时候同一个键在不同面板的作用是不一样的
 
     -   左边面板
+        - 面板二(Files)
+            - `a`:所以文件在赞成与取消暂存间切换
 
     -   右边面板(预览界面)
 
