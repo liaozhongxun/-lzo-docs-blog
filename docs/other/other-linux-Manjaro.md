@@ -69,11 +69,9 @@ title: Linux
 -   设置 archlinuxcn 源,antergos 源,arch4edu 源:`sudo vi /etc/pacman.conf`
 
 ```shell
-[archlinuxcn]  #不同的源 下载的软件不一样
+[archlinuxcn]
 SigLevel = Optional TrustedOnly
-#中科大源
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
-#清华源
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 
 [antergos]
@@ -119,7 +117,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   添加输入法配置文件 sudo vim ~/.xprofile
     -   export GTK_IM_MODULE=fcitx
     -   export QT_IM_MODULE=fcitx
-    -   export XMODIFIERS="@im=fcitx"s
+    -   export XMODIFIERS="@im=fcitx"
 
 ### oh-my-zsh 终端美化
 
@@ -231,5 +229,10 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   `v`:选择目录下文件
     -   `w`任务管理器
     -   `zh`:显示隐藏文件
+-  特殊功能
+   -  `:`: 命令操作
 -   配置文件夹`~/.config/ranger`
     -   如果要用自己的配置文件,环境变量设置: RANGER_LOAD_DEFAULT_RC=FALSE
+-   修改默认文本编辑器
+    -   echo export EDITOR=/usr/bin/vim >> ~/.bashrc
+    -   echo export EDITOR=/usr/bin/vim >> ~/.zshrc
