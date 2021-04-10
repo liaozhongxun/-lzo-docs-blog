@@ -132,9 +132,8 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
   - .zshrc 中 ZSH_THEME="主题名称"
   - 主题都在 `/usr/share/oh-my-zsh/theme`下
   - 推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`
-- zsh vi模式(使用vim快捷键)
+- zsh vi 模式(使用 vim 快捷键)
   - .zshrc 添加 bindkey -v
-
 
 ### 安装 bed 程序
 
@@ -191,12 +190,74 @@ sudo pacman -U x.tar.xz #安装
 - 安装成功 “开始菜单-->设置管理->外观设置" 中选择
 
 ### fzf 全局搜索插件
+
 - 搜索
-  -  
-- 结合vim
-- 结合ranger
+  -
+- 结合 vim
+- 结合 ranger
+
 ### tmux 终端复用
-- tmux进入
+- 配置文件:`~/.tmux.conf`
+  - `unbind C-b,set-option -g prefix C-c`:跟换激活键为Ctrl+c
+  - 跟换分屏键
+    - bind h split-windwo -h
+    - bind v split-windwo -v
+    - unbind '"'
+    - unbind %
+  - 主题包 oh-my-tmux
+  ```shell
+  $ cd #进入用户主目录
+  $ git clone https://github.com/gpakosz/.tmux.git
+  $ ln -s -f .tmux/.tmux.conf  #创建软连接
+  $ cp .tmux/.tmux.conf.local . #复制local文件到当前文件夹 可以覆盖默认配置
+  # tmux source-file ~/.tmux.conf  从新加载配置
+  ```
+
+  
+
+- 终端-编辑-首选项-勾选运行一个自定义命令-填写 tmux(默认直接打开 tmux)
+- 作用分屏、托管进程、复用终端
+- 会话
+  - `tmux new -s flask` :新建会话
+  - `ctrl+b`:进入激活状态
+      - 会话快捷键
+        - `d`:分离会话
+        - `s`:会话列表
+        - `$`:重命名会话
+      - 窗口(新建会话进入窗口)
+        - `c`:新建窗口
+        - `&`:关闭窗口
+        - `l`:切换窗口
+        - `n`:切换下一个窗口
+        - `p`:切换上一个窗口
+        - `<number>`:指定编号窗口
+        - `w`:窗口菜单列表
+        - `,`:重命名窗口
+      - 窗格|面板(分屏之后产生窗格)
+        - `%`:水平分屏
+        - `"`:垂直分屏
+        - `x`:关闭窗格
+        - `;`:切换窗格
+        - `!`:拆为独立窗格
+        - `z`:全屏显示窗格
+        - `q`:窗格编号
+        - `o`:逆时针切换窗格
+        -  `Ctrl+o`:把其他窗格切换到当前窗格位置
+      - 保存
+        - 激活状态 -> d 关闭会话 -> 任意终端`tmux attach -t 会话名称`启用
+        - 可以多用户共享同时操作
+
+
+- 面板
+  - 分屏之后产生窗格
+### seahorse
+  - 默认秘钥环管理
+### dwm 动态窗口管理器
+
+- `/etc/X11/xinit/xinitrc` exec 设置默认启动
+- 下载 `http://dwm.suckless.org/`
+  - `Development clone addr`
+
 ### lazygit
 
 - 面板(左右键切换面板)
@@ -210,9 +271,10 @@ sudo pacman -U x.tar.xz #安装
       - `a`:所以文件在赞成与取消暂存间切换
       - `空格`：单个文件状态 -`D`:第一项 直接清空所以更改
     - 面板三(本地分支面板)
-        - `n`:新建分支
-        -  `空格`：选择分支
+      - `n`:新建分支
+      - `空格`：选择分支
     - 面板四(提交)
+
   - 右边面板(预览界面)
 
 - 操作
