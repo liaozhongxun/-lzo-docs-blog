@@ -131,7 +131,10 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 - 主题
   - .zshrc 中 ZSH_THEME="主题名称"
   - 主题都在 `/usr/share/oh-my-zsh/theme`下
-  - 推荐主题:`duellj`、`suvash`、`xiong-chiamiov`
+  - 推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`
+- zsh vi模式(使用vim快捷键)
+  - .zshrc 添加 bindkey -v
+
 
 ### 安装 bed 程序
 
@@ -188,6 +191,10 @@ sudo pacman -U x.tar.xz #安装
 - 安装成功 “开始菜单-->设置管理->外观设置" 中选择
 
 ### fzf 全局搜索插件
+- 搜索
+  -  
+- 结合vim
+- 结合ranger
 ### tmux 终端复用
 - tmux进入
 ### lazygit
