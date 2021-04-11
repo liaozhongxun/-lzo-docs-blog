@@ -11,6 +11,15 @@ title: Vim
     - `选择要操作行`的第一格
     - 停留在`最后一行`，输入`大写I` 进入`插入模式`并更改
     - `esc`
+  - i （inner）字符 
+    - `viw`:精准选择光标所在的字符
+    - `vi"`:精准选择光标所在的双引号内的字符
+    - 拓展:`vi(`、`vi[`、`vit`....:`t代表标题`
+    - 拓展:`di(`、`di"`、`dit`....:删除范围内的字符
+    - `v}`:选择段落（可以与移动的符号联合起来用）
+  - a字符
+    与i一样，但是操作的对象包括符号
+    https://www.bilibili.com/video/BV1pE411y7nj?p=10&spm_id_from=pageDriver 10 结束
 - 移动
   - 右下上左 -> `H、J、K、L`(vim-adventures.com)
   - 页尾、首行、行尾、行头 -> `G、gg、$、^|0`
@@ -43,7 +52,19 @@ title: Vim
   - '3>>'
   - 选择代码 + =号:自动缩进
   - 设置缩进长度 :set shiftwidth=n
-    p9 https://sh ~/.vim_runtime/install_awesome_vimrc.shwww.bilibili.com/video/BV1KK411w7wi?p=9&spm_id_from=pageDriver
+- 直接打开新文件
+  - `:e filepath`
+  - `:tabe xxx,:e filepath`:新建tab页再打开文件
+  - `gt|gT`:切换tab页
+  - `vim -p files`:通过tab页方式打开多个文件
+- 水平垂直分屏`:new|vnew`
+  `ctrl+w ,w`:切换窗格
+  `ctrl+w ,j`:向下切换
+  `ctrl+w ,k`:向上切换
+  `ctrl+w ,h`:向左切换
+  `ctrl+w ,l`:向右切换
+  
+
 ## 配置文件 and 插件管理
 ### 第三方配置
 - amix/vimrc

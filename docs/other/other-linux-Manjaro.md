@@ -131,7 +131,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 - 主题
   - .zshrc 中 ZSH_THEME="主题名称"
   - 主题都在 `/usr/share/oh-my-zsh/theme`下
-  - 推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`、`steeef`
+  - 推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`、`steeef`、`ys`
 - zsh vi 模式(使用 vim 快捷键)
   - .zshrc 添加 bindkey -v
 
@@ -310,12 +310,13 @@ sudo pacman -U x.tar.xz #安装
     - `dD`:删除
     - `yy`:复制
     - `pp`:粘贴
-    - `po`:粘贴并覆盖
+   ranger - `po`:粘贴并覆盖
     - `yp`:复制路径
     - `dU`:查看文件大小
   - `v`:选择目录下文件
   - `w`任务管理器
   - `zh`:显示隐藏文件
+  - `r`:选择当前文件打开方式，或者`:code `这样动态指定打开方式
 - 特殊功能
   - `:`: 命令操作
 - 配置文件夹`~/.config/ranger`

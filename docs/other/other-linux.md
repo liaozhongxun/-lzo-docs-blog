@@ -190,8 +190,8 @@ title: Linux
 ### 基本系统运用指令
 
 -   `ifconfig` ：查看 ip （ens33 格式、lo、virbr0 虚拟网卡）等网卡
--   `poweroff` ：关机
--   `reboot` ：重启
+-   `reboot|init 6` ：重启
+-   `poweroff|init 0` ：关机
 -   `shutdown`
     -   -h now ：立即关机
     -   -h +15 ：一段时间后关机
@@ -805,6 +805,33 @@ title: Linux
         - 重启或者从新加载服务
     - 常用服务以及作用
         - `vsftpd`:作用:使远程通过ftp上传下载
+
+### 运行级别（目标）
+> 指定级别可启动的特定服务类型（os7以前用init表示，现在runlevel[0~6]）表示
+
+- 目标
+    - `runlevel0.target`: poweroff.target(`不运行服务 关机`)
+    - `runlevel1.target`: resuce.target(`救援|单例|安全模式`)
+    - `runlevel2.target`: multi-list.target
+    - `runlevel3.target`: multi-list.target
+    - `runlevel4.target`: multi-list.target(`2，3，4多用户模式`，不运行图形界面级相关服务，字符界面)
+    - `runlevel5.target`: graphical.target(`图形相关服务`)
+    - `runlevel6.target`: reboot.target(`重启`)
+- 操作
+   - os7用`systemctl` 代替以前的`runlevel和init`
+   - `systemctl get-default`:查看默认运行级别 
+   - `systemctl set-default multi-list.target`:设置默认运行级别 
+   - `runlevel`:查看当前运行级别（N 5,从Null 到 5） 
+   - `init 运行级别数字`:临时切换运行级别
+   - os7中 本质是将：/etc/systemd/system/default.target 软连接指向 运行级别所在的文件
+- 通过救援模式重置root密码
+   - 只能在本地登录才能使用，不能通过远程操作
+   - 启动是按e进入引导界面
+   - 找到系统版本 root=xxx那一段
+   - 找到LANG=zh_CN.UTF-8
+   - 后面+ 空格 + rd.break 进入救援模式
+   - 按ctrl+x 重新进入系统
+![操作](../../static/img/resetrootpwd.png)
 ## 配置文件
 
 ### .bashrc
