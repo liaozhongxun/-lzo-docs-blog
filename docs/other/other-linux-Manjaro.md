@@ -137,7 +137,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 
 ### 安装 bed 程序
 
-yay -S debtap #安装包
+yay -S debtap sh ~/.vim_runtime/install_awesome_vimrc.sh#安装包
 sudo debtap -u #升级
 sudo debtap xxxx.deb #解压
 #debtap -q xxx.deb #静默解压
@@ -191,20 +191,22 @@ sudo pacman -U x.tar.xz #安装
 
 ### fzf 全局搜索插件
 
-- 搜索
-  -
+- ## 搜索
 - 结合 vim
 - 结合 ranger
 
 ### tmux 终端复用
+
 - 配置文件:`~/.tmux.conf`
-  - `unbind C-b,set-option -g prefix C-c`:跟换激活键为Ctrl+c
+
+  - `unbind C-b,set-option -g prefix C-c`:跟换激活键为 Ctrl+c
   - 跟换分屏键
     - bind h split-windwo -h
     - bind v split-windwo -v
     - unbind '"'
     - unbind %
   - 主题包 oh-my-tmux
+
   ```shell
   $ cd #进入用户主目录
   $ git clone https://github.com/gpakosz/.tmux.git
@@ -213,45 +215,47 @@ sudo pacman -U x.tar.xz #安装
   # tmux source-file ~/.tmux.conf  从新加载配置
   ```
 
-  
-
 - 终端-编辑-首选项-勾选运行一个自定义命令-填写 tmux(默认直接打开 tmux)
 - 作用分屏、托管进程、复用终端
 - 会话
+
   - `tmux new -s flask` :新建会话
   - `ctrl+b`:进入激活状态
-      - 会话快捷键
-        - `d`:分离会话
-        - `s`:会话列表
-        - `$`:重命名会话
-      - 窗口(新建会话进入窗口)
-        - `c`:新建窗口
-        - `&`:关闭窗口
-        - `l`:切换窗口
-        - `n`:切换下一个窗口
-        - `p`:切换上一个窗口
-        - `<number>`:指定编号窗口
-        - `w`:窗口菜单列表
-        - `,`:重命名窗口
-      - 窗格|面板(分屏之后产生窗格)
-        - `%`:水平分屏
-        - `"`:垂直分屏
-        - `x`:关闭窗格
-        - `;`:切换窗格
-        - `!`:拆为独立窗格
-        - `z`:全屏显示窗格
-        - `q`:窗格编号
-        - `o`:逆时针切换窗格
-        -  `Ctrl+o`:把其他窗格切换到当前窗格位置
-      - 保存
-        - 激活状态 -> d 关闭会话 -> 任意终端`tmux attach -t 会话名称`启用
-        - 可以多用户共享同时操作
-
+    - 会话快捷键
+      - `d`:分离会话
+      - `s`:会话列表
+      - `$`:重命名会话
+    - 窗口(新建会话进入窗口)
+      - `c`:新建窗口
+      - `&`:关闭窗口
+      - `l`:切换窗口
+      - `n`:切换下一个窗口
+      - `p`:切换上一个窗口
+      - `<number>`:指定编号窗口
+      - `w`:窗口菜单列表
+      - `,`:重命名窗口
+    - 窗格|面板(分屏之后产生窗格)
+      - `%`:水平分屏
+      - `"`:垂直分屏
+      - `x`:关闭窗格
+      - `;`:切换窗格
+      - `!`:拆为独立窗格
+      - `z`:全屏显示窗格
+      - `q`:窗格编号
+      - `o`:逆时针切换窗格
+      - `Ctrl+o`:把其他窗格切换到当前窗格位置
+    - `:`:输入指令
+    - 保存
+      - 激活状态 -> d 关闭会话 -> 任意终端`tmux attach -t 会话名称`启用
+      - 可以多用户共享同时操作
 
 - 面板
   - 分屏之后产生窗格
+
 ### seahorse
-  - 默认秘钥环管理
+
+- 默认秘钥环管理
+
 ### dwm 动态窗口管理器
 
 - `/etc/X11/xinit/xinitrc` exec 设置默认启动
@@ -320,7 +324,20 @@ sudo pacman -U x.tar.xz #安装
   - echo export EDITOR=/usr/bin/vim >> ~/.bashrc
   - echo export EDITOR=/usr/bin/vim >> ~/.zshrc
 
+### 终端模拟器
+
+- edex-ui
+
 ## 常用软件
+
+### 我的服务
+
+- `lrzsz`:虚拟机文件上传下载
+- `vsftpd`:作用:使远程通过ftp上传下载web服务
+- `ydcv-rs|node-fanyi`:终端直接翻译程序
+- `bat`:美化cat的文本内容
+
+### 网上存储
 
 - yay -S vlc #视频播放器
 - yay -S mpv #视频播放器
@@ -337,7 +354,7 @@ sudo pacman -U x.tar.xz #安装
 - yay -S filezilla #FTP 工具
 - yay -S filelight #磁盘使用空间
 - yay -S baobab #磁盘使用情况分析器
-- yay -S hardinfo #硬件检测工具
+- yay -S hardinfo   Extraterm#硬件检测工具
 - yay -S acroread #pdf 阅读
 - yay -S pdfsam #pdf 编辑
 - yay -S masterpdfeditor #pdf 阅读编辑
@@ -352,4 +369,3 @@ sudo pacman -U x.tar.xz #安装
 - ###另外：安装 QQ 可以参考[https://aur.archlinux.org/packages/deepin.com.qq.office/]
 - yay -S deepin.com.qq.office ##TIM
 - yay -S deepin.com.qq.im ## QQ
-Extraterm 

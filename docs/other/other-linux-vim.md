@@ -43,4 +43,21 @@ title: Vim
   - '3>>'
   - 选择代码 + =号:自动缩进
   - 设置缩进长度 :set shiftwidth=n
-    p9 https://www.bilibili.com/video/BV1KK411w7wi?p=9&spm_id_from=pageDriver
+    p9 https://sh ~/.vim_runtime/install_awesome_vimrc.shwww.bilibili.com/video/BV1KK411w7wi?p=9&spm_id_from=pageDriver
+## 配置文件 and 插件管理
+### 第三方配置
+- amix/vimrc
+```shell
+git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+sh ~/.vim_runtime/install_awesome_vimrc.sh
+# 直接生成.vimrc 
+```
+### 插件管理
+-  插件管理器`vimplus`
+    - `~/.vimrc为vimplus`的默认配置，一般不做修改
+    - `~/.vimrc.custom.plugins`为用户自定义插件列表，用户增加、卸载插件请修改该文件
+    - `~/.vimrc.custom.config`为用户自定义配置文件，一般性配置请放入该文件，可覆盖~/.vimrc里的配置
+  - 插件存放在 `~/.vim/plugged`下
+  - 新插件可以直接复制进去或vim中执行`:plugInstall`进行安装
+  - [github](https://github.com/chxuan/vimplus)
+### 配置文件
