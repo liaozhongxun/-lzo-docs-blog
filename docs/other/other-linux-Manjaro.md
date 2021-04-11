@@ -131,7 +131,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 - 主题
   - .zshrc 中 ZSH_THEME="主题名称"
   - 主题都在 `/usr/share/oh-my-zsh/theme`下
-  - 推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`
+  - 推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`、`steeef`
 - zsh vi 模式(使用 vim 快捷键)
   - .zshrc 添加 bindkey -v
 
@@ -352,3 +352,4 @@ sudo pacman -U x.tar.xz #安装
 - ###另外：安装 QQ 可以参考[https://aur.archlinux.org/packages/deepin.com.qq.office/]
 - yay -S deepin.com.qq.office ##TIM
 - yay -S deepin.com.qq.im ## QQ
+Extraterm 
