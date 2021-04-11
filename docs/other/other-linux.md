@@ -225,6 +225,7 @@ title: Linux
             -   `-G GroupName`:直接添加附加组，基本组不影响
             -   `-e 2020-02-02`:用户有效期到 2020-02-02
             -   `-M`:不创建家目录(一般配合`-s /sbin/nologin`使用)
+            -   `-m`:创建家目录
             -   `-s`:设置用户默认 shell
         -   `usermod UserName`:编辑用户属性（与 useradd 的参数基本一致）
             -   `-m -d /HomeDir`:指定新的家目录(-m 删除旧的)
@@ -786,12 +787,24 @@ title: Linux
 
                 -   。。。。
 
-        -   `systemctl`:服务管理
+        -   `systemctl`:服务管理(sshd开启了才能远程链接，防火墙设置允许)
             -   `start|stop|status|restart|reload <server-name>`:启动|停止|查看状态|重启|重新加载 服务
             -   restart 与 reload 的差别，重启是停止再启动，重新加载是不停止重新读取配置文件
             -   `systemctl enable sshd.service`:设置开机自启
+            -   `systemctl is-enabled sshd`:查看是否开机自启
+            - `list-unit-files --type service`:查看开机自启的服务列表
+            -  `list-units`:查看所以单元
+                - `--type=service`:只看service类型正在运行的服务
+                - `--type=service --all`:只看service类型所有的服务
         -   `netstat -antp`:查看系统网络服务
-
+    - 完整的服务管理流程
+        - 安装相关服务程序
+        - 运行服务
+        - 将服务设置开机自启
+        - 对服务进行配置
+        - 重启或者从新加载服务
+    - 常用服务以及作用
+        - `vsftpd`:作用:使远程通过ftp上传下载
 ## 配置文件
 
 ### .bashrc
