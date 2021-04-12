@@ -328,6 +328,7 @@ sudo pacman -U x.tar.xz #安装
 ### 终端模拟器
 
 - edex-ui
+- edex-ui
 
 ## 常用软件
 
