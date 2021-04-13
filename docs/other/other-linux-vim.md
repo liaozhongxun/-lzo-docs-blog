@@ -161,3 +161,41 @@ sh ~/.vim_runtime/install_awesome_vimrc.sh
 -   [github](https://github.com/chxuan/vimplus)
 
 ### 配置文件
+``` Python
+set nu "行号
+set clipboard=unnamed "vim与外界相互复制
+set hlsearch "搜索匹配的高亮
+set cursorline "行下划线
+set noswapfile "意外关闭不需要wap文件
+
+set softtabstop=4 "tab的步长
+set shiftwidth=4 ">><<缩进的步长
+set expandtab "设置可把tab转成空格 :retab 可以直接重置
+set showtabline=1 "tabe的标签页 0:不会出现页签、1:大于1页出现、2:只有1页也出现
+set splitbelow "new分屏时，新页面在下
+set splitright "vnew分屏时，新页面在右
+set ignorecase "搜索无视大小写 
+set incsearch "搜索时匹配到的直接高亮,不要的回车
+
+" color
+syntax on "开启语法高亮
+"colorscheme default
+colorscheme darkxxxx "指定主题
+
+" filetype 读取文件类型，o新增行时自动缩进
+filetype on
+filetype indent on
+filetype plugin on
+
+```
+
+
+
+
+
+
+
+
+
+
+
