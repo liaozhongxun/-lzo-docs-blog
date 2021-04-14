@@ -50,4 +50,17 @@ filetype on
 filetype indent on
 filetype plugin on
 
+":h key-notation  查看自定义键位表示方法
+":map  查看map的相关定义
+" map|unmap  一般模式、选择模式键位设置
+" nmap|nunmap 一般模式
+" vmap|vunmap 选择模式
+" imap|iunmap 插入模式
+nmap <C-v> p "一般模式下 ctrl+v 的功能设置成粘贴
+nmap <Tab> >> "一般模式下 Tab 的功能设置成缩进
+
+" noremap 与 map作用类似但是避免死循环问题 
+
+
+
 ```
