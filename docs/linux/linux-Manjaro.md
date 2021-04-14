@@ -1,5 +1,5 @@
 ---
-title: Linux
+title: linux-manjaro
 ---
 
 ## 操作

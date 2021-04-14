@@ -72,13 +72,14 @@ module.exports = {
                 items: ["server/server-nodejs", "server/server-mongodb"],
             },
         ],
+        Linux: ["linux/linux", "linux/linux-vim","linux/linux-vimrc","linux/linux-Manjaro"],
+        
         编辑器: ["idea/idea-vscode"],
         其他: [
             "other/other-markdown",
             "other/other-nvm",
             "other/other-plugin",
             "other/other-git",
-            "other/other-linux",
             "other/other-matter",
             "other/other-GFW",
             "other-weblinks",

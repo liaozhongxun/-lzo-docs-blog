@@ -1,5 +1,5 @@
 ---
-title: Linux
+title: linux
 ---
 
 ## 基础简介
