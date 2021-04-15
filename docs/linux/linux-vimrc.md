@@ -61,6 +61,43 @@ nmap <Tab> >> "一般模式下 Tab 的功能设置成缩进
 
 " noremap 与 map作用类似但是避免死循环问题 
 
-
-
+```
+### vscodevim
+```javascript
+{
+        //普通模式下非递归键位绑定，在原生vim中是noremap
+    "vim.normalModeKeyBindingsNonRecursive":[
+        {
+            "before":["<Enter>"],
+            "after":["o"]
+        },
+    ],
+    //命令行模式非递归键位绑定，在原生vim中等同于norecmap
+    "vim.commandLineModeKeyBindingsNonRecursive": [
+         
+    ],
+    //指的是插入模式下键位绑定，在原生vim里面指的是imap
+    "vim.insertModeKeyBindings":[
+        {
+            "before":["<C-h>"],
+            "after":["<Left>"]
+        },
+        {
+            "before":["<C-l>"],
+            "after":["<Right>"]
+        },
+        {
+            "before":["<C-j>"],
+            "after":["<Down>"]
+        },
+        {
+            "before":["<C-k>"],
+            "after":["<Up>"]
+        },
+        {
+            "before":["j","j"],
+            "after":["<Esc>"]
+        },
+    ]
+}
 ```
