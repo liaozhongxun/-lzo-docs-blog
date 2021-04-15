@@ -39,6 +39,14 @@ set splitbelow "new分屏时，新页面在下
 set splitright "vnew分屏时，新页面在右
 set ignorecase "搜索无视大小写 
 set incsearch "搜索时匹配到的直接高亮,不要的回车
+set ruler "行列位置标注
+set warp "可折行
+set showcmd "查看按键
+set showmode "状态栏查看模式
+set scrolloff=3 "距离上下多少开始滚动
+set list "显示一下隐藏符号
+autocmd 一个事件 *文件 :set xxx "符合某个条件做什么事情
+":set all 查看所以可以用的设定
 
 " color
 syntax on "开启语法高亮
@@ -61,6 +69,12 @@ nmap <Tab> >> "一般模式下 Tab 的功能设置成缩进
 
 " noremap 与 map作用类似但是避免死循环问题 
 
+" try
+try
+  error
+catch
+  xxx 
+endtry
 ```
 ### vscodevim
 ```javascript
