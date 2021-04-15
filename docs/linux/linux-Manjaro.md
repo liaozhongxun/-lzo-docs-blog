@@ -338,7 +338,8 @@ sudo pacman -U x.tar.xz #安装
 - `vsftpd`:作用:使远程通过ftp上传下载web服务
 - `ydcv-rs|node-fanyi`:终端直接翻译程序
 - `bat`:美化cat的文本内容
-- `at`:计划任务 
+- `at`:计划任务
+- `dstat`:强大的检测工具 
 
 ### 网上存储
 
