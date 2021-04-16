@@ -79,16 +79,38 @@ endtry
 ### vscodevim
 ```javascript
 {
-        //普通模式下非递归键位绑定，在原生vim中是noremap
+
+    //设置 leader键
+    "vim.leader": ",",
+    //取消vim插件某些功能使用vscode自带功能 
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false,
+        "<C-n>": false
+    },
+    //普通模式下非递归键位绑定，在原生vim中是noremap
     "vim.normalModeKeyBindingsNonRecursive":[
         {
             "before":["<Enter>"],
             "after":["o"]
         },
+        {
+            "before": ["<Leader>", "t", "t"],
+            "commands": [":tabnew"]
+        },
+        {
+            "before":["<Tab>"],
+            "after":["<Shift>",">",">"]
+        },
+        {
+            "before":["<S-Tab>"],
+            "after":["<Shift>","<","<"]
+        },
     ],
     //命令行模式非递归键位绑定，在原生vim中等同于norecmap
     "vim.commandLineModeKeyBindingsNonRecursive": [
-         
+        
+        
     ],
     //指的是插入模式下键位绑定，在原生vim里面指的是imap
     "vim.insertModeKeyBindings":[
@@ -112,6 +134,13 @@ endtry
             "before":["j","j"],
             "after":["<Esc>"]
         },
+        {
+            "before":["<S-j>"],
+            "after":["<BS>"]
+        },
+    ],
+    "vim.commandLineModeKeyBindings": [
+    
     ]
 }
 ```
