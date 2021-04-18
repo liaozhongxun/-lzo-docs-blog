@@ -262,6 +262,14 @@ sudo pacman -U x.tar.xz #安装
 - 下载 `http://dwm.suckless.org/`
   - `Development clone addr`
 
+### autojump 快速进入搜索到的目录
+- 必须`[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh`加入.bashrc中
+- `j <dir-name>`:模糊匹配，autojump是基于数据库记录的，只有你敲击有了记录，才能正常使用
+- `j --stat|grep key`:查看权重
+- `jo <dir-name>`:在终端直接打开包含foo字符串`目录`的`文件管理器`
+- `jc <dir-name>`:进入字符串目录的`子目录`
+- `joc <dir-name>`:进入字符串目录的`子目录`的`文件管理器`
+
 ### lazygit
 
 - 面板(左右键切换面板)
@@ -309,7 +317,7 @@ sudo pacman -U x.tar.xz #安装
     - `dd`:剪切
     - `dD`:删除
     - `yy`:复制
-    - `pp`:粘贴
+    - `pp`:粘贴https://github.com/ranger/ranger/wiki/Plugins
    ranger - `po`:粘贴并覆盖
     - `yp`:复制路径
     - `dU`:查看文件大小
@@ -321,13 +329,22 @@ sudo pacman -U x.tar.xz #安装
   - `:`: 命令操作
 - 配置文件夹`~/.config/ranger`
   - 如果要用自己的配置文件,环境变量设置: RANGER_LOAD_DEFAULT_RC=FALSE
+  - `ranger --copy-config=all`:生成配置文件
+  - 插件
+     - [GitHub](https://github.com/ranger/ranger) -> wike -> 右侧plugins,安装插件
+  - 添加方法
+     - wike -> 右侧 Custom Commands  ->复制到配置文件`commands.py` -> `rc.conf`添加快捷键
+  - `rc.conf`:配置
+    - `set vcs_aware true`:显示git状态符号
+    - `set preview_已经写死了，需images true && set preview_images_method w3m`:用w3m预览图片(需要安w3m)
+    - `map f console scout -ftsea%space`:f 搜索 X
+
 - 修改默认文本编辑器
   - echo export EDITOR=/usr/bin/vim >> ~/.bashrc
   - echo export EDITOR=/usr/bin/vim >> ~/.zshrc
 
 ### 终端模拟器
 
-- edex-ui
 - edex-ui
 
 ## 常用软件
@@ -339,7 +356,8 @@ sudo pacman -U x.tar.xz #安装
 - `ydcv-rs|node-fanyi`:终端直接翻译程序
 - `bat`:美化cat的文本内容
 - `at`:计划任务
-- `dstat`:强大的检测工具 
+- `dstat`:强大的检测工具
+- `nmon`:系统资源监控 
 
 ### 网上存储
 

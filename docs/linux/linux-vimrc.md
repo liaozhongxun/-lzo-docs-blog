@@ -26,7 +26,7 @@ sh ~/.vim_runtime/install_awesome_vimrc.sh
 ### 配置文件
 ``` python
 set nu "行号
-set clipboard=unnamed "vim与外界相互复制
+set clipboard=unnamed "vim与外界相互复制,vim --version | grep clipboard 查看是否支持，不支持可以安装gvim
 set hlsearch "搜索匹配的高亮
 set cursorline "行下划线
 set noswapfile "意外关闭不需要wap文件
@@ -75,6 +75,9 @@ try
 catch
   xxx 
 endtry
+
+" 引入外部文件
+source  $HOME/xxxx.vim "将配置模块话到一个个vim文件中
 ```
 ### vscodevim
 ```javascript
