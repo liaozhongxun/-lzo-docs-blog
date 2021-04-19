@@ -21,6 +21,7 @@ yarn global remove @vue/cli
 > @vue/cli是居于node的,如果删除不成功可以去node文件夹下直接删除vue相关文件
 
 图形化管理界面
+[官网](https://cli.vuejs.org/zh/guide/)
 ```
 vue ui
 ```
@@ -49,8 +50,15 @@ npm run dev
 ```
 
 ### 2.x
-```
+```shell
 npm i -g @vue/cli
+npm install @vue/cli-init -g # 安装2模板
 vue init webpack <project-name>
 npm run dev
+# 1-3:项目名称、描述、作者
+# vue build:选择运行时，第一个通用，第二个轻小
+# 是否安装路由、是否ES-lint(代码规范限制)、unit单元测试(用的少)
+# e2e端到端测试 (专业测试人员使用)
 ```
+- 路径
+    - `build`:

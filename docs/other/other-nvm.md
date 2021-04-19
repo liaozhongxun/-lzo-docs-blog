@@ -17,7 +17,8 @@ nvm list available //查看网络可以安装的版本
 ##### 安装
 
 ```shell
-nvm install <version> //版本号 如: 12.10.0
+nvm install <version> # 版本号 如: 12.10.0
+nvm alias default v4.3.0 # 设置默认版本
 ```
 
 ##### 切换版本
@@ -30,6 +31,7 @@ nvm use <version>
 
 ```shell
 nvm uninstall <version>
+
 ```
 
 

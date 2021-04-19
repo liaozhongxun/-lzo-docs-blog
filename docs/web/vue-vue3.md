@@ -14,7 +14,7 @@ title: vue3
 - Suspens 作用 可在嵌套层级中等待嵌套的异步依赖项目
 
 https://www.bilibili.com/video/BV1qK41137XX?p=3
-
+manjaro
 ### Composition API代替 Options API
 将data、methods、watch、filter => 以 setup(){} 入口
 
