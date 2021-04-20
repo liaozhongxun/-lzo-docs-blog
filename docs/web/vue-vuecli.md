@@ -61,4 +61,8 @@ npm run dev
 # e2e端到端测试 (专业测试人员使用)
 ```
 - 路径
-    - `build`:
+    - `static`:里面的静态文件会原样复制到dist下
+        - `.gitkeep`:这个文件使文件为空时也会上传到git
+    - `src`:源码
+            - `assets`:里面的今天文件打包重命名，小的图片会被转成base64图片
+    - `package-lock.json`:记录的是node_module安装的真实依赖版本
