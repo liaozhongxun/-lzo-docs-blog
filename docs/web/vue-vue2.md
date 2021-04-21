@@ -4,9 +4,84 @@ title: Vue基础
 ## 基础
 ### 相关信息
 - `编程范式`: 申明式编程(以前jQuery那种命令式编程)
-
+### 实例option
+- `el`:挂载vue将要管理的HTML模板
+- `data`:Object|Function
+- `methods`:方法列表(不与实例挂钩单独的叫函数)
+- `computed`:计算属性,只要return任意属性变化，都会更新a
+    - `缓存`:页面上无论用几次，里面计算过程不会重复调用，属性发生变化才会调用
+```javascript
+computed:{
+    // 因为计算属性一般不需要set属性的,只要获取就可以了
+    a:{
+        get:function(){
+            return this.b + this.c
+        }
+    }
+    // 简写
+    a:function(){
+        xxxxxx
+        xxxxxx
+        return this.b + this.c
+    }
+}
+```
 ### 语法
+- `Mustache语法`: {{}}
+    - 变量
+    - 简单js表达式
+- 指令
+    - `v-once`:标签里的数据开始渲染一次，数据变化则不会更新
+    - `v-html`:展示html
+    - `v-text`
+    - `v-pre`:直接显示内容
+    - `v-cloak`:
+        - 加到`挂载的dom`上，vue解析之后会`自动删除v-cloak`
+        - 样式：[v-cloak]{display:none} 这样可以处理双大括号闪烁的问题
+
+- `v-bind:| 语法糖 :`:绑定属性
+    - 类:`:class="{类名:bool}"` ,多个调用方法，返回这个对象
+    - 样式 
+        - `:style="{属性名:变量属性值}"`， 支持`font-size`或`fontSize`  
+    
+- `v-on:|@:`:绑定方法
 - `v-for`
+
+
+    
+### 生命周期
+> 事物`从诞生到消亡`的过程，当走到`某一步`的时候`调用`一个你传入的`钩子(hook)函数`，做你在这个时候想做的事情
+
+```javascript
+function Vue(option){
+    1.xxx
+    2.xxx
+    3.创建好的时候 
+        option.created?option.created()
+        源码:callHook(vm,"created")
+    4.xxx
+}
+
+new Vue({
+    el:"#app"
+    // 创建
+    beforeCreate(){},
+    created(){
+        //当走到第三步的时候就好自动执行这里的程序
+        console.log("创建好了") 
+    },
+    //挂载
+    beforeMount(),
+    mounted(),
+    //更新
+    beforeUpdate(),
+    updated(),
+    //销毁
+    beforeDestroy(),
+    destroyed(),
+
+})
+```
 ### 概念
 - `MVVM`:Model View ViewModel
     - `View`:挂载的dom下的页面
@@ -17,6 +92,7 @@ title: Vue基础
         - 试图模型层，`View`与`Model`沟通的桥梁
         - 数据绑定到页面上，数据改变`通过VM的处理`实时显示到`页面View`上
         - `监听View的事件`，触发事件时去调用Model的方法
+
 
 
 
