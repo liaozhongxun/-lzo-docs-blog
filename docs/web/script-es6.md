@@ -5,7 +5,10 @@ title: ECMAScript 2015 新增属性
 
 ## 变量、复制
 ### let/const
-- let有if和for的块级作用域
+- 优先使用const，`必须有初始化值`，除非值一定需要改变
+    - const 只是指向的对象不能修改，可以该`对象属性`
+    - 相当于只能修改内容，不能修改内存地址
+- let/const有if和for的块级作用域
 
 - 作用域:变量在什么范围内是可用的
     - 块级作用域:{}、if(){}、for(){}...
@@ -20,6 +23,10 @@ title: ECMAScript 2015 新增属性
 ## 字符串
 
 ## 面向对象
+### 对象
+- 对象增强写法
+   - name:name -> name
+   - run:function(){} -> run(){}
 
 ## Promise
 

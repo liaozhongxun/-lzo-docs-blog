@@ -45,6 +45,17 @@ computed:{
         - `:style="{属性名:变量属性值}"`， 支持`font-size`或`fontSize`  
     
 - `v-on:|@:`:绑定方法
+    - `$event`:把对应的形参当做时间对象
+    - 修饰符 @click.stop
+        - `.stop`:阻止事件冒泡
+        - `.prevent`:阻止默认事件
+        - `.enter|.13`:回车 
+        - `.once`:第一次事件生效
+- `v-if v-else-if v-else`
+    - 复用问题：切换之后某些相似元素复用，给他们指定不同`key`就不会复用了
+- `v-show`
+    - 对比v-if
+        - 显示隐藏/加载卸载
 - `v-for`
 
 
@@ -92,7 +103,7 @@ new Vue({
         - 试图模型层，`View`与`Model`沟通的桥梁
         - 数据绑定到页面上，数据改变`通过VM的处理`实时显示到`页面View`上
         - `监听View的事件`，触发事件时去调用Model的方法
-
+- `虚拟DOM（vdom）`
 
 
 
