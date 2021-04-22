@@ -358,6 +358,7 @@ sudo pacman -U x.tar.xz #安装
 - `at`:计划任务
 - `dstat`:强大的检测工具
 - `nmon`:系统资源监控 
+- `variety`:壁纸
 
 ### 网上存储
 
