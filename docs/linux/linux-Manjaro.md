@@ -151,6 +151,14 @@ sudo pacman -U x.tar.xz #安装
 - sudo create_ap 无线网卡名 无线网卡名 热点名 热点密码
 -
 
+### 与window共享
+- 安装: `cifs-utils`
+- 共享: window新建共享文件夹->高级共享中设置`共享名称` -> 权限给予`读写执行`
+- 挂载: mount -t cifs -o username="Administrator",password="1" //192.168.12.40/nmon /mnt/share
+  - mount -t cifs -o username="win用户名",password="密码" //win ip/共享名称 挂载目录
+  - ls /mnt/share  查看共享文件
+- 自动挂载 `/etc/fstab`
+  - //192.168.12.40/nmon /mnt/share cifs defaults,username=名字,password=你的密码
 ### 启动项
 
 - 将 desktop 放到~/.config/autostart 、

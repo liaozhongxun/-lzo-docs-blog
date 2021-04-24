@@ -15,6 +15,7 @@ title: Vue基础
 -   `methods`:方法列表(不与实例挂钩单独的叫函数)
 -   `computed`:计算属性,只要 return 任意属性变化，都会更新 a
     -   `缓存`:页面上无论用几次，里面计算过程不会重复调用，属性发生变化才会调用
+-   `filters`:过滤器对象
 
 ```javascript
 computed:{
@@ -69,18 +70,32 @@ computed:{
     -   数组数据:`item,index`
     -   对象数据:`value,key,index`
     -   key 属性:
-        -   编辑器 -> 虚拟 DOM -> 浏览器
-        -   现有虚拟 DOM A、B、C、D 个 dom 节点 -> 对应浏览器渲染出的 A、B、C、D
-        -   无 key 时在 B 与 C 之间插入 E
+        -   编辑器 -> 虚拟 DOM -> 浏览器-   响应式
+    -   无法响应式的操作
+        -   arr[0]=1
             -   `C被标识为E`，`D被标识为C`,在`最后增加一个`标识为 D
         -   有不同且固有的 key 时在 B 与 C 之间插入 E()
             -   直接在`B与C`之间`插入节点`，C 和 D 无需变化,大大提高性能
             -   直接用 index 没有意义，因为 index 是会变化的，我们要的是能`一一对应`的 key
         -   插入时通过 diff 算法对比，查看虚拟 dom 与浏览器 dom 的 key
+-  `v-model`:表单元素双向绑定
+    - 1、v-bind:绑定value属性，数据改变value改变
+    - 2、v-on:绑定@input事件，value改变重新赋值数据
+    - 案例
+        - 多选框如果v-model设置同一个数组，勾选会自动添加
+        - select 添加 multiple 多选
+    - 修饰符
+        - `.lazy`:数据变化回车更新
+        - `.number`:值转number类型
+        - `.trim`:去除作用空格
 
 -   响应式
     -   无法响应式的操作
         -   arr[0]=1
+
+## 进阶
+### 组件化
+
 
 ### 生命周期
 

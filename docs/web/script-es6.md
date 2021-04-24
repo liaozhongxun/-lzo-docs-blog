@@ -19,6 +19,25 @@ title: ECMAScript 2015 新增属性
 ## 函数
 
 ## 数组/json
+- 数组
+    - 数组遍历
+        - for循环
+        - for in:`for(let i in arr)` ，i为索引
+        - for of:`for(let item of arr)`，item为每一项
+    - `filter`
+        - filter的回调必须返回一个`bool`值，`true`自动将这一项`返回`，否则`过滤`掉这一项
+        - 用`新数组`接收
+    - `map`
+        - 每一项进行个性化操作后返回，生成`新数组`,改变`item`会音响原数组
+    - `reduce`:对数组所以项进行汇总
+        - preVal为`前一次return`的值，`第一次`默认为`参数二传入`的值，这里是0
+        ```javascript
+        let arr = [1,2,3,4];
+        let total = arr.reduce((preVal,item)=>{
+            return preVal + item
+        },0)
+        ```
+
 
 ## 字符串
 
