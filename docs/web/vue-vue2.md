@@ -12,10 +12,15 @@ title: Vue基础
 
 -   `el`:挂载 vue 将要管理的 HTML 模板
 -   `data`:Object|Function
+    - 组件data`必须`是函数,用return对象里的数据
+        - 组件需要被`多次调用`，使用函数返回可以`保证每个组件`的`数据是独立的`，不会相互音响
+        - 如果就想要公用 把对象定义到外面，统一返回这个对象
+    - 组件无法访问到vue实例data的数据
 -   `methods`:方法列表(不与实例挂钩单独的叫函数)
 -   `computed`:计算属性,只要 return 任意属性变化，都会更新 a
     -   `缓存`:页面上无论用几次，里面计算过程不会重复调用，属性发生变化才会调用
 -   `filters`:过滤器对象
+-   `components:{my-title:myTitle}`:`局部组件`注册，只能在当前实例上用
 
 ```javascript
 computed:{
@@ -93,9 +98,38 @@ computed:{
     -   无法响应式的操作
         -   arr[0]=1
 
-## 进阶
-### 组件化
+## 组件化
+### 组件注册与父子组件
 
+```javascript
+//html
+<my-title></my-title>
+
+
+//创建组件构造器
+let myTitle = Vue.extend({
+    template:`<div>title</div>`
+    components:{ //子组件
+       myChild:myChild 
+    }
+})
+let myChild = Vue.extend({ //子组件
+    template:`<div>child</div>`
+})
+
+
+//注册全局组件（可以在多个vue实例下使用）
+Vue.component('my-title',myTitle)
+
+//在Vue实例范围内使用组件
+
+
+```
+
+### 父子组件
+
+
+## 进阶
 
 ### 生命周期
 
