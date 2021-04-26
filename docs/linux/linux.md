@@ -158,7 +158,7 @@ title: linux
 
   - `> a.txt`: 内容重定向到指定文件
 
-- `set`:[sed -i "s#https#http#g" `grep http -rl VERO`] 将VERO下所有子目录所有文件里的http替换成https 
+- `sed`:[sed -i "s#https#http#g" `grep http -rl VERO`] 将VERO下所有子目录所有文件里的http替换成https 
   - `-i`:直接修改文件
   
 - `grep "key" <file-path>`:从指定文件中查找关键字（支持正则不支持通配符）

@@ -359,14 +359,19 @@ sudo pacman -U x.tar.xz #安装
 
 ### 我的服务
 
+- `copyq`:剪切板管理工具[参考](https://zhuanlan.zhihu.com/p/356994435)
 - `lrzsz`:虚拟机文件上传下载
-- `vsftpd`:作用:使远程通过ftp上传下载web服务
 - `ydcv-rs|node-fanyi`:终端直接翻译程序
+- `vsftpd`:作用:使远程通过ftp上传下载web服务
 - `bat`:美化cat的文本内容
 - `at`:计划任务
 - `dstat`:强大的检测工具
 - `nmon`:系统资源监控 
+- `xdroid`:linux使用安卓软件
+- `keepassXC`:密码管理器
+- `flowblade`:视频剪辑软件
 - `variety`:壁纸
+- `flareget`:下载器
 
 ### 网上存储
 
