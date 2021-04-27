@@ -164,12 +164,42 @@ Vue.component('my-title',myTitle)
 
         }
         ```
+        - 注意
+            - vue官方`不建议`在子组件`更改`父组件`传入的prop`属性值
+            - 可以在data手动设置一个对应属性值 `mynumber:this.number`这样重新定义一下
+            - 想同步到父级，在`@input`数据变化时`触发$emit`或`witch监听`数据变化时触发，通过自定义函数更改
+
     - 子传父
         - 组件标签 `@selfevent='self'`
         - 子组件 `this.$emit(selfevent,data)`
         - 父组件 `self(data){c.log(data)}` 获取数据
+### 父子访问(直接相互访问)
+- 父访问子
+    - `this.$children`:获取子组件列表，直接调用其方法
+    - `this.$refs`:给组件添加ref属性
+- 子访问父 
+    - `this.$parent`:不建议用
+    - `this.$root`:直接拿到顶层vue实例
+
+### 插槽
+- 默认
+    - `组件中`设置`slot标签对`,父组件调用时`标签间`的内容就会替换到`子组件slot`的位置
+    - 子组件`slot标签`中可以直接设置`默认dom`,调用标签间有东西，就会覆盖掉
+    - 默认只会替换子组件`没有名字的slot`
+- 具名插槽
+    - 子组件:slot标签设置`name:slotnamexx`
+    - 父组件:要替换的标签中设置`slot="slotnamexx"`
+- 作用域插槽
+    - 编译作用域:组件中只能用自己的data数据
+    - 作用:父组件替换插槽的标签,但是内容由子组件来提供
+    - 步骤:
+        - 子组件`slot标签`自定义属性，储存`子组件的数据`，如:`:data='dataList'`
+        - 父组件调用的`标签对之间` 插入 `<template slot-scope="slot">{{slot.data}}</template>`
+        - 从而实现将子组件的数据拿到父组件的插槽中使用
+        - v2.6以上高版本可以不需要 template标签了
 
 ## 进阶
+
 
 ### 生命周期
 
