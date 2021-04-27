@@ -95,6 +95,8 @@ computed:{
         -   `.lazy`:数据变化回车更新
         -   `.number`:值转 number 类型
         -   `.trim`:去除作用空格
+  
+-  `v-slot:slotName`:绑定具名插槽
 
 -   响应式
     -   无法响应式的操作
