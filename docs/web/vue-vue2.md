@@ -236,6 +236,62 @@ new Vue({
 })
 ```
 
+### 模块化
+- 非模块化产生的问题
+    - 多文件`全局变量命名冲突`
+        - 利用函数作用域`;(function(){xxx})()`
+        - 里面的`代码无法复用`
+        - 升级自己的模块化
+        ```javascript
+        //fileA
+        var modelA = (function(){
+            let num = 1;
+            return 1
+        })()
+        //fileB
+        console.log(modelA.num) //1 
+        ```
+- 什么是模块化
+    - 核心就是`导入`和`导出`
+- 常见模块化规范
+    - `CommonJS`:
+        - 运用于:`node`
+
+        ```javascript
+        //导入
+        let {obj1,obj2} = require("./xxxx")
+        let objs = require("./xxxx")
+        
+        //导出
+        module.exports = {
+            obj:obj,
+        }
+        ```
+    - `AMD`
+    - `CMD`
+    - `ES6的Modules`
+        - `script标签` 添加 `type="modules"`，设置为模块化文件
+        ```javascript
+        //按需导入
+        import {num,str,funName} from "./xxxx.js"
+        //全部导入
+        import * as All from "./xxxx.js" 
+
+
+        //导出
+        export let str = 'str';
+        export function funName(){}; //导出函数
+        export class Person{}; //导出类
+        export {
+            num,xxx
+        }
+
+        //-------default
+        export default xxxx //default导出的只能有一个,可以让导入者自己命名
+        import xxx from "./xxxx.js" //接收默认导出
+        ```
+        - 研究默认导出是否可以与普通导出共存？？？？？
+
 ### 概念
 
 -   `MVVM`:Model View ViewModel

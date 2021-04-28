@@ -255,13 +255,29 @@ name 1 2  # 通过位置变量接收参数
                 - `cat /etc/fstab| sed xxxx`
 
     -   `awk`:是GNU的开源awk，实际叫做`gawk`
-        - 格式: `awk [选项] 'pattern范围 {action动作}' file`
+        - awk是一种进程的轻量级语言，他有自己的变量，自己的一些语句，`不是shell`的语法
+        - 格式: `awk [选项] 'pattern|范围 {action动作}' file`
         - 选项：
             - `-F":"`:指定pring分隔符，默认空格或制表符，符号可以是正则表达式
         - 范围:
             - `'/^reg/{xxxxx}'`:可以是正则
+            - `'$3>=500{}'`
+            - `'RN==3{}'`
+        - 模式(pattern)：定义变量等
+
         - 动作：
             - `print`:输出
+
+        - 变量 
+            - `NF`:分割符分隔之后的字段数量, {print $NF}代表获取最后一个字段
+            - `NR`:行号
+                - `awk 'RN==3{print $1}' file`
+                - `awk 'RN>=3&&RN<=5{print $1}' file`
+            - `OFS="#"{}`:指定输出字段的分割付
         - 功能
             - 截取字段
-                -  `awk {print $1,"拼接格式",$2}`:以空格或制表符切割，`$1-$n`代表每一个分段，`$0`整行
+                -  `awk '{print $1,"拼接格式",$2}'`:以空格或制表符切割，`$1-$n`代表每一个分段，`$0`整行
+            - 运算
+                - `echo "2 3 4"|awk '{print $1*$2-$3}'`:2
+            - BEGIN 和 END
+                - `awk 'BEGIN{print "所有行正文之前插入"}{print $0,"正文"}END{print "所有处理结束"}'`
