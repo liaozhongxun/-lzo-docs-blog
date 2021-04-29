@@ -149,6 +149,7 @@ git checkout <branch name> # 切换分支
 git checkout -b <branch name> # 创建并切换
 git push origin <branch name> # 将本地分支推送到远程
 git checkout -b <new branch name> origin/远程分支名 # 拉取指定远程分支
+git clone -b branchA http://xxx #直接隆指定分支
 
 git merge <branch name> # 将指定分支版本库内容合并到当前分支
                         # 如果两个分支多同一个文件同一部分进行不同修改，会产生冲突

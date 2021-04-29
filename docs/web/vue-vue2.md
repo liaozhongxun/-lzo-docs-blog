@@ -273,8 +273,6 @@ new Vue({
             obj:obj,
         }
         ```
-    - `AMD`
-    - `CMD`
     - `ES6的Modules`
         - `script标签` 添加 `type="modules"`，设置为模块化文件
         ```javascript
@@ -297,6 +295,8 @@ new Vue({
         import xxx from "./xxxx.js" //接收默认导出
         ```
         - 研究默认导出是否可以与普通导出共存？？？？？
+    - `AMD`
+    - `CMD`
 
 ### 概念
 
