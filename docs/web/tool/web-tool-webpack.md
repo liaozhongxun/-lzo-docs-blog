@@ -36,3 +36,15 @@ title: 自动化构建工具 webpack
 
 - `loader`
     - `webpack`功能有限，很多东西都`不认识`，`loader`就相当于他的扩展
+    - `样式类`
+        - `style-loader[插入到页面],css-loader[认识加载样式文件],sass-loader....`
+    - `图片类`
+        - `url-loader`:显示图片，并设置多大的可以转base64
+        - `必须安装file-loader`来处理大于指定大小不转base64的图片
+
+- `vue`配置
+    - 安装vue
+        - 版本
+            - `runtime-only`:代码中不能有任何template， 包括`el:#app`
+            - `runtime-compiler`:compiler可以编译template,所以这个版本可以有template
+            - `vue$:"vue/dist/vue.esm.js"`:alias中配置，指定使用compiler版本

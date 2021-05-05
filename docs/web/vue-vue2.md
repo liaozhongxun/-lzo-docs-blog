@@ -11,6 +11,7 @@ title: Vue基础
 ### 实例 option
 
 -   `el`:挂载 vue 将要管理的 HTML 模板
+-  `template`:运行的时候`template`与`el`同时存在，那么temp模板的HTML的代码会替换`#app`挂载的DOM节点
 -   `data`:Object|Function
     -   组件 data`必须`是函数,用 return 对象里的数据
         -   组件需要被`多次调用`，使用函数返回可以`保证每个组件`的`数据是独立的`，不会相互音响
@@ -297,6 +298,123 @@ new Vue({
         - 研究默认导出是否可以与普通导出共存？？？？？
     - `AMD`
     - `CMD`
+
+### 转脚手架步骤
+- 默认
+```javascript
+//html
+<div id="app">{{message}}</div>
+//组件无
+//创建实例
+new Vue({
+    el:"#app",//这个app是 html页面的app
+    data:{
+        message:'message'
+    }
+})
+
+```
+- 不改html页面
+```javascript
+//html
+<div id="app"></div>
+//组件无
+//创建实例
+new Vue({
+    el:"#app", 
+    template:`<div><span>{{message}}</span></div>`  //模板替换<div id="app"></div>插入到body中
+    data:{
+        message:'message'
+    }
+})
+
+```
+- 组件化抽离
+```javascript
+//html
+<div id="app"></div>
+//组件
+const App = {
+    template:`<div><span>{{message}}</span></div>`,
+    data(){
+        return {
+            message:"message"
+        }
+    }
+}
+//创建实例
+new Vue({
+    el:"#app",
+    template:`<App/>` //调用一下App标签,因为只有一个元素他自己就是跟 
+    components:{
+        App
+    }
+})
+
+```
+- 模块化
+```javascript
+//html
+<div id="app"></div>
+//导入
+import App from './App'
+//创建实例
+new Vue({
+    el:"#app",
+    template:`<App/>` //调用一下App标签,因为只有一个元素他自己就是跟 
+    components:{
+        App
+    }
+})
+
+```
+导出app.js
+```JavaScript
+//App.js
+
+export default { 
+    template:`<div><span>{{message}}</span></div>`,
+    data(){
+        return {
+            message:"message"
+        }
+    }
+}
+```
+
+- .vue文件
+
+>`.vue`文件需要配置loader
+
+```shell
+npm install vue-loader vue-template-compiler -D //loader和编译插件
+#vue-loader14以上版本需要加一个插件
+
+# webpack
+{
+    test:/\.vue/,
+    use:['vue-loader']
+}
+```
+
+```javascript
+<template>
+    <div><span>{{message}}</span></div>
+</template>
+
+<script>
+    export default {
+        data(){
+            return {
+                message:"message"
+            }
+        }
+    }   
+</script>
+
+<style></style>
+```
+
 
 ### 概念
 
