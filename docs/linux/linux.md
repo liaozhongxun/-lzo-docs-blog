@@ -265,6 +265,10 @@ title: linux
                 -   取消注释 `auth required pam_wheel.so use_uid`行
                     - 只有`wheel`组的用户才能切换root
         - `sudo`:临时获取管理员权限 ,配置文件`/etc/sudoers`
+            - `lisi ALL=ALL`:用户`lisi`使用`sudo命令`可以执行`root的所有`操作
+            - `lisi2 ALL=/usr/sbin/useradd,/usr/sbin/usermod`:`lisi2`使用`sudo`只能执行这`指定的`命令
+                   
+
         -   `userdel UserName`:删除用户
             -   `-r`:同时删除家目录
 

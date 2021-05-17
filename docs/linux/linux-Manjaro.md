@@ -355,6 +355,9 @@ sudo pacman -U x.tar.xz #安装
 
 - edex-ui
 
+### 主目录默认功能文件夹位置设置(如桌面)
+`vim ~/.config/user-dirs.dirs`
+
 ## 常用软件
 
 ### 我的服务
