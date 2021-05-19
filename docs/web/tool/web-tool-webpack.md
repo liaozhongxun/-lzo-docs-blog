@@ -48,3 +48,5 @@ title: 自动化构建工具 webpack
             - `runtime-only`:代码中不能有任何template， 包括`el:#app`
             - `runtime-compiler`:compiler可以编译template,所以这个版本可以有template
             - `vue$:"vue/dist/vue.esm.js"`:alias中配置，指定使用compiler版本
+
+- `Plugin 插件`

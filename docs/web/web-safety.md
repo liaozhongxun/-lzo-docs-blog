@@ -1,7 +1,8 @@
 ---
 title: web安全
 ---
-## session 和 cookie
+[漏洞排名](https://owasp.org/www-project-top-ten/)
+### session、cookie 和 XSS跨站脚本攻击
 - HTTP
     - `请求式应答` (有请求才有返回)
     - `灵活可扩展` (可传输各种类型数据,请求头 响应头可自定义，只要相互认识)
@@ -53,7 +54,8 @@ title: web安全
                 - 修改 document.cookie="name=xxx"
             - 攻击方式
                 - XSS:Cross Site Script
-                    - 利用web漏洞插入恶意代码，用户访问的时候，执行代码从而达到攻击的目的
+                    - 利用web漏洞插入恶意代码，用户访问的时候，执行代码，获取用户身份从而达到攻击的目的
+                    - 获取哪个网站的信息就要将脚本注入到哪个网站
                     - 漏洞
                        - 页面直接将query拿来直接执行
                        - 页面直接将input的值拿来执行
@@ -69,7 +71,7 @@ title: web安全
                         - 冒充身份
                         - 刷点击
                         - 弹广告
-                        - 传播病毒
+                        - 传播蠕虫病毒(通过访问发送，一传十。。。)
                     - 防止
                         - 输入
                             - 识别恶意脚本，定义恶意脚本格式
@@ -81,7 +83,55 @@ title: web安全
                             - 第三方规则引擎，waf规则仓
                                 - 硬件、云产品、开源库如:Apath 的 mod_security，modsecurity.cn
                             
+### CSRF 跨站请求伪造
+- 流程
+    - 打开`登录`重要的网站,或者某个重要网站的cookie还在本地
+    - 本地储存重要网站的信息
+    - `访问乱七八糟`的网站 -> 返回`包含恶意请求`的页面如`<img width=0 height=0 src="调用重要网站的某个接口" />`
+    - 如果`调用的重要网站地址`正好是你`刚刚登入的`，就调用成功了
+    ![CSRF](../../static/img/CSRF.png)
+- 恶意请求方式
+    - 加载图片请求、点击a链接请求，隐藏的可自动提交的表达---后面js自动提交表单 
+- 预防
+    - 如何确定一个接口地址是否拥有CSRF漏洞?
+        - 我自己没有输入账号密码，没有产生我的cookie，发起对一个接口的请求，只要正常响应了，那么这个接口是存在CSRF漏洞的
+        - 需要登录的接口，公开的一些接口就没有意义了
+    - 具体操作
+        - 判断来源
+            - 请求头的 referer 表示用户从哪个页面来访问的
+            - 后端通过判断 referer 来防止CSRF，但是可以伪造，并不可信
+        - 加密
+            - 客户端对cookie进行加密，发送到服务端，服务端以同样方式进行加密，与客户端的进行对比
+            - 因为CSRF拿不到cookie明文，所以这是可以防止的，如果用XSS偷到cookie，那么这也不安全
+        - token
+        - 验证码、支付输入密码、选择出所以自行车、将图片选择正等操作，时重要接口变成交互性的二次验证
+    - 第三方工具发现漏洞
+        - Blot, blot.py -u url,测试这个接口是否存在CSRF漏洞
+        - T-Sec 漏洞扫描收费服务
+- 与XSS的差别
+    - 利用你保存的cookie，拿不到对方的cookie
+    - 需要自己准备第三方网站，或将代码通过XSS方式注入到其他网站让你点，不要直接把代码注入到要攻击的网站
 
+### sql注入、弱密码
 
+https://www.coolshell.cn/
 
-## XSS
+### referer 与  Referrer Policy 详解
+> 请求的报头中，会包含一个 Referrer，用以指定该请求是`从哪个页面跳转`来的，常被用于`分析用户来源`等信息。但是也有成为用户的一个不安全因素，比如有些网站直接将 `sessionid` 或是 `token` 放在地址栏里传递的，会原样不动地当作 Referrer 报头的内容传递给第三方网站。
+
+>所以就有了 `Referrer Policy`，用于`过滤 Referrer` 报头内容
+
+```shell
+enum ReferrerPolicy {
+  "",
+  "no-referrer",
+  "no-referrer-when-downgrade",
+  "same-origin",
+  "origin",
+  "strict-origin",
+  "origin-when-cross-origin",
+  "strict-origin-when-cross-origin",
+  "unsafe-url"
+};
+# 很多种过滤类型
+```
