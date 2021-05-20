@@ -80,8 +80,6 @@ module.exports = {
             "other/other-nvm",
             "other/other-plugin",
             "other/other-git",
-            "other/other-matter",
-            "other/other-GFW",
             "other-weblinks",
         ],
     },

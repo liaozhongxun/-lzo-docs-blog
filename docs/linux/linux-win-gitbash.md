@@ -145,3 +145,5 @@ $ cp tools/* /usr/bin
   "terminal.integrated.shellArgs.windows": ["--login", "-i"],
 }
 ```
+
+### 终端输入 set -o vi 开启vim模式
