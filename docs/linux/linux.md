@@ -963,6 +963,9 @@ title: linux
     `source ~/.bashrc`：更新配置文件立即生效
 -   `uname` :查看系统信息
 
+### 不常用
+-   `chsh -s /bin/zsh`:切换shell
+
 ### 注意事项
 
 ### xshell 中文设置

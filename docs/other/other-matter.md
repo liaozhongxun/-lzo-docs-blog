@@ -64,4 +64,5 @@ title: 偏门问题
 ### 未完成计划
 - 大屏项目总结
 - git bash优化记录
-- 
+- http://www.cssmoban.com/cssthemes/6197.shtml
+- SuperScrollorama  
