@@ -138,6 +138,7 @@ title: linux
             -   `-not`:取反
             -  `-ls`:显示匹配文件的
             -   `-size`:
+            -   `-i`:忽略大小写
             -   权限相关
                 -   `-user root`:查找所有者是 root 的文件
                 -   `-group`
@@ -965,6 +966,8 @@ title: linux
 
 ### 不常用
 -   `chsh -s /bin/zsh`:切换shell
+-   `netstat -anp|grep 21`:查询端口是否开启
+-   `netstat -antup|grep pid`:根据pid查看端口使用者
 
 ### 注意事项
 
