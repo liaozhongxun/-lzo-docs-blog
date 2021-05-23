@@ -1,22 +1,48 @@
 ---
 title: linux服务
 ---
+
 ## 防火墙
+
 ### 安装防火墙服务 firewalld
-   - `firewall-cmd --zone=public --add-service=ftp --permanent`:防火墙开头ftp
-   - `firewall-cmd --list-service`:查看防火墙已开通的服务
-   - `firewall-cmd --list-all`:开放的端口
-   - `firewall-cmd --add-port=8001/tcp --permanent`:新增开放端口
-   - `firewall-cmd --reload`:重启防火墙
+
+-   `firewall-cmd --zone=public --add-service=ftp --permanent`:防火墙开起 ftp 服务
+    -   `--zone=public`:下面所以指令都能加
+-   `firewall-cmd --list-all`:开放的端口，以及其他信息
+    -   `--list-ports`:开放的端口
+    -   `--list-service`:查看防火墙已开通的服务
+-   `firewall-cmd --add-port=8001/tcp --permanent`:新增开放端口
+    -   `--add-port=8080-8083/tcp`:添加多个端口
+    -   `--remove-port=81/tcp`:删除端口
+-   `firewall-cmd --reload`:重启防火墙
+-   `firewall-cmd --state`:查看防火墙状态
+
+```shell
+# 开启防火墙
+systemctl start firewalld.service
+
+# 防火墙开机启动
+systemctl enable firewalld.service
+
+# 关闭防火墙
+systemctl stop firewalld.service
+
+# 查看现有的规则
+iptables -nL
+```
 
 ### iptables
- - 指令 ` iptables`,名称 `Netfilter`
+
+-   指令 ` iptables`,名称 `Netfilter`
 
 ## 常用
-### 搭建ftp环境
-- 安装 `vsftpd`
-- 创建访问用户(本地linux用户)
-- `/etc/vsftpd.conf`:配置文件
+
+### 搭建 ftp 环境
+
+-   安装 `vsftpd`
+-   创建访问用户(本地 linux 用户)
+-   `/etc/vsftpd.conf`:配置文件
+
 ```shell
 
 # 本地用户
@@ -56,9 +82,11 @@ seccomp_sandbox=NO # arch vsftpd 无法显示列表的原因之一
 pam_service_name=vsftpd
 
 ```
-- `ftpusers`:不允许里面的用户登录服务器（manjaro没有）
-- `user_list`:
-    - `userlist_enable=YES`:启用这个配置文件   
-    - 如果`userlist_deny=NO`,就只允许里面的用户登录，否则YES表示不允许里面的用户登录
 
-- 安装命令行ftp链接工具，`ftp localhost` 测试是否可以链接
+-   `ftpusers`:不允许里面的用户登录服务器（manjaro 没有）
+-   `user_list`:
+
+    -   `userlist_enable=YES`:启用这个配置文件
+    -   如果`userlist_deny=NO`,就只允许里面的用户登录，否则 YES 表示不允许里面的用户登录
+
+-   安装命令行 ftp 链接工具，`ftp localhost` 测试是否可以链接

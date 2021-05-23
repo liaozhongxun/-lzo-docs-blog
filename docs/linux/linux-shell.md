@@ -36,6 +36,8 @@ unset num #清除变量
 
 
 # ==================if语句
+#用do 和 down 表示其他语言的{}
+
 if [ 1 ]
 then
     echo "yes"
