@@ -966,6 +966,9 @@ title: linux
 
 ### 不常用
 -   `chsh -s /bin/zsh`:切换shell
+
+### 端口服务进程号配置查询
+-   `ps -aux|-af |grep <server-name>`
 -   `netstat -anp|grep 21`:查询端口是否开启
 -   `netstat -antup|grep pid`:根据pid查看端口使用者
 

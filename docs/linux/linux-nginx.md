@@ -1,0 +1,177 @@
+---
+title: nginx
+---
+## 开启nginx
+### 安装
+- arch:`yay -S nginx`
+- CentOS
+    - [下载](http://nginx.org/en/download.html)
+    - 依赖:`make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel pcre`
+    - 位置:nginx安装完成后目录`/usr/local/nginx `或`/usr/share/nginx`
+    - 开启
+        - `systemctl start nginx.service`:pacman直接安装的可以用
+        - 执行 xxx/sbin 下 ./nginx 指令
+    - 问题
+        - 端口 :如果有防火墙,配置指定的是80端口 `firewall-cmd --add-port=80/tcp --permanent`:开放80端口，重启墙
+    - nginx常用命令 `需要有管理员权限`
+        - 进入nginx/sbin目录(上面位置)|rach 直接在全局了任何位置都可以
+        - 开启 `./nginx`
+        - 停止 `./nginx -s stop`
+        - 重新加载 `./nginx -s reload`:配置文件修改时使用
+    - nginx 配置文件
+        - `/usr/local/nginx/conf/nginx.conf`
+- tomcat 安装
+    - [下载](https://tomcat.apache.org/download-70.cgi)
+    - 解压进入`bin`
+    - 运行:`./startup.sh` :如果有防火墙 `firewall-cmd --add-port=8080/tcp --permanent`:开放8080端口 
+    - 成功:`Tomcat started.`,再通过 `http://192.168.1.xxx:8080/` 测试是否开启成功
+    - 日志:`../logs/catalina.out`
+```shell
+# 配置文件解析
+# 第一部分全局配置
+# 作用:从文件开始到events直接的部分，主要处理一些影响nginx服务器整体运行的配置指令
+worker_processes  1; # nginx处理并发的数量
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+# 第二部事件配置
+# 作用:里面的指令主要音响nginx服务器与用用户的网络链接
+events {
+    worker_connections  1024; # 最大链接数目
+}
+
+# 第三部分http配置
+# 包括http全局块、server块
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    # 配置虚拟主机相关信息(重要)
+    server {
+        listen       80; # 防火墙要开通80端口
+        server_name  localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / { # 访问路径符合该正则时做的事情
+            root   html;
+            index  index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
+
+
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+}
+```
+
+### 基本概念
+- nginx是一个`高性能`的`HTTP`和`反向代理服务器`,`占用内存少`、`并发能力强`
+- `热部署`:持续运行，在不关闭服务情况下升级软件版本
+## 代理
+### 正向代理 
+- 在`客户端`配置`代理服务器`，通过`代理服务器`进行互联网访问
+![图1](../../static/img/linux-nginx1.png)
+### 反向代理 
+- 客户端不需要任何配置，将请求发送到反向代理服务器,由反向代理服务器去选择目标服务获取数据返回(tomcat)
+![图2](../../static/img/linux-nginx2.png)
+- 案例(实现图6操作)
+![图6](../../static/img/linux-nginx6.png)
+## 负载(压力)均衡
+- 场景:传统`发送服务器请求`->`处理数据`->`可能要操作SQL`->`返回结果`
+- 问题:信息数量、访问、数据、业务复杂度等增长造成请求`日益缓慢`，`并发量大`还容易造成服务器崩溃
+- 解决方案
+    - 提高服务器配置(不好)
+    - 负载均衡:增加`服务器数量`，将`请求分发`到各个服务器上，将原先请求`集中到单个服务器`的情况改为`分发到多个服务器`,从而将`负载`分发到不同的服务器
+    - 实现:请求不是直接发送到服务器,而是发送到反向代理服务器,在分发到各个不同的服务器
+    ![图3](../../static/img/linux-nginx3.png)
+## 动静分离
+- 概念:将动态页面与静态页面通过不同的服务器来解析,加快解析速度，降低单个服务器的压力
+![图4](../../static/img/linux-nginx4.png)
+![图5](../../static/img/linux-nginx5.png)
+## nginx配置高可以集群

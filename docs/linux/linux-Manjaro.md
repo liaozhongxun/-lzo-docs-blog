@@ -135,8 +135,10 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -   zsh vi 模式(使用 vim 快捷键)
     -   .zshrc 添加 bindkey -v
 
-### 安装 bed 程序
-
+### 安装程序
+- 源码安装程序
+    - `解压包`、进入目录执行`./configure` 检测、`make&&make install`
+- 安装bed程序
 yay -S debtap sh ~/.vim_runtime/install_awesome_vimrc.sh#安装包
 sudo debtap -u #升级
 sudo debtap xxxx.deb #解压
