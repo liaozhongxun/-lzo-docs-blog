@@ -20,13 +20,10 @@ title: linux服务
 ```shell
 # 开启防火墙
 systemctl start firewalld.service
-
 # 防火墙开机启动
 systemctl enable firewalld.service
-
 # 关闭防火墙
 systemctl stop firewalld.service
-
 # 查看现有的规则
 iptables -nL
 ```
