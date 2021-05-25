@@ -247,3 +247,31 @@ proxy_pass http://myserver; # 上面定义的名称
 ![图4](../../static/img/linux-nginx4.png)
 ![图7](../../static/img/linux-nginx7.png)
 ## nginx配置高可以集群
+ - 为了nginx挂了,程序还能正常执行
+ - 准备
+    - 两个配置好nginx的服务器
+    - 都安装 keepalived (`/etc/keepalived/`) 配置主从服务器
+    - keepalived 配置文件可以配置虚拟ip、检测脚本路径、检测脚本中测试是否切换
+```shell
+vrrp_instance VI_1 { # 配置虚拟ip
+    state MASTER # 备份服务器将MASTER 改为 BACKUP
+    interface eth0 # 在使用的网卡 常用ip的那个
+    virtual_router_id 51 # 主、备用服务器的这个id必须相同
+    priority 100  # 主、备用服务器的优先级，主大、备小
+    advert_int 1 # 心跳包
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.200.16  # 虚拟ip地址
+        192.168.200.17
+        192.168.200.18
+    }
+}
+    - 启动两个`nginx`和`keepalived`
+        - systemctl start keepalived.service
+    - ifconfig 会多次虚拟ip
+
+```
+    ![图8](../../static/img/linux-nginx8.png)
