@@ -275,3 +275,6 @@ vrrp_instance VI_1 { # 配置虚拟ip
 
 ```
     ![图8](../../static/img/linux-nginx8.png)
+
+
+### 原理
