@@ -64,6 +64,15 @@ title: 偏门问题
 ### 未完成计划
 - 大屏项目总结
 - git bash优化记录
+- web加密、安全、摄像头视频流
 - http://www.cssmoban.com/cssthemes/6197.shtml
 - https://sc.chinaz.com/tag_moban/CSS3.html
 - SuperScrollorama  
+
+- 使用低版本浏览器通过vlc插件播放
+  - http://www.360doc.com/content/17/1103/19/43486_700641264.shtml
+  - https://wiki.videolan.org/Documentation:WebPlugin/ 
+  - chrome://flags/#enable-npap
+  - chrome://plugins 开启vlc
+- 服务端(ffmpeg)将rtsp流转rtmp或emu8等格式，web可以播放
+-  
