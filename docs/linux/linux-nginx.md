@@ -276,8 +276,8 @@ proxy_pass http://myserver; # 上面定义的名称
 
 vrrp_script chk_nginx { #chk_nginx自定义
     script "/etc/keepalived/nginx_check.sh" ## 检测 nginx 状态的脚本路径
-    interval 2 ## 检测时间间隔
-    weight -20 ## 如果条件成立，权重-20
+    interval 2 # 检测时间间隔
+    weight -20 # 如果条件成立，权重-20
 }
 vrrp_instance VI_1 { # 配置虚拟ip
     state MASTER # 备份服务器将MASTER 改为 BACKUP
