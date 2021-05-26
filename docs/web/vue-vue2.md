@@ -416,7 +416,7 @@ npm install vue-loader vue-template-compiler -D //loader和编译插件
 ```
 
 
-### 概念
+## 概念
 
 -   `MVVM`:Model View ViewModel
     -   `View`:挂载的 dom 下的页面
@@ -427,6 +427,26 @@ npm install vue-loader vue-template-compiler -D //loader和编译插件
         -   试图模型层，`View`与`Model`沟通的桥梁
         -   数据绑定到页面上，数据改变`通过VM的处理`实时显示到`页面View`上
         -   `监听View的事件`，触发事件时去调用 Model 的方法
--   `虚拟DOM（vdom）`
+-   `虚拟DOM（vdom)`  
+-  `runtime-only` 与 `runtime-compiler(编译类型)` 的差别
+    ![差异](../../static/img/vue-vue2-1.png)
+    - vue解析过程
+        - template --解析-> ast(抽象语法树) --编译-> render函数 --形成-> 虚拟dom(vdom) --> 真实DOM
+        - `runtime-only`:直接从render开始无需编译(性能高、代码量少)
+        - `render函数`解析
+            - 完整的render函数
+            ```shell
+            render:function(createElement){
+                return createElement("h2",{class:"box"},['hello word',createElement(xxx)])
+                # 渲染一个class=box 内容为hello word的h2标签，替换index.html的#app节点
+                # h2标签直接换成组件 就是 runtime-only的写法
+            }
+            ```
+        - main.js引入的APP组件以及是编译成`render函数`, 里面不存在`<template>`模板了，通过`vue-template-compiler`完成
+
+### 配置文件
+- package.json ^...,最会第三位版本号自动升级, ~...,第二位和第三位自动升级
+- package-lock.js 记录项目中安装的真实版本
+- `bate`版本都是测试不稳定的版本
 
 [地址](https://www.bilibili.com/video/BV15741177Eh?p=2&spm_id_from=pageDriver)

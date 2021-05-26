@@ -29,14 +29,19 @@ vue ui
 ## 创建vue项目
 [相关网址](https://www.cnblogs.com/joe235/archive/2004/01/13/12448744.html)
 
-### 3.x
+### vue-CLI 3+
 ```shell
 npm i -g @vue/cli
-# 保证vuecli版本在4.5.0以上 以前3.12.1
+# vue3项目需保证vuecli版本在4.5.0以上 以前3.12.1
 
 vue create <project-name>
 npm run serve
 ```
+> 特点
+- 基于webpack4、0配置、去除类build和config等目录、提供vue ui图形化界面
+- webpack文件隐藏在node-module -> @vue -> `cli-server` -> 下
+- 去除static文件夹，新增public文件夹，并将index.html移到里面
+- 配置通过`vueui界面`或取`cli-server`直接更改 或创建`vue.config.js`配置，自动和默认配置进行合并
 
 ### 使用vite创建
 + vite 是原生ESM驱动的web构建工具,开发环境下基于浏览器原生ES imports开发
@@ -49,7 +54,7 @@ npm i
 npm run dev
 ```
 
-### 2.x
+### vue-CLI 2
 ```shell
 npm i -g @vue/cli
 npm install @vue/cli-init -g # 安装2模板
