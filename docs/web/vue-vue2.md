@@ -415,7 +415,6 @@ npm install vue-loader vue-template-compiler -D //loader和编译插件
 <style></style>
 ```
 
-
 ## 概念
 
 -   `MVVM`:Model View ViewModel
@@ -443,10 +442,47 @@ npm install vue-loader vue-template-compiler -D //loader和编译插件
             }
             ```
         - main.js引入的APP组件以及是编译成`render函数`, 里面不存在`<template>`模板了，通过`vue-template-compiler`完成
+- 前端渲染与后端渲染
+
+    - 后端渲染
+        - 服务器拿到浏览器发送的地址，服务器分析地址，通过jsp、php等技术，结合js+html+后端语言直接生成页面，在不这个页面返回到浏览器中
+        - 后端语言是来操作数据库，动态将数据放到页面中
+        - 一个url对应一个页面的映射关系，在后端处理就是后端路由
+    - 前端渲染(前后端分离阶段)
+        - ajax出现后，后端只负责提供数据
+        - 一般公司会分静态资源服务其和API接口服务器
+        - 访问网站 --> 静态资源服务器获取页面 --> 解析页面遇到ajax --> 向API服务器请求数据 --> 通过js将数据渲染到页面
+        - 工作明确，一套接口多端运用
+    - 前端路由(前端渲染基础添加路由)
+        - SPA单页面应用
+        - 访问页面直接下载引入的静态资源与当前路由页面访问到的接口,(默认所以.vue都会打包到同一个js中)
+        - 点击按钮跳转时，生成URL，不会请求静态资源，而是去开始下载的资源里抽取当前页面需要显示的东西(类似某一个组件)
+        - 从而形成一个URL对应一个组件的映射关系，由前端管理,就叫前端路由    
+        - 改变url不刷新页面，而是获取开始下载资源中对应组件内容
+         
 
 ### 配置文件
 - package.json ^...,最会第三位版本号自动升级, ~...,第二位和第三位自动升级
 - package-lock.js 记录项目中安装的真实版本
 - `bate`版本都是测试不稳定的版本
+
+## 生态系统
+### vue-router
+- 基础
+    - 改变路径而不刷新vue提供的方式方式hash或history
+        - history
+            - history.pushState({},"","laster");栈结构，新进后出，每次push后，浏览器显示的的都是当前push的 
+            - history.replace 
+            - history.go(-1),退后一步骤，-2后退两步,.back == .go(-1),.forward = .go(1)向前一步
+    - 安装 npm安装 vue-router
+        - `导入`对象，调用`Vue.use(VueRouter)`安装插件
+        - `创建实例`传入`映射配置`
+        - Vue实例中挂载路由实例
+    - 使用步骤
+        - 创建路由需要映射的组件
+        - `<router-link to="/home">首页</router-link>`:标签跳转，或通过事件`push`等方式跳转
+            - 内置组件最总渲染成a标签
+        - `<router-view></router-view>`:设置存放的位置
+            - 渲染组件容器，路由切换的是这变挂载的组件，其他内容不变
 
 [地址](https://www.bilibili.com/video/BV15741177Eh?p=2&spm_id_from=pageDriver)
