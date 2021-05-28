@@ -481,8 +481,23 @@ npm install vue-loader vue-template-compiler -D //loader和编译插件
     - 使用步骤
         - 创建路由需要映射的组件
         - `<router-link to="/home">首页</router-link>`:标签跳转，或通过事件`push`等方式跳转
-            - 内置组件最总渲染成a标签
+            - `to="/xxx"`:指定跳转位置
+            - `tag="div"`：渲染成指定标签，默认渲染成a标签
+            - `replace`：使用replace替换
+            - `active-class="xxx"`:指定激活元素拥有的类(new VueRouter({linkActiveClass:'xxx'}),全部统一更改)
+            - 通过js跳转
+                - `this.$router.push('/xxx')`:push、replace
+
+
         - `<router-view></router-view>`:设置存放的位置
             - 渲染组件容器，路由切换的是这变挂载的组件，其他内容不变
+- vue webpack 打包
+    - 文件 `app.xxxx.js`：存放应用程序开发的所以js业务代码
+    - 文件 `vendor.xxxx.js`：存放第三方插件、库、包、框架
+    - 文件 `manifest.xxx.js`:为打包代码做底层支撑运行时代码，`相互依赖`、`导入导出`等功能的处理
+    - 路由懒加载
+        - 程序运行时vendor、manifest必须要的，然而app却可以拆分
+        - 把不同路由对应组件分割开来,路由被访问到时再加载对应资源，更加高效
+- 路由懒加载
 
 [地址](https://www.bilibili.com/video/BV15741177Eh?p=2&spm_id_from=pageDriver)
