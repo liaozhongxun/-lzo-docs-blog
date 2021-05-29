@@ -469,23 +469,27 @@ npm install vue-loader vue-template-compiler -D //loader和编译插件
 ## 生态系统
 ### vue-router
 - 基础
+    - 知识点
+        - 所有组件都继承自Vue原型
     - 改变路径而不刷新vue提供的方式方式hash或history
         - history
             - history.pushState({},"","laster");栈结构，新进后出，每次push后，浏览器显示的的都是当前push的 
             - history.replace 
             - history.go(-1),退后一步骤，-2后退两步,.back == .go(-1),.forward = .go(1)向前一步
     - 安装 npm安装 vue-router
-        - `导入`对象，调用`Vue.use(VueRouter)`安装插件
+        - `导入`对象，调用`Vue.use(VueRouter)`安装插件(VueRouter.install)
         - `创建实例`传入`映射配置`
         - Vue实例中挂载路由实例
     - 使用步骤
         - 创建路由需要映射的组件
         - `<router-link to="/home">首页</router-link>`:标签跳转，或通过事件`push`等方式跳转
             - `to="/xxx"`:指定跳转位置
+                - `:to="{path:'xxx',query:'xxx'}"`:query传参
             - `tag="div"`：渲染成指定标签，默认渲染成a标签
             - `replace`：使用replace替换
             - `active-class="xxx"`:指定激活元素拥有的类(new VueRouter({linkActiveClass:'xxx'}),全部统一更改)
             - 通过js跳转
+                - `this.$router.push('/xxx')`:push、replace
                 - `this.$router.push('/xxx')`:push、replace
 
 
