@@ -268,6 +268,7 @@ title: linux
         - `sudo`:临时获取管理员权限 ,配置文件`/etc/sudoers`
             - `lisi ALL=ALL`:用户`lisi`使用`sudo命令`可以执行`root的所有`操作
             - `lisi2 ALL=/usr/sbin/useradd,/usr/sbin/usermod`:`lisi2`使用`sudo`只能执行这`指定的`命令
+            - `echo "1" | sudo  -S /usr/local/nginx/sbin/nginx`:sudo直接输入密码，通过 -S 
                    
 
         -   `userdel UserName`:删除用户
@@ -851,18 +852,18 @@ title: linux
 
 > 指定级别可启动的特定服务类型（os7 以前用 init 表示，现在 runlevel[0~6]）表示
 
--   目标
+-   目标(/usr/lib/systemd/system)
     -   `runlevel0.target`: poweroff.target(`不运行服务 关机`)
     -   `runlevel1.target`: resuce.target(`救援|单例|安全模式`)
-    -   `runlevel2.target`: multi-list.target
-    -   `runlevel3.target`: multi-list.target
-    -   `runlevel4.target`: multi-list.target(`2，3，4多用户模式`，不运行图形界面级相关服务，字符界面)
+    -   `runlevel2.target`: multi-user.target
+    -   `runlevel3.target`: multi-user.target
+    -   `runlevel4.target`: multi-user.target(`2，3，4多用户模式`，不运行图形界面级相关服务，字符界面)
     -   `runlevel5.target`: graphical.target(`图形相关服务`)
     -   `runlevel6.target`: reboot.target(`重启`)
 -   操作
     -   os7 用`systemctl` 代替以前的`runlevel和init`
     -   `systemctl get-default`:查看默认运行级别
-    -   `systemctl set-default multi-list.target`:设置默认运行级别
+    -   `systemctl set-default multi-user.target`:设置默认运行级别
     -   `runlevel`:查看当前运行级别（N 5,从 Null 到 5）
     -   `init 运行级别数字`:临时切换运行级别
     -   os7 中 本质是将：/etc/systemd/system/default.target 软连接指向 运行级别所在的文件
@@ -1002,6 +1003,8 @@ vim ~/.bashrc | /etc/profile
     -   开启网卡（最小化安装时没开的 不能使用 ifconfig 指令）
         -   echo ONBOOT=yes >> /etc/sysconfig/network-scripts/ifcfg-ens33
 
+[管理平台-宝塔](https://www.bt.cn/)
+- `bt default`:获取密码
 [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
 [发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
 [国内 deepin](https://www.deepin.org/zh/)
