@@ -200,6 +200,12 @@ sudo pacman -U x.tar.xz #安装
     -   `WhiteSur-icon-theme`:图标
     -   `WhiteSur-cursors`:指针
 -   安装成功 “开始菜单-->设置管理->外观设置" 中选择
+### screenfetch
+- CentOS screenfetch
+cd /usr/local/src
+git clone https://github.com/liaozhongxun/screenFetch.git
+cp screenFetch/screenfetch-dev /usr/local/bin/screenfetch
+chmod 755 /usr/local/bin/screenfetch
 
 ### fzf 全局搜索插件
 
