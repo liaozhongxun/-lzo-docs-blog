@@ -425,3 +425,7 @@ chmod 755 /usr/local/bin/screenfetch
 -   ###另外：安装 QQ 可以参考[https://aur.archlinux.org/packages/deepin.com.qq.office/]
 -   yay -S deepin.com.qq.office ##TIM
 -   yay -S deepin.com.qq.im ## QQ
+
+### 娱乐性工具
+- sl
+- 
