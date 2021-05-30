@@ -30,3 +30,4 @@ title: 垃圾屋大屏项目
     -   `et`重新编译,生成 theme 文件夹，醒目引入 theme/index.css
 
 - [项目地址](https://gitee.com/lzo-gitee/xuepindata-v)
+- [部署地址](http://rs_screen.snowpa.cn)

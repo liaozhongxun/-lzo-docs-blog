@@ -392,6 +392,7 @@ chmod 755 /usr/local/bin/screenfetch
 -   `flowblade`:视频剪辑软件
 -   `variety`:壁纸
 -   `flareget`:下载器
+-   `baobab`:磁盘使用情况图形化分析
 
 ### 网上存储
 
@@ -409,7 +410,6 @@ chmod 755 /usr/local/bin/screenfetch
 -   yay -S zotero #文献管理软件
 -   yay -S filezilla #FTP 工具
 -   yay -S filelight #磁盘使用空间
--   yay -S baobab #磁盘使用情况分析器
 -   yay -S hardinfo Extraterm#硬件检测工具
 -   yay -S acroread #pdf 阅读
 -   yay -S pdfsam #pdf 编辑
