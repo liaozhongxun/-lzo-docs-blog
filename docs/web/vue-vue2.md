@@ -495,6 +495,15 @@ npm install vue-loader vue-template-compiler -D //loader和编译插件
 
         - `<router-view></router-view>`:设置存放的位置
             - 渲染组件容器，路由切换的是这变挂载的组件，其他内容不变
+    - `keep-alive`:vue内置组件,可以使被包含的组件被缓存，保留状态，避免重新渲染
+        - 属性
+            - `exclude="组件name,name2"`:不缓存排除名称的组件
+        - 搭配的两个钩子函数
+            - activated(){},激活所在组件触发
+            - deactivated(){}，切换，离开组件时触发
+    - 组件内的导航守卫
+        - 生命周期钩子同级:beforeRouteLeave(to,from,next){}
+
 - vue webpack 打包
     - 文件 `app.xxxx.js`：存放应用程序开发的所以js业务代码
     - 文件 `vendor.xxxx.js`：存放第三方插件、库、包、框架
