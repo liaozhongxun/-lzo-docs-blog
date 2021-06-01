@@ -65,8 +65,7 @@ title: 偏门问题
 -   类似 vue2.x 中的 mixin 混入(有时很多个组件都有相同的方法或 created(){}做相同事情时，定义一个 mixin，后期合并到需要的组件中中)
 
 ### 未完成计划
-- 大屏项目总结
-- git bash优化记录
+- 大屏项目mockjs
 - web加密、安全、摄像头视频流
 - http://www.cssmoban.com/cssthemes/6197.shtml
 - https://sc.chinaz.com/tag_moban/CSS3.html
@@ -78,4 +77,4 @@ title: 偏门问题
   - chrome://flags/#enable-npap
   - chrome://plugins 开启vlc
 - 服务端(ffmpeg)将rtsp流转rtmp或emu8等格式，web可以播放
--  
+-  样式通过 @import ""转移到App.vue中
