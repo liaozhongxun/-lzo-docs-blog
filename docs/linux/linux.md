@@ -116,27 +116,35 @@ title: linux
 -   `cp <old-file> <new-file> `： 复制文件(new-file 有-复制，无-改名)
     -   `-r` ：复制目标可以是目录
     -   `-p` ：保留复制目标文件属性
+-   `rsync <old-file> <new-file> `
+    -   `-r`:递归复制子目录 
+    -   `-v`:查看复制的文件
+    -   `-u`：只复制修改过的文件
 -   `mv <old-file> <new-file> `： 剪切（剪切目录不要 -r）
 -   `dd if=/dev/zero of=/tmp/test bs=1M count=60`:构造一个 60 个 1M 大小的文件，从/dev/zero 文件放到/tmp/
-- 文件属性设置
-    - 文件或者目录设置扩展属性后root也要按照规则操作
-    - `chattr [-R] +或- i或a 文件`
-        - `-R`:递归修改文件夹子目录文件
-        - `+-`:添加或删除
-        - `i`:只读属性，添加后root也无法修改
-        - `a`:只能往文件中增加内容，不允许删除
-    - `lsattr 文件`:查看属性
+-   文件属性设置
+
+    -   文件或者目录设置扩展属性后 root 也要按照规则操作
+    -   `chattr [-R] +或- i或a 文件`
+        -   `-R`:递归修改文件夹子目录文件
+        -   `+-`:添加或删除
+        -   `i`:只读属性，添加后 root 也无法修改
+        -   `a`:只能往文件中增加内容，不允许删除
+    -   `lsattr 文件`:查看属性
 
 -   文件查找
+
     -   `locate <file name>`:返回文件所在路径,根据索引数据库查找，一段时间后数据库自动更新
     -   `find`: find <查找起始路径> <选项> <查找条件> <处理动作>
+
         -   `起始路径`:
         -   `选项`:
+
             -   `-name` :按文件名查找
             -   `-empty` :空文件或文件夹
             -   `-type 文件类型` :查找指定类型的文件(f、d、l、b、c) f 代替 - 普通文件
             -   `-not`:取反
-            -  `-ls`:显示匹配文件的
+            -   `-ls`:显示匹配文件的
             -   `-size`:
             -   `-i`:忽略大小写
             -   权限相关
@@ -147,11 +155,11 @@ title: linux
                 -   `-nouser`:没有所有者的文件(用户被删除)
                 -   `-nogroup`:没有所属组的文件
                 -   `-perm 755`:按权限查找
-                    - 模糊查询
-                        - `perm /620` :查找出所有者拥有r或w权限，或者所属组有w权限的文件，`0代表不理会`
-                        - `perm -220`:并且
-                    - 特殊权限查找(SUID 4、SGID 2、Sbit 1)
-                        - `perm /7000`:最高位是特殊权限，umask查看
+                    -   模糊查询
+                        -   `perm /620` :查找出所有者拥有 r 或 w 权限，或者所属组有 w 权限的文件，`0代表不理会`
+                        -   `perm -220`:并且
+                    -   特殊权限查找(SUID 4、SGID 2、Sbit 1)
+                        -   `perm /7000`:最高位是特殊权限，umask 查看
 
         -   `查找条件`:文件名称是什么、文件大小、文件类型、从属关系、权限等（通配符）
         -   `处理动作`:对找到的文件 进行指令操作
@@ -262,14 +270,14 @@ title: linux
         -   `su UserName`:切换用户
             -   `su - UserName`:完全切换到新用户，环境工作路径等
             -   `su -`:切换到管理员 root
-                -   su配置文件`/etc/pam.d/su`
+                -   su 配置文件`/etc/pam.d/su`
                 -   取消注释 `auth required pam_wheel.so use_uid`行
-                    - 只有`wheel`组的用户才能切换root
-        - `sudo`:临时获取管理员权限 ,配置文件`/etc/sudoers`
-            - `lisi ALL=ALL`:用户`lisi`使用`sudo命令`可以执行`root的所有`操作
-            - `lisi2 ALL=/usr/sbin/useradd,/usr/sbin/usermod`:`lisi2`使用`sudo`只能执行这`指定的`命令
-            - `echo "1" | sudo  -S /usr/local/nginx/sbin/nginx`:sudo直接输入密码，通过 -S 
-                   
+                    -   只有`wheel`组的用户才能切换 root
+        -   `sudo`:临时获取管理员权限 ,配置文件`/etc/sudoers`
+
+            -   `lisi ALL=ALL`:用户`lisi`使用`sudo命令`可以执行`root的所有`操作
+            -   `lisi2 ALL=/usr/sbin/useradd,/usr/sbin/usermod`:`lisi2`使用`sudo`只能执行这`指定的`命令
+            -   `echo "1" | sudo -S /usr/local/nginx/sbin/nginx`:sudo 直接输入密码，通过 -S
 
         -   `userdel UserName`:删除用户
             -   `-r`:同时删除家目录
@@ -966,12 +974,14 @@ title: linux
 -   `uname` :查看系统信息
 
 ### 不常用
--   `chsh -s /bin/zsh`:切换shell
+
+-   `chsh -s /bin/zsh`:切换 shell
 
 ### 端口服务进程号配置查询
+
 -   `ps -aux|-af |grep <server-name>`
 -   `netstat -anp|grep 21`:查询端口是否开启
--   `netstat -antup|grep pid`:根据pid查看端口使用者
+-   `netstat -antup|grep pid`:根据 pid 查看端口使用者
 
 ### 注意事项
 
@@ -1004,11 +1014,12 @@ vim ~/.bashrc | /etc/profile
         -   echo ONBOOT=yes >> /etc/sysconfig/network-scripts/ifcfg-ens33
 
 [管理平台-宝塔](https://www.bt.cn/)
-- `bt default`:获取密码
-[课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
-[发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
-[国内 deepin](https://www.deepin.org/zh/)
-[国内优麒麟](https://www.ubuntukylin.com/downloads/)
-[manjaro](https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/m/ma/manjaro/xfce/21.0-pre1/)
-[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
-[archlinux](https://wiki.archlinux.org/)
+
+-   `bt default`:获取密码
+    [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
+    [发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
+    [国内 deepin](https://www.deepin.org/zh/)
+    [国内优麒麟](https://www.ubuntukylin.com/downloads/)
+    [manjaro](https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/m/ma/manjaro/xfce/21.0-pre1/)
+    [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
+    [archlinux](https://wiki.archlinux.org/)
