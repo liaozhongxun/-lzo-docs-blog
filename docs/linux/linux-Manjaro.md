@@ -393,12 +393,12 @@ chmod 755 /usr/local/bin/screenfetch
 -   `variety`:壁纸
 -   `flareget`:下载器
 -   `baobab`:磁盘使用情况图形化分析
+-    `netease-cloud-music`:网易云
 
 ### 网上存储
 
 -   yay -S vlc #视频播放器
 -   yay -S mpv #视频播放器
--   yay -S netease-cloud-music #网易云音乐
 -   yay -S gimp #图像编辑器
 -   yay -S redshift #红移
 -   yay -S haroopad #markdown 编辑器

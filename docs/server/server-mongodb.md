@@ -28,6 +28,13 @@ title: mongodb
 -   开启新终端 输入 mongo
 -   输入 show dbs 出现数据库说明连接成功了
 
+4. linux arch系列
+- 安装aur:mongodb、 mongodb-tools
+- 创建并添加权限:chmod 777 /data/db
+- 图形化管理工具
+    - ['nosqlbooster'](https://nosqlbooster.com/downloads)
+        - chmod a+x nosqlbooster4mongo*.AppImage
+        - ./nosqlbooster4mongo*.AppImage
 ### 图形化工具
 [robo 3t](https://robomongo.org/)
 
