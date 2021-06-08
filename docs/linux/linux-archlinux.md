@@ -39,22 +39,29 @@ title: archlinux
 - 安装软件
     - 基础软件：`pacstrap /mnt base`
     - 开发相关包：`pacstrap /mnt base-devel`
-- 生成fstab：`genfstab -U /mnt /mnt/etc/fstab`(保存挂载)
+    - 
+    - (新)基础软件：`pacstrap /mnt base base-devel linux linux-firmware` #base-devel在AUR包的安装是必须的
+    - (新)功能性软件:`pacstrap /mnt dhcpcd iwd vim sudo bash-completion`   #一个有线所需 一个无线所需 一个编辑器  一个提权工具 一个补全工具 iwd也需要dhcpcd
+- 生成fstab：`genfstab -U /mnt >> /mnt/etc/fstab`(保存挂载)
+- 确认是否生成:`cat /mnt/etc/fstab`
 - 将系统切换到刚刚安装的环境：`arch-chroot /mnt`
 
 ### 进入系统配置
-- 配置时区：`ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime`
+- 配置时区：`ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime`
 - 设置时间:`hwclock --systohc`
 - 安装VIM：`pacman -S vim`
 - 设置语言: `vim /etc/locale.gen` 打开`zh_CN.UTF8 UTF8`
-    - 查看 `locale-gen`
+    <!-- - 查看 `locale-gen`  -->
+    - 生成locale `bashlocale-gen`
     - 设置到配置文件中：`echo 'LANG=zh_CN.UTF-8'` > /etc/locale.conf
 - 安装一下网络相关的包:
     - `pacman -S iw wpa_supplicant dialog`
     - 测试联网：`ping www.baidu.com`
 - 设置root密码
     - 直接`passwd`
-- inter cpu需要:`pacman -S intel-ucode`
+- 安装微码
+  - `pacman -S intel-ucode`   #Intel
+  - `pacman -S amd-ucode `    #AMD
 - 安装引导程序：`pacman -S grub efibootmgr`
     - 执行 `grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=grub`
     - 配置 `grub-mkconfig -o /boot/grub/grub.cfg`
