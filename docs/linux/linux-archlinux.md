@@ -35,7 +35,7 @@ title: archlinux
     - mkdir -p /mnt/boot/EFI
     - 挂载根目录：`mount /dev/sda1 /mnt`
     - 挂载家目录：`mount /dev/sda2 /mnt/home`
-    - 挂载EFI：`mount /dev/sda3 /mnt/boot/EFI`
+    - 挂载EFI：`mount /dev/sda3 /mnt/boot`
 - 安装软件
     - 基础软件：`pacstrap /mnt base`
     - 开发相关包：`pacstrap /mnt base-devel`
@@ -64,7 +64,11 @@ title: archlinux
   - `pacman -S amd-ucode `    #AMD
 - 安装引导程序：`pacman -S grub efibootmgr`
     - 执行 `grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=grub`
+    - (新) `grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB`
+    - `vim /etc/default/grub` 去掉`GRUB_CMDLINE_LINUX_DEFAULT`的quite，并且把3改成，后期方便排错
     - 配置 `grub-mkconfig -o /boot/grub/grub.cfg`
+    - `mkdir -p /boot/EFI/BOOT`
+    - `mv /boot/EFI/GRUB/grubx64.efi /boot/EFI/BOOT/BOOTX64.EFI`
 - 退出exit环境：`exit`
 - 卸载/mnt：`umount -R /mnt`
 - 重启 reboot
