@@ -718,6 +718,7 @@ title: linux
         -   `yum install 服务 -y`:不用询问
     -   `yum remove 服务`:删除软件包
     -   `yum clean all`:清除
+    -    `yum search ifconfig`:查看ifconfig属于哪个软件包 
 -   常用服务
     -   `lrzsz`:远程文件上传下载
 

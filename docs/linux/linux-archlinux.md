@@ -50,11 +50,11 @@ title: archlinux
 - 配置时区：`ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime`
 - 设置时间:`hwclock --systohc`
 - 安装VIM：`pacman -S vim`
-- 设置语言: `vim /etc/locale.gen` 打开`zh_CN.UTF8 UTF8`
+- 设置语言: `vim /etc/locale.gen` 打开`zh_CN.UTF8 UTF8`,`en_US.UTF-8 UTF-8`
     <!-- - 查看 `locale-gen`  -->
     - 生成locale `bashlocale-gen`
-    - 设置到配置文件中：`echo 'LANG=zh_CN.UTF-8'` > /etc/locale.conf
-- 安装一下网络相关的包:
+    - 设置到配置文件中：`echo "LANG='zh_CN.UTF-8'"` > /etc/locale.conf
+- 安装一下网络相关的包:(可省略)
     - `pacman -S iw wpa_supplicant dialog`
     - 测试联网：`ping www.baidu.com`
 - 设置root密码
@@ -72,3 +72,56 @@ title: archlinux
 - 退出exit环境：`exit`
 - 卸载/mnt：`umount -R /mnt`
 - 重启 reboot
+
+
+## 进入系统
+### 开启网络
+- `echo "interface=eth0" >> /etc/rc.conf` 
+- 执行:`dhcpcd`
+- `systemctl enable dhcpcd.servece` 设置开机自启
+### 新建用户
+- `useradd -m -g uesrs -G wheel lzoxun`:指定组为了提权
+- `EDITOR=vim visudo`:编辑sudo配置文件,将wheel的注释去掉
+    - %wheel ALL=(ALL) ALL:
+        - 1、
+        - 2、
+        - 3、这个组里的成员可以执行任意命令
+### 安装KDE桌面
+- 必要工具:`pacman -S plasma-meta konsole dolpbin bash-completion`
+    - 桌面环境
+    - 终端
+    - 文件管理器
+    - 命令行补全工具
+- 开启sddm（开机欢迎界面）
+    - `systemctl enable sddm`
+- 设置源
+    - `vim /etc/pacman.conf`
+    - 开启multilib
+    - 添加
+    [archlinuxcn]
+    SigLevel = Optional TrustAll
+    Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+    - `pacman -Syyu` 更新
+- 安装工具
+    - 识别第三方ntfs移动盘:`ntfs-3g`
+    - 开源字体
+        - `pacman -S adobe-source-han-serif-cn-fonts wqy-zenhei`
+        - `sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra`谷歌字体
+    - 浏览器
+        - `firefox chromium`
+    - yay(aur 用户上传的包)
+        - `sudo pacman -S archlinuxcn-keyring`
+        - 再装`yay`
+- 设置中文
+    - setting -> system settings -> Regional settings 添加中文，拉倒最前 apply，重启
+- 安装输入法
+    - 输入法: `sudo pacman -S fcitx5-im`
+    - 安装引擎: `sudo pacman -S fcitx5-chinese-addons`
+    - 安装词库: `sudo pacman -S fcitx5-pinyin-moegons`或搜狗
+    - 安装皮肤: `sudo pacman -S fcitx5-material-color`
+    - 到设置语言的地方进入输入法进行添加
+
+
+
+## 软件包
+- 查看版本:`neofetch`
