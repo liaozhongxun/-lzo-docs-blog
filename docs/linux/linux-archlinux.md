@@ -121,6 +121,9 @@ title: archlinux
     - 安装皮肤: `sudo pacman -S fcitx5-material-color`
     - 到设置语言的地方进入输入法进行添加 
 
+xxxx
+- 开机启动，键盘添加拼音
+
 
 
 ## 软件包
