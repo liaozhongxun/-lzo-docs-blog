@@ -120,11 +120,27 @@ title: archlinux
     - 安装词库: `sudo pacman -S fcitx5-pinyin-moegirl`或搜狗
     - 安装皮肤: `sudo pacman -S fcitx5-material-color`
     - 到设置语言的地方进入输入法进行添加 
+    xxxx
+    - 开机启动，键盘添加拼音
 
-xxxx
-- 开机启动，键盘添加拼音
-
-
+### 美化
+- 安装主题 `Layan`
+- 欢迎屏幕 `miku`
+- 任务栏插件 
+- 系统设置-显示监控-混成器 选2.0
 
 ## 软件包
 - 查看版本:`neofetch` 
+- 加网速:`proxychains-ng`
+    - 配置文件 `/etc/proxychains.conf`
+    - 通过代理打开系统设置:`proxychains systemsettings5`
+
+## 问题
+### 虚拟机全屏
+```shell
+# sudo pacman -S open-vm-tools
+# sudo pacman -S gtkmm
+# sudo pacman -S xf86-video-vmware
+# sudo pacman -S xf86-input-vmmouse
+# systemctl enable vmtoolsd
+```
