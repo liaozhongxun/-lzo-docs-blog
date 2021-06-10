@@ -124,4 +124,4 @@ title: archlinux
 
 
 ## 软件包
-- 查看版本:`neofetch`
+- 查看版本:`neofetch` 
