@@ -87,7 +87,7 @@ title: archlinux
         - 2、
         - 3、这个组里的成员可以执行任意命令
 ### 安装KDE桌面
-- 必要工具:`pacman -S plasma-meta konsole dolpbin bash-completion`
+- 必要工具:`pacman -S plasma-meta konsole dolphin bash-completion`
     - 桌面环境
     - 终端
     - 文件管理器
@@ -102,7 +102,7 @@ title: archlinux
     SigLevel = Optional TrustAll
     Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
     - `pacman -Syyu` 更新
-- 安装工具
+- 安装必要工具
     - 识别第三方ntfs移动盘:`ntfs-3g`
     - 开源字体
         - `pacman -S adobe-source-han-serif-cn-fonts wqy-zenhei`
@@ -117,7 +117,7 @@ title: archlinux
 - 安装输入法
     - 输入法: `sudo pacman -S fcitx5-im`
     - 安装引擎: `sudo pacman -S fcitx5-chinese-addons`
-    - 安装词库: `sudo pacman -S fcitx5-pinyin-moegons`或搜狗
+    - 安装词库: `sudo pacman -S fcitx5-pinyin-moegirl`或搜狗
     - 安装皮肤: `sudo pacman -S fcitx5-material-color`
     - 到设置语言的地方进入输入法进行添加
 
