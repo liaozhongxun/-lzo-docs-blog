@@ -119,7 +119,7 @@ title: archlinux
     - 安装引擎: `sudo pacman -S fcitx5-chinese-addons`
     - 安装词库: `sudo pacman -S fcitx5-pinyin-moegirl`或搜狗
     - 安装皮肤: `sudo pacman -S fcitx5-material-color`
-    - 到设置语言的地方进入输入法进行添加
+    - 到设置语言的地方进入输入法进行添加 
 
 
 
