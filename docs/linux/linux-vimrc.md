@@ -1,6 +1,7 @@
 ---
 title: vimrc
 ---
+
 ## 配置文件 and 插件管理
 
 ### 第三方配置
@@ -8,8 +9,8 @@ title: vimrc
 -   amix/vimrc
 
 ```shell
-git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
-sh ~/.vim_runtime/install_awesome_vimrc.sh
+# git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+# sh ~/.vim_runtime/install_awesome_vimrc.sh
 # 直接生成.vimrc
 ```
 
@@ -24,7 +25,8 @@ sh ~/.vim_runtime/install_awesome_vimrc.sh
 -   [github](https://github.com/chxuan/vimplus)
 
 ### 配置文件
-``` python
+
+```python
 set nu "行号
 set clipboard=unnamed "vim与外界相互复制,vim --version | grep clipboard 查看是否支持，不支持可以安装gvim
 set hlsearch "搜索匹配的高亮
@@ -37,7 +39,7 @@ set expandtab "设置可把tab转成空格 :retab 可以直接重置
 set showtabline=1 "tabe的标签页 0:不会出现页签、1:大于1页出现、2:只有1页也出现
 set splitbelow "new分屏时，新页面在下
 set splitright "vnew分屏时，新页面在右
-set ignorecase "搜索无视大小写 
+set ignorecase "搜索无视大小写
 set incsearch "搜索时匹配到的直接高亮,不要的回车
 set ruler "行列位置标注
 set warp "可折行
@@ -67,25 +69,27 @@ filetype plugin on
 nmap <C-v> p "一般模式下 ctrl+v 的功能设置成粘贴
 nmap <Tab> >> "一般模式下 Tab 的功能设置成缩进
 
-" noremap 与 map作用类似但是避免死循环问题 
+" noremap 与 map作用类似但是避免死循环问题
 
 " try
 try
   error
 catch
-  xxx 
+  xxx
 endtry
 
 " 引入外部文件
 source  $HOME/xxxx.vim "将配置模块话到一个个vim文件中
 ```
+
 ### vscodevim
+
 ```javascript
 {
 
     //设置 leader键
     "vim.leader": ",",
-    //取消vim插件某些功能使用vscode自带功能 
+    //取消vim插件某些功能使用vscode自带功能
     "vim.handleKeys": {
         "<C-a>": false,
         "<C-f>": false,
@@ -112,8 +116,8 @@ source  $HOME/xxxx.vim "将配置模块话到一个个vim文件中
     ],
     //命令行模式非递归键位绑定，在原生vim中等同于norecmap
     "vim.commandLineModeKeyBindingsNonRecursive": [
-        
-        
+
+
     ],
     //指的是插入模式下键位绑定，在原生vim里面指的是imap
     "vim.insertModeKeyBindings":[
@@ -143,7 +147,7 @@ source  $HOME/xxxx.vim "将配置模块话到一个个vim文件中
         },
     ],
     "vim.commandLineModeKeyBindings": [
-    
+
     ]
 }
 ```

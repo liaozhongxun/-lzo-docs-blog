@@ -136,14 +136,15 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   .zshrc 添加 bindkey -v
 
 ### 安装程序
-- 源码安装程序
-    - `解压包`、进入目录执行`./configure` 检测、`make&&make install`
-- 安装bed程序
-yay -S debtap sh ~/.vim_runtime/install_awesome_vimrc.sh#安装包
-sudo debtap -u #升级
-sudo debtap xxxx.deb #解压
-#debtap -q xxx.deb #静默解压
-sudo pacman -U x.tar.xz #安装
+
+-   源码安装程序
+    -   `解压包`、进入目录执行`./configure` 检测、`make&&make install`
+-   安装 bed 程序
+    yay -S debtap sh ~/.vim_runtime/install_awesome_vimrc.sh#安装包
+    sudo debtap -u #升级
+    sudo debtap xxxx.deb #解压
+    #debtap -q xxx.deb #静默解压
+    sudo pacman -U x.tar.xz #安装
 
 ### wifi 设置
 
@@ -200,18 +201,24 @@ sudo pacman -U x.tar.xz #安装
     -   `WhiteSur-icon-theme`:图标
     -   `WhiteSur-cursors`:指针
 -   安装成功 “开始菜单-->设置管理->外观设置" 中选择
+
 ### screenfetch
-- CentOS screenfetch
-cd /usr/local/src
-git clone https://github.com/liaozhongxun/screenFetch.git
-cp screenFetch/screenfetch-dev /usr/local/bin/screenfetch
-chmod 755 /usr/local/bin/screenfetch
+
+-   CentOS screenfetch
+    cd /usr/local/src
+    git clone https://github.com/liaozhongxun/screenFetch.git
+    cp screenFetch/screenfetch-dev /usr/local/bin/screenfetch
+    chmod 755 /usr/local/bin/screenfetch
 
 ### fzf 全局搜索插件
 
 -   ## 搜索
 -   结合 vim
 -   结合 ranger
+
+### nvme
+
+-   linux 如何 nvm 无效就要 nvme
 
 ### tmux 终端复用
 
@@ -267,7 +274,7 @@ chmod 755 /usr/local/bin/screenfetch
             -   激活状态 -> d 关闭会话 -> 任意终端`tmux attach -t 会话名称`启用
             -   可以多用户共享同时操作
         -   其他
-            -   `tmux ls`:查看tmux列表
+            -   `tmux ls`:查看 tmux 列表
             -   `tmux kill-session -t <session-name>`:彻底杀死会话
             -   `set -g mouse on`:允许鼠标操作
 
@@ -276,7 +283,7 @@ chmod 755 /usr/local/bin/screenfetch
 
 ### seahorse
 
--   在终端输入seahorse打开管理密钥环的软件，视图->根据密码环 在密码区会有一个“登录”为名字的密钥环，右击将其删除。
+-   在终端输入 seahorse 打开管理密钥环的软件，视图->根据密码环 在密码区会有一个“登录”为名字的密钥环，右击将其删除。
 
 ### dwm 动态窗口管理器
 
@@ -393,7 +400,7 @@ chmod 755 /usr/local/bin/screenfetch
 -   `variety`:壁纸
 -   `flareget`:下载器
 -   `baobab`:磁盘使用情况图形化分析
--    `netease-cloud-music`:网易云
+-   `netease-cloud-music`:网易云
 
 ### 网上存储
 
@@ -427,5 +434,6 @@ chmod 755 /usr/local/bin/screenfetch
 -   yay -S deepin.com.qq.im ## QQ
 
 ### 娱乐性工具
-- sl
-- 
+
+-   sl
+-

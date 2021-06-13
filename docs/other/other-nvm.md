@@ -1,11 +1,15 @@
 ---
 title: nvm
 date: 2016-12-10 14:00:57
-tags: 
+tags:
     - 标记语言
 ---
-window的node管理器
+
+window 的 node 管理器
 [下载地址](https://github.com/coreybutler/nvm-windows/releases/tag/1.1.7)
+
+linux 安装后需要将文件追加到 bash 配置文件中
+`echo "source /usr/share/nvm/init-vim.sh" >> ~/.zhsrc`
 
 ##### 查看版本
 
@@ -34,8 +38,6 @@ nvm uninstall <version>
 
 ```
 
-
-
 ##### 开启关闭
 
 ```shell
@@ -56,11 +58,7 @@ nvm version 查看当前的版本
 ...
 ```
 
-
 注意:
-切换node版本后有时候需要重新 install 项目的依赖才能正常运行
-全局安装的插件路径都能在当前nvm node版本下与 npm config get prefix 指令查看
+切换 node 版本后有时候需要重新 install 项目的依赖才能正常运行
+全局安装的插件路径都能在当前 nvm node 版本下与 npm config get prefix 指令查看
 切换版本 npm config get prefix 得到的路径也会一起变化
-
-
-

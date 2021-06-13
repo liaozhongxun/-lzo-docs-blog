@@ -92,10 +92,11 @@ git log # 查看日志记录
 ```
 
 ### 撤销
-> git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit。看似达到的效果是一样的，其实完全不同：  
->1、上面我们说的如果你已经push到线上代码库，reset删除指定commit以后，你git push可能导致一大堆冲突，但是revert 不会。  
->2、如果在日后现有分支和历史分支需要合并的时候，reset恢复部分的代码依然会出现在历史分支里，但是revert方向提交的commit并不会出现在历史分支里。  
->3、reset是在正常的commit历史中，删除了指定的commit，这时HEAD是向后移动了。而revert是在正常的commit历史中再commit一次，只不过是反向提交，它的HEAD是一直向前的。  
+
+> git revert 是用一次新的 commit 来回滚之前的 commit，git reset 是直接删除指定的 commit。看似达到的效果是一样的，其实完全不同：  
+> 1、上面我们说的如果你已经 push 到线上代码库，reset 删除指定 commit 以后，你 git push 可能导致一大堆冲突，但是 revert 不会。  
+> 2、如果在日后现有分支和历史分支需要合并的时候，reset 恢复部分的代码依然会出现在历史分支里，但是 revert 方向提交的 commit 并不会出现在历史分支里。  
+> 3、reset 是在正常的 commit 历史中，删除了指定的 commit，这时 HEAD 是向后移动了。而 revert 是在正常的 commit 历史中再 commit 一次，只不过是反向提交，它的 HEAD 是一直向前的。
 
 -   撤销指定 commit
     -   reset
@@ -217,6 +218,8 @@ git clone https://github.com/liaozhongxun/xxx.git
 > SSH (Secure Shell 安全外壳协议) 的缩写 可以不要每次输入用户名密码，而是利用公钥和私钥进行比对
 
 1、git 下输入 ssh-keygen|ssh-keygen -t rsa 连续回车生成公私钥（公私钥与本台计算机有关）
+
+-   linux 需要安装 `openssh`
 
 2、公私钥匙用户家目录下的 .ssh 文件夹中
 私钥 : id_rsa
