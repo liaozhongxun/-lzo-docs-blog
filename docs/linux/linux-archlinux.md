@@ -162,3 +162,29 @@ title: archlinux
 # sudo pacman -S xf86-input-vmmouse
 # systemctl enable vmtoolsd
 ```
+### 我的程序
+-  `yay -S konsole dolphin bash-completion`
+-  `yay -S copyq chromium visual-studio-code-bin filezilla latte-dock cifs-utils`
+-  `yay -S lazygit ranger tmux neofetch fzf node-fanyi conky`
+-  需要添加配置程序
+    - `autojump`   
+    - `nvm`
+
+### 我的kde快捷键
+- 应用程序
+    - `Meta(win建) + Shift + P` : copyq 剪切板保存工具
+    - `Meta + Shift + C` : vscode
+    - `Meta + Shift + O`: 文件窗口 dolphin
+    - `Meta + Shift + T`: 终端 konsole 
+    - `Meta + Shift + F`: FTP filezilla 
+
+- 系统
+    - `Alt + F1`：菜单
+    - `Alt + F2`：系统设置
+    - `Meta + F` : Krunner 全局搜索
+    - `Meta + .`: Emoji 图标
+    - `Ctrl + Esc` : 系统服务
+
+-   其他
+    - latte Dock(Alt + 1~9)
+
