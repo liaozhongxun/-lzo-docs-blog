@@ -162,9 +162,16 @@ title: archlinux
 # sudo pacman -S xf86-input-vmmouse
 # systemctl enable vmtoolsd
 ```
+### 
+- 命令行打开图像界面文件夹 
+- 截图软件 flameshot
+- wine测试
+
+
+## 新机
 ### 我的程序
 -  `yay -S konsole dolphin bash-completion`
--  `yay -S copyq chromium visual-studio-code-bin filezilla latte-dock cifs-utils netease-cloud-music`
+-  `yay -S copyq chromium visual-studio-code-bin filezilla latte-dock cifs-utils netease-cloud-music flameshot`
 -  `yay -S lazygit ranger tmux neofetch fzf node-fanyi conky`
 -  需要添加配置程序
     - `autojump`   
@@ -189,3 +196,6 @@ title: archlinux
 -   其他
     - latte Dock(Alt + 1~9)
 
+
+
+#
