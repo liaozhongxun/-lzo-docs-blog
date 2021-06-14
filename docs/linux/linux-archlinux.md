@@ -164,7 +164,7 @@ title: archlinux
 ```
 ### 我的程序
 -  `yay -S konsole dolphin bash-completion`
--  `yay -S copyq chromium visual-studio-code-bin filezilla latte-dock cifs-utils`
+-  `yay -S copyq chromium visual-studio-code-bin filezilla latte-dock cifs-utils netease-cloud-music`
 -  `yay -S lazygit ranger tmux neofetch fzf node-fanyi conky`
 -  需要添加配置程序
     - `autojump`   
@@ -177,6 +177,7 @@ title: archlinux
     - `Meta + Shift + O`: 文件窗口 dolphin
     - `Meta + Shift + T`: 终端 konsole 
     - `Meta + Shift + F`: FTP filezilla 
+    - `Meta + Shift + W`: 网易云
 
 - 系统
     - `Alt + F1`：菜单
