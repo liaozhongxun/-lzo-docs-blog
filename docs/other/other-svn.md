@@ -50,22 +50,22 @@ title: gitee + svn
                     -   L - 锁定的文件(svn cleanup 处理)
                     -   K - 加锁的文件
                     -   ? - 未跟踪
-                - `svn status -v path`:并查看子文件状态
+                -   `svn status -v path`:并查看子文件状态
             -   提交：`svn commit(ci) -m 'LogMessage' ` (提交所以 add 和已修改的文件)
         -   更新
             -   `svn update(up)` ：如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。
             -   `svn update -r 200 test.php`： 将版本库中的文件 test.php 还原到版本 200
         -   比较
             -   `svn diff(di) path`：将修改的文件与基础版本比较
-            -   `svn diff -r m:n path`：对版本m和版本n比较差异
+            -   `svn diff -r m:n path`：对版本 m 和版本 n 比较差异
         -   删除
             -   `svn delete path -m "delete test fle"`
-                - svn (del, remove, rm)   
+                -   svn (del, remove, rm)
         -   查看
             -   查看日志:`svn log path`
             -   文件信息:`svn file path`
         -   合并
-            -   `svn merge -r m:n path`:合并m版本与n版本
+            -   `svn merge -r m:n path`:合并 m 版本与 n 版本
         -   锁
             -   加锁:`svn lock -m "LockMessage" PATH`
             -   解锁:`svn unlock PATH`
@@ -73,16 +73,23 @@ title: gitee + svn
             -   `svn: Cannot negotiate authentication mechanism`（无法协商认证机制）。
                 -   svn 服务器开启了 sasl 加密，本地的 Xcode 和命令行中的 svn 不支持 sasl 加密导致无法协商认证机制问题
                 -   升级:高版本自带 sasl
-        - 不常用指令
-          - `svn list(ls)`:查看文件列表
-          - `svn mkdir Path`:直接创建纳入版本库(Add状态)的文件夹
-            - `svn mkdir Url`:直接commit到远程(中间目录必须存在,`result error`)
-          - `svn cleanup`:清除预留日志
-            - svn操作文件之前默认将数据备份到日志文件中，操作结束自动删除，操作过程被打断，就会遗留
-            - 它搜索你的工作副本并执行所有遗留的日志，在这过程中删除锁。如果Subversion曾告诉你你的工作副本的一部分被“锁定”了，那么你应该执行这个命令。另外， svn status会在锁定的项前显示L。
-        - log module
-        - tag module
-        - 分支 module
+        -   不常用指令
+            -   `svn list(ls)`:查看文件列表
+            -   `svn mkdir Path`:直接创建纳入版本库(Add 状态)的文件夹
+                -   `svn mkdir Url -m 'msg'`:直接 commit 到远程(中间目录必须存在,`result error`)
+            -   `svn cleanup`:清除预留日志
+                -   svn 操作文件之前默认将数据备份到日志文件中，操作结束自动删除，操作过程被打断，就会遗留
+                -   它搜索你的工作副本并执行所有遗留的日志，在这过程中删除锁。如果 Subversion 曾告诉你你的工作副本的一部分被“锁定”了，那么你应该执行这个命令。另外， svn status 会在锁定的项前显示 L。
+            -   `import`：
+                -   将本地文件导入到源码库中，通常用于第一次上传让服务器生成代码项目，以后还需要上传则是 commit
+                -   `svn import /e/lzo-project/git-test svn://gitee.com/lzo-gitee/lzo-svnmsg/testdir -m 'msg'`
+            -   `svn revert`:撤销本地修改
+                -  `svn revert fileName`:撤销单个文件 
+                -  `svn revert ./*`:撤销当前文件夹下所有修改 
+                -  `svn revert -R ./*`:递归撤销当前文件夹下所有修改 
+        -   log module
+        -   tag module
+        -   分支 module
 
 ### TortoiseSVN
 
