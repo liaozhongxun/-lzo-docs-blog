@@ -382,6 +382,17 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 
 `vim ~/.config/user-dirs.dirs`
 
+### 版本更新报错
+1.首先更新一下密钥，如果没有安装archlinux-keyring,请及时安装
+sudo pacman-key --refresh-keys
+2.重新加载相应的签名密钥
+sudo pacman-key --init
+sudo pacman-key --populate
+3。清除pacman 的缓冲文件
+sudo pacman -Scc
+4.更新或者安装系统即可
+sudo pacman -Syu || sudo pacman -Syudd(-dd跳过全部检测)_
+
 ## 常用软件
 
 ### 我的服务

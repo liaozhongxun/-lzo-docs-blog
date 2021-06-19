@@ -128,6 +128,7 @@ title: archlinux
     -   setting -> system settings -> Regional settings 添加中文，拉倒最前 apply，重启
     -   .pam_environment 添加`LC_ALL=zh_CN.UTF-8`更完全的汉化
 -   安装输入法
+
     -   输入法: `sudo pacman -S fcitx5-im`
     -   安装引擎: `sudo pacman -S fcitx5-chinese-addons`
     -   安装词库: `sudo pacman -S fcitx5-pinyin-moegirl`或搜狗

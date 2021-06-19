@@ -1,4 +1,4 @@
----
+    ---
 title: gitee + svn
 ---
 
@@ -37,6 +37,10 @@ title: gitee + svn
 -   服务端命令
     -   svnserve
     -   svnserve -d：开启 svn 服务，开放顶层仓库，运行客户端访问
+    -   svnserve -d --listen-port=8888(默认 3690)
+        - 通过`svn://localhost:3690/path/顶层仓库/跟仓库`访问
+    -   svnserve -d --listen-port=8888 -r /home/lzoxun/svnrepository ：指定顶层仓库
+        - 通过`svn://localhost:3690/跟仓库`访问
 -   客户端命令
 
     -   命令指令直接管理（有些指令不支持）
@@ -50,8 +54,11 @@ title: gitee + svn
                     -   L - 锁定的文件(svn cleanup 处理)
                     -   K - 加锁的文件
                     -   ? - 未跟踪
+                -   `svn add filename`:将文件或目录交给svn进行管理。每个文件只能add一次
+
                 -   `svn status -v path`:并查看子文件状态
-            -   提交：`svn commit(ci) -m 'LogMessage' ` (提交所以 add 和已修改的文件)
+            -   提交：`svn commit(ci) -m 'LogMessage' 提交的文件` (提交所以 add 和已修改的文件)
+                - 提交文件服务仓库无法直接看到的
         -   更新
             -   `svn update(up)` ：如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。
             -   `svn update -r 200 test.php`： 将版本库中的文件 test.php 还原到版本 200
