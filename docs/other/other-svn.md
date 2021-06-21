@@ -187,6 +187,11 @@
     -   git 修改也要 add 或者 commit -am
 -   commit 后不需要 push，直接提交到远程
 
+### vscode
+```shell
+"svn.path": "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseSVN.exe",
+"TortoiseSVN.tortoiseSVNProcExePath": "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseProc.exe",
+```
 ## 注意事项
 
 [资料](https://gitee.com/help/articles/4131#article-header0)
