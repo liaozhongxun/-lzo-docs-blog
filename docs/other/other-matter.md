@@ -3,8 +3,11 @@ title: 偏门问题
 ---
 
 ### 常见的兼容性问题
+
 ### 项目的难点
+
     - web调用摄像头，web播放rtsp视频流问题
+
 ### js 浮点数计算偏差问题
 
 > 两位小数: 同时乘以 100 变成整数,结果再根据运算符相对的减少倍数
@@ -43,11 +46,16 @@ title: 偏门问题
 ```json
 {
     "Print to console": {
-        "prefix": "demo",
+        "prefix": "temp",
         "body": [
             "<template>",
+	    	"<div class='warp'></div>",
             "</template>",
-            "<script lang='ts'>",
+            "<script>",
+		    "import * as API from '@/api';",
+	    	"export default {",
+	    	"data(){return {}},create(){},methods:{getData() {let that = this;API.AxiosPOST('', {}).then((res) => {});},},mounted(){this.getData()}",
+	    	"}",
             "</script>",
             "<style lang='scss' scoped>",
             "</style>"
@@ -65,16 +73,17 @@ title: 偏门问题
 -   类似 vue2.x 中的 mixin 混入(有时很多个组件都有相同的方法或 created(){}做相同事情时，定义一个 mixin，后期合并到需要的组件中中)
 
 ### 未完成计划
-- 大屏项目mockjs
-- web加密、安全、摄像头视频流
-- http://www.cssmoban.com/cssthemes/6197.shtml
-- https://sc.chinaz.com/tag_moban/CSS3.html
-- SuperScrollorama  
 
-- 使用低版本浏览器通过vlc插件播放
-  - http://www.360doc.com/content/17/1103/19/43486_700641264.shtml
-  - https://wiki.videolan.org/Documentation:WebPlugin/ 
-  - chrome://flags/#enable-npap
-  - chrome://plugins 开启vlc
-- 服务端(ffmpeg)将rtsp流转rtmp或emu8等格式，web可以播放
--  样式通过 @import ""转移到App.vue中
+-   大屏项目 mockjs
+-   web 加密、安全、摄像头视频流
+-   http://www.cssmoban.com/cssthemes/6197.shtml
+-   https://sc.chinaz.com/tag_moban/CSS3.html
+-   SuperScrollorama
+
+-   使用低版本浏览器通过 vlc 插件播放
+    -   http://www.360doc.com/content/17/1103/19/43486_700641264.shtml
+    -   https://wiki.videolan.org/Documentation:WebPlugin/
+    -   chrome://flags/#enable-npap
+    -   chrome://plugins 开启 vlc
+-   服务端(ffmpeg)将 rtsp 流转 rtmp 或 emu8 等格式，web 可以播放
+-   样式通过 @import ""转移到 App.vue 中
