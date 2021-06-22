@@ -28,3 +28,7 @@ title: window
 
 -   win10 微软的终端包管理工具
 svn://192.168.3.18/mysvndir
+
+### 美化
+ - 微软商店 安装TranslucentTB
+ - BitDock
