@@ -374,6 +374,13 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   echo export EDITOR=/usr/bin/vim >> ~/.bashrc
     -   echo export EDITOR=/usr/bin/vim >> ~/.zshrc
 
+- 批量操作文件
+    - 批量重命名
+        - 按v全选文件，或按空格选择单个文件
+        - :bulkrename 回车 进入vim编辑模式
+        - 修改文件名 
+        - 保存退出
+        - cw 单个文件命名
 ### 终端模拟器
 
 -   edex-ui
