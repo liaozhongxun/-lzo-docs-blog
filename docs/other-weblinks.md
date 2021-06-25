@@ -8,6 +8,7 @@ title: 收藏
 包含内网穿透、学习文档....
 + [CSS3兼容情况 caniuse](https://caniuse.com)
 + [线上代码编辑 codepan](https://codepen.io) [^②]
++ [项目接口模拟生成](https://www.fastmock.site/#/)
 
 [^②]: 
 创建基础案例 create > pen  

@@ -121,6 +121,10 @@ title: linux
     -   `-v`:查看复制的文件
     -   `-u`：只复制修改过的文件
 -   `mv <old-file> <new-file> `： 剪切（剪切目录不要 -r）
+    - 安装 mmv
+    - mmv '*.*.*.*' '#1.#2'
+    - mmv 'file*.rar' 'text#1.zip'
+    - #1 代表第一个*号匹配的内容，#2代表第二个*号代表的内容
 -   `dd if=/dev/zero of=/tmp/test bs=1M count=60`:构造一个 60 个 1M 大小的文件，从/dev/zero 文件放到/tmp/
 -   文件属性设置
 
@@ -695,6 +699,8 @@ title: linux
     -   安装阿里云 yum 源：
         -   备份或删除 /etc/yum.repos.d/下的 yum 源文件
         -   wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+        -   wget  http://mirrors.aliyun.com/repo/epel-7.repo --directory-prefix=/etc/yum.repos.d
+        -   yum clean all && yum makecache
         -   `yum makecache` 更新 yum 源
         -   `yum repolist` 查看 yum 源
 -   yum 源文件详解
