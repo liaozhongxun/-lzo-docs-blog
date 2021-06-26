@@ -33,6 +33,7 @@ title: window
 
 -   微软商店 安装 TranslucentTB
 -   BitDock
+-   MyDock
 
 ### 快捷键
 
