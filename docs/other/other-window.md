@@ -48,12 +48,13 @@ title: window
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}", //默认打开的终端，通过guid
     "profiles":
     {
         "defaults": {
             "colorScheme":"Campbell",//默认配送方案
             "useAcrylic":true,//材质
+            "startingDirectory": "D:/",//设置默认打开路径
             "acrylicOpacity":0.75//透明度
         },
         "list": //新增tab页面可以选择很多方案Ubuntu、git、cmd等等，也可以配置自己个性化指令记录
@@ -72,7 +73,8 @@ title: window
                 "icon": "D:\\install\\Git\\mingw64\\share\\git\\git-for-windows.ico",//图标
                 "name": "Git", //名称
                 "hidden":false,"是否隐藏"
-                "colorScheme":"xxx","设置单独的配色方案优先级高"
+                "colorScheme":"xxx","设置单独的配色方案优先级高,"
+                "guid":"{cd411374-e41f-49dd-8ace-4f2b42b6cffa}"
             },
             {
                 "commandline":"D:\\install\\cmder\\vendor\\git-for-windows\\bin\\bash.exe"
@@ -120,3 +122,53 @@ title: window
 -   `Alt + Shift + G`:谷歌
 -   `Alt + Shift + U`:uTools
 -   `Alt + Shift + V`:虚拟机
+
+## window cmd
+
+### win 命令
+
+-   内置命令
+    -   `cls`:清屏
+    -   `calc`:计算器
+    -   `ipconfig`:ip
+-   外部扩展命令
+    -   自己安装程序配置 node、npm
+
+### bat 批处理
+
+-   格式: `@echo off`开头 xxx 代码 `pause`结束的 `bat`程序
+-   算术运算符
+    -   `set /a num = 3-1`:set 指令 /a 代表进行算数运算
+        -   `echo %num%`:输出变量，变量需要百分号分格
+-   语句
+    -   `echo` :输出
+-   cmd 终端指令
+
+    -   `指令 /?`:查看帮助
+    -   `color /? `:列出可以设置的颜色
+        -   `color 0a`:设置颜色
+    -   `title 'xx'`:设置标题
+    -   `date`:修改日期
+        -   `date /T`:查看日期
+    -   `time`:修改时间
+        -   `time /T`:查看时间
+    -   `start`:启动一个单独窗口或运行指定程序
+    -   `tasklist`:查看当前计算机或远程正在运行的列表
+        -   远程 `tasklist /S 远程IP /U 用户名 /P 密码`
+        -   `/FI "PID EQ 12345"`:筛选 PID 为 12345 的进程
+    -   `taskkill`:结束进程
+        -   `/PID 进程pid`
+        -   `/IM 进程名称`:`/FI` 筛选时可以用通配符\*
+            -   `/T`:同时杀死紫荆城
+        -   `/F`:强制关闭
+    -   `tree`:树形查看文件
+        -   `/F`:可查看文件
+    -   `shoutdown`:关机
+        -   `/i`:图形设置，必须第一个
+
+-   bat
+
+```bat
+"1.bat
+call 2.bat "调用其他文件
+```
