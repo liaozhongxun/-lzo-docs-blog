@@ -87,3 +87,7 @@ pam_service_name=vsftpd
     -   如果`userlist_deny=NO`,就只允许里面的用户登录，否则 YES 表示不允许里面的用户登录
 
 -   安装命令行 ftp 链接工具，`ftp localhost` 测试是否可以链接
+
+### nc
+
+-   安装 `nmap-ncat`或`nmap-netcat`

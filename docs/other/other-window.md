@@ -128,9 +128,84 @@ title: window
 ### win 命令
 
 -   内置命令
+
+    -   基本使用
+
+        -   `cd`
+        -   `D:`:进入 D 盘
+        -   `dir`:目录列表
+            -   `/a`:所有文件
+            -   `/ad`:查看所有文件夹，d 为属性之一
+        -   `mkdir .\a\b\c\d`
+        -   `rmdir a`:删除目录(rm 同样有效)
+            -   `/s`:删除非空录入树
+            -   `/q`:不要提示
+        -   `ren oldname newname`:重命名(rename 同样有效)
+        -   `copy fromName toName`:复制
+        -   `move fromName toName`:`剪切`或`重命名`目录或文件
+        -   `del path1 path2`:删除
+
     -   `cls`:清屏
     -   `calc`:计算器
-    -   `ipconfig`:ip
+    -   常用 cmd 终端指令
+        -   `指令 /?`:查看帮助
+        -   `指令 /help`:查看详细帮助
+        -   `color /? `:列出可以设置的颜色
+            -   `color 0a`:设置颜色
+        -   `title 'xx'`:设置标题
+        -   `date`:修改日期
+            -   `date /T`:查看日期
+        -   `time`:修改时间
+            -   `time /T`:查看时间
+        -   `start`:启动一个单独窗口或运行指定程序
+        -   `tasklist`:查看当前计算机或远程正在运行的列表
+            -   远程 `tasklist /S 远程IP /U 用户名 /P 密码`
+            -   `/FI "PID EQ 12345"`:筛选 PID 为 12345 的进程
+        -   `taskkill`:结束进程
+            -   `/PID 进程pid`
+            -   `/IM 进程名称`:`/FI` 筛选时可以用通配符\*
+                -   `/T`:同时杀死紫荆城
+            -   `/F`:强制关闭
+        -   `tree`:树形查看文件
+            -   `/F`:可查看文件
+        -   `shoutdown`:关机相关
+            -   `/i`:图形设置，必须第一个
+            -   `/s`:`关闭`计算机
+                -   `/sg`:开机自动登录关闭时的账户
+            -   `/r`:`重启`
+            -   `/h`:`休眠`
+            -   `/t xxx`:设置几秒后关闭
+            -   `/a`:`终止`关闭
+            -   `/f`:`强制`关闭
+            -   `/m \\computer`:连接远程
+        -   计划任务
+            -   `at`:at 22:00(时间) /every:xxx 指令
+            -   `schtasks`:[待研究](https://docs.microsoft.com/zh-cn/windows-server/administration/windows-commands/schtasks-create)
+        -   环境变量
+            -   `set`:查看系统的环境变量列表
+            -   `echo %变量%`:查看指定变量
+            -   `set COUNT=COUNTVALUE`:设置环境变量
+            -   `set COUNT=`:删除环境变量
+        -   用户与组(终端以管理员身份打开)
+            -   用户
+                -   `net user`:查看用户列表
+                -   `net user lzoxun`:查看用户详细信息
+                -   `net user <user-name> /delete`:删除用户
+                -   `net user <user-name> <user-pwd> /add`:添加用户
+            -   组
+                -   `net localgroup`:查看组列表
+                -   `net localgroup <group-name>`:查看组信息以及成员
+                -   `net localgroup <group-name> <user-name> /add`:向组中添加用户
+                -   `net localgroup <group-name> <user-name> /delete`:用户删除这个本地组
+        -   网络
+            -   `ping ip`:查看是否连通（win ping 4 次会自动结束）
+                -   `ping 127.0.0.1`:查看本地网卡是否正常
+            -   `telnet`: 需要开启
+            -   `ipconfig`:ip
+            -   `tracert ip或域名`:路由检测，探测本地主机与远程 ip 设备到底经过多少网络设备（IP 地址）才能进行正常的连接
+                -   测试局域网内基本一跳,百度十几跳
+            -   `arp`:显示与修改 IP 到物理地址转换表
+
 -   外部扩展命令
     -   自己安装程序配置 node、npm
 
@@ -141,30 +216,8 @@ title: window
     -   `set /a num = 3-1`:set 指令 /a 代表进行算数运算
         -   `echo %num%`:输出变量，变量需要百分号分格
 -   语句
-    -   `echo` :输出
--   cmd 终端指令
 
-    -   `指令 /?`:查看帮助
-    -   `color /? `:列出可以设置的颜色
-        -   `color 0a`:设置颜色
-    -   `title 'xx'`:设置标题
-    -   `date`:修改日期
-        -   `date /T`:查看日期
-    -   `time`:修改时间
-        -   `time /T`:查看时间
-    -   `start`:启动一个单独窗口或运行指定程序
-    -   `tasklist`:查看当前计算机或远程正在运行的列表
-        -   远程 `tasklist /S 远程IP /U 用户名 /P 密码`
-        -   `/FI "PID EQ 12345"`:筛选 PID 为 12345 的进程
-    -   `taskkill`:结束进程
-        -   `/PID 进程pid`
-        -   `/IM 进程名称`:`/FI` 筛选时可以用通配符\*
-            -   `/T`:同时杀死紫荆城
-        -   `/F`:强制关闭
-    -   `tree`:树形查看文件
-        -   `/F`:可查看文件
-    -   `shoutdown`:关机
-        -   `/i`:图形设置，必须第一个
+    -   `echo` :输出
 
 -   bat
 

@@ -1,13 +1,15 @@
 ---
 title: git bash
 ---
+
 ['参考'](https://juejin.cn/post/6844903700775845895)
 
 ## 配置文件
 
 ### git-prompt.sh
+
 > E:\install\Git\etc\profile.d\git-prompt.sh
-  
+
 ```shell
 if test -f /etc/profile.d/git-sdk.sh
 then
@@ -28,11 +30,11 @@ else
 	PS1="$PS1"'\[\e[33;36m\]lzo \[\033[31m\]@ \[\e[0m\]\[\e[32;1m\]SKY-4JBL\[\e[0m\]\[\e[31;1m\]'
 	#PS1="$PS1"'\[\e[34;1m\]\u@\[\e[0m\]\[\e[32;1m\]\h\[\e[0m\]\[\e[31;1m\]'
 	#PS1="$PS1"'\[\e[0m\]\[\e[32;1m\]\h\[\e[0m\]\[\e[31;1m\]'
-	PS1="$PS1"' ~'              
+	PS1="$PS1"' ~'
 	PS1="$PS1"'\[\033[36m\]'       # 青色
-	PS1="$PS1"' in '              
+	PS1="$PS1"' in '
 	PS1="$PS1"'\[\033[33;1m\]'     # 高亮黄色
-	PS1="$PS1"'\W'                 # 当前目录             
+	PS1="$PS1"'\W'                 # 当前目录
 
 	if test -z "$WINELOADERNOEXEC"
 	then
@@ -48,8 +50,8 @@ else
 			PS1="$PS1"'`__git_ps1`'    # git 插件
 		fi
 	fi
-	PS1="$PS1"'\[\033[30m\]'       
-	PS1="$PS1"' [\t]'                 
+	PS1="$PS1"'\[\033[30m\]'
+	PS1="$PS1"' [\t]'
 
 	PS1="$PS1"'\n'                 # 换行
 	PS1="$PS1"'$'
@@ -60,7 +62,9 @@ MSYS2_PS1="$PS1"
 ```
 
 ### .minttyrc
-- `~/.minttyrc`
+
+-   `~/.minttyrc`
+
 ```shell
 Font=DejaVu Sans Mono for Powerline
 FontHeight=12
@@ -101,7 +105,9 @@ FontIsBold=no
 ```
 
 ### .bash_profile
+
 > 强化 ~/.bash_profile
+
 ```shell
 alias bashalias='code ~/.bash_profile'
 alias bashcolor='code ~/.minttyrc'
@@ -129,6 +135,7 @@ alias host='code /c/Windows/System32/drivers/etc/hosts'
 ```
 
 ### tmux
+
 ```shell
 $ git clone https://github.com/liaozhongxun/my-git-bash.git
 $ cd bash
@@ -136,14 +143,16 @@ $ cp tmux/bin/* /usr/bin
 $ cp tmux/share/* /usr/share -r
 $ cp tools/* /usr/bin
 ```
+
 [tmux 配置文件插件](https://github.com/gpakosz/.tmux)
 
-### vscode 
+### vscode
+
 ```json
 {
-  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-  "terminal.integrated.shellArgs.windows": ["--login", "-i"],
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "terminal.integrated.shellArgs.windows": ["--login", "-i"]
 }
 ```
 
-### 终端输入 set -o vi 开启vim模式
+### 终端输入 set -o vi 开启 vim 模式
