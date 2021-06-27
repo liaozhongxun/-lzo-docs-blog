@@ -27,16 +27,41 @@ title: window
 ### WSL
 
 -   win10 微软的终端包管理工具
-    svn://192.168.3.18/mysvndir
+
+    -   Winget 目前使用 Manifest 来管理和安装软件（可以理解为：软件源），通过读取对应的 Manifest 清单来寻找软件
+    -   [winget](https://github.com/microsoft/winget-cli/releases):直接双击安装(Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle)
+    -   微软商店:搜索`应用安装程序`
+        -   `winget`:查看帮助
+            -   search 查找并显示程序包的基本信息
+                -   `模糊查找`出需要安装的`包名`
+                -   `winget search`:查看所有可安装的包
+            -   install 安装给定的程序包
+            -   show 显示包的相关信息
+            -   source 管理程序包的来源
+            -   list 显示已安装的程序包
+            -   upgrade 升级给定的程序包
+                -   `winget upgrade --all`:升级所有软件包
+            -   uninstall 卸载给定的程序包
+            -   hash 哈希安装程序的帮助程序
+            -   validate 验证清单文件
+            -   settings 打开设置
+            -   features 显示实验性功能的状态
+            -   export 导出已安装程序包的列表
+            -   import 安装文件中的所有程序包
+        -   `wingetcreate`:将软件包提交到社区仓库，可以同感 winget 安装
+    -   `scoop` 或者 `chocolately`:不是官方出的但是更加成熟
+    <!-- -   PowerShell 使用 scoop
+
+        -   `199.232.4.133 raw.githubusercontent.com`:配置 hosts
+        -   `iex (new-object net.webclient).downloadstring('https://raw.githubusercontent.com/lukesampson/scoop/master/bin/install.ps1')`:官网安装
+        -   `scoop uninstall scoop`:卸载 scoop 以及安装的所有软件 -->
 
 -   win 命令终端 windows PowerShell
-
     -   微软商店下载`windows Terminal`
     -   [官方文档](https://github.com/microsoft/terminal)
+    -   `$PSVersionTable`:PowerShell 终端下查看版本
     -   windows PowerShell 的配置
-
         -   `code $Profile`:打开配置文件
-
     -   `windows Terminal`配置文件
 
 ```shell
@@ -144,9 +169,25 @@ title: window
         -   `copy fromName toName`:复制
         -   `move fromName toName`:`剪切`或`重命名`目录或文件
         -   `del path1 path2`:删除
+        -   `attrib`:查看文件属性（R(只读)、A(普通文件)、S(系统文件，默认不显示)、H(隐藏文件)、。。。）
+            -   `attrib +h +s * /s /d`:隐藏当前文件夹下所有文件（命令可以看到）
+            -   `attrib +h * /s /d`:相当于系统的隐藏文件，可以同感查看隐藏文件显示出来
+        -   `findstr`:类似 grep
 
     -   `cls`:清屏
+    -   `mstsc`:远程链接
+    -   `compmgmt`:计算机管理 GUI
+    -   `firewall.cpl`:打开防火墙
+    -   `lusrmgr.msc`:打开用户与组
+    -   `dcomcnfg|services.msc`:系统服务
+    -   `devmgmt.msc`:设备管理器
+    -   `dxdiag`:查看系统信息
+    -   `diskmgmt.msc`:磁盘管理
+    -   `taskmgr`:任务管理器
+    -   `notepad`: 打开记事本
+    -   `winver`:win 版本
     -   `calc`:计算器
+        [xxx](https://www.cnblogs.com/hbbpb/archive/2007/09/06/883876.html)
     -   常用 cmd 终端指令
         -   `指令 /?`:查看帮助
         -   `指令 /help`:查看详细帮助
@@ -186,28 +227,82 @@ title: window
             -   `echo %变量%`:查看指定变量
             -   `set COUNT=COUNTVALUE`:设置环境变量
             -   `set COUNT=`:删除环境变量
-        -   用户与组(终端以管理员身份打开)
+        -   用户与组`lusrmgr.msc 打开GUI`(终端以管理员身份打开)
             -   用户
                 -   `net user`:查看用户列表
                 -   `net user lzoxun`:查看用户详细信息
                 -   `net user <user-name> /delete`:删除用户
                 -   `net user <user-name> <user-pwd> /add`:添加用户
+                -   `net user <user-name> /active:no`:禁用用户，yes 取消禁用
             -   组
                 -   `net localgroup`:查看组列表
                 -   `net localgroup <group-name>`:查看组信息以及成员
                 -   `net localgroup <group-name> <user-name> /add`:向组中添加用户
                 -   `net localgroup <group-name> <user-name> /delete`:用户删除这个本地组
+            -   其他 net
+                -   `net start SVNServer`:手动启动
+                -   `net stop SVNServer`:手动停止
         -   网络
             -   `ping ip`:查看是否连通（win ping 4 次会自动结束）
                 -   `ping 127.0.0.1`:查看本地网卡是否正常
             -   `telnet`: 需要开启
             -   `ipconfig`:ip
+                -   `ipconfig /release`:释放 IP
+                -   `ipconfig /renew`:重新获取 IP
+                -   `ipconfig /flushdns`:刷新 DNS(也许可以解决一些网络故障)
             -   `tracert ip或域名`:路由检测，探测本地主机与远程 ip 设备到底经过多少网络设备（IP 地址）才能进行正常的连接
                 -   测试局域网内基本一跳,百度十几跳
             -   `arp`:显示与修改 IP 到物理地址转换表
+            -   `netstat`
+                -   `-a`:显示所有链接以及监听端口
+                -   `-n`:数字 IP 形式人性化显示
+                -   `-o`:显示进程 ID
+                -   属性
+                    -   状态
+                        -   LISTENING:处于监听状态(等待连接)
+                        -   ESTABLISHED:建立连接成功
+                        -   TIME_WAIT：超时没有连接成功
+                -   运用
+                    -   已知端口被占用，`netstat`通过端口找到对于`PID`
+                    -   通过`tasklist |findstr PID`:找到进程名
+                    -   `taskkill` 通过名称杀死进程，单个进程的话跳过上一部直接通过 PID 杀死进程
+            -   `netsh`:网络配置
+                -   `netsh dump > d:/共享文件/lenovo-netshbak.txt`:备份网络配置
+                -   `netsh`:进入交互环境
+                    -   `int ip`:进入 ipv4
+                    -   `dump`:查看 ipv4 所有信息
+                    -   `set address name="WIFI" source=static addr=192.168.xxx.xxx mask=255,255,255,0`
+                        -   图形界面网络适配器 WIFI 的的 IP 地址和子网掩码就不是自动获得的了,而是上面变成设置了的
+                    -   `set address name="WIFI" source=dscp`
+                        -   自动获取 IP 正常
+                -   处理网络故障方案
+                    `netsh winsock reset`:winsock 协议配置有问题会导致网络故障，通过充值该目录来恢复网络
+                    `netsh int ip reset c:\resetlog.txt`:重置 TCP/IP，恢复到安装系统是的状态
+                -   netsh 设置防火墙入站规则(`firewall.cpl 打开GUI`)
+                    -   `netsh firewall`:简单模式设置（已弃用）
+                        -   `netsh firewall set portopening TCP 33333 ENABLE`
+                        -   `netsh firewall delete portopening TCP 33333`
+                    -   `netsh advfirewall`:高级模式设置
+                        -   `netsh advfirewall firewall add rule name=wallname dir=in action=allow protocol=TCP localport=33333`:防火墙添加入站规则（dir=out 出站）
+                        -   `netsh advfirewall firewall delete rule name=wallname protocol=TCP localport=33333`:防火墙删除入站规则
+                -   操作防火墙
+                    -   `netsh advfirewall show allprofile state`:查看防火墙状态
+                    -   `netsh advfirewall set allprofiles state off`:关闭所有防火墙
+                    -   `netsh advfirewall set allprofiles state on`:启用所有防火墙
+                -   `netsh wlan`获取已连接过的 WiFi 密码
+                    -   `netsh wlan show profiles`:获取链接过的 WiFi
+                    -   `netsh wlan show profile name="manja" key=clear"`:获取链接过的 WiFi
 
 -   外部扩展命令
     -   自己安装程序配置 node、npm
+
+### 功能
+
+-   命令行共享
+    -   `net share`:查看本地共享的文件夹(与计算机管理-共享下的列表一样)
+    -   `net share 共享名 /delete`:删除共享
+    -   `net share myshare=d:\testdir`:创建共享
+    -   `>net view \\192.168.192.1`:查看创建的共享
 
 ### bat 批处理
 
@@ -225,3 +320,10 @@ title: window
 "1.bat
 call 2.bat "调用其他文件
 ```
+
+## 系统优化
+
+-   `powercfg -h off`:管理员关闭休眠文件(自动删除 C 盘下的很大 hiberfil.sys )
+-   `http://veger.ys168.com/ 下载 SpaceSniffer汉化版.zip`:查看资源占用大小，或从系统-储存里面查看
+-   `%Temp%`:删除里面的文件
+-   `C:盘 右键清理磁盘`:选择要删除的
