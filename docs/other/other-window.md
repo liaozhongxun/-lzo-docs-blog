@@ -56,6 +56,80 @@ title: window
         -   `iex (new-object net.webclient).downloadstring('https://raw.githubusercontent.com/lukesampson/scoop/master/bin/install.ps1')`:官网安装
         -   `scoop uninstall scoop`:卸载 scoop 以及安装的所有软件 -->
 
+-   Scoop
+
+    -   要求：`Win7+ / PowerShell5+`,管理员身份运行 PowerShell
+    -   参数列表
+
+    ```shell
+    # 1
+    Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+    # 2 设置默认安装路径
+    $env:SCOOP='D:\Scoop'
+    [Environment]::SetEnvironmentVariable('SCOOP', $env:SCOOP, 'User')
+    # 3
+    iwr -useb get.scoop.sh | iex
+    # 执行scoop 不报错安装完成
+    "
+    alias    别名管理别名
+    bucket    仓库管理
+    cache    缓存显示或清除下载缓存
+    checkup    检查潜在问题
+    cleanup    通过删除旧版本清理应用程序
+    config    配置获取或设置配置值
+    create    创建自定义应用程序清单
+    depends    应用程序的依赖项列表
+    export    导出（可导入）已安装应用程序的列表
+    help    帮助显示命令的帮助
+    hold    按住应用程序以禁用更新
+    home    主页打开应用程序主页
+    info    信息显示有关应用程序的信息
+    install    安装应用程序
+    list    列出已安装的应用程序
+    prefix    prefix返回指定应用程序的路径
+    reset    重置应用程序以解决冲突
+    search    搜索可用的应用程序
+    status    状态显示状态并检查新的应用程序版本
+    unhold    取消挂起取消挂起应用程序以启用更新
+    uninstall    卸载应用程序
+    update    更新应用程序，或独家报道自己
+    virustotal    virustotal在virustotal.com上查找应用程序的哈希
+    which    定位一个填充程序/可执行程序（类似于Linux上的“which”）
+    "
+
+    # 安装 aria2 进行多线程下载提高速度
+    scoop install aria2
+    # 安装一下必要包
+    scoop install 7zip innounp dark
+
+    # 导出软件列表拥有备份与换机
+    scoop export > scoop.txt
+
+    # 添加其他 bucket 软件库 `scoop bucket add [软件源名字] [源地址]`
+    # 查看 bucket 官方提供软件库列表（可添加）
+    scoop bucket known
+    # 添加/删除软件库
+    scoop bucket add extras
+    scoop bucket add java
+    scoop bucket rm java
+
+    # 社区提供
+    scoop bucket add echo https://github.com/echoiron/echo-scoop
+    scoop bucket add dorado https://github.com/chawyehsu/dorado
+    scoop bucket add dodorz https://github.com/dodorz/scoop
+    #合并仓库
+    https://github.com/kkzzhizhou/scoop-apps
+    scoop bucket add apps https://gitee.com/kkzzhizhou/scoop-apps
+    # 搜索 软件名+Scoop 也许可以找到该软件被什么软件库收录
+
+    # 更换 Scoop 下载源
+    #[参考](https://gitee.com/squallliu/scoop#install-scoop-to-a-custom-directory-by-changing-scoop)
+    #[参考](https://gitee.com/squallliu/scoop)
+    scoop config SCOOP_REPO https://gitee.com/squallliu/scoop
+    scoop update
+
+    ```
+
 -   win 命令终端 windows PowerShell
     -   微软商店下载`windows Terminal`
     -   [官方文档](https://github.com/microsoft/terminal)

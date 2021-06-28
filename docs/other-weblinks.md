@@ -22,6 +22,7 @@ title: 收藏
 -   [服务端返回 Content-Type 类型对照表](https://tool.oschina.net/commons)
 -   [根据域名查询 ip](https://www.ipaddress.com/)
 -   [极速 api 接口](https://www.jisuapi.com/my/apply?classid=4)
+-   [githubIp 查询](https://www.ipaddress.com/) 刷新 DNS `ipconfig /flushdns`
 
 ---
 
