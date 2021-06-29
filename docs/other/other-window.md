@@ -59,6 +59,7 @@ title: window
 -   Scoop
 
     -   要求：`Win7+ / PowerShell5+`,管理员身份运行 PowerShell
+    -   $PSVersionTable.PSVersion | git-host
     -   参数列表
 
     ```shell
@@ -69,6 +70,12 @@ title: window
     [Environment]::SetEnvironmentVariable('SCOOP', $env:SCOOP, 'User')
     # 3
     iwr -useb get.scoop.sh | iex
+
+    # 未能创建 SSL/TLS 安全通道解决方案
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    # 连接关闭发送错误
+    iex (new-object net.webclient).downloadstring("https://raw.githubusercontent.com/lukesampson/scoop/master/bin/install.ps1")
+
     # 执行scoop 不报错安装完成
     "
     alias    别名管理别名
