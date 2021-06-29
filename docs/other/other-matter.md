@@ -8,6 +8,12 @@ title: 偏门问题
 
     - web调用摄像头，web播放rtsp视频流问题
 
+### 终端图标字体无法显示问题
+
+-   [方案 1](https://www.nerdfonts.com/)
+    -   [下载](https://www.nerdfonts.com/font-downloads)
+    -   下载喜欢的字体然后右键选择`为所有用户安装`后更改 PowerShell 窗口的字体即可
+
 ### js 浮点数计算偏差问题
 
 > 两位小数: 同时乘以 100 变成整数,结果再根据运算符相对的减少倍数
@@ -49,13 +55,13 @@ title: 偏门问题
         "prefix": "temp",
         "body": [
             "<template>",
-	    	"<div class='warp'></div>",
+            "<div class='warp'></div>",
             "</template>",
             "<script>",
-		    "import * as API from '@/api';",
-	    	"export default {",
-	    	"data(){return {}},create(){},methods:{getData() {let that = this;API.AxiosPOST('', {}).then((res) => {});},},mounted(){this.getData()}",
-	    	"}",
+            "import * as API from '@/api';",
+            "export default {",
+            "data(){return {}},create(){},methods:{getData() {let that = this;API.AxiosPOST('', {}).then((res) => {});},},mounted(){this.getData()}",
+            "}",
             "</script>",
             "<style lang='scss' scoped>",
             "</style>"

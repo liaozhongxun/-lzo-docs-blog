@@ -130,6 +130,34 @@ title: window
 
     ```
 
+-   powerShell 美化
+
+````shell
+# 安装posh-git和oh-my-posh
+Install-Module posh-git -Scope CurrentUser
+Install-Module oh-my-posh -Scope CurrentUser
+# 卸载
+Uninstall-Module posh-git
+Uninstall-Module oh-my-posh
+
+# 检测并初始化 Profile 文件
+if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
+
+# 打开配置文件
+notepad $PROFILE
+
+# 设置配置信息
+Import-Module posh-git
+Import-Module oh-my-posh
+Set-PoshPrompt Paradox #主 题
+
+#可选主题
+Agnoster、Avit、Darkblood、Fish、Honukai +、Paradox、PowerLine、robbyrussell、Sorin +、tehrob 等
+
+#字体无法显示(https://www.nerdfonts.com/font-downloads)
+#下载喜欢的字体然后右键选择`为所有用户安装`后更改PowerShell窗口的字体即可
+
+···
 -   win 命令终端 windows PowerShell
     -   微软商店下载`windows Terminal`
     -   [官方文档](https://github.com/microsoft/terminal)
@@ -208,7 +236,7 @@ title: window
     ],
     "theme": "dark"
 }
-```
+````
 
 ### 美化
 
