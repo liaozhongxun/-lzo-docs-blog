@@ -66,3 +66,5 @@ title: 收藏
 -   [snipaste 截图](https://zh.snipaste.com/)
 -   [蓝湖 产品原型设计软件](https://lanhuapp.com/web/#/item)
 -   [window mydock](https://www.mydockfinder.com/)
+-   [彼岸壁纸](http://www.netbian.com/)
+-   [win10](https://www.microsoft.com/zh-cn/software-download/windows10)
