@@ -317,6 +317,7 @@ git push origin master
 # 这时 /home/git/repositories 下会多一个new-project.git
 ```
 
+```
 192.30.253.112    Build software better, together 
 192.30.253.119    gist.github.com
 151.101.184.133    assets-cdn.github.com
@@ -334,3 +335,4 @@ git push origin master
 151.101.184.133    avatars7.githubusercontent.com
 151.101.184.133    avatars8.githubusercontent.com
 151.101.184.133    avatars.githubusercontent.com
+```
