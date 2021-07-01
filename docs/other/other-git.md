@@ -140,7 +140,7 @@ git fetch # 从远程拉去最新内容
 
 > 分支分为本地放在(本地操作是后面跟的那个如 master)和远程分支(远程 tags 旁边那个如 origin/master)
 
-```shell
+````shell
 git branch # 查看所有本地分支
 git branch -r # 查看所有远程分支
 git branch -a # 查看本地与远程的分支（远程分支前面会有remotes表示这是远程的）
@@ -184,7 +184,7 @@ git checkout -b <branch name> <tag name> # 检出指定分支 指定标签的代
 
 git tag -d <tag name> # 删除标签
 git push origin :refs/tags/<tag name> # 删除远程标签
-```
+````
 
 ### 文件操作
 
@@ -316,3 +316,21 @@ git push origin master
 
 # 这时 /home/git/repositories 下会多一个new-project.git
 ```
+
+192.30.253.112    Build software better, together 
+192.30.253.119    gist.github.com
+151.101.184.133    assets-cdn.github.com
+151.101.184.133    raw.githubusercontent.com
+151.101.184.133    gist.githubusercontent.com
+151.101.184.133    cloud.githubusercontent.com
+151.101.184.133    camo.githubusercontent.com
+151.101.184.133    avatars0.githubusercontent.com
+151.101.184.133    avatars1.githubusercontent.com
+151.101.184.133    avatars2.githubusercontent.com
+151.101.184.133    avatars3.githubusercontent.com
+151.101.184.133    avatars4.githubusercontent.com
+151.101.184.133    avatars5.githubusercontent.com
+151.101.184.133    avatars6.githubusercontent.com
+151.101.184.133    avatars7.githubusercontent.com
+151.101.184.133    avatars8.githubusercontent.com
+151.101.184.133    avatars.githubusercontent.com
