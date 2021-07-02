@@ -56,7 +56,7 @@ title: window
         -   `iex (new-object net.webclient).downloadstring('https://raw.githubusercontent.com/lukesampson/scoop/master/bin/install.ps1')`:官网安装
         -   `scoop uninstall scoop`:卸载 scoop 以及安装的所有软件 -->
 
--   Scoop
+-   Scoop [官网](https://scoop.sh/)
 
     -   要求：`Win7+ / PowerShell5+`,管理员身份运行 PowerShell
     -   $PSVersionTable.PSVersion | git-host
@@ -115,6 +115,14 @@ title: window
     # 添加其他 bucket 软件库 `scoop bucket add [软件源名字] [源地址]`
     # 查看 bucket 官方提供软件库列表（可添加）
     scoop bucket known
+
+    extras # 诸多有用的软件都在里面
+    main # 默认的大仓库
+    nerd-fonts # 编程字体一览无遗
+    nonportable # 收录神奇的UWP应用
+    versions # 收录软件包的历史版本
+    ...
+
     # 添加/删除软件库
     scoop bucket add extras
     scoop bucket add java
@@ -128,7 +136,12 @@ title: window
     https://github.com/kkzzhizhou/scoop-apps
     scoop bucket add apps https://gitee.com/kkzzhizhou/scoop-apps
     # 搜索 软件名+Scoop 也许可以找到该软件被什么软件库收录
+    # 常用软件
+    #   quicklook:选择文件空格快速于然
+    #   snipaste :截图工具
+    #   motrix: 类似迅雷的开源轻量下载工具
 
+    
     # 更换 Scoop 下载源
     #[参考](https://gitee.com/squallliu/scoop#install-scoop-to-a-custom-directory-by-changing-scoop)
     #[参考](https://gitee.com/squallliu/scoop)
