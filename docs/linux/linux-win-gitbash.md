@@ -109,27 +109,22 @@ FontIsBold=no
 > 强化 ~/.bash_profile
 
 ```shell
-alias bashalias='code ~/.bash_profile'
-alias bashcolor='code ~/.minttyrc'
-alias bashconfig='code /etc/profile.d/git-prompt.sh'
-alias gitconfig='code ~/.gitconfig'
-
 alias .='cd ~'
 alias ..='cd ..'
 alias ...='cd ../..'
-alias e='exit'
-alias cls='clear'
 
 alias gs='git status'
 alias ga='git add .'
 alias gc='git commit -m'
-alias gp='git push'
-alias gitauto='git add . && git commit -m "auto deploy" && git push'
+alias gP='git push'
+alias gp='git pull'
+alias g-p='git add . && git commit -m "auto deploy" && git push'
 
-alias sysoff='shutdown -s -t 0'
-alias sysre='shutdown -r -t 0'
+alias c-host='code /mnt/c/Windows/System32/drivers/etc/hosts'
 
-alias host='code /c/Windows/System32/drivers/etc/hosts'
+# debain 类系统
+alias apt="sudo apt"
+
 .....
 
 ```

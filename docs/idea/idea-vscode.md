@@ -115,3 +115,5 @@ Powermode: Enable Shake 去除代码抖动
     "terminal.integrated.shellArgs.windows": ["/k", "[D:\\install\\cmder\\Cmder]\\vendor\\init.bat"],
 }
 ```
+- 配置默认终端
+    - `ctrl+shift+P`:输入 `>terminal:select default profile`

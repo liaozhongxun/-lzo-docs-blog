@@ -131,7 +131,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -   主题
     -   .zshrc 中 ZSH_THEME="主题名称"
     -   主题都在 `/usr/share/oh-my-zsh/theme`下
-    -   推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`、`steeef`、`ys`
+    -   推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`、`steeef`、`ys`,`norm`
 -   zsh vi 模式(使用 vim 快捷键)
     -   .zshrc 添加 bindkey -v
 
@@ -211,8 +211,8 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     chmod 755 /usr/local/bin/screenfetch
 
 ### fzf 全局搜索插件
-
--   ## 搜索
+-  快捷键
+    - `c+n|c+p|鼠标滚轮`:上下移动关闭
 -   结合 vim
 -   结合 ranger
 
