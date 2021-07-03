@@ -218,8 +218,6 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 
 ### nvme
 
--   linux 如何 nvm 无效就要 nvme
-
 ### tmux 终端复用
 
 -   配置文件:`~/.tmux.conf`
