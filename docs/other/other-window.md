@@ -25,6 +25,11 @@ title: window
 ## 服务
 
 ### WSL
+- WSL 升级 WSL2
+    - 先 `wsl --set-version Ubuntu-18.04 2` 才能转`wsl --set-default-version 2`
+    - dos 可以通过`wsl grep xxx` 使用子系统命令
+    - sudo  passwd root 设置root密码
+### 包管理工具
 
 -   win10 微软的终端包管理工具
 
@@ -106,6 +111,7 @@ title: window
 
     # 安装 aria2 进行多线程下载提高速度
     scoop install aria2
+    scoop config aria2-enabled false #关闭
     # 安装一下必要包
     scoop install 7zip innounp dark
 
@@ -296,6 +302,7 @@ linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
             -   `attrib +h +s * /s /d`:隐藏当前文件夹下所有文件（命令可以看到）
             -   `attrib +h * /s /d`:相当于系统的隐藏文件，可以同感查看隐藏文件显示出来
         -   `findstr`:类似 grep
+        -   `echo xxx>filename`:创建文件
 
     -   `cls`:清屏
     -   `mstsc`:远程链接
