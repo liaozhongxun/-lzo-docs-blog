@@ -178,7 +178,7 @@ Import-Module oh-my-posh
 Set-PoshPrompt Paradox #主 题
 
 #可选主题
-Agnoster、Avit、Darkblood、Fish、Honukai +、Paradox、PowerLine、robbyrussell、Sorin +、tehrob 等
+Paradox、robbyrussell、Agnoster、Avit、Fish、Darkblood、Honukai +、PowerLine、Sorin +、tehrob 等
 
 #字体无法显示(https://www.nerdfonts.com/font-downloads)
 #下载喜欢的Nerd字体然后右键选择`为所有用户安装`后更改PowerShell窗口的字体即可
