@@ -120,6 +120,8 @@ alias gP='git push'
 alias gp='git pull'
 alias g-p='git add . && git commit -m "auto deploy" && git push'
 
+alias oe="exit"
+alias oq="quit"
 alias c-host='code /mnt/c/Windows/System32/drivers/etc/hosts'
 
 # debain 类系统

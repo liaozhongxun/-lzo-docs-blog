@@ -18,3 +18,10 @@ title: kali
     -   `deb-src https://mirrors.aliyun.com/kali kali-rolling main non-free contrib`
     -   `apt update`
         -   `apt install -y open-vm-tools-desktop`虚拟机全屏
+## apt
+- 清理
+```shell
+sudo apt-get autoclean               # 清理旧版本的软件缓存 
+sudo apt-get clean                      # 清理所有软件缓存
+sudo apt-get autoremove           # 删除系统不再使用的孤立软件
+```
