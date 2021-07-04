@@ -117,14 +117,14 @@ title: linux
     -   `-r` ：复制目标可以是目录
     -   `-p` ：保留复制目标文件属性
 -   `rsync <old-file> <new-file> `
-    -   `-r`:递归复制子目录 
+    -   `-r`:递归复制子目录
     -   `-v`:查看复制的文件
     -   `-u`：只复制修改过的文件
 -   `mv <old-file> <new-file> `： 剪切（剪切目录不要 -r）
-    - 安装 mmv
-    - mmv '*.*.*.*' '#1.#2'
-    - mmv 'file*.rar' 'text#1.zip'
-    - #1 代表第一个*号匹配的内容，#2代表第二个*号代表的内容
+    -   安装 mmv
+    -   mmv '_._._._' '#1.#2'
+    -   mmv 'file\*.rar' 'text#1.zip'
+    -   #1 代表第一个*号匹配的内容，#2 代表第二个*号代表的内容
 -   `dd if=/dev/zero of=/tmp/test bs=1M count=60`:构造一个 60 个 1M 大小的文件，从/dev/zero 文件放到/tmp/
 -   文件属性设置
 
@@ -699,7 +699,7 @@ title: linux
     -   安装阿里云 yum 源：
         -   备份或删除 /etc/yum.repos.d/下的 yum 源文件
         -   wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-        -   wget  http://mirrors.aliyun.com/repo/epel-7.repo --directory-prefix=/etc/yum.repos.d
+        -   wget http://mirrors.aliyun.com/repo/epel-7.repo --directory-prefix=/etc/yum.repos.d
         -   yum clean all && yum makecache
         -   `yum makecache` 更新 yum 源
         -   `yum repolist` 查看 yum 源
@@ -724,9 +724,11 @@ title: linux
         -   `yum install 服务 -y`:不用询问
     -   `yum remove 服务`:删除软件包
     -   `yum clean all`:清除
-    -    `yum search ifconfig`:查看ifconfig属于哪个软件包 
+    -   `yum search ifconfig`:查看 ifconfig 属于哪个软件包
 -   常用服务
     -   `lrzsz`:远程文件上传下载
+        -   `rz`:从客户端上传文件到 linux
+        -   `sz filename`:从 linux 下载文件到客户端
 
 ### debian 包安装
 
@@ -741,10 +743,10 @@ title: linux
 -   进程（PID）
     -   概念
         -   程序与进程的差别
-            - 程序:静态的，放在磁盘上的可执行文件
-            - 进程:动态的,运行中的程序实例
-            - 程序是一些指令的`有序集合`，进程是`程序执行的过程`，进程的`状态是变化`的包括创建、调度、和消亡
-            - 程序只要运行，就成了是`进程`,`每运行一次`就会创建一个进程
+            -   程序:静态的，放在磁盘上的可执行文件
+            -   进程:动态的,运行中的程序实例
+            -   程序是一些指令的`有序集合`，进程是`程序执行的过程`，进程的`状态是变化`的包括创建、调度、和消亡
+            -   程序只要运行，就成了是`进程`,`每运行一次`就会创建一个进程
         -   进程就是系统`内存`中`正在运行`的程序，某些程序可以同时产生`多个`进程
         -   CPU 通过内存去处理这些程序，所以核对线程多处理进程速度越快
         -   没有运行的程序只占用硬盘空间，不消耗系统资源
@@ -754,13 +756,13 @@ title: linux
     -   基础状态
         -   运行态
             -   某个进程分配到 cpu 正在处理器上执行的状态，单 CPU 单线程的处理器，一个时间最多有一个
-            -   正在占用cpu运行，四核八线程可以同时存在八个运行态进程
+            -   正在占用 cpu 运行，四核八线程可以同时存在八个运行态进程
         -   就绪态
             -   准备好，等前面进程 cpu 时间片时间到，进程调度轮到自己时，直接可以开始工作
         -   阻塞态
             -   等待一个时机到来触发的程序，触发后转就绪态， 如:I/O 交互
         -   进程调度通过`时间片轮转、上下文切换`
-    - 进程控制块(task_struct结构 中的 PCB)??   
+    -   进程控制块(task_struct 结构 中的 PCB)??
     -   Linux 详细状态
         -   `R`:可运行状态
         -   `S`:可中断的等待状态
@@ -788,7 +790,7 @@ title: linux
             -   `u`:显示影响用户的信息(用户名、cpu、内存等)
             -   `-aux`: 风格一
             -   `-ef`:风格二（可以看到 PPID）
-            -    `ajx`:...
+            -   `ajx`:...
         -   `top`:查看动态进程信息(htop 插件的作用)
             -   第一行:`当前时间` up `运行多久`,`几个用户上线`, load average:`过去1、5、15分钟内CPU平均负载`
             -   第二行:Tasks 任务:`任务总数`,`运行态个数`,`就绪态个数`,`阻塞态个数`,`僵死态个数`
@@ -832,7 +834,7 @@ title: linux
 
     -   概念
         -   服务实在系统后台运行、并等待用户或其他软件调用的一类特殊程序
-        -   父进程是初始化进程 PPID 为 1，与终端无关 ,0一般为调度进程(交换进程)
+        -   父进程是初始化进程 PPID 为 1，与终端无关 ,0 一般为调度进程(交换进程)
         -   服务程序结尾一般带`d`
         -   比较重要的是一项对外提供功能的网络服务,运行后，通常系统中都会开发相应的端口
     -   指令

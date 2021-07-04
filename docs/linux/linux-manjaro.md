@@ -211,8 +211,9 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     chmod 755 /usr/local/bin/screenfetch
 
 ### fzf 全局搜索插件
--  快捷键
-    - `c+n|c+p|鼠标滚轮`:上下移动关闭
+
+-   快捷键
+    -   `c+n|c+p|鼠标滚轮`:上下移动关闭
 -   结合 vim
 -   结合 ranger
 
@@ -298,10 +299,10 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -   `jc <dir-name>`:进入字符串目录的`子目录`
 -   `joc <dir-name>`:进入字符串目录的`子目录`的`文件管理器`
 -   手动安装
-    - git clone git://github.com/joelthelion/autojump.git
-    - ./install.py
-    - 按照提示 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && . ~/.autojump/etc/profile.d/autojump.zsh
-    - source .zshrc
+    -   git clone git://github.com/joelthelion/autojump.git
+    -   ./install.py
+    -   按照提示 [[-s ~/.autojump/etc/profile.d/autojump.zsh]] && . ~/.autojump/etc/profile.d/autojump.zsh
+    -   source .zshrc
 
 ### lazygit
 
@@ -374,16 +375,18 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
         -   `map f console scout -ftsea%space`:f 搜索 X
 
 -   修改默认文本编辑器
+
     -   echo export EDITOR=/usr/bin/vim >> ~/.bashrc
     -   echo export EDITOR=/usr/bin/vim >> ~/.zshrc
 
-- 批量操作文件
-    - 批量重命名
-        - 按v全选文件，或按空格选择单个文件
-        - :bulkrename 回车 进入vim编辑模式
-        - 修改文件名 
-        - 保存退出
-        - cw 单个文件命名
+-   批量操作文件
+    -   批量重命名
+        -   按 v 全选文件，或按空格选择单个文件
+        -   :bulkrename 回车 进入 vim 编辑模式
+        -   修改文件名
+        -   保存退出
+        -   cw 单个文件命名
+
 ### 终端模拟器
 
 -   edex-ui
@@ -393,15 +396,14 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 `vim ~/.config/user-dirs.dirs`
 
 ### 版本更新报错
-1.首先更新一下密钥，如果没有安装archlinux-keyring,请及时安装
-sudo pacman-key --refresh-keys
-2.重新加载相应的签名密钥
+
+1.首先更新一下密钥，如果没有安装 archlinux-keyring,请及时安装
+sudo pacman-key --refresh-keys 2.重新加载相应的签名密钥
 sudo pacman-key --init
 sudo pacman-key --populate
-3。清除pacman 的缓冲文件
-sudo pacman -Scc
-4.更新或者安装系统即可
-sudo pacman -Syu || sudo pacman -Syudd(-dd跳过全部检测)_
+3。清除 pacman 的缓冲文件
+sudo pacman -Scc 4.更新或者安装系统即可
+sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 
 ## 常用软件
 
@@ -422,6 +424,7 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd跳过全部检测)_
 -   `flareget`:下载器
 -   `baobab`:磁盘使用情况图形化分析
 -   `netease-cloud-music`:网易云
+-   `notepad++`:编辑轻量脚本代码
 
 ### 网上存储
 

@@ -91,3 +91,13 @@ pam_service_name=vsftpd
 ### nc
 
 -   安装 `nmap-ncat`或`nmap-netcat`
+
+### openssh(远程连接工具)
+
+> 使其他设备可以通过 `xshell，mobaxterm 等工具远程连接`
+
+-   安装 openssh
+-   `system status ssh`:查看是否开启
+-   `lsof -i:22`:检测是否可以使用,默认 22 端口
+
+### vsftpd(创建 ftp 连接)

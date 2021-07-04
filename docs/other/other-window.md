@@ -25,10 +25,12 @@ title: window
 ## 服务
 
 ### WSL
-- WSL 升级 WSL2
-    - 先 `wsl --set-version Ubuntu-18.04 2` 才能转`wsl --set-default-version 2`
-    - dos 可以通过`wsl grep xxx` 使用子系统命令
-    - sudo  passwd root 设置root密码
+
+-   WSL 升级 WSL2
+    -   先 `wsl --set-version Ubuntu-18.04 2` 才能转`wsl --set-default-version 2`
+    -   dos 可以通过`wsl grep xxx` 使用子系统命令
+    -   sudo passwd root 设置 root 密码
+
 ### 包管理工具
 
 -   win10 微软的终端包管理工具
@@ -147,7 +149,7 @@ title: window
     #   snipaste :截图工具
     #   motrix: 类似迅雷的开源轻量下载工具
 
-    
+
     # 更换 Scoop 下载源
     #[参考](https://gitee.com/squallliu/scoop#install-scoop-to-a-custom-directory-by-changing-scoop)
     #[参考](https://gitee.com/squallliu/scoop)
@@ -434,8 +436,10 @@ linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
     -   `net share myshare=d:\testdir`:创建共享
     -   `>net view \\192.168.192.1`:查看创建的共享
 -   无法找搜索到别人共享的处理方法
-    - 1、控制面板\网络和 Internet\网络和共享中心\高级共享设置 打开公共文件共享
-    - 2、或控制面板\程序\程序和功能->启用关闭widows功能 勾起 SMB 1.0/CFLS 文件共享支持
+    -   1、双方控制面板\网络和 Internet\网络和共享中心\高级共享设置 打开公共文件共享
+    -   2、关闭对方防火墙(或将对方防火墙网路发现的公用私用打钩允许)
+    -   3、关闭对方控制面板\程序\程序和功能->启用关闭 widows 功能 勾掉 `SMB 1.0/CFLS 文件共享支持`
+-
 
 ### bat 批处理
 

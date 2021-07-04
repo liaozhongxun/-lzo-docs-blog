@@ -12,22 +12,32 @@ title: kali
 -   安装
     -   找到 Graphical installer 图形安装
 -   基本配置
+
     -   国内源
+
         -   `/etc/apt/sources.list`
         -   `deb https://mirrors.aliyun.com/kali kali-rolling main non-free contrib`
         -   `deb-src https://mirrors.aliyun.com/kali kali-rolling main non-free contrib`
         -   `apt-get update && apt-get upgrade && apt-get dist-upgrade `
         -   `apt-get clean `：清除缓存
-    
+
     -   `apt install -y open-vm-tools-desktop`虚拟机全屏
+
 ## apt
-- 清理
+
+-   清理
+
 ```shell
-sudo apt-get autoclean               # 清理旧版本的软件缓存 
+sudo apt-get autoclean               # 清理旧版本的软件缓存
 sudo apt-get clean                      # 清理所有软件缓存
 sudo apt-get autoremove           # 删除系统不再使用的孤立软件
 ```
 
+## 指令
+
+### lsof
+
+-   `lsof -i:22`:查看 22 端口的服务
 
 ```shell
 #中科大
