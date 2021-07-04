@@ -12,16 +12,49 @@ title: kali
 -   安装
     -   找到 Graphical installer 图形安装
 -   基本配置
-    -   国内元
-    -   `/etc/apt/sources.list`
-    -   `deb https://mirrors.aliyun.com/kali kali-rolling main non-free contrib`
-    -   `deb-src https://mirrors.aliyun.com/kali kali-rolling main non-free contrib`
-    -   `apt update`
-        -   `apt install -y open-vm-tools-desktop`虚拟机全屏
+    -   国内源
+        -   `/etc/apt/sources.list`
+        -   `deb https://mirrors.aliyun.com/kali kali-rolling main non-free contrib`
+        -   `deb-src https://mirrors.aliyun.com/kali kali-rolling main non-free contrib`
+        -   `apt-get update && apt-get upgrade && apt-get dist-upgrade `
+        -   `apt-get clean `：清除缓存
+    
+    -   `apt install -y open-vm-tools-desktop`虚拟机全屏
 ## apt
 - 清理
 ```shell
 sudo apt-get autoclean               # 清理旧版本的软件缓存 
 sudo apt-get clean                      # 清理所有软件缓存
 sudo apt-get autoremove           # 删除系统不再使用的孤立软件
+```
+
+
+```shell
+#中科大
+deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+
+#阿里云
+deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+
+#清华大学
+#deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+#deb-src https://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+
+#浙大
+#deb http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
+#deb-src http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
+
+#东软大学
+#deb http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
+#deb-src http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
+
+#官方源
+#deb http://http.kali.org/kali kali-rolling main non-free contrib
+#deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+
+#重庆大学
+#deb http://http.kali.org/kali kali-rolling main non-free contrib
+#deb-src http://http.kali.org/kali kali-rolling main non-free contrib
 ```

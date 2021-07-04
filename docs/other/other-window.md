@@ -433,6 +433,9 @@ linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
     -   `net share 共享名 /delete`:删除共享
     -   `net share myshare=d:\testdir`:创建共享
     -   `>net view \\192.168.192.1`:查看创建的共享
+-   无法找搜索到别人共享的处理方法
+    - 1、控制面板\网络和 Internet\网络和共享中心\高级共享设置 打开公共文件共享
+    - 2、或控制面板\程序\程序和功能->启用关闭widows功能 勾起 SMB 1.0/CFLS 文件共享支持
 
 ### bat 批处理
 
