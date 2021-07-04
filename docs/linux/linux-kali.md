@@ -13,7 +13,7 @@ title: kali
     -   找到 Graphical installer 图形安装
 -   基本配置
 
-    -   国内源
+    -   国内源 
 
         -   `/etc/apt/sources.list`
         -   `deb https://mirrors.aliyun.com/kali kali-rolling main non-free contrib`
