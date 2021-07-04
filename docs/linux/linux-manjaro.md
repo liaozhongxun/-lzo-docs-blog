@@ -136,6 +136,11 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   .zshrc 添加 bindkey -v
 -  [插件扩展 powerlevel10k](https://github.com/romkatv/powerlevel10k/blob/master/README.md#oh-my-zsh)
     -  `p10k configure`:第一次需要配置，这样重新配置
+-  命令行高亮
+    - yay -S zsh-syntax-highlighting zsh-autosuggestions
+    - 如果不生效
+        - sudo ln -s /usr/share/zsh/plugins/zsh-syntax-highlighting /usr/share/oh-my-zsh/custom/plugins/
+        - sudo ln -s /usr/share/zsh/plugins/zsh-autosuggestions /usr/share/oh-my-zsh/custom/plugins/
 
 ### 安装程序
 
