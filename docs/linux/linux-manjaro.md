@@ -134,6 +134,8 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`、`steeef`、`ys`,`norm`
 -   zsh vi 模式(使用 vim 快捷键)
     -   .zshrc 添加 bindkey -v
+-  [插件扩展 powerlevel10k](https://github.com/romkatv/powerlevel10k/blob/master/README.md#oh-my-zsh)
+    -  `p10k configure`:第一次需要配置，这样重新配置
 
 ### 安装程序
 
