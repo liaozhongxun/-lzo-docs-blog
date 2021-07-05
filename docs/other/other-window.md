@@ -30,6 +30,19 @@ title: window
     -   先 `wsl --set-version Ubuntu-18.04 2` 才能转`wsl --set-default-version 2`
     -   dos 可以通过`wsl grep xxx` 使用子系统命令
     -   sudo passwd root 设置 root 密码
+-   终端切换
+    - 普通终端 wsl 进入打开子系统终端
+    - 子系统`cmd.exe` 直接进入cmd终端
+    - 子系统 `/mnt/d/Scoop/apps/git/current/bin/bash.exe`(自己git路径)进入git终端
+    - 子系统 `powershell.exe`进入powershell终端
+    - exit 推出进入父及终端
+
+```shell
+#wsl 别名
+alias git-bash="/mnt/d/Scoop/apps/git/current/bin/bash.exe"
+alias powershell="powershell.exe"
+alias cmd="cmd.exe"
+```
 
 ### 包管理工具
 

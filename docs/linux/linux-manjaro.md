@@ -251,7 +251,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -   会话
 
     -   `tmux new -s flask` :新建会话
-    -   `ctrl+b`:进入激活状态
+    -   `ctrl+b`:进入激活状态，习惯设置ctrl+a
         -   会话快捷键
             -   `d`:分离会话
             -   `s`:会话列表
