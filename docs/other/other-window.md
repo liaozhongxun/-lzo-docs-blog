@@ -96,7 +96,7 @@ alias cmd="cmd.exe"
     # 连接关闭发送错误
     iex (new-object net.webclient).downloadstring("https://raw.githubusercontent.com/lukesampson/scoop/master/bin/install.ps1")
 
-    # 执行scoop 不报错安装完成
+    # 执行scoop 不报错安装完成 
     "
     alias    别名管理别名
     bucket    仓库管理
