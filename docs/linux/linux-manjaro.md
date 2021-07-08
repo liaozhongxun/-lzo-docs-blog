@@ -366,6 +366,17 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   `w`任务管理器
     -   `zh`:显示隐藏文件
     -   `r`:选择当前文件打开方式，或者`:code `这样动态指定打开方式
+-  书签
+    - `m` 加 任意键创建
+    - ` 打开
+    - `um` 删除
+-  标签(窗口)
+    - `gn|ctrl+n`:创建
+    - `gt|gT`:切换
+    - `gc|ctrl+w`:关闭
+-  其他
+    - gh:用户主目录
+    - gr:根目录
 -   特殊功能
     -   `:`: 命令操作
 -   配置文件夹`~/.config/ranger`
