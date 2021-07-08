@@ -373,7 +373,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -  标签(窗口)
     - `gn|ctrl+n`:创建
     - `gt|gT`:切换
-    - `gc|ctrl+w`:关闭
+    - `gc|ctrl+w`:关闭eeep
 -  其他
     - gh:用户主目录
     - gr:根目录
