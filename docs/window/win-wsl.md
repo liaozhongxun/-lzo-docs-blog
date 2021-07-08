@@ -3,7 +3,9 @@ title: wsl
 ---
 
 ## WSL
-
+### 使用
+-  win `\\wsl$\kali-linux` :直接范围wsl文件
+-  wsl `code //wsl$/kali-linux` :直接通过win编辑器操作wsl文件
 ### window 普通使用
 -   WSL 升级 WSL2
     -  `winver`:查看win版本
