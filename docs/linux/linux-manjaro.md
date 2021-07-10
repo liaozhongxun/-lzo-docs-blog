@@ -222,6 +222,13 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -   快捷键
     -   `c+n|c+p|鼠标滚轮`:上下移动关闭
 -   结合 vim
+    - `:Files`:搜索文件
+        - `c+jk`:上线移动
+```shell
+" fzf#install() 确保你安装了最新的 fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+```
 -   结合 ranger
 
 ### nvme

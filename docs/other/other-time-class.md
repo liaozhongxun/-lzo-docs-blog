@@ -11,7 +11,7 @@ title:课程表
 周五      早自习
 
 
-自习列表 = [Linux命令行工具,dos,]
+自习列表 = [Linux命令行工具,dos,window]
 
 
 周六

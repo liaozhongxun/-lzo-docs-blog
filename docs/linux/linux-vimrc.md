@@ -6,25 +6,48 @@ title: vimrc
 
 ### 第三方配置
 
--   amix/vimrc
+## vimplus
 
-```shell
-# git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
-# sh ~/.vim_runtime/install_awesome_vimrc.sh
-# 直接生成.vimrc
-```
-
-### 插件管理
+### 安装
 
 -   插件管理器`vimplus`
     -   `~/.vimrc为vimplus`的默认配置，一般不做修改
     -   `~/.vimrc.custom.plugins`为用户自定义插件列表，用户增加、卸载插件请修改该文件
     -   `~/.vimrc.custom.config`为用户自定义配置文件，一般性配置请放入该文件，可覆盖~/.vimrc 里的配置
 -   插件存放在 `~/.vim/plugged`下
--   新插件可以直接复制进去或 vim 中执行`:plugInstall`进行安装
+-   新插件可以直接复制进去或 vim 中执行`:PlugInstall`进行安装
 -   [github](https://github.com/chxuan/vimplus)
 
-### 配置文件
+### 快捷键(默认)
+
+[参考](https://github.com/chxuan/vimplus)
+
+|       快捷键        |                  说明                  |
+| :-----------------: | :------------------------------------: |
+|          ,          |               leader key               |
+|     leader + n      |            菜单,资源管理器             |
+|     leader + f      |             查找目录下文件             |
+|     leader + F      |           查找当前目录下文件           |
+|     leader + g      |           显示 git 提交记录            |
+|     leader + G      |          显示当前文件提交记录          |
+|       F9/F10        |              上下切换主题              |
+|     leader + G      |          显示当前文件提交记录          |
+|         f+a         |       查找字母 a,继续 f，下一个        |
+|     gcc/gc/gcap     | 注释一行代码/注释选中所在行的代码/段落 |
+|     leader + e      |              打开 .vimrc               |
+|     leader + vc     |          .vimrc.custom.config          |
+|     leader + vp     |         .vimrc.custom.plugins          |
+|     leader + s      |            重新加载 .vimrc             |
+| leader + leader + i |                安装插件                |
+| leader + leader + u |                更新插件                |
+| leader + leader + c |                删除插件                |
+
+### 异常
+
+-   `The ycmd server SHUT DOWN (restart with ':YcmRestartServer'). YCM core library not detected; you need to compile YCM before using it. Follow the instructions in the documentation.`
+    -   解决: 进入`.vim`插件下找到`YcmRestartServer`插件,执行里面的`install.py`
+
+## vim 配置文件
 
 ```python
 set nu "行号
