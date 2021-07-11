@@ -18,6 +18,62 @@ title: vimrc
 -   新插件可以直接复制进去或 vim 中执行`:PlugInstall`进行安装
 -   [github](https://github.com/chxuan/vimplus)
 
+### 插件
+#### scrooloose/nerdtree
+> 当于常用的IDE中的工程栏可以帮助我们管理和管理切换文件
+```c#
+Plug 'scrooloose/nerdtree' 
+
+:NERDTreeToggle<cr>   "打开或关闭nerdtree，可自定义映射热键
+autocmd vimenter * NERDTree     "默认为打开nerdtree
+let NERDTreeShowLineNumbers=1                   "显示行号
+let NERDTreeShowHidden=1                        "宽度为1
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']      "忽略以下文件
+
+//文件操作
+m 
+    d:删除
+    a:添加文件/文件夹（加斜杠）
+    m:移动或改名
+    o:打开gui
+C:设置当前目录为项目根目录
+//常用操作
+h j k l移动光标定位
+ctrl+w+w 光标在左右窗口切换
+ctrl+w+r 切换当前窗口左右布局
+ctrl+p 模糊搜索文件
+
+gT 切换到前一个tab		
+g t 切换到后一个tab
+u 打开上层目录
+o 打开关闭文件或者目录，如果是文件的话，光标出现在打开的文件中
+x 合拢当前结点的父目录
+i和s将光标指向文件以水平分割或纵向分割窗口打开
+```
+
+#### vim-airline(状态栏)
+#### auto-pairs("成对符号自动匹配输入")
+#### vimplus-startify(启动界面美化)
+### 我的插件【https://vim.hizdm.cn/language/coc-vetur.html】
+- [emmet-vim](https://github.com/mattn/emmet-vim)
+    - `ctrl-y  加 ,`:生成规则标签，相当于tab
+    - `ctrl-y  加 d`:插入模式下，选中整个标签
+    - `ctrl-y  加 /`:插入模式下，注释整个标签
+    - `ctrl-y  加 k`:插入模式下，删除整个标签
+- 格式化
+    - 通用格式化
+        - vim-autoformat [参考](https://www.cnblogs.com/liuzhaoting/articles/13794745.html)
+
+    - vue相关
+      - [参考](https://blog.csdn.net/weixin_34342578/article/details/89567263)  
+```shell
+1. 语法高亮：posva/vim-vue
+2. 语法检查：vim-syntastic/syntastic  + eslint-plugin-vue
+3. 代码格式化：MaraniMatias/vue-formatter
+
+npm install -g prettier -> https://zhuanlan.zhihu.com/p/34428176
+npm install -g vue-formattr
+```
 ### 快捷键(默认)
 
 [参考](https://github.com/chxuan/vimplus)
