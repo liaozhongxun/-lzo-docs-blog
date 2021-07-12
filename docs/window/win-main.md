@@ -58,7 +58,7 @@ title: window
 
 -   Scoop [官网](https://scoop.sh/)
 
-    -   要求：`Win7+ / PowerShell5+`,管理员身份运行 PowerShell
+G   -   要求：`Win7+ / PowerShell5+`,管理员身份运行 PowerShell
     -   $PSVersionTable.PSVersion | git-host
     -   参数列表
 
