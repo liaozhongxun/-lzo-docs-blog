@@ -46,8 +46,9 @@ ctrl+p 模糊搜索文件
 gT 切换到前一个tab		
 g t 切换到后一个tab
 u 打开上层目录
-o 打开关闭文件或者目录，如果是文件的话，光标出现在打开的文件中
+o|O打开关闭文件或者目录，如果是文件的话，光标出现在打开的文件中
 x 合拢当前结点的父目录
+I:显示/隐藏,隐藏文件文件
 i和s将光标指向文件以水平分割或纵向分割窗口打开
 ```
 
@@ -72,7 +73,7 @@ i和s将光标指向文件以水平分割或纵向分割窗口打开
 3. 代码格式化：MaraniMatias/vue-formatter
 
 npm install -g prettier -> https://zhuanlan.zhihu.com/p/34428176
-npm install -g vue-formattr
+npm install -g vue-formatter
 ```
 ### 快捷键(默认)
 

@@ -95,3 +95,11 @@ title: 偏门问题
 -   样式通过 @import ""转移到 App.vue 中
 
 lzx/lzx_123
+
+阿里云：223.5.5.5
+
+DNSPod Public DNS：119.29.29.29
+
+Google Public DNS：8.8.8.8/8.8.4.4
+
+百度:180.76.76.76
