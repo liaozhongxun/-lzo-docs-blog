@@ -229,6 +229,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 ```
+[资料](http://einverne.github.io/post/2019/08/fzf-usage.html)
 -   结合 ranger
 
 ### nvme
