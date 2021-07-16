@@ -29,6 +29,7 @@ gcc -C index.s -o hello.o
 
 
 "4、链接
+gcc index.o -o index
 多个.o文件的一下操作
 
 "==================================================
@@ -57,6 +58,10 @@ index.i:index.c
 index.o:index.s
     gcc -C index.s -o index.o
 
+gcc参数:
+    - -g  编译输出应该产生调试信息
+    - -D  可以走共定义
+    - -i
 "例------------------------------------------ 多文件
 "如果目录下拥有index1.c、index2.c、index3.c 三个文件
 
@@ -97,6 +102,10 @@ index2.o:?ndex2.c
 index1.o:index1.c
     gcc -C $^ -o $@
 
+# 遵循xx.o是由xx.c生成用%通配符代替，gcc自动检索，这种可以隐藏不写
+%.o:%.c
+    gcc $^ -o $@
+
 .PHONY: "这个的是为对象，make clean 就会执行指定命令
 clean(随机):
     rm -rf *.o $(TARGET)  "删除所有OBJ里和汇总文件
@@ -119,6 +128,20 @@ clean(随机):
 - `$@`:代表目标文件
 - `$^`:代表依赖文件
 - `$<`:代表第一个依赖文件
+
+
+### linux软件发布流程
+- 生成二进制文件telnet
+- readelf 
+    - `-s telnet`:查看符号表
+    - `-h telnet`:查看头信息
+- `objcopy --only-keep-debug telnet telnet.symbol.v1.0`:生成telnet的符号表(自己或别人都能通过符号表调试)
+- `objcopy --strip-debug telnet telnet-release`:生成发布程序-比telnet少了一些符号表
+- `strip telnet-release`:深度清除，防逆向,符号表减少
+- `gdb -q --symbol=telnet.symbol.v1.0 --exec=telnet-release strip telnet-release`:使用自己生成的symbol符号表调试release程序
+- `symbol-file ./telnet.symbol.v1.0`
+
+
 
 
 termmap库
