@@ -30,6 +30,9 @@ git 配置分为三部分
        git config --system --list (只 系统配置)
 
     (优先级依次降低 如果三个配置文件中都有同样的配置优先以本地为准)
+
+命令行汉化
+echo "alias git='LANG=zh_CN.utf8 git'" >> ~/.zshrc
 ```
 
 > 操作完成之后信息保存在**C 盘的用户**下**.gitconfig**文件中，作用只是标识你是谁,与远程仓库账户无关
