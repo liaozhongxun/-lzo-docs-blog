@@ -416,6 +416,33 @@ Plug 'junegunn/fzf.vim'
 ### 终端模拟器
 
 -   edex-ui
+### man汉化
+[参考](https://www.cnblogs.com/yanans/p/11990603.html)
+
+1、debian 
+```shell
+sudo apt update
+sudo apt install manpages-zh
+```
+2、arch
+```shell
+pacman -Syu
+pacman -S man-pages-zh_cn man-pages-zh_tw
+```
+
+3、centos
+```shell
+yum update
+yum install man-pages-zh-CN
+```
+
+4、Fedora
+```shell
+dnf update
+dnf install man-pages-zh-CN
+```
+    
+map 或 cmap
 
 ### 主目录默认功能文件夹位置设置(如桌面)
 
