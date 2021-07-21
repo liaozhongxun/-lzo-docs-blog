@@ -100,4 +100,5 @@ pam_service_name=vsftpd
 -   `system status ssh`:查看是否开启
 -   `lsof -i:22`:检测是否可以使用,默认 22 端口
 
-### vsftpd(创建 ftp 连接)
+### lsof
+

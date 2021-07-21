@@ -275,7 +275,7 @@ linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
 ## window cmd
 
 ### win 命令
-
+-   [官网](https://docs.microsoft.com/zh-cn/windows-server/administration/windows-commands/windows-commands)
 -   内置命令
 
     -   基本使用
