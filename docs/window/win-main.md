@@ -299,7 +299,7 @@ linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
         -   `findstr`:类似 grep
         -   `echo xxx>filename`:创建文件
 
-    -   `cls`:清屏
+    -   `cls`:清屏，c+l只是把所以内容滚动到最上面
     -   `mstsc`:远程链接
     -   `compmgmt`:计算机管理 GUI
     -   `firewall.cpl`:打开防火墙
@@ -311,8 +311,11 @@ linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
     -   `diskmgmt.msc`:磁盘管理
     -   `taskmgr`:任务管理器
     -   `notepad`: 打开记事本
-    -   `winver`:win 版本
     -   `calc`:计算器
+    -   `winver`:win 版本
+    -   `systeminfo`:查看系统信息
+    -   `tasklist`:查看正在运行的程序
+    -   `driverquery`:查看已安装的驱动程序
         [xxx](https://www.cnblogs.com/hbbpb/archive/2007/09/06/883876.html)
     -   常用 cmd 终端指令
         -   `指令 /?`:查看帮助
@@ -418,7 +421,7 @@ linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
                 -   `netsh wlan`获取已连接过的 WiFi 密码
                     -   `netsh wlan show profiles`:获取链接过的 WiFi
                     -   `netsh wlan show profile name="manja" key=clear"`:获取链接过的 WiFi
-
+    
 -   外部扩展命令
     -   自己安装程序配置 node、npm
 
