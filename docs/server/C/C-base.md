@@ -194,7 +194,7 @@ title: C
 -   整型数据已补码相似储存
     -   正数补码就是他二进制本身
     -   负数补码是它绝对值的二进制-- 取反 -- +1
-
+-  [源码反码](https://blog.csdn.net/MISSXIAOJJ/article/details/107425401)
 ```
 23
 十进制转二进制
