@@ -478,6 +478,7 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `baobab`:磁盘使用情况图形化分析
 -   `netease-cloud-music`:网易云
 -   `notepad++`:编辑轻量脚本代码
+-   `dia`:linux 流程图软件
 
 ### 网上存储
 
