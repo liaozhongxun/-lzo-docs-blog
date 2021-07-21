@@ -163,6 +163,7 @@ echo "$?" #获取返回值方式最大255
         -   临时更改: PATH = xxxx
         -   定义环境变量
             -   `export NAME="name"`:NAM 只有当前 shell 和子 shell 生效
+            -   添加扩展PATH:export PATH="/home/tuotu/bin:$PATH"
             -   永久设置
                 -   `bashrc`：用户登录、打开 shell、开子 shell 都会执行
                     -   `/etc/bashrc`
