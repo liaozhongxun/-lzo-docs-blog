@@ -289,24 +289,84 @@ title: C
 
 -   if-else
 ```c
-if(a = 1)
+if(a = 1){
     cmd1;
-else
+} else {
     cmd2
+}
+ 
+# else 与最近的if匹配，嵌套的if-else中也一样，所以多行的话尽量写上大括号，除非只有一行
 ```
 -   switch-case
+
+```c
+switch(exp){
+    case 常量或常量表达式: printf('语句主体'); break; 
+    case 1: printf('a=1'); break; 
+    case 2: printf('a=2'); break; 
+    case 3:
+    case 4: printf('a=3或a=4'); break; 
+    default: printf('其他我预料不到的情况')
+}
+```
+
+
 
 #### 循环
 
 -   while
+```c
+while(bool){
+    loop
+}
+
+# 条件成立 则 执行循环体，否则跳出不执行
+# 最少执行次数为0
+```
 -   do-while
+```c
+do{
+    loop
+}while(exp)
+
+# 执行循环体 再判断条件，成立继续循环体，否则跳出不执行
+# 最少执行次数为1
+```
 -   for
+```c
+for(exp1,exp2,exp3){
+    loop
+}
+
+# 执行表达式1，判断表达式2是否成立，如果不成立直接退出，成立执行loop，再走表达式3，继续验证表达式2，成立走loop,否则退出循环
+# 最少执行次数为0
+
+for(,exp2,){
+    loop；
+    i++...
+}
+
+# for 只是把for之前的初始化 和for之后的条件判断、循环体、变化语句，结构化了,结构在，就可以正常运行
+# 是可以的，只是exp1,3什么都没做
+# 将自增操作放到循环体中，自增完，执行表达式3,空不报错，会继续验证表达式2
+```
 -   if-goto
+> 无条件跳转，且不能跨函数，破坏程序结构，不建议使用
+```c
+xxxxx
+tag:
+xxxxx
+xxxxx
+xxxxx
+goto tag:
+xxxxx
+
+```
 
 #### 辅助控制关键字
 
--   break
--   continue
+-   break:跳出所在整个循环(for,while...),一层
+-   continue:跳出本次循环，不执行continue后面的内容,进入自增后的下次循环
 
 ### 数组
 
