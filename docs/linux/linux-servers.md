@@ -102,3 +102,5 @@ pam_service_name=vsftpd
 
 ### lsof
 
+### wget
+

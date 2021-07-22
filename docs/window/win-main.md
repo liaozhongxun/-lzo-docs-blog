@@ -50,7 +50,7 @@ title: window
             -   import 安装文件中的所有程序包
         -   `wingetcreate`:将软件包提交到社区仓库，可以同感 winget 安装
     -   `scoop` 或者 `chocolately`:不是官方出的但是更加成熟
-    <!-- -   PowerShell 使用 scoop
+        <!-- -   PowerShell 使用 scoop
 
         -   `199.232.4.133 raw.githubusercontent.com`:配置 hosts
         -   `iex (new-object net.webclient).downloadstring('https://raw.githubusercontent.com/lukesampson/scoop/master/bin/install.ps1')`:官网安装
@@ -70,12 +70,12 @@ G   -   要求：`Win7+ / PowerShell5+`,管理员身份运行 PowerShell
     [Environment]::SetEnvironmentVariable('SCOOP', $env:SCOOP, 'User')
     # 3
     iwr -useb get.scoop.sh | iex
-
+    
     # 未能创建 SSL/TLS 安全通道解决方案
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     # 连接关闭发送错误
     iex (new-object net.webclient).downloadstring("https://raw.githubusercontent.com/lukesampson/scoop/master/bin/install.ps1")
-
+    
     # 执行scoop 不报错安装完成 
     "
     alias    别名管理别名
@@ -103,32 +103,32 @@ G   -   要求：`Win7+ / PowerShell5+`,管理员身份运行 PowerShell
     virustotal    virustotal在virustotal.com上查找应用程序的哈希
     which    定位一个填充程序/可执行程序（类似于Linux上的“which”）
     "
-
+    
     # 安装 aria2 进行多线程下载提高速度
     scoop install aria2
     scoop config aria2-enabled false #关闭
     # 安装一下必要包
     scoop install 7zip innounp dark
-
+    
     # 导出软件列表拥有备份与换机
     scoop export > scoop.txt
-
+    
     # 添加其他 bucket 软件库 `scoop bucket add [软件源名字] [源地址]`
     # 查看 bucket 官方提供软件库列表（可添加）
     scoop bucket known
-
+    
     extras # 诸多有用的软件都在里面
     main # 默认的大仓库
     nerd-fonts # 编程字体一览无遗
     nonportable # 收录神奇的UWP应用
     versions # 收录软件包的历史版本
     ...
-
+    
     # 添加/删除软件库
     scoop bucket add extras
     scoop bucket add java
     scoop bucket rm java
-
+    
     # 社区提供
     scoop bucket add echo https://github.com/echoiron/echo-scoop
     scoop bucket add dorado https://github.com/chawyehsu/dorado
@@ -148,7 +148,7 @@ G   -   要求：`Win7+ / PowerShell5+`,管理员身份运行 PowerShell
     #[参考](https://gitee.com/squallliu/scoop)
     scoop config SCOOP_REPO https://gitee.com/squallliu/scoop
     scoop update
-
+    
     ```
 
 -   powerShell 美化
@@ -436,7 +436,7 @@ linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
     -   1、双方控制面板\网络和 Internet\网络和共享中心\高级共享设置 打开公共文件共享
     -   2、关闭对方防火墙(或将对方防火墙网路发现的公用私用打钩允许)
     -   3、关闭对方控制面板\程序\程序和功能->启用关闭 widows 功能 勾掉 `SMB 1.0/CFLS 文件共享支持`
--
+    -
 
 ### bat 批处理
 
@@ -461,3 +461,7 @@ call 2.bat "调用其他文件
 -   `http://veger.ys168.com/ 下载 SpaceSniffer汉化版.zip`:查看资源占用大小，或从系统-储存里面查看
 -   `%Temp%`:删除里面的文件
 -   `C:盘 右键清理磁盘`:选择要删除的
+
+### PowerShell 常用命令
+
+-   `Get-Command -Name vim`:查看程序所在路径
