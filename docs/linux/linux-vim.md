@@ -83,6 +83,7 @@ title: vim
     -   设置缩进长度 :set shiftwidth=n
 -   直接打开新文件
     -   `:e filepath`
+    -   `:e`:刷新当前文件
     -   `:tabe xxx,:e filepath`:新建 tab 页再打开文件
     -   `gt|gT`:切换 tab 页
     -   `vim -p files`:通过 tab 页方式打开多个文件

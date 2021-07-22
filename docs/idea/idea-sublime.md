@@ -7,3 +7,6 @@ title: sublime
 ### 插件
 
 -   `localizedMenu`:汉化插件
+-   `localizedMenu`:汉化插件
+
+00
