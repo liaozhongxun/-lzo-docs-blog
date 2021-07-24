@@ -123,7 +123,7 @@ __Cmd Markdown__
 [2]:http://www.leanote.com
 ```
 多链接[Google][1]、[Leanote][2]。
-[1]:http://www.google.com 
+[1]:http://www.google.com
 [2]:http://www.leanote.com
 
 
@@ -156,11 +156,24 @@ __Cmd Markdown__
 | 手机        |   \$12   |   12   |
 | 管线        |    \$1    |  234  |
 
+### 流程图
+
+```flow
+st=>start: Start
+op=>operation: Your Operation
+cond=>condition: Yes or No?
+e=>end
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
+
 ---
+
 特性:
 + 未包含的标签, 可以直接使用 HTML标签，例如用 HTML &lt;a>标签替代 Markdown 的链接语法
 + 也支持HTML注释
-+ [//]:#zhushi  
++ [//]:#zhushi
 
 
 ---

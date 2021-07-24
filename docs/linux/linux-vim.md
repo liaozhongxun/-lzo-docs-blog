@@ -87,6 +87,13 @@ title: vim
     -   `:tabe xxx,:e filepath`:新建 tab 页再打开文件
     -   `gt|gT`:切换 tab 页
     -   `vim -p files`:通过 tab 页方式打开多个文件
+-   多文件操作
+    - vim file file2 filee ...
+    - `:ls`:查看当前窗口文件列表以及`编号`
+    - `C+6 或 e#`:回到前一个打开的文件
+    - `n C+6`:直接切换到第`编号为`n的文件
+    - `:bn`:下一个文件
+    - `:bp`:上一个文件
 -   水平垂直分屏`:new|vnew`
     `ctrl+w ,w`:切换窗格
     `ctrl+w ,j`:向下切换
