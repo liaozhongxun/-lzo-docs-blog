@@ -98,7 +98,7 @@ lzx/lzx_123
 
 yunbanf:liaozx/liao123
 
-内网版f:
+内网版f:内网版f:SFTP - Root账号 , path:home/www
 
 svn:
 

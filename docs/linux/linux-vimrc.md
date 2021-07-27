@@ -140,6 +140,8 @@ set scrolloff=3 "距离上下多少开始滚动
 set list "显示一下隐藏符号
 autocmd 一个事件 *文件 :set xxx "符合某个条件做什么事情
 ":set all 查看所以可以用的设定
+set autoread vim内文件内容变化自动更新
+set autowriteall 切换文件自动保存
 
 " color
 syntax on "开启语法高亮
