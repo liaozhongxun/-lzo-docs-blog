@@ -134,13 +134,13 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   推荐主题:`duellj`、`suvash`、`xiong-chiamiov`、`pygmalion`、`fino`、`steeef`、`ys`,`norm`
 -   zsh vi 模式(使用 vim 快捷键)
     -   .zshrc 添加 bindkey -v
--  [插件扩展 powerlevel10k](https://github.com/romkatv/powerlevel10k/blob/master/README.md#oh-my-zsh)
-    -  `p10k configure`:第一次需要配置，这样重新配置
--  命令行高亮
-    - yay -S zsh-syntax-highlighting zsh-autosuggestions
-    - 如果不生效
-        - sudo ln -s /usr/share/zsh/plugins/zsh-syntax-highlighting /usr/share/oh-my-zsh/custom/plugins/
-        - sudo ln -s /usr/share/zsh/plugins/zsh-autosuggestions /usr/share/oh-my-zsh/custom/plugins/
+-   [插件扩展 powerlevel10k](https://github.com/romkatv/powerlevel10k/blob/master/README.md#oh-my-zsh)
+    -   `p10k configure`:第一次需要配置，这样重新配置
+-   命令行高亮
+    -   yay -S zsh-syntax-highlighting zsh-autosuggestions
+    -   如果不生效
+        -   sudo ln -s /usr/share/zsh/plugins/zsh-syntax-highlighting /usr/share/oh-my-zsh/custom/plugins/
+        -   sudo ln -s /usr/share/zsh/plugins/zsh-autosuggestions /usr/share/oh-my-zsh/custom/plugins/
 
 ### 安装程序
 
@@ -170,6 +170,7 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     -   ls /mnt/share 查看共享文件
 -   自动挂载 `/etc/fstab`
     -   //192.168.12.40/nmon /mnt/share cifs defaults,username=名字,password=你的密码
+    -   //192.168.3.24/共享文件 /mnt/window cifs defaults,username=!·ujcliaozx,password=ujcliaozx123
 
 ### 启动项
 
@@ -217,19 +218,27 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
     cp screenFetch/screenfetch-dev /usr/local/bin/screenfetch
     chmod 755 /usr/local/bin/screenfetch
 
-### fzf 全局搜索插件
+### fzf 全局搜索插件[参考](https://zhuanlan.zhihu.com/p/41859976)
 
 -   快捷键
     -   `c+n|c+p|鼠标滚轮`:上下移动关闭
 -   结合 vim
-    - `:Files`:搜索文件
-        - `c+jk`:上线移动
+    -   `vim $(fzf)`：终端直接通过 vim 打开 fzf 搜索到的文件
+    -   `cd $(find * -type d | fzf)`：进入 fzf 搜索到的文件夹
+    -   `ranger $(find * -type d | fzf)`：ranger 打开 fzf 搜索到的文件夹
+    -   `git checkout $(git branch -r | fzf)`:快速切换 git 分枝
+
+    -   `:Files`:搜索文件
+        -   `c+jk`:上线移动
+
 ```shell
 " fzf#install() 确保你安装了最新的 fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 ```
+
 [资料](http://einverne.github.io/post/2019/08/fzf-usage.html)
+
 -   结合 ranger
 
 ### nvme
@@ -259,7 +268,7 @@ Plug 'junegunn/fzf.vim'
 -   会话
 
     -   `tmux new -s flask` :新建会话
-    -   `ctrl+b`:进入激活状态，习惯设置ctrl+a
+    -   `ctrl+b`:进入激活状态，习惯设置 ctrl+a
         -   会话快捷键
             -   `d`:分离会话
             -   `s`:会话列表
@@ -374,17 +383,17 @@ Plug 'junegunn/fzf.vim'
     -   `w`任务管理器
     -   `zh`:显示隐藏文件
     -   `r`:选择当前文件打开方式，或者`:code `这样动态指定打开方式
--  书签
-    - `m` 加 任意键创建
-    - ` 打开
-    - `um` 删除
--  标签(窗口)
-    - `gn|ctrl+n`:创建
-    - `gt|gT`:切换
-    - `gc|ctrl+w`:关闭eeep
--  其他
-    - gh:用户主目录
-    - gr:根目录
+-   书签
+    -   `m` 加 任意键创建
+    -   ` 打开
+    -   `um` 删除
+-   标签(窗口)
+    -   `gn|ctrl+n`:创建
+    -   `gt|gT`:切换
+    -   `gc|ctrl+w`:关闭 eeep
+-   其他
+    -   gh:用户主目录
+    -   gr:根目录
 -   特殊功能
     -   `:`: 命令操作
 -   配置文件夹`~/.config/ranger`
@@ -416,32 +425,39 @@ Plug 'junegunn/fzf.vim'
 ### 终端模拟器
 
 -   edex-ui
-### man汉化
+
+### man 汉化
+
 [参考](https://www.cnblogs.com/yanans/p/11990603.html)
 
-1、debian 
+1、debian
+
 ```shell
 sudo apt update
 sudo apt install manpages-zh
 ```
+
 2、arch
+
 ```shell
 pacman -Syu
 pacman -S man-pages-zh_cn man-pages-zh_tw
 ```
 
 3、centos
+
 ```shell
 yum update
 yum install man-pages-zh-CN
 ```
 
 4、Fedora
+
 ```shell
 dnf update
 dnf install man-pages-zh-CN
 ```
-    
+
 map 或 cmap
 
 ### 主目录默认功能文件夹位置设置(如桌面)

@@ -465,3 +465,5 @@ call 2.bat "调用其他文件
 ### PowerShell 常用命令
 
 -   `Get-Command -Name vim`:查看程序所在路径
+//192.168.3.24/共享文件 /mnt/window cifs defaults,username=liaozx,password=liaozx123
+

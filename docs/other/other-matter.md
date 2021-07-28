@@ -94,17 +94,14 @@ title: 偏门问题
 -   服务端(ffmpeg)将 rtsp 流转 rtmp 或 emu8 等格式，web 可以播放
 -   样式通过 @import ""转移到 App.vue 中
 
-lzx/lzx_123
 
 yunbanf:liaozx/liao123
 
-内网版f:内网版f:SFTP - Root账号 , path:home/www
+内网f:内网f:SFTP - Root账号 , path:home/www
 
-svn:
+sv: lzx/lzx_123
 
-本地连接:
-
-
+local:liaozx/liaozx123
 
 阿里云：223.5.5.5
 
