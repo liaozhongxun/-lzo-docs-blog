@@ -330,6 +330,11 @@ Plug 'junegunn/fzf.vim'
 
 ### lazygit
 
+```shell
+#手动安装
+wget https://github.com/jesseduffield/lazygit/releases/download/v0.6/lazygit_0.6_Linux_x86_64.tar.gz -O  lazygit.tgz
+tar xvf lazygit.tgz
+```
 -   面板(左右键切换面板)
 
     -   有时候同一个键在不同面板的作用是不一样的
