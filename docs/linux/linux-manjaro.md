@@ -329,31 +329,30 @@ Plug 'junegunn/fzf.vim'
     -   source .zshrc
 
 ### lazygit
-
+[参考](http://blog.csdn.net/cumo3681/article/details/107407815)
 ```shell
 #手动安装
 wget https://github.com/jesseduffield/lazygit/releases/download/v0.6/lazygit_0.6_Linux_x86_64.tar.gz -O  lazygit.tgz
 tar xvf lazygit.tgz
 ```
--   面板(左右键切换面板)
 
+-   面板(左右或HL键切换面板)
+    -   上线或JK切换面板内的行
     -   有时候同一个键在不同面板的作用是不一样的
-
     -   左边面板
-
         -   面板一
         -   面板二(Files)
+            -   `d`:删除更改  
             -   `a`:所以文件在赞成与取消暂存间切换
             -   `空格`：单个文件状态 -`D`:第一项 直接清空所以更改
         -   面板三(本地分支面板)
             -   `n`:新建分支
             -   `空格`：选择分支
         -   面板四(提交)
-
     -   右边面板(预览界面)
-
 -   操作
     -   `x`:帮助
+    -   `+`:面板扩展半屏
 
 ### plank || latte-dock
 
