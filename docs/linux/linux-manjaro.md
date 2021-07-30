@@ -373,6 +373,10 @@ Plug 'junegunn/fzf.vim'
 -   选择提交
     -   `d`:删除提交
     -   `z + ctrl-z`:撤销删除，取回刚刚删除的提交
+    -   `g`:选择指定commit,按g重置到此次提交
+        -   `soft reset`：保留修改的文件，并重置到暂存
+        -   `mixed reset`：保留修改的文件，并重置位暂存
+        -   `soft reset`：直接回到指定提交，不保留文件
 #### 面板五(Status)
 #### 操作
 -   普通功能
