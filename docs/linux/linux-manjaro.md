@@ -332,7 +332,6 @@ Plug 'junegunn/fzf.vim'
 [参考](http://blog.csdn.net/cumo3681/article/details/107407815)
 ```shell
 #手动安装
-tar xvf lazygit.tgz
 ```
 
 ####  面板(左右或HL或tab键切换面板)
