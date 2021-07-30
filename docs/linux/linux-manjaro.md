@@ -332,7 +332,6 @@ Plug 'junegunn/fzf.vim'
 [参考](http://blog.csdn.net/cumo3681/article/details/107407815)
 ```shell
 #手动安装
-wget https://github.com/jesseduffield/lazygit/releases/download/v0.6/lazygit_0.6_Linux_x86_64.tar.gz -O  lazygit.tgz
 tar xvf lazygit.tgz
 ```
 
