@@ -383,10 +383,24 @@ Plug 'junegunn/fzf.vim'
     -   `x|?`:显示所在面板区域可以使用的功能以及快捷键
     -   `+`:面板扩展半屏
     -   `@`:显示命令日志(lazygit操作对应的git指令)
+        -   Focus command log:打开指令面板
+    -   `:`:自己输入git指令，或终端指令
+    -   `[]`:切换面板上的标签
 -   提交
     -  文件面板: a(暂存全部) => c(提交并输入提交备注-> jcommit面板新增提交记录) => P(push)；p(pull)
 -   配置文件
     -   `~/.config/lazygit/config.yml`
+-   提交更新到别人的项目
+    -   fock项目
+    -   本地克隆，新建分支
+    -   `[]`切换分支到remote    
+    -   `n`添加远程连接，名称upstream,地址:fock前源作者的该项目地址?有点问题
+    -   更改完成提交，选择分支o,打开create pull request ,打开GitHub的gui界面合并
+    -   提交成功对方界面会出现`Compare & pull request`的提示
+    -   base username/barnch <- 提交人的仓库/branch3   选择好谁的哪个分支到base的哪个分支
+    -   填写备注信息 -> 点击Create pull request按钮
+    -   原作者的`pull requests`标签中就多出来刚刚的提交，点进去Converseation点击Merge pull request通过请求
+    -   自己项目也一样
 ### plank || latte-dock
 
 ### 实时资源监控插件 conky
