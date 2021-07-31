@@ -400,7 +400,7 @@ Plug 'junegunn/fzf.vim'
     -   base username/barnch <- 提交人的仓库/branch3   选择好谁的哪个分支到base的哪个分支
     -   填写备注信息 -> 点击Create pull request按钮
     -   原作者的`pull requests`标签中就多出来刚刚的提交，点进去Converseation点击Merge pull request通过请求
-    -   自己项目也一样
+    -   自己项目可以这样通过gui合并，但是自己的可以直接在项目中合并
 ### plank || latte-dock
 
 ### 实时资源监控插件 conky
