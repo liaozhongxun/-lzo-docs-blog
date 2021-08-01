@@ -550,6 +550,7 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `ack`:类似grep查找文件内容的功能
 -   `tldr cmd`:指令帮助文档，并添加场景用法举例
 -   `colorls`:ls指令加强版(gem install colorls),通过ruby安装
+-   `caniuse-cmd`:检查浏览器兼容性(npm 安装)
 ### 网上存储
 
 -   yay -S vlc #视频播放器
