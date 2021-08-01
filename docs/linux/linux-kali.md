@@ -35,6 +35,15 @@ sudo apt-get autoremove           # 删除系统不再使用的孤立软件
 
 ## 指令
 
+### apt-file
+> 查看指令属于哪个包
+```shell
+sudo apt install apt-file
+sudo apt-file upadte
+
+where ls #bin/ls
+apt-file search -F bin/ls
+```
 ### lsof
 
 -   `lsof -i:22`:查看 22 端口的服务
