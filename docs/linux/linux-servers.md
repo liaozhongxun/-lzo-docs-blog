@@ -104,3 +104,31 @@ pam_service_name=vsftpd
 
 ### wget
 
+### docker
+> 容器镜像服务，Docker理解成一个专门分装应用程序与执行环境的轻型虚拟机,作用镜像制作
+[镜像官网](https://hub.docker.com)
+[其他镜像](https://quay.io)
+-   yay安装 ，通过systemctl开启服务
+-   权限:
+    -   创建docker组，将相关用户归属组添加docker
+    -   sudo gpasswd -a username docker
+    -   刷新:newgrp docker
+    -   id username 查看是否添加成功
+-   镜像
+    -   阿里云 -> 控制台 -> 产品与服务 -> 搜索容器镜像服务-> 加速配置
+    -   将他的配置json内容复制到/etc/docker/daemon.json中
+-   常用命令
+    -   `docker info`:查看docker基础信息
+    -   `docker search xxx`:查找镜像
+    -   `docker pull xxxname`:下载镜像
+    -   `docker images`:查看下载镜像的信息
+    -   `docker rmi IMAGE_ID|Tag`通过id或tag删除
+    -   `docker save -o centos.tar centos:7`:保存将名称:centos,tag：7的镜像输出中centos.tar文件中
+
+#### 常用基础环境服务
+-   `httpd`:Apache
+-   `busybox`：轻量嵌入式系统
+-   `centos`:系统镜像
+
+#### lazydocker 
+> docker gui管理插件

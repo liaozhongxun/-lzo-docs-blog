@@ -546,7 +546,10 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `netease-cloud-music`:网易云
 -   `notepad++`:编辑轻量脚本代码
 -   `dia`:linux 流程图软件
-
+-   `ncdu`:统计指定文件下文件大小，通过数的方式
+-   `ack`:类似grep查找文件内容的功能
+-   `tldr cmd`:指令帮助文档，并添加场景用法举例
+-   `colorls`:ls指令加强版(gem install colorls),通过ruby安装
 ### 网上存储
 
 -   yay -S vlc #视频播放器
