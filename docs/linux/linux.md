@@ -994,6 +994,7 @@ title: linux
 ### 不常用
 
 -   `chsh -s /bin/zsh`:切换 shell
+-   `whereis cmmand`:查询指令的可执行文件,源码文件,帮助文件的位置
 
 ### 端口服务进程号配置查询
 
