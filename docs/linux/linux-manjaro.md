@@ -555,6 +555,7 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `colorls`:ls指令加强版(gem install colorls),通过ruby安装
 -   `caniuse-cmd`:检查浏览器兼容性(npm 安装)
 -   `thefuck`:操作错误时，执行该命令，会告诉你为什么错 
+-   `multitail|lnav|tial -f|cat...`:日志
 ### 网上存储
 
 -   yay -S vlc #视频播放器

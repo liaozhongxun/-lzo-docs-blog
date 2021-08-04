@@ -36,6 +36,15 @@ title: 偏门问题
 > 移动端 200-300ms 延迟可以使用 `fastclick`插件或将 click 事件替换`tab事件`来解决  
 >  tap 事件不是原生的，zepto、微信小程序等都有封装
 
+### 遍历对象
+-   js便利对象无法保证顺序
+> 这是因为在遍历对象时，key为整数类型或者可以转换为整数类型的字符串（例如：“0”）时，会将这些key从小到大优先进行遍历，然后其它的key会按照创建的实际顺序进行遍历。
+> json数据是无序的,数组是有序的
+> 将已有json通过`new Map(Object.entries(json))`转Map,或通过`Object.keys(json)`获取key，顺序都是打乱的
+-   排序问题与es版本有关，老版本好像没有这样的问题
+    -   [ECMA-262（ECMAScript）](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/),第三版,for-in 语句的属性遍历的顺序是由对象定义时属性的书写顺序决定的。
+    -   ECMA-262（ECMAScript）第五版,对 for-in 语句的遍历机制又做了调整，属性遍历的顺序是没有被规定的。
+
 ### STAR 法则
 
 -   S: situation(项目背景)
