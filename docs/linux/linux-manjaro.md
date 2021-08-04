@@ -554,6 +554,10 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `tldr cmd`:指令帮助文档，并添加场景用法举例
 -   `colorls`:ls指令加强版(gem install colorls),通过ruby安装
 -   `caniuse-cmd`:检查浏览器兼容性(npm 安装)
+-   `jq`:linux 终端查看，格式化json
+-   `mycli`:终端mysql工具
+-   `httpie`:终端数据请求获取 `http -v github.com`
+-   `fpp`:终端多文件操作，f|A,选择，回车默认编辑器打开,c 指令操作已选择
 ### 网上存储
 
 -   yay -S vlc #视频播放器
