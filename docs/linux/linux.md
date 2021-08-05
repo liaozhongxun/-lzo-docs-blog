@@ -998,10 +998,13 @@ title: linux
 
 ### 端口服务进程号配置查询
 
--   `ps -aux|-af |grep <server-name>`
--   `netstat -anp|grep 21`:查询端口是否开启
--   `netstat -antup|grep pid`:根据 pid 查看端口使用者
+-   `ps`
+    -   `ps -aux|-af |grep <server-name>`
+-   `netstat`
+    -   `netstat -anp|grep 21`:查询端口是否开启
+    -   `netstat -antup|grep pid`:根据 pid 查看端口使用者
 
+### 查看设备信息指令
 ### 注意事项
 
 ### xshell 中文设置
