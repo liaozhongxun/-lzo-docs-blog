@@ -196,7 +196,7 @@ Bob-->Alice: I am good thanks!
 
 ---
 
-再一次感谢您花费时间阅读这份欢迎稿，点击 <i class="icon-file"></i> (Ctrl+Alt+N) 开始撰写新的文稿吧！祝您在这里记录、阅读、分享愉快！
+再一次感谢您花fdsf W费时间阅读这份欢迎稿，点击 <i class="icon-file"></i> (Ctrl+Alt+N) 开始撰写新的文稿吧！祝您在这里记录、阅读、分享愉快！
 
 作者 [@ghosert][3]  
 2016 年 07 月 07 日
