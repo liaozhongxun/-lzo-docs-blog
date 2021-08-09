@@ -31,6 +31,10 @@ title: 偏门问题
 
 > chrome://apps/ -> 拖动收藏的网址到页面中 -> 图标上右键创建快捷方式
 
+### json
+> json是一种格式  
+> json字符串：json格式的字符串  
+> json对象：json格式的对象(键值对必须是双引号)
 ### 移动端 click 延迟处理
 
 > 移动端 200-300ms 延迟可以使用 `fastclick`插件或将 click 事件替换`tab事件`来解决  

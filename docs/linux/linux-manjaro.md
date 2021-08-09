@@ -560,6 +560,7 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `mycli`:终端mysql工具
 -   `httpie`:终端数据请求获取 `http -v github.com`
 -   `fpp`:终端多文件操作，f|A,选择，回车默认编辑器打开,c 指令操作已选择
+-   `rich`:`pip3`安装，针对py的颜色输出美化
 ### 网上存储
 
 -   yay -S vlc #视频播放器
