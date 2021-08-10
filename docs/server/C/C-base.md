@@ -701,7 +701,9 @@ int main(int argc,char *argv[])
 #### 函数的调用
 
 -   嵌套调用
+
 -   递归调用
+    -   嵌套调用的特例
     -   一个函数直接或间接调用自身
 
 -   注意事项
@@ -709,6 +711,25 @@ int main(int argc,char *argv[])
         -   函数申明:void 函数名(void);
 
 #### 函数与数组
+-   函数与一维数组
+```c
+int print_arr(int *p,int n){ //int *p 可以写成 int p[],在形参中[]相当于*，与定义一个数组是含义是不一样的
+    // sizeof(p) 指针变量p储存的是数组a的起始位置地址
+
+    for(int i=0;i<n;i++)
+        printf("%d",*(p+i))
+    printf('\n')
+
+}
+
+int main(){
+    int a[] = {1,2,3,4,5}
+
+    printf('%s:%d\n',__FUNCTION__,sizeof(a)); //main:20
+
+    print_arr(a,sizeof(a)/sizeof(*a)) //需要传入数组长度，应为函数内部接收到的a只是数组起始地址
+}
+```
 
 #### 函数与指针
 
