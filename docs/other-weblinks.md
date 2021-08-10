@@ -23,6 +23,7 @@ title: 收藏
 -   [根据域名查询 ip](https://www.ipaddress.com/)
 -   [极速 api 接口](https://www.jisuapi.com/my/apply?classid=4)
 -   [githubIp 查询](https://www.ipaddress.com/) 刷新 DNS `ipconfig /flushdns`
+-   [扩展迷](https://www.extfans.com/installation/)
 
 ---
 
