@@ -100,6 +100,14 @@ pam_service_name=vsftpd
 -   `system status ssh`:查看是否开启
 -   `lsof -i:22`:检测是否可以使用,默认 22 端口
 
+-   mobaxterm 链接 图形界面
+    -   首先目标linux系统需要支持`X11-forwarding`
+    -   arch系列
+        -   yay -S xorg-xauth
+        -   touch ~/.Xauthority && chmod 600 ~/.Xauthority
+        -   sudo vim /etc/ssh/sshd_config 将 AddressFamily any 改为 AddressFamily inet
+        -   sudo systemctl reload sshd.service && sudo systemctl restart sshd.service
+
 ### lsof
 
 ### wget

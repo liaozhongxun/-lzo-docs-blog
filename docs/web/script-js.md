@@ -103,6 +103,34 @@ title: JavaScript 基础
 
 #### 如何定义变量
 
-#### 基础数据类型
+-   var 变量标识符 = 值;
+-   var a,b,c;
+-   let、const、var
+
+-   标识符
+    -   数字、字母、_ 、$ (数字不能开头)
+    -   不能是关键字和保留字(保留字很多是其他语言拥有，js暂未实现的标识符)
+-   命名规范以及主要事项
+    -   小驼峰(多个单词，除第一个，后面的首字母大写)
+    -   驼峰(多个单词首字母大写)
+    -   见名知意
+    -   复制等号两边建议加空格(shell强制不能加空格)
+
+-   交换两个值为数字的变量，不用第三个变量,可以用`加减`的方式实现
+
+#### 数据类型
+-   基础类型:Number、String、Boolean、Null、Undefined
+    -   数字:Number
+        -   Number.MAX_VALUE 最大数值
+        -   Number.MIN_VALUE 最小数值
+        -   NaN:not a number，错误的数值运算返回
+        -   isNaN:判断是否不是一个数值
+    -   字符串:String
+-   方法
+    -   typeof age // number
+    -   typeof str // string
+
+-   js的二、八、十进制前缀
+    - 0b、0o、0x
 
 #### 数据类型转换
