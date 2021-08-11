@@ -23,6 +23,10 @@ title: VsCode 编辑器
 
 > 可以清楚看到多层括号层级关系，并行 js 中对层级划分
 
+### tab缩进上色
+>   shell python 这些无括号的
+
+-   rainbow indent
 ### 自动更改 HTML 配对标签 1
 
 - Auto Rename Tag
@@ -64,7 +68,7 @@ title: VsCode 编辑器
 - power mode (输入效果)[^①]
 - Polacode (代码图片生成 ctrl+shilt+p 输入 Polacode -> 选择需要的代码-生成)
 - Turbo Console Log(C+A+l、S+A+c、S+A+u、S+A+d)
-
+- vim(Bracket Pairs Colorizer 2 ,  rainbow indent，关闭缓解卡顿问题)
 [^①]:Powermode: Enabled 开启插件  
 Powermode: Presets 设置效果  
 Powermode: Enable Shake 去除代码抖动  

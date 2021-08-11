@@ -1,5 +1,5 @@
 ---
-title:go
+title: go
 ---
 [环境配置](https://www.cnblogs.com/huangeh/p/14331987.html)
 wget https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
