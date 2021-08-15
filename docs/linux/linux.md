@@ -171,6 +171,9 @@ title: linux
             -   -exec ls xxx {} \; 找到结果当做文件处理，但是指令后面需要加 {} \;结尾,| {} 代表找到的文件 \结束
             -   | xargs ls xxx 通过管道使用，功能与-exec 类似
                 -   | xargs -i cp {} /root 加-i 可以用{}的功能
+                -   echo "a b c"|xargs mkdir 直接新建a、b、c目录
+                -   xargs单独使用
+                    -   xargs (默认跟echo命令),将用户输入作为标准输出,用在后面跟的命令上
         -   根据时间戳查找
             -   天 : `-atime`(访问时间) 、`-mtime`(更改内容时间)、`-ctime`(改动时间)
                 -   find /etc -atime +7 (七天内没有被访问过的文件)
@@ -652,6 +655,22 @@ title: linux
         -   `-j`:解 bzip2 压缩
         -   `-J`:解 xz 压缩
     -   `tar -tf newName.tar.gz`:不解压的情况查看包的内容
+-   zip操作
+    -   `zip`：压缩
+        -   `zip -q -r html.zip /home/html`:将 /home/html/ 这个目录下所有文件和文件夹打包为当前目录下的 html.zip
+        -   `zip -q -r html.zip *`: /home/html 目录下直接执行压缩
+        -   `zip -dv html.zip index.html`:从压缩包html.zip中删除index.html这个文件
+        -   参数
+            -   `-r`：递归处理
+            -   `-q`:不显示执行过程
+            -   `-d`:从压缩文件内删除指定文件
+            -   `-v`:显示指令执行过程或显示版本信息
+    -   `unzip`：解压
+        -   `unzip apc.zip`:解压文件到当前目录
+        -   `unzip -n apc.zip -d /home/xxx`:-d 解压文件到当指定目录，-n 不覆盖原有文件,-o 覆盖
+        -   `unzip -v abc.zip`:查看zip信息，不解压
+        -   `unzip -l abc.zip`:查看zip简洁信息，不解压
+
 
 ### 源码安装
 

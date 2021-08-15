@@ -561,6 +561,8 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `httpie`:终端数据请求获取 `http -v github.com`
 -   `fpp`:终端多文件操作，f|A,选择，回车默认编辑器打开,c 指令操作已选择
 -   `rich`:`pip3`安装，针对py的颜色输出美化
+-   `xargs`:管道前面标准输出，有些命令不能直接把输出当做自己的输入，可以用xargs
+
 ### 网上存储
 
 -   yay -S vlc #视频播放器

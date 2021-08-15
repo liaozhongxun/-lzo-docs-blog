@@ -69,3 +69,12 @@ title: 收藏
 -   [window mydock](https://www.mydockfinder.com/)
 -   [彼岸壁纸](http://www.netbian.com/)
 -   [win10](https://www.microsoft.com/zh-cn/software-download/windows10)
+-   解析(解析网址?url=视频链接地址)
+    -   https://www.8090g.cn/?url=https://v.qq.com/x/cover/wtsrsra8jj6qtuw/s00240avmny.html
+    -   http://www.nxflv.com/?url=
+    -   http://www.ckmov.com/?url=
+    -   https://www.1717yun.com/jx/ty.php?url=
+
+
+
+
