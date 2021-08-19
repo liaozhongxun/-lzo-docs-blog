@@ -551,8 +551,8 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `dia`:linux 流程图软件
 -   `ncdu`:统计指定文件下文件大小，通过数的方式
 -   `ack`:类似grep查找文件内容的功能
--   `tldr cmd`:指令帮助文档，并添加场景用法举例
--   `colorls`:ls指令加强版(gem install colorls),通过ruby安装
+-   `tldr cmd`:指令帮助简化文档，并添加场景用法举例
+-   `colorls|exa`:ls指令加强版(gem install colorls),colors通过ruby安装
 -   `caniuse-cmd`:检查浏览器兼容性(npm 安装)
 -   `thefuck`:操作错误时，执行该命令，会告诉你为什么错 
 -   `multitail|lnav|tial -f|cat...`:日志
@@ -562,6 +562,8 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `fpp`:终端多文件操作，f|A,选择，回车默认编辑器打开,c 指令操作已选择
 -   `rich`:`pip3`安装，针对py的颜色输出美化
 -   `xargs`:管道前面标准输出，有些命令不能直接把输出当做自己的输入，可以用xargs
+-   `bat`:`cat`加强班，高亮代码
+-   `ripgrep`:可rg指令代替grep，速度快
 
 ### 网上存储
 
