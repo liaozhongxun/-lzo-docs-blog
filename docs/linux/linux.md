@@ -749,7 +749,9 @@ title: linux
     -   `lrzsz`:远程文件上传下载
         -   `rz`:从客户端上传文件到 linux
         -   `sz filename`:从 linux 下载文件到客户端
-
+    -   安装rpm
+        -   wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+        -   sudo yum install ./google-chrome-stable_current_*.rpm
 ### debian 包安装
 
 -   `apt`
@@ -910,6 +912,7 @@ title: linux
     -   os7 用`systemctl` 代替以前的`runlevel和init`
     -   `systemctl get-default`:查看默认运行级别
     -   `systemctl set-default multi-user.target`:设置默认运行级别
+    -   `systemctl set-default graphical.target`:默认图像界面启动
     -   `runlevel`:查看当前运行级别（N 5,从 Null 到 5）
     -   `init 运行级别数字`:临时切换运行级别
     -   os7 中 本质是将：/etc/systemd/system/default.target 软连接指向 运行级别所在的文件
