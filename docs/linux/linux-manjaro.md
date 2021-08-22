@@ -307,6 +307,28 @@ Plug 'junegunn/fzf.vim'
     -   `ctrl+b+[`:进入复制模式，选择内容直接复制
     -   `ctrl+b+]|c+s+v`:粘贴
         
+#### tmux 插件管理
+-   保存会话
+```shell
+# 如果没有tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+set -g @continuum-save-interval '15'
+set -g @continuum-restore 'on'
+set -g @resurrect-capture-pane-contents 'on'
+# Other config ...
+# run -b '~/.tmux/plugins/tpm/tpm'
+
+tmux source ~/.tmux.conf 
+
+PREFIX + I: 安装插件
+PREFIX + CTRL s：保存会话
+PREFIX + CTRL r：加载会话
+```
 ### seahorse
 
 -   在终端输入 seahorse 打开管理密钥环的软件，视图->根据密码环 在密码区会有一个“登录”为名字的密钥环，右击将其删除。
@@ -564,6 +586,7 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `xargs`:管道前面标准输出，有些命令不能直接把输出当做自己的输入，可以用xargs
 -   `bat`:`cat`加强班，高亮代码
 -   `ripgrep`:可rg指令代替grep，速度快
+-   `cmus`:终端音乐播放
 
 ### 网上存储
 

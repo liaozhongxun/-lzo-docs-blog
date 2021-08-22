@@ -113,3 +113,30 @@ you-get -o 路径 -O 名字 url
         -   C-n 取得历史记录中的后一个词
         -   TAB,SPC 自动完成文件名
         -   RETURN 确定
+
+### CMUS
+> 终端音乐播放
+
+-   `cmus`:进入播放界面
+    -   `:add dir`:打开音乐文件夹
+    -   `:clear`:清除记录
+    -   `J、k、空格、回车、tab`:基本移动
+    -   `c`:播放/暂停
+    -   `v`:停止
+    -   `s|f|r`:随机播放、顺序、循环
+    -   `z|b`:上下一首
+    -   `x`:重新播放
+    -   `-/=`:音量-/+
+    -   `e`:添加到播放列队
+    -   `shift+d`:从列表删除
+    -   `h|l`:快进退
+    -   `1、2、3、4、5、6、7`
+        -   `1.Library view`：默认播放列表
+        -   `2.Sorted library view`:所有歌曲列表
+        -   `3.Playlist view`:类似歌单
+        -   `4.Play Queue`：播放列队
+        -   7：帮助
+        
+-   配置
+    -   rm ~/.config/cmus/cache:清除缓存
+    -   `歌词插件`：直接运行cmus-lyric
