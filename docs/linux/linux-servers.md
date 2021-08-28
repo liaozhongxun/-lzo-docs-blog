@@ -112,6 +112,13 @@ pam_service_name=vsftpd
 
 ### wget
 
+### htop
+-   通过上下左右控制，不能HJKL
+-   `F2`:显示界面设置，`空格`切换显示模式，`Available meters`回车，添加指定属性,delete删除
+-   `F3`:搜索
+-   `F4`:过滤(隐藏不匹配的进程)
+-   `F5`:进程树
+
 ### docker
 > 容器镜像服务，Docker理解成一个专门分装应用程序与执行环境的轻型虚拟机,作用镜像制作
 [镜像官网](https://hub.docker.com)

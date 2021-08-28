@@ -332,6 +332,7 @@ PREFIX + CTRL r：加载会话
 ### seahorse
 
 -   在终端输入 seahorse 打开管理密钥环的软件，视图->根据密码环 在密码区会有一个“登录”为名字的密钥环，右击将其删除。
+    -  如果无效:右键默认秘钥环，修改密码，输入旧密码，新密码留空直接继续再继续
 
 ### dwm 动态窗口管理器
 
@@ -472,6 +473,7 @@ PREFIX + CTRL r：加载会话
     -   gr:根目录
 -   特殊功能
     -   `:`: 命令操作
+    -   `!`: `:shell`快捷键，更多shell命令,:shell mv dir1 dir2, %s 代表选择的文件
 -   配置文件夹`~/.config/ranger`
 
     -   如果要用自己的配置文件,环境变量设置: RANGER_LOAD_DEFAULT_RC=FALSE
@@ -581,7 +583,7 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `jq`:linux 终端查看，格式化json
 -   `mycli`:终端mysql工具
 -   `httpie`:终端数据请求获取 `http -v github.com`
--   `fpp`:终端多文件操作，f|A,选择，回车默认编辑器打开,c 指令操作已选择
+-   `fpp(PathPicker)`:终端多文件操作，f|A,选择，回车默认编辑器打开,c 指令操作已选择
 -   `rich`:`pip3`安装，针对py的颜色输出美化
 -   `xargs`:管道前面标准输出，有些命令不能直接把输出当做自己的输入，可以用xargs
 -   `bat`:`cat`加强班，高亮代码
