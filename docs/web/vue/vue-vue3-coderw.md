@@ -1,10 +1,9 @@
 ---
 title: vue32022
 ---
-## 概念
+## Options Api (选项API)
 
-<!-- ---------------------------day54 -->
-#### 开启vue
+#### 开启 vue 
 
 ```javascript
 // 1、引入
@@ -471,7 +470,7 @@ import { defineAsyncComponent } from "vue";
 const Cpn1 = defineAsyncComponent(()=> import("./components/cpn1.vue"))
 ```
 
->   组件 v-model
+>   组件 v-model 
 
 ```vue
 <template>
@@ -497,17 +496,43 @@ export default {
 </script>
 ```
 
->   Mixin 混合
+>   Mixin 混入 (不常用)
 
-```vue
-// 
+```javascript
+// 多组件、页面都需要用的方法、属性统一抽取
+// 单独js 文件 mixin.js 定义一些东西
+export default {
+    data(){
+        return {
+            msg:123
+        }
+    },
+    created(){
+        console.log(this.msg);
+    },
+    methods:{
+        showMsg(){
+            console.log(this.msg);
+        }
+    }
+}
+
+// 单独引入
+import msgmixin from "../xxx/mixin";
+export default {
+    mixins:[msgmixin], // 使用，组件中的东西会和mixin合并，如果名字一样，组件中覆盖mixin
+    mounted(){
+        this.showMsg(); 
+    },
+}
+
 
  
 ```
 
 
 
-### 插槽
+#### 插槽
 
 >   渲染作用域：插槽所有内容都是父组件里的数据
 
@@ -562,9 +587,29 @@ export default {
 </template>
 ```
 
+##  Composition Api （组合API）
+
+>   将data数据，监听数据，方法数据，需要用到的组合起来完成，放在一个地方，选项API逻辑太过分散
+
+>   组合在一起 抽取封装方便
+
+>   函数式变成思想
+
+```vue
+<script>
+exports default {
+    setup( ){
+        
+    }
+}
+</script>
+```
 
 
-#### 脚手架
+
+
+
+## 脚手架
 
 ```javascript
 // 全局安装 vue
