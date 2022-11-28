@@ -591,18 +591,105 @@ export default {
 
 >   将data数据，监听数据，方法数据，需要用到的组合起来完成，放在一个地方，选项API逻辑太过分散
 
->   组合在一起 抽取封装方便
+>   组合在一起 抽取封装方便 (hooks)
+
+```javascript
+// 定义一个 hook  useCount.js
+import { ref } from 'vue';
+export default function useCounter(){
+    let counter = ref(100);
+    const increment = () => {
+        counter.value++;
+        console.log(counter.value)
+    }
+    const decrement = () => {
+        counter.value--
+    }
+    return { counter, increment, decrement}
+}
+
+// 组件中引用
+import useCounter from "./hooks/useCounter";
+
+export default {
+    setup(){
+        const { counter, increment, decrement } = useCounter();
+        return { // 直接就能用复用
+            counter, 
+            increment,
+            decrement
+        }
+    }
+}
+```
+
+
 
 >   函数式变成思想
 
+setup
+
+1.   `setup` 无this
+2.   **两个属性**：props 存放父组件传递的参数，context 有 `attrs、slots、emit`
+3.   template 需要用的东西 需要从setup中 `return` 出去
+4.   setup 内部使用变量需要加 .value  ,retrun 到 template 中的不需要写 .value
+
+
+
+#### Setup 实现 data  数据
+
 ```vue
+<template>
+    <div>
+        <!-- vue 自动将count ref对象解包 不能带value，深层对象修改时需要带.value -->
+        {{ count }}
+        <div>
+            {{ infos.username }}
+        </div>
+    </div>
+</template>
+
 <script>
-exports default {
-    setup( ){
+import { ref, reactive } from 'vue';
+export default {
+    name: "TestPage",
+    setup() {
+        // ref 简单响应式数据,也可以是复杂类型数据
+        let count = ref(100); // count 对应 ref对象的value
+        count.value++;
+        console.log(count.value);
         
+        let data = ref([]); // 网络请求数据，默认[]
+        const res = [{a:1},{b:2}]
+        data.value = res;
+        console.log(data.value);
+
+        // reactive 复杂数据类型依赖收集, 不要关心value
+        const infos = reactive({
+            username: 'lzoxun',
+            passwd: '123456'
+        })
+        infos.username = "abc";
+
+        return {
+            count,
+            data,
+            infos
+        }
     }
 }
 </script>
+```
+
+#### Setup 实现 生命周期
+
+```javascript
+export default {
+    name: "TestPage",
+    setup() {
+        onMounted(()=>{})
+    }
+}
 ```
 
 
@@ -670,7 +757,7 @@ vue create <project-name>
  */
 ```
 
- ### 打包
+ #### 打包
 
 ```shell
 # app.xxxxx.js            默认存放所有自己编写的代码
@@ -683,3 +770,10 @@ import { defineAsyncComponent } from "vue";
 const Cpn1 = defineAsyncComponent(()=> import("./components/cpn1.vue"))
 ```
 
+## 其他
+
+#### 安装 谷歌插件 dev-tools
+
+>   如果商店进不了 ，[dev-tools](https://github.com/vuejs/devtools) clone 源码 ，npm run build 打包
+
+>   google 浏览器中 加载已解压的扩展程序
