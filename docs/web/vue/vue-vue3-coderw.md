@@ -277,6 +277,7 @@ key
 #### 组件化
 
 -   初始化 App 就是根组件，一个vue项目就是一棵组件树
+-   单向数据流  -> 子组件不能直接修改props的数据，如果非要修改，父组件监听子组件emit，在父组件中修改 
 
 ```javascript
 // 定义一个全局组件
@@ -670,10 +671,15 @@ export default {
             passwd: '123456'
         })
         infos.username = "abc";
+        
+        // readonly 只读代理 普通/ref/reactive对象都能传入
+        const readonlys = readonly(infos)
+        readonlys.username = "456"; // 无法修改
 
         return {
             count,
             data,
+            readonlys,
             infos
         }
     }
@@ -681,7 +687,72 @@ export default {
 </script>
 ```
 
+>   响应式数据相关属性
+
+```javascript
+isProxy // 检测是否由reactive或readonly穿件的proxy
+isReactave // 检测是否由reactive创建的响应式代理，readonly包裹reactive对象创建的也会返回true
+isReadonly // 是否有有readonly创建的只读代理 
+isRef 
+
+shallowReactive
+shallowReadonly
+shallowRef
+
+toRaw // 返回 reactive 或 readonly 代理的元素对象
+
+const { username, passwd } = toRefs(infos) // 结构reactive数据, 成 ref数据
+const username = toRef(infos,'username') //结构单个
+const uncount = unref(count) // isRef(val) ? val.val : val;
+
+triggerRef(count) // 特殊情况改变完没有响应，手动强制响应
+```
+
+#### Setup 实现 计算属性
+
+```javascript
+export default {
+    name: "TestPage",
+    setup() {
+        onMounted(()=>{})
+    }
+}
+```
+
 #### Setup 实现 生命周期
+
+```javascript
+export default {
+    name: "TestPage",
+    setup() {
+        onMounted(()=>{})
+    }
+}
+```
+
+#### Setup 实现 Provide/Inject
+
+```javascript
+export default {
+    name: "TestPage",
+    setup() {
+        onMounted(()=>{})
+    }
+}
+```
+
+#### Setup 实现 watch/watchEffect
+
+```javascript
+export default {
+    name: "TestPage",
+    setup() {
+        onMounted(()=>{})
+    }
+}
+```
+
+#### Setup script语法糖
 
 ```javascript
 export default {
