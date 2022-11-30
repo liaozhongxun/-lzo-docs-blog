@@ -626,7 +626,7 @@ export default {
 
 
 
->   函数式变成思想
+>   函数式变成思想，以前对象里的功能转变为函数的调用
 
 setup
 
@@ -715,7 +715,7 @@ shallowReactive // 浅层作用: 一级属性可以响应式，但深层的不�
 shallowReadonly // 浅层作用：一级属性无法修改，但深层的可以
 shallowRef
 
-toRaw // 返回 reactive 或 readonly 代理的原始对象，去除响应式效果
+toRaw // 返回 reactive 或 readonly 代理的原始对象，去除Proxy效果
 
 const { username, passwd } = toRefs(infos) // 结构reactive数据, 成 ref数据
 const username = toRef(infos,'username') //结构单个
@@ -732,7 +732,7 @@ export default {
     name: "TestPage",
     setup() {
         const count = ref(1)
-        const plusOne = computed(() => count.value + 1)
+        const plusOne = computed(() => count.value + 1)  // 计算属性也是一个  ref
         console.log(plusOne.value) // 2
         
         return {
@@ -748,6 +748,8 @@ export default {
 export default {
     name: "TestPage",
     setup() {
+        // setup 本身 取代了 created 和 beforeCreated 这连个生命周期
+        
         onBeforeMount(()=>{}) // 组件挂载之前
         onMounted(()=>{}) // 组件挂载完成执行
         
@@ -767,6 +769,36 @@ export default {
     }
 }
 ```
+
+>   ref  获取 dom 节点
+
+```vue
+<template>
+	<div ref='titleRef'>标题</div>
+	<button ref='btnRef'>按钮</button>
+</template>
+
+<script>
+	export default {
+        setup(){
+            const titleRef = ref();
+            const btnRef = ref();
+            
+            onMounted(()=>{
+                console.log(titleRef.value)
+                console.log(btnRef.value)
+            })
+            
+            return { // 一定要 return 
+                btnRef, 
+                titleRef
+            }
+        }
+    }
+</script>
+```
+
+
 
 #### Setup 实现 Provide/Inject
 
@@ -793,7 +825,7 @@ export default {
         const foo = inject('foo')
 
         // 注入响应式的值
-        const count = inject('count')
+        const count = inject('count','default value')
     }
 }
 ```
@@ -801,10 +833,37 @@ export default {
 #### Setup 实现 watch/watchEffect
 
 ```javascript
+import { ref, watch, watchEffect } from 'vue';
 export default {
     name: "TestPage",
     setup() {
-        onMounted(()=>{})
+        const message = ref("hello word");
+        watch(message,(n,o)=>{ // [msg1,msg2] 可以监听多个
+            console.log(n,o)
+        },{
+            immediate:true, // 先执行一次
+            deep:true // 深度监听，默认true
+        }) 
+        
+        
+        watch(()=> ({...infos}),(n,o)=>{ // 自动收集infos 里面的所有依赖，不加小括号,大括号会被当成代码块
+            console.log(n,o)
+        },{
+             deep:true  
+        })
+        
+        /**
+         * 里面的函数自动被执行
+         * 函数内部涉及到的依赖会被自动收集，只要监听到一个发生变化，就自动再次执行这个函数
+         * 返回值 调用就停止监听了
+         */
+        const stopWatchxx = watchEffect(()=>{
+            
+        }) 
+        
+        return {
+            message
+        }
     }
 }
 ```
