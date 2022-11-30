@@ -635,6 +635,22 @@ setup
 3.   template 需要用的东西 需要从setup中 `return` 出去
 4.   setup 内部使用变量需要加 .value  ,retrun 到 template 中的不需要写 .value
 
+#### Setup 上下文
+
+```javascript
+// 透传 Attributes（非响应式的对象，等价于 $attrs）
+console.log(context.attrs)
+
+// 插槽（非响应式的对象，等价于 $slots）
+console.log(context.slots)
+
+// 触发事件（函数，等价于 $emit）
+console.log(context.emit)
+
+// 暴露公共属性（函数）,父组件通过ref得到子组件实例，仅能访问expose的内容
+console.log(context.expose)
+```
+
 
 
 #### Setup 实现 data  数据
@@ -687,19 +703,19 @@ export default {
 </script>
 ```
 
->   响应式数据相关属性
+>   响应式数据相关工具方法
 
 ```javascript
-isProxy // 检测是否由reactive或readonly穿件的proxy
+isProxy // 检测数据是否由reactive或readonly穿件的proxy
 isReactave // 检测是否由reactive创建的响应式代理，readonly包裹reactive对象创建的也会返回true
 isReadonly // 是否有有readonly创建的只读代理 
-isRef 
+isRef  // 数据是否有ref创建
 
-shallowReactive
-shallowReadonly
+shallowReactive // 浅层作用: 一级属性可以响应式，但深层的不可以，只是普通数据
+shallowReadonly // 浅层作用：一级属性无法修改，但深层的可以
 shallowRef
 
-toRaw // 返回 reactive 或 readonly 代理的元素对象
+toRaw // 返回 reactive 或 readonly 代理的原始对象，去除响应式效果
 
 const { username, passwd } = toRefs(infos) // 结构reactive数据, 成 ref数据
 const username = toRef(infos,'username') //结构单个
@@ -711,10 +727,17 @@ triggerRef(count) // 特殊情况改变完没有响应，手动强制响应
 #### Setup 实现 计算属性
 
 ```javascript
+import { ref, computed } from 'vue';
 export default {
     name: "TestPage",
     setup() {
-        onMounted(()=>{})
+        const count = ref(1)
+        const plusOne = computed(() => count.value + 1)
+        console.log(plusOne.value) // 2
+        
+        return {
+            plusOne 
+        }
     }
 }
 ```
@@ -725,7 +748,22 @@ export default {
 export default {
     name: "TestPage",
     setup() {
-        onMounted(()=>{})
+        onBeforeMount(()=>{}) // 组件挂载之前
+        onMounted(()=>{}) // 组件挂载完成执行
+        
+        onBeforeUpdate(()=>{}) // 响应式数据变更之前
+        onUpdated (()=>{}) // 响应式数据变更
+        
+        onBeforeUnmount(()=>{}) // 组件十六卸载之前
+        onUnmounted(()=>{}) // 组件实例被卸载
+        
+        onActivated(()=>{}) // <KeepAlive> 的组件激活
+        onDeactivated(()=>{}) // <KeepAlive> 的组件卸载
+        
+        onErrorCaptured(()=>{}) 
+        onRenderTracked(()=>{}) 
+        onRenderTriggered(()=>{}) 
+        onServerPrefetch(()=>{}) 
     }
 }
 ```
@@ -733,10 +771,29 @@ export default {
 #### Setup 实现 Provide/Inject
 
 ```javascript
+import { ref, provide } from 'vue';
 export default {
     name: "TestPage",
     setup() {
-        onMounted(()=>{})
+        // 提供静态值
+        provide('foo', 'bar')
+
+        // 提供响应式的值
+        const count = ref(0)
+        provide('count', count)
+    }
+}
+
+// 下级组件中
+import { ref, inject } from 'vue';
+export default {
+    name: "TestPage",
+    setup() {
+        // 注入值的默认方式
+        const foo = inject('foo')
+
+        // 注入响应式的值
+        const count = inject('count')
     }
 }
 ```
