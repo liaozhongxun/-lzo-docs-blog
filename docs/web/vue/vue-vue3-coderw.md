@@ -606,7 +606,7 @@ export default function useCounter(){
     const decrement = () => {
         counter.value--
     }
-    return { counter, increment, decrement}
+    return { counter, increment, decrement}  
 }
 
 // 组件中引用
@@ -868,18 +868,41 @@ export default {
 }
 ```
 
-#### Setup script语法糖
+#### Setup script语法糖 
 
-```javascript
-export default {
-    name: "TestPage",
-    setup() {
-        onMounted(()=>{})
+```vue
+<!--
+	1、引入组件直接使用不需要注册
+    2、顶层（非函数内）的代码默认暴露给template，可以直接使用不需要return
+    3、defineProps({}),代替props定义 组件接收的数据（setup语法中直接用，不需要引入）
+    4、defineEmits(["infoBtnClick"]) 
+    5、defineExports  暴露属性或方法到组件外（通过ref拿到组件时可以调用暴露出的方法）
+-->
+<script setup>
+	const message = ref("msg") // 不要 return 就可以直接使用
+    
+    const props = defineProps({
+        title:{
+            type:String,
+            default:"首页"
+        }
+    })
+    
+    const emits = defineEmits(["infoBtnClick"]);
+    function showInfoBtnClick() {
+        emits("infoBtnClicks","data")
     }
-}
+    
+    // 暴露方法
+    function foo(){
+    	console.log("foo ")
+    }
+    defineExports({
+        foo
+    })
+    
+</script>
 ```
-
-
 
 
 
