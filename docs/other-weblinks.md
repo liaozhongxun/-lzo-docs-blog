@@ -147,6 +147,7 @@ title: 工作学习资源
 -   [加载动画生成](https://loading.io/)
 -   [css 流程指引](https://zh.learnlayout.com/display.html)
 -   [有道翻译2.0](http://fanyi.youdao.com/web2/)
+-   [聚合数据 免费API](https://www.juhe.cn/apiservice)
 
 ## 题库
 -   [牛客](https://www.nowcoder.com/)

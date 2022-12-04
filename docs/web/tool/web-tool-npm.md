@@ -1,18 +1,21 @@
 ---
 title: npm与node
 ---
-## npm 基础使用
-### npm与node
-> 现在下载安装node一般都有集成npm,安装node成功后直接就能在命令行使用npm包管理工具了
-[node官网下载](https://nodejs.org/en/download)
+## Npm 工具包
 
-### npm初始化项目
+live-server 
+
+| 包名        | 作用                        | 相似|
+| ----------- | :-------------------------- |--|
+| live-server | web静态页面服务器（热更新） | puer |
+
+## npm 基础使用
+> npm初始化项目
 ```shell
 npm init -y //生成package.json
-
 ```
 
-### npm安装包
+> npm安装包
 ```javascript
 npm install module-name --global | -g      //全局安装 一般是工具
 npm install module-name --save | -S      //自动把模块和版本号添加到dependencies(生产环境)部分

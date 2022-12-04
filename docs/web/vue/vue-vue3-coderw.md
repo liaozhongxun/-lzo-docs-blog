@@ -922,9 +922,94 @@ export default {
 
 **hash实现** ：监听 hashchange 事件时，就可以不刷新页面，而去做一些事情
 
-**history实现** pushState、replaceState 等方法切换路径
+**history实现** pushState、replaceState 等方法切换路径，可以修改url而不刷新页面
+
+---
 
  ### vue-router
+
+>   下载包  --> 导入 --> 创建 --> 选择模式 --> 设置映射表    app.use
+
+```javascript
+// router.js
+import { createRouter, createWebHashHistory } from "vue-router"; 
+const router = createRouter({
+    history: createWebHashHistory(), // createWebHistory() history 模式
+    routes:[
+        {
+            // 默认替换到App.vue 的 <router-view> 位置
+            path:"/home",
+            /**
+             * import 实现懒加载
+             * import 打包分包，用户只要一个页面，没必要把下载所有组件，全在app.js文件中就全部都要下载了
+             * 魔法注释，分包后的包名
+             */
+            component:() => import(/* webpackChunkName: 'home' */ "../views/Home.vue"), 
+            name:"home",
+            mate:{},  // 自定义数据
+        },
+        {
+            // 动态路由 js 中通过 $route.params.id 获取
+            path:"/user/:id",
+            component:() => import("../views/User.vue"), 
+        },
+        {   
+            // 放在最后 $route.params.pathMatch 取到具体的错误路径
+            path:"/:pathMatch(.*)",
+            component:() => import("../views/404.vue"), 
+        }
+    ]
+});
+
+export default router;
+
+// main.js
+import router from './router'
+app.use(router)
+
+// 通过 router-link 和 router-view 跳转 展示组件
+```
+
+>   router-link
+
+```vue
+<!--
+	replace 使用 replace 跳转 默认push
+	active-class 属性设置激活的class 名称 默认 .router-link active
+-->
+<router-link to='/index' replace active-class='active'></router-link>
+```
+
+>   $router 和 $route 
+
+```shell
+# $router 大对象，一般用于路由跳转
+# $route 某个路由对象 `this.$route.path`  `this.$route.name` 获取单前路由的一些信息，routes映射数组的一个元素
+```
+
+>   setup 中通过 hook函数使用路由
+
+```vue
+<script setup>
+	const { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router';
+    const route = useRoute();
+    console.log(route.path)
+    console.log(route.params.id)
+    
+    // 导航守卫
+    onBeforeRouteUpdate((to,from)=>{
+        
+    })
+    
+    // 路由跳转
+    const router = useRouter();
+    router.push("/home");
+    router.replace("/home");
+    router.back();
+    router.forward();
+    router.go(+-n); 
+</script>
+```
 
 
 

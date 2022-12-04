@@ -5,23 +5,34 @@ title: 库
 Express.js、Koa、NestJS(基于Express)、Nuxt.js(Vue)
 
 -   Excel 表格处理 : [sheetjs](https://sheetjs.com/)
+
 -   日期时间处理 :[date-fns](https://date-fns.org/)
+
 -   聊天通讯：[socket](https://socket.io/)
+
 -   PDF：[Node PDF 生成库](https://pdfkit.org/)
+
 -   CRON定时：[node-cron](https://www.npmjs.com/package/cron)
+
 -   mongodb工具：[mongose](http://www.mongoosejs.net/)
+
 -   邮件发送：[nodemailer](https://nodemailer.com/about/)
+
 -   接口文檔：[apidoc](https://www.npmjs.com/package/apidoc)
--   日志插件: [log4](https://www.npmjs.com/package/log4js)
--   错误插件
--   pm2:[node进程管理工具]
 
--   koa
--   koa-compress 压缩响应数据
--   koa-logger 输出服务日志
--   koa-error 处理响应错误
+    
+
+| 包名        | 作用                        | 相似|
+| ----------- | :-------------------------- |--|
+| pm2 | node进程管理工具 |      |
 
 
+| koa工具包        | 作用                        | 相似|
+| ----------- | :-------------------------- |--|
+| koa | node koa框架 ||
+| koa-compress | 压缩响应数据 ||
+| koa-logger |   输出服务日志           |[log4](https://www.npmjs.com/package/log4js)|
+| koa-error | 处理响应错误 ||
 ### pm2
 pm2 启动的 node 进程关闭了会自动重启
 全局安装 pm2 `npm install pm2 -g`

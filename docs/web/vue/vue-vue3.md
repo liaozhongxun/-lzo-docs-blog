@@ -11,5 +11,3 @@ title: vue3
 - Fragment 作用 不再限制模板中的单个根节点(template 下可以有多个标签)
 - Suspens 作用 可在嵌套层级中等待嵌套的异步依赖项目
   
-
-## 
