@@ -920,9 +920,11 @@ export default {
 
 前端来维护 不**同URL --> 对应组件** 的关系 **映射表**，前端**根据不同URL**，渲染**不同组件**
 
-**hash实现** ：监听 hashchange 事件时，就可以不刷新页面，而去做一些事情
+改变URL 页面不刷新的两种模式
 
-**history实现** pushState、replaceState 等方法切换路径，可以修改url而不刷新页面
+​		**hash实现** ：监听 hashchange 事件时，就可以不刷新页面，而去做一些事情
+
+​		**history实现** pushState、replaceState 等方法切换路径，可以修改url而不刷新页面
 
 ---
 
@@ -947,6 +949,16 @@ const router = createRouter({
             component:() => import(/* webpackChunkName: 'home' */ "../views/Home.vue"), 
             name:"home",
             mate:{},  // 自定义数据
+            /**
+             * 子路由 
+             * 访问: /home/profile 
+             * Profile 将被渲染到 Home 的 <router-view> 内部 
+             * ???
+             */
+            children:{ 
+                path:"profile",
+                component:Profile
+            }
         },
         {
             // 动态路由 js 中通过 $route.params.id 获取
@@ -970,7 +982,7 @@ app.use(router)
 // 通过 router-link 和 router-view 跳转 展示组件
 ```
 
->   router-link
+>   router-link 和 router-view
 
 ```vue
 <!--
@@ -978,6 +990,12 @@ app.use(router)
 	active-class 属性设置激活的class 名称 默认 .router-link active
 -->
 <router-link to='/index' replace active-class='active'></router-link>
+
+
+<!--
+	占位，路由跳转时组件替换
+-->
+<router-view></router-view> 
 ```
 
 >   $router 和 $route 
@@ -1009,6 +1027,45 @@ app.use(router)
     router.forward();
     router.go(+-n); 
 </script>
+```
+
+#### 动态配置路由
+
+>   管理系统中，每个角色**路由**通过**接口获取**，给不同角色，组成不同路由（直接写死的路由实现管理系统，只是普通的菜单显示隐藏）
+
+```javascript
+// router.js
+import { createRouter, createWebHashHistory } from "vue-router"; 
+const router = createRouter({
+    history: createWebHashHistory(), // createWebHistory() history 模式
+    routes:[
+        {
+            // 动态路由 js 中通过 $route.params.id 获取
+            path:"/user/:id",
+            name:"user",
+            component:() => import("../views/User.vue"), 
+        },
+    ]
+});
+
+let isAdmin = true; // 真实环境下等用户登录，判断他有什么角色
+if(isAdmin){
+    router.addRoute({
+        path:"/admin",
+         component:() => import("../views/AdminPage.vue")
+    })
+    // 动态添加二级域名
+    router.addRoute("home",{
+        
+    })
+}
+
+export default router;
+
+// main.js
+import router from './router'
+app.use(router)
+
 ```
 
 
