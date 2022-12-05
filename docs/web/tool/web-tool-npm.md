@@ -8,11 +8,12 @@ live-server
 | 包名        | 作用                        | 相似|
 | ----------- | :-------------------------- |--|
 | live-server | web静态页面服务器（热更新） | puer |
+| [vue-json-views](https://www.npmjs.com/package/vue-json-views) | 页面中显示JSON树||
 
 ## npm 基础使用
 > npm初始化项目
 ```shell
-npm init -y //生成package.json
+npm init -y  # 生成package.json
 ```
 
 > npm安装包
