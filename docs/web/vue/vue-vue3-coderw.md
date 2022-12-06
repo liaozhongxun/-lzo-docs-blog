@@ -1109,6 +1109,10 @@ export default router;
 
 ## Vuex
 
+推荐 `options Api` 使用
+
+单一状态是，整个项目只有一个`store`实例
+
 >   状态管理
 
 全局保存**数据状态(State)**，任何组件都能**共享**和**修改**，
@@ -1124,20 +1128,40 @@ export default router;
 ```vue
 <template>
 	<div>{{$store.state.counter}}</div> <!--模板直接获取状态-->
-	<button @click="incr">
+    <div>{{name}} - {{level}} </div>
+	<div></div>
+	<button @click="incr"></button>
 </template>
 
+<!-- options API -->
+<script>
+import { mapState, mapGetters  } from vuex;
+export default {
+    componend:{
+        ...mapState(["name","level"]), // 得到 name函数 和 level函数 结构到计算属性中
+        ...mapState({
+            sName: state => state.name // 重命名
+        }),
+        ...mapGetters(["message"]) // 和 mapState 一样
+    }
+}
+</script>
+
+<!-- composition API -->
 <script setup>
-	import { useStore } from "vuex"; // 通过 hook
+	import { useStore, mapState, toRefs } from "vuex"; // 通过 hook
     
     const store = useStore();
     const { counter } = toRefs(store.state);
     console.log(counter);
     console.log(store.state.counter); // 获取状态无法响应式
     
+    const { name } = mapState(['name']) // 得到一个 name 函数 ，可以分组到 hook
+    const sName = computed(name.bind({ $store: store})); //因为内部通过 this.$store.stete.name 获取
+    
     
     function incr(){
-        store.commit("increment"); // 直接提交 mutations,从mutations的 increment 修改数据
+        store.commit("increment"); // 直接commit mutations,从mutations的 increment 修改数据
     }
 </script>
 ```
@@ -1160,13 +1184,29 @@ export default router;
 import { createStore } from "vuex";
 const store = createStore({
     state:() => ({
-        counter:0
+        counter:0,
+        name:"lzo",
+        level:10
     }),
+    getters:{
+       doubleCounter(state,getters){ 
+           return state.counter*2 + getters.message
+       }, 
+       message(state){
+           return state.level + 3;
+       },
+       func(state){
+           return(id)=>{
+               return id + state.level;
+           }
+           // $store.getters.func(5)  --> 15
+       }
+    },
     mutations: {
         increment(state){
             state.counter++
         }
-    }
+    },
 })
 
 export default store;
@@ -1182,11 +1222,18 @@ app.use(store)
 
 >   核心概念 State、Getters、Mutations、Actions、Modules； 
 
+**State** 状态对象集合
+
+**Getters** 将state中的数据需要经过加工之后再使用，**类似计算属性**
+
+
 
 
 ## Pinia(Vuex 5)
 
+推荐在 `vue3 setup` 中使用
 
+>   
 
 ## 脚手架
 

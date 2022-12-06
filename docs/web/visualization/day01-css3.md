@@ -1,5 +1,5 @@
 ---
-title: 数据可视化话
+title: 数据可视化话 - css3
 ---
 
 
@@ -102,7 +102,9 @@ backface-visibility:visible;
 backface-visibility:hidden;
 ```
 
+### 动画性能优化
 
+![](D:\MyData\projects\lzo-docs-blog\static\img\2022-12-06_231445.jpg)
 
-
+谷歌浏览器 console 下面三个点 --> more tools --> layers 查看动画图层
 
