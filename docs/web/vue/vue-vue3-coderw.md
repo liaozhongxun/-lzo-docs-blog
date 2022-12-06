@@ -1037,10 +1037,9 @@ app.use(router)
 // router.js
 import { createRouter, createWebHashHistory } from "vue-router"; 
 const router = createRouter({
-    history: createWebHashHistory(), // createWebHistory() history 模式
+    history: createWebHashHistory(), 
     routes:[
         {
-            // 动态路由 js 中通过 $route.params.id 获取
             path:"/user/:id",
             name:"user",
             component:() => import("../views/User.vue"), 
@@ -1052,13 +1051,24 @@ let isAdmin = true; // 真实环境下等用户登录，判断他有什么角色
 if(isAdmin){
     router.addRoute({
         path:"/admin",
+        name:"admin",
          component:() => import("../views/AdminPage.vue")
     })
     // 动态添加二级域名
     router.addRoute("home",{
         
     })
+    
+    /**
+     *  删除路由
+     *  1、添加一个重名的路由，覆盖掉要删除的，路由name是唯一的
+     *  2、router.removeRoute("admin")
+     */
 }
+
+// 其他一下方法
+router.getRoutes() // 获取路由
+router.hasRoute() // 检测路由是否存在
 
 export default router;
 
@@ -1068,11 +1078,113 @@ app.use(router)
 
 ```
 
+>   导航守卫，路由拦截 [文档](https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB)
+
+```javascript
+/**
+ * 1、判断用户是否登录，否则返回登录页面
+ * 2、从一个页面跳转到另一个页面做一些事情
+ */
+import { createRouter, createWebHashHistory } from "vue-router"; 
+const router = createRouter({
+    history: createWebHashHistory(), 
+    routes:[]
+});
+/**
+ * 1、任何路由跳转之前都会进入回调
+ * 2、to 即将进入的路由对象
+ * 3、from 即将离开的路由对象
+ */
+router.beforeEach((to,from,next)=>{
+    if(to.path != '/login'){
+        retrun '/login' // 返回指定页面，和 router.push 一样
+        retrun false // 取消单前导航
+    }
+})
+
+export default router;
+```
+
 
 
 ## Vuex
 
-## Pinia
+>   状态管理
+
+全局保存**数据状态(State)**，任何组件都能**共享**和**修改**，
+
+把各个组件中**复杂的状态**抽取到一个公共**store仓库**
+
+![](../../../static/img/vuex.png)
+
+1、中间虚线是vuex部分，**State**保存全局**数据**，应用程角度可以**叫做状态**
+
+2、**Vue Components** 获取 **State** 数据 **Rander**渲染到页面
+
+```vue
+<template>
+	<div>{{$store.state.counter}}</div> <!--模板直接获取状态-->
+	<button @click="incr">
+</template>
+
+<script setup>
+	import { useStore } from "vuex"; // 通过 hook
+    
+    const store = useStore();
+    const { counter } = toRefs(store.state);
+    console.log(counter);
+    console.log(store.state.counter); // 获取状态无法响应式
+    
+    
+    function incr(){
+        store.commit("increment"); // 直接提交 mutations,从mutations的 increment 修改数据
+    }
+</script>
+```
+
+3、**Vue Components** 同 **Dispatch** 触发 **Actives** 异步方法，在Actives调用网络请求 **Backend API**
+
+4、要求数据必须 **Commit** 提交到 **Mutatios** 中，才能从 **Mutations** 中修改 **State** 的状态
+
+5、**Mutations** 中修改 **State** 的状态可以受到 **Devtools** 工具跟踪，直接修改也能成功，但工具无法更正
+
+>   安装
+
+```javascript
+// npm install vuex; 
+
+/**
+ *  src/store/index.js 创建 store
+ *  state 所有状态都是响应式的
+ */
+import { createStore } from "vuex";
+const store = createStore({
+    state:() => ({
+        counter:0
+    }),
+    mutations: {
+        increment(state){
+            state.counter++
+        }
+    }
+})
+
+export default store;
+
+// main.js
+import store from "./store";
+app.use(store)
+
+
+```
+
+
+
+>   核心概念 State、Getters、Mutations、Actions、Modules； 
+
+
+
+## Pinia(Vuex 5)
 
 
 
