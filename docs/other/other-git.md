@@ -387,6 +387,14 @@ Host github.com
   Hostname ssh.github.com
   Port 443
 
+
+Host github.com
+# User github的邮箱 如果有邮箱的key
+Hostname ssh.github.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa
+Port 443
+
 # 测试
 # $ ssh -T git@github.com
 ```
