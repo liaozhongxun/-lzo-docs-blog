@@ -1138,7 +1138,7 @@ export default router;
 import { mapState, mapGetters  } from vuex;
 export default {
     componend:{
-        ...mapState(["name","level"]), // 得到 name函数 和 level函数 结构到计算属性中
+        ...mapState(["name","level"]), // store的state映射过来，得到 name函数 和 level函数 结构到计算属性中
         ...mapState({
             sName: state => state.name // 重命名
         }),
@@ -1158,21 +1158,74 @@ export default {
     
     const { name } = mapState(['name']) // 得到一个 name 函数 ，可以分组到 hook
     const sName = computed(name.bind({ $store: store})); //因为内部通过 this.$store.stete.name 获取
+     
+</script>
+```
+
+3、**Vue Components** 同 **Dispatch** 触发 **Actions** 异步方法，在Actives调用网络请求 **Backend API** 等异步操作
+
+```vue
+<!-- 如果存在异步操作 dispatch Actions 从 Actions 提交 mutations -->
+```
+
+
+
+4、要求数据必须 **Commit** 提交到 **Mutatios** 中，才能从 **Mutations** 中修改 **State** 的状态
+
+```vue
+<!-- 如果不存在异步操作 直接提交 mutations -->
+<template>
+	<div>{{$store.state.counter}}</div> 
+</template>
+
+<!-- options API -->
+<script>
+import { mapMutations } from "vuex";
+export default {
+   	methods:{
+        ...mapMutations(['increment',CHANGE_NAME]), /* 将store 的 mutations 里的方法映射过来 */
+        changeState(){
+            /** 
+             * increment 名称永远要与 store mutations定义的保持一致
+             *  	所有mutations名字经常会被提取到常量中
+             */
+            this.$store.commit("increment",'lzoxun');
+            
+            /* 使用映射过来的方法 */
+            this.increment('lzoxun')
+        },
+    }
+}
+</script>
+
+<!-- composition API -->
+<script setup>
+	import { useStore } from "vuex"; // 通过 hook
+    const store = useStore();
     
+    /* 映射过来，处理this问题， 内部 this.$store.commit */
+    import { mapMutations } from "vuex";
+    const mutations = mapMutations(['increment']);
+    const newMutations = {};
+    Object.keys(mutations).forEach(key=>{
+         newMutations[key] = mutations[key].bind({ $store: store })
+    })
+    const { incrment } = newMutations;
     
-    function incr(){
+    function changeState(){
         store.commit("increment"); // 直接commit mutations,从mutations的 increment 修改数据
+        
+        /* 使用映射过来的方法 */
+        incrment();
     }
 </script>
 ```
 
-3、**Vue Components** 同 **Dispatch** 触发 **Actives** 异步方法，在Actives调用网络请求 **Backend API**
 
-4、要求数据必须 **Commit** 提交到 **Mutatios** 中，才能从 **Mutations** 中修改 **State** 的状态
 
 5、**Mutations** 中修改 **State** 的状态可以受到 **Devtools** 工具跟踪，直接修改也能成功，但工具无法更正
 
->   安装
+>   store 仓库的定义
 
 ```javascript
 // npm install vuex; 
@@ -1203,8 +1256,13 @@ const store = createStore({
        }
     },
     mutations: {
-        increment(state){
-            state.counter++
+        /* 先导入常量 CHANGE_NAME，commit  的时候同样导入 */
+        [CHANGE_NAME](state,payload){
+            state.counter++;
+        },
+        increment(state,payload){
+            state.counter++;
+            state.name = payload||'lzo';
         }
     },
 })
@@ -1225,6 +1283,12 @@ app.use(store)
 **State** 状态对象集合
 
 **Getters** 将state中的数据需要经过加工之后再使用，**类似计算属性**
+
+**Mutations** 更改vuex状态的**唯一标准方法**是 `commit` 提交 `mutations` 
+
+​			( Mutations **同步操**作，**可以**但是**不要做异步操作**，如果要，可以经过**Actions**异步操作，再**从 Actions  提交 Mutations**)
+
+**Action** 
 
 
 
