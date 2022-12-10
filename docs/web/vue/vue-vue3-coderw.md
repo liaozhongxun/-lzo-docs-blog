@@ -1166,6 +1166,52 @@ export default {
 
 ```vue
 <!-- 如果存在异步操作 dispatch Actions 从 Actions 提交 mutations -->
+<template>
+	<div>{{$store.state.level}}</div> 
+</template>
+
+<!-- options API -->
+<script>
+import { mapActions } from "vuex";
+export default {
+   	methods:{
+        ...mapActions(["changeLevelAction"]), /* 将store 的 actions 里的方法映射过来 */
+        dispatchAction(){
+            /* 直接派发 */
+            this.$store.dispatch("changeLevelAction",'xun');
+            
+            /* 使用映射过来的方法 */
+            this.changeLevelAction('xun')
+        },
+    }
+}
+</script>
+
+<!-- composition API -->
+<script setup>
+	import { useStore, mapActions } from "vuex"; // 通过 hook
+    const store = useStore();
+    
+    /* 映射过来，处理this问题， 内部 this.$store.dispatch */
+    const actions = mapActions(['changeLevelAction']);
+    const newActions = {};
+    Object.keys(actions).forEach(key=>{
+         newActions[key] = actions[key].bind({ $store: store })
+    })
+    const { changeLevelAction } = newActions;
+    
+    function changeState(){
+        /* 不使用映射的方法直接调用 */
+        store.dispatch("changeLevelAction");
+        /* 如果返回的是Promise，直接拿到数据, async行数默认返回的就是Promise */
+        store.dispatch("changeLevelAction").then(res=>{
+            console.log(res)
+        });
+        
+        /* 使用映射过来的方法 */
+        changeLevelAction();
+    }
+</script>
 ```
 
 
@@ -1223,7 +1269,54 @@ export default {
 
 
 
-5、**Mutations** 中修改 **State** 的状态可以受到 **Devtools** 工具跟踪，直接修改也能成功，但工具无法更正
+5、**Mutations** 中修改 **State** 的状态可以受到 **Devtools** 工具跟踪，直接修改也能成功，但工具无法跟踪
+
+6、**Modules** 的使用
+
+```javascript
+/* store/modules/home.js */
+export default {
+    namespaced:true,
+    state(){
+        name:"123"
+    },
+    getters:{
+        homeGetter(state,getters,rootState){}
+    },
+    mutations:{
+        homeMutation(state){}
+    },
+    actions:{},
+}
+
+/* store 中导入module */
+import homeModule form "./modules/home";
+const store = createStore({
+    state(){},
+    getters:{},
+    mutations:{},
+    actions:{},
+    modules:{
+        homeModule
+    }
+})
+ 
+/* 从模块中获取 State 数据 */
+$store.state.home.name //123
+
+/** 
+ *	默认情况 getters、mutations、action 不需要加模块名，会被合并到store中，与外面store的用法一致   
+ *  	容易名字冲突
+ *  开启命名空间
+ *	     namespaced:true  
+ */
+
+$store.getters["home/homeGetters"]
+store.dispatch("home/homeAction",null,{root:true}) // {root:true} 那么里面就能修改根store的数据
+store.commit("home/homeMutation")
+```
+
+
 
 >   store 仓库的定义
 
@@ -1263,6 +1356,17 @@ const store = createStore({
         increment(state,payload){
             state.counter++;
             state.name = payload||'lzo';
+        },
+        fromAction(state,payload){
+            state.level = payload;
+        }
+    },
+    actions:{
+        changeLevelAction(context,payload){
+            /* context 上下文  和  store 有相同的属性和方法 */
+            /* context.commit("increment") 提交 mutation */
+            /* context.state 和 context.getters 来获取State 或 Getters 数据*/
+            context.commit("fromAction",payload);
         }
     },
 })
@@ -1272,8 +1376,6 @@ export default store;
 // main.js
 import store from "./store";
 app.use(store)
-
-
 ```
 
 
@@ -1288,7 +1390,11 @@ app.use(store)
 
 ​			( Mutations **同步操**作，**可以**但是**不要做异步操作**，如果要，可以经过**Actions**异步操作，再**从 Actions  提交 Mutations**)
 
-**Action** 
+**Action**  类似 mutation，不同在于Action可以包含异步操作，但是不能直接修改state，而是要 commit 到 mutation 去改变 
+
+​			( 打算将公共数据存在store，就可以在Action获取数据，其他地方直接从store获取 )
+
+**Modules**  将 store 数据 拆分管理
 
 
 
@@ -1297,7 +1403,19 @@ app.use(store)
 
 推荐在 `vue3 setup` 中使用
 
->   
+>   与 vuex 的区别
+
+-   `mutations` 不存在了，action就能直接修改 state
+-   更友好的`TypeScrip`支持，Vuex对TS很不友好
+-   没有了 `modules` 的嵌套结构
+    -   可以灵活使用多个`store`，通过**扁平化**的方式**交互使用**
+    -   没有了命名空间的概念
+
+### 安装配置
+
+···
+
+
 
 ## 脚手架
 
