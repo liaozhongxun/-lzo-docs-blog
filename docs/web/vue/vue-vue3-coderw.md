@@ -1413,9 +1413,54 @@ app.use(store)
 
 ### 安装配置
 
-···
+```javascript
+/* 1、npm install pinia  安装*/
+
+/* 2、/store/index.js 引入 配置 关联vue */
+import { createPinia } from 'pinia';
+const pinia = createPinia();
 
 
+export default pinia;
+
+/* 3、app.use(pinia) */
+
+/* 4、可以关闭 /store/index 了，新增数据，建立对应的文件，如同级创建 home.js */
+```
+
+>   数据仓库基本定义与使用 
+
+```javascript
+/* home.js */
+/* 定义store */
+import {  defineStore } from 'pinia';
+
+/* 定义 store 唯一 名为 home，并返回一个hook函数 */
+const useHome = defineStore('home',{  
+    state:()=>{
+        name:'lzoxun'
+    },
+    actions:{
+        
+    }
+})
+
+export default useStoretag;
+
+/* 页面 setup 中 */
+import useHome from "@/store/home"
+import { storeToRefs } from 'pinia'；
+
+const homeStore = useHome();
+const { name } = storeToRefs(homeStore); // 类似 toRefs 解构之后还能响应式
+
+homeStore.name                       
+homeStore.name = 'xun' /* 使用 store 数据 */ 
+```
+
+###  三个核心概念
+
+`state`、`getters`、`actions` 等同于组件的 `data`、`computed`、`methods`，定义成功后可以直接使用
 
 ## 脚手架
 
