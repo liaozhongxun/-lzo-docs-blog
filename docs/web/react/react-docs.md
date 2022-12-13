@@ -31,6 +31,57 @@ title: react
 
 #### 类组件
 
+```react
+class App extends React.Component {
+    // 组件数据
+    constructor() {
+        super();
+        // this.state 固定的，不能改变
+        this.state = {
+            message: "Hello World"
+        };
+
+        // 对需要绑定的方法, 提前绑定好this，class下默认绑定的this是undefined，箭头函数就不需要了
+        this.btnClick = this.btnClick.bind(this);
+    }
+
+    // 组件方法(实例方法)
+    btnClick() {
+        // setState 是 React.Component 继承的方法  
+        // 内部完成了两件事情:
+        // 1.将state中message值修改掉 2.自动重新执行render函数函数
+        this.setState({
+            message: "Hello React",
+        });
+    }
+
+    // 渲染内容 render方法，名称固定 不能改变
+    render() { // 里面的this 都是正常指向组件的this
+        return (
+            <div>
+                <h2>{this.state.message}</h2>
+                <button onClick={this.btnClick}>修改文本</button>
+            </div>
+        );
+    }
+}
+
+// this绑定的问题
+// const app = new App()
+// const foo = app.btnClick
+// foo(); // 默认绑定 => window => 严格模式下 => undefined  (babel 转换的和class里默认都是严格模式)
+
+// function bar() {
+//   console.log("bar:", this);
+// }
+// bar()
+
+// 将组件渲染到界面上
+const root = ReactDOM.createRoot(document.querySelector("#root"));
+// App根组件
+root.render(<App />);
+```
+
 
 
 

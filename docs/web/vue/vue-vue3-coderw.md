@@ -1438,9 +1438,31 @@ import {  defineStore } from 'pinia';
 /* 定义 store 唯一 名为 home，并返回一个hook函数 */
 const useHome = defineStore('home',{  
     state:()=>{
-        name:'lzoxun'
+        name:'lzoxun',
+        count:2
+    },
+    getters:{
+        doubleCount(state){
+            return state.count * 2; 
+        },
+        doubleCountAdd(state){
+            // this 是 store 实例
+            return this.doubleCount + 1;
+        },
+        dynamicParams(state){
+    		return (id)=>{
+                return state.count + id;
+            }
+		},
+        otherStore(state){
+            const userStore = useUser(); // 需要先 导入
+            return userStore.name + state.name;
+        }
     },
     actions:{
+        incrment(payload){ // 没有state，直接是参数
+            this.count++;
+        },
         
     }
 })
@@ -1454,8 +1476,26 @@ import { storeToRefs } from 'pinia'；
 const homeStore = useHome();
 const { name } = storeToRefs(homeStore); // 类似 toRefs 解构之后还能响应式
 
+/* 使用或修改 store 数据 */ 
 homeStore.name                       
-homeStore.name = 'xun' /* 使用 store 数据 */ 
+homeStore.name = 'xun' 
+
+/* 修改多个状态 */
+homeStore.$patch({
+    name:"789"
+})
+
+/* 重置 store 数据到最初始的状态 */
+homeStore.$reset() 
+
+/* 替换整个state */
+homeStore.$state = {}
+
+/* getters 方法 */
+homeStore.doubleCount();
+
+/* actions 方法, 如果返回的是promise，可以通过then监听异步结果 */
+homeStore.incrment(10); 
 ```
 
 ###  三个核心概念
@@ -1535,6 +1575,10 @@ import("./components/cpn1.vue").then(res=>{}) # 可以对导入的文件进行�
 import { defineAsyncComponent } from "vue";
 const Cpn1 = defineAsyncComponent(()=> import("./components/cpn1.vue"))
 ```
+
+## Axios
+
+
 
 ## 其他
 
