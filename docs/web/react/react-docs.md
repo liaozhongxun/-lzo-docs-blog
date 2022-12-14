@@ -82,6 +82,87 @@ const root = ReactDOM.createRoot(document.querySelector("#root"));
 root.render(<App />);
 ```
 
+###  JSX
+
+>   认识 JSX
+
+概念
+
+-   JSX 是一种 JavaScript 的语法扩展，或称为 `JavaScript XML`
+-   它用于描述**UI界面 view,** 并且**完全**可以和J**avaScript融合在一起**
+-   它不同于vue的模板语法，**不需要**专门学习模块语法中的**一些指令**（比如v-for，v-if）
+-   React 认为 **逻辑渲染**本质上与其他**UI逻辑**存在很强的**内在耦合**（关联性强），所以选择 JSX
+    -   UI 中绑定事件
+    -   展示数据状态
+    -   状态改变又要改变 UI
+
+位置
+
+```react
+render(){
+    retrun (); // 这里面 或 放到这里使用的，就是jsx,运行会被bable转成js代码 
+}
+```
+
+> 书写规范 `retrun () 中`
+
+-   只能有**一个根元素**
+-   **小括号**，使 JSX 可以换行书写，方便阅读
+-   单标签必须 `/>`结尾
+
+#### 使用
+
+-   `{}`插入内容 **Number**、**String**、**Array** 可以直接显示，**undefined**、**null**、**boll ** 不显示，**Object对象** 不能直接插入
+
+```react
+// 1.定义App根组件
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            message:'note',
+            count:0,
+            arr:[1,2,3,4]
+            
+        }
+    }
+
+    render() {
+        const {message,count,arr} = this.state;
+        const countAdd = count + 1;
+        return (
+            { /* 注释 */ }
+            <div>
+                { /* 1、注释 */ }
+                { /* 2、插入内容变量 */ }
+                <h2>{message}</h2>
+                
+                { /* 3、插入表达式 没有计算属性，可以直接通过js完成*/ }
+                <h2>{1+2}</h2>
+                <h2>{countAdd}</h2>
+                
+                { /* 4、调用方法 */ }
+                <ul>{arr.map(item=> <li>{item}</li>)}</ul> 
+                <ul>{this.getItem}</ul> 
+                
+                { /* 5、绑定属性 */ }
+                <img title={message} src={xxx}></img>
+                <h2 className="box" >绑定类</h2> { /* class 是关键字，bable解析可能会产生误解 */ }
+				<h2 className={`box1 box2 ${countAdd==2?'box3':'box4'}`} >绑定类</h2> 
+            </div>
+        );
+    }
+    
+    getItem(){
+        { /* 如果复杂的逻辑 */ }
+        retrun this.state.arr.map(item=> <li>{item}</li>)
+    }
+}
+
+const root = ReactDOM.createRoot(document.querySelector("#root"));
+root.render(<App />);
+```
+
 
 
 
