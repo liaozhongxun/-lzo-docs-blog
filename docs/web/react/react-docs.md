@@ -50,6 +50,7 @@ class App extends React.Component {
         // setState 是 React.Component 继承的方法  
         // 内部完成了两件事情:
         // 1.将state中message值修改掉 2.自动重新执行render函数函数
+        // 2.应用类型建议不要直接该，向浅拷贝，改完，再重新全部复制过去，改变引用
         this.setState({
             message: "Hello React",
         });
@@ -195,6 +196,44 @@ class App extends React.Component {
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 root.render(<App />);
+```
+
+>   Bable 解析 JSX 
+
+```react
+{/*
+	React.createElement(type,config,children)
+	
+	1、bable 将每一个 div 转换为 React.createElement("div",null,null)
+	通过 createElement 组成一个 JavaScript对象树，形成虚拟DOM
+	
+	2、再通过 document.createElement("dov") 转真实DOM
+	
+	有一个从 jsx -> 虚拟DOM（js对象 ） -> 真实DOM的过程 
+	  （jsx没有v-for，事件绑定这些，比较简单，bable可以直接解析，vue比较麻烦，template 通过v-loader来解析）
+	  
+	 虚拟DOM的好处
+	 	- 可以在家js中通过diff算法对比新旧虚拟dom，部分更新
+	 	- 动态判断是渲染成web端可以用的DOM结构，或渲染成其他各个平台认识的结构，实现跨平台
+	 	- 通过root.render 让虚拟DOM和真实DOM同步起来，这个过程叫做协调
+	 	- 只需要告诉react让ui展示什么状态，react去匹配，你不需要手动操作dom、属性、事件，实现声明式编程 
+*/}
+
+return (
+    <div>
+    	<ul>
+            <li className='item'>Text</li>
+            <li className='item'>Text</li>
+        </ul>
+    </div>
+)
+
+// 转换后
+React.createElement("div",null,
+	React.createElement("ul",null,
+    	React.createElement("li",{className:'item'},Text)
+    )
+)
 ```
 
 
