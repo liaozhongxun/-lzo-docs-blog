@@ -1247,6 +1247,7 @@ ONBOOT="yes" # 开机读取
     -   lsof abc.txt 显示开启文件abc.txt的进程
     -   lsof -c abc 显示abc进程现在打开的文件
     -   lsof -i :22  查看22端口现在运行什么程序
+-   `nslookup lzoxun.top`：根据域名查询IP
 
 ### 查看设备信息指令
 ### 注意事项

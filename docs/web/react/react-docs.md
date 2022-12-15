@@ -60,6 +60,7 @@ class App extends React.Component {
         return (
             <div>
                 <h2>{this.state.message}</h2>
+                {/* 拿到 btnClick 指针，存到这里，没有调用，当用户点击才调用，所以默认拿不到this的*/}
                 <button onClick={this.btnClick}>修改文本</button>
             </div>
         );
@@ -112,7 +113,7 @@ render(){
 
 #### 使用
 
--   `{}`插入内容 **Number**、**String**、**Array** 可以直接显示，**undefined**、**null**、**boll ** 不显示，**Object对象** 不能直接插入
+-   作为子元素`{}`插入内容 **Number**、**String**、**Array** 可以直接显示，**undefined**、**null**、**boll ** 不显示，**Object对象** 不能直接插入
 
 ```react
 // 1.定义App根组件
@@ -122,14 +123,30 @@ class App extends React.Component {
         this.state = {
             message:'note',
             count:0,
-            arr:[1,2,3,4]
+            arr:[1,2,3,4],
+            isReady:true
             
         }
+        
+        this.btnClick = this.btnClick.bind(this);
     }
+    
+    btnClick(){console.log(this)}
+    btn2Click = ()=> console.log(this);
+    btn3Click(){console.log(this)};
+    btn4Click(event, name, age) {console.log(event, name, age)}
 
     render() {
-        const {message,count,arr} = this.state;
+        const {message,count,arr,isReady } = this.state;
         const countAdd = count + 1;
+        
+        let ele = null;
+        if(isReady){
+            ele = <h1>h1</h1>
+        }else{
+            ele = <h2>h2</h2>    
+        }
+        
         return (
             { /* 注释 */ }
             <div>
@@ -149,6 +166,23 @@ class App extends React.Component {
                 <img title={message} src={xxx}></img>
                 <h2 className="box" >绑定类</h2> { /* class 是关键字，bable解析可能会产生误解 */ }
 				<h2 className={`box1 box2 ${countAdd==2?'box3':'box4'}`} >绑定类</h2> 
+                
+                { /* 6、绑定样式 */ }
+                 <h2 style={{color: "red", fontSize: "30px"}}>呵呵呵呵</h2>
+                
+                { /* 7、绑定事件 小驼峰*/ }
+                 <button onClick={this.btnClick}>修改文本</button>
+                 <button onClick={this.btn2Click}>按钮2</button>
+                 <button onClick={() => this.btn3Click()}>需要执行</button> 
+                 <button onClick={(event) => this.btn4Click(event, "why", 18)}>按钮4</button>
+                
+                { /* 8、条件渲染 js怎样就怎样 */ }
+                <div>{ele}</div>
+                <div>{ isReady?<h1>h1</h1>:<h2>h2</h2>  }</div>
+                <div style={{display:isReady ? 'block': 'none'}}>v-show </div>
+                
+                { /* 9、列表渲染 ，如果添加限制，向把arr处理一下再遍历 */ }
+                <div>{arr.map(item=> <div className='item'>item</div>)}</div>
             </div>
         );
     }
