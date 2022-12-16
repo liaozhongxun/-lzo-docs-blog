@@ -236,6 +236,48 @@ React.createElement("div",null,
 )
 ```
 
+### React ClI
+
+>   建筑学的概念，表示搭建建筑物时，**临时搭建**出来的**一个框架**，处理里一些问题，
+
+-   目录机构组织
+-   管理文件直接的相互依赖
+-   管理第三方依赖
+-   发布前的压缩打包。。。
+-   浏览器不认识的代码转换
+-   所有webpack相关的都存到 `react-scripts` 中了，`执行 npm run `就可以弹出，就能看到了，**不可逆**
+
+>   PWA
+
+-   `Progressive Web App` 渐进式WEB应用
+-   首先是一个**网页**，通过**Web技术编写**出一个**网页应用**
+-   随后添加**App Manifest** 和 **Service Worker** 来实现**安装和离线缓存**等功能 
+    -   App Manifest：手机上某些浏览器（如Google）右上角更多里面，将页面添加到桌面，看上去就跟app差不多
+    -   Service Worker：当没网的时候打开这个Web App，还能看到上一次浏览的一些东西
+-   这种Web存在的形式 称为 **Web App**
+-   作用: 添加到**主屏幕**、**离线缓存**、**消息推送**等 一系列NativeApp的相关功能
+
+#### create-react-app(CRA)
+
+```shell
+# 1、全局安装 npm install create-react-app -g
+# 2、创建 create-react-app <object-name>    - 不允许存在大写字母
+# 3、 cd   yarn start
+
+# 目录结构
+#     public 一些静态文件
+#         index.html、favicon.ico 入口文件，标题图标
+#         两个logo.png、manifest.json 都是配置 PWA的一些资源样式配置
+#         robots.txt 告诉搜索引擎哪些东西可以被爬虫爬
+#     src  源码
+#  
+# eject 后多出     
+#     config
+#     scripts
+#
+#
+```
+
 
 
 

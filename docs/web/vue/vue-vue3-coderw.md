@@ -1578,6 +1578,24 @@ const Cpn1 = defineAsyncComponent(()=> import("./components/cpn1.vue"))
 
 ## Axios
 
+>   浏览器原生网络请求 **XMLHttpRequire**、**fetch**
+
+#### 认识 Axios
+
+特点
+
+-   在浏览器发送 **XMLHttpRequire** ，Node环境自动发送 **http** 请求
+-   支持 Promise API
+-   拦截请求和响应
+
+#### axios发送请求
+
+#### axios创建实例 
+
+#### axios 拦截器
+
+#### axios 请求封装
+
 
 
 ## 其他
