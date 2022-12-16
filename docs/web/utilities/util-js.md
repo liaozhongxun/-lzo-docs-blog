@@ -81,6 +81,13 @@ let arrayre = [1,2,3,4,4,'ab','ab','cad'];
 removeAaaryObj(arrayre,'ab')
 ```
 
+#### 数组乱序
+
+```javascript
+const shuffleArray = (arr) => arr.sort(() => 0.5 - Math.random());
+console.log(shuffleArray([1, 2, 3, 4]));
+```
+
 
 
 ### String
@@ -171,6 +178,21 @@ let ivjson3 = isValidJSON('{"title": "javascript", "price": 14, subtitle}'); // 
  item.highlight = item.name.replace(reg,(item)=>`<span style="color:#f00">${item}</span>`);
 ```
 
+#### 解析 query
+
+```javascript
+const getParameters = URL => JSON.parse(`{"${decodeURI(URL.split("?")[1]).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"')}"}`)
+```
+
+#### 单词首字母大写
+
+```javascript
+const tuc = str => str.replace(/(?=\b)\w/g,(x)=> x.toUpperCase())
+tuc("follow for more")
+```
+
+
+
 ### Math相关
 
 #### 指定范围随机数
@@ -192,10 +214,11 @@ console.log(randomNum(5,10))
 -   **.slice(-6)**: 补0,从后面截取6位数
 
 ```javascript
-const randomColor = () => {
-	return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
-}
+const randomColor = () => '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
 console.log(randomColor())
+
+const randomHexColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0")}`
+console.log(randomHexColor())
 ```
 
 #### RGB转十六进制
@@ -206,6 +229,15 @@ console.log(randomColor())
 ```javascript
 const RGBToHex = (r, g, b) => ((r << 16) + (g << 8) + b).toString(16).padStart(6, "0");
 let hex = RGBToHex(0, 255, 255); // ffffff
+```
+
+### Object
+
+#### 检测对象是否为空 {}
+
+```javascript
+// Reflect.ownKeys(obj) 获取对象自身的属性键组成的数组
+const isEmpty = obj => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
 ```
 
 
@@ -224,6 +256,13 @@ let hex = RGBToHex(0, 255, 255); // ffffff
  */
 const getTimeFromDate = date => date.toTimeString().slice(0, 8);
 let time1 = getTimeFromDate(new Date()); // 09:46:08
+```
+
+#### 通过日期查询 年终天数
+
+```javascript
+const dayOfYear = (date) =>  Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+dayOfYear(new Date());
 ```
 
 
@@ -256,6 +295,30 @@ isMobile() {
     let flag = 		navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
     return flag;
 },
+```
+
+#### 检测设备类型
+
+```javascript
+const judgeDeviceType =
+      () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i.test(navigator.userAgent) ? 'Mobile' : 'PC';
+```
+
+
+
+#### 浏览器选项卡是否激活
+
+```javascript
+const isTabActive = () => !document.hidden; 
+```
+
+## 其他
+
+#### 获取选择的文本
+
+```javascript
+const getSelectedText = () => window.getSelection().toString();
+getSelectedText();
 ```
 
 
