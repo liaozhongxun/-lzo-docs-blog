@@ -25,18 +25,35 @@ title: react
 
 -   **babel**：将jsx转换成React代码的工具
 
+---
+
 ### 组件
 
->   **类组件**和**函数组件**，将 **state 数据** 、**方法**、**render** 关联起来
+将页面**拆分**为无数个**小的组件**，每个组件完成自己的**独立功能**，**方便**页面的**关联**与**维护** 与 **复用**
+
+每个**单页面**应用就是一棵**组件树**，么个组件都将 **state 数据** 、**方法**、**render** 关联起来
+
+组件类型，前面的**注重UI**， 后面的**注重逻辑**
+
+>   根据组件**定义方式**：**函数组件 **和 **类组件**
+
+>   根据内部是否有**状态需要维护**：**无状态组件** 和 **有状态组件**
+
+>   根据组件**职责**：**展示型 组件** 和 **容器型组件**
 
 #### 类组件
 
 ```react
+/**
+ * 1、组件名称必须大写开头  
+ * 2、类组件必须继承 React.Component
+ * 3、必须实现 render，也是唯一必须实现的
+ *
+ */
 class App extends React.Component {
-    // 组件数据
     constructor() {
         super();
-        // this.state 固定的，不能改变
+        // 组件数据，this.state 固定的，不能改变
         this.state = {
             message: "Hello World"
         };
@@ -56,7 +73,10 @@ class App extends React.Component {
         });
     }
 
-    // 渲染内容 render方法，名称固定 不能改变
+    /**
+     *  渲染内容 render方法，名称固定 不能改变
+     *  可以返回react元素、数组|字符串|数值、fragments(高级)、Portals(高级)
+     */
     render() { // 里面的this 都是正常指向组件的this
         return (
             <div>
@@ -83,6 +103,157 @@ const root = ReactDOM.createRoot(document.querySelector("#root"));
 // App根组件
 root.render(<App />);
 ```
+
+##### 生命周期
+
+生命周期就是事物从**创建**到**销毁**的过程，了解生命周期，可以让我们在**适合的地方**做想**要做的事情**
+
+生命周期 和 生命周期函数的关系
+
+-   整个生命周期有很多个阶段，react可以使**程序**走到**指定阶段**时**自动触发**（回调）相应的**生命周期函数**
+    -   装载阶段（Mount），组件第一层在DOM树种被渲染的过程，组件**挂载到DOM**上就会触发`componentDidMount`
+    -   更新阶段 (Update) , 组件状态发生变化，重新渲染的过程，组件**状态发生更新**触发 `componentDidUpdate`
+    -   卸载阶段（Unmount），组件从DOM树中被移除的过程，就叫**即将移除**触发 `componentWillUnmount`
+
+react 生命周期的过程
+
+![](../../../static/img/react-live.jpg)
+
+-   Mounting 挂载阶段
+    -   **constructor**：创建组件实例 第一个执行 构造方法constructor 
+        -   组件 都是一个类，每使用移除 <HelloX/> 都会创建一个类的实例出来 
+
+    -   **render**：第二个执行render方法渲染 
+        -   **render 完成** React 更新**DOM** 和 **Refs**
+
+    -   **componentDidMount**：进行挂载到DOM上，挂载好就会 触发 **第一个生命周期函数**
+        -   依赖dom的操作
+        -   网络请求操作
+        -   处理一些订阅
+
+-   更新状态阶段
+    -   **setState**：修改状态，修改完成之后**又执行 render** 重新 更新**DOM** 和 **Refs**
+    -   **componentDidUpdate**：更新完成，触发**第二个生命周期函数**
+
+-   卸载阶段
+    -   **componentWillUnmount**：将组件从DOM树中移除之后触发 **第三个生命周期函数**
+        -   取消一些订阅，清理操作
+
+-   不常用的生命周期
+    -   **shouldComponentUpdate**：处于 **setDate 到 render 之间**，如果返回**false**，说明**不需要重新渲染**界面 
+    -   **getSnapshotBeforeUpdate**：处于 **render 到 更新DOM 之间**，获取或保存一写DOM更新前的一些信息
+
+
+#### 函数组件
+
+```react
+/**
+ * 与类组件的差异（不包含hook）
+ *     没有生命周期，没有生命周期函数，也会被更新并挂载
+ *     this 关键字不能指向组件实例
+ *     内部没有状态 state
+ */
+function App(props){
+    // return 的东西与类组件的一致
+    return <h1>react元素</h1>
+}
+export default App
+```
+
+####  组件通信
+
+>   组件存在**嵌套关系**，**嵌进来**的组件称为**子组件**  
+
+```react
+import React from 'react'
+import Headers from "./components/Headers"
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            title: '首页',
+            list: [1, 2, 3, 4, 5],
+            infos: {
+                name: 'lzo',
+                height: "380cm"
+            },
+
+            count: 0,
+        }
+    }
+
+    changeCount(num) {
+        this.setState({
+            count: this.state.count + num
+        })
+    }
+
+
+    render() {
+        return (
+            <div>
+                {/* 父传子：向子组件传入一个title等数据 */}
+                {/* 子传父：向子组件传入回调，接收子组件发送的数据 childExec*/}
+                <Headers 
+                    title={this.state.title}
+                    infos={this.state.infos}
+                    list={this.state.list}
+                    childExec={(num) => this.changeCount(num)}>
+                </Headers>
+                <div>{this.state.count}</div>
+            </div>
+        );
+    }
+}
+export default App;
+
+```
+
+```react
+import React from "react"; // imr
+import PropTypes from 'prop-types' // impt 用来限制props数据类型
+// 子组件
+class Headers extends React.Component {
+    constructor(props) {
+        // props 接收父组件传入的所有数据
+        super(props);
+        this.state = {};
+
+        console.log(this.props); // 可以直接使用
+    }
+
+    changeData() {
+        this.props.childExec(3)
+    }
+
+    render() {
+        return (
+            <div>
+                <div>父传子 {this.props.title}</div>
+                <div>子传父 <button onClick={e => this.changeData()}>+3</button></div>
+            </div>
+        );
+    }
+}
+
+// 如果需要限制类型的话，也可以用ts
+Headers.propTypes = {
+    title: PropTypes.string.isRequired, // 字符串类型，并且必传
+    infos: PropTypes.object,
+    list: PropTypes.array,
+};
+
+// 设置默认值 
+Headers.defaultTypes = {
+    list: [],
+    infos: {}
+}
+
+export default Headers;
+
+```
+
+
 
 ###  JSX
 
@@ -274,8 +445,6 @@ React.createElement("div",null,
 # eject 后多出     
 #     config
 #     scripts
-#
-#
 ```
 
 

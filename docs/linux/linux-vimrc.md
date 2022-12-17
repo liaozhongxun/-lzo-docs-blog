@@ -193,7 +193,7 @@ com! DiffSaved call s:DiffWithSaved()
 
 ### vscodevim
 
-```javascript
+```，javascript
 {
 
     //设置 leader键

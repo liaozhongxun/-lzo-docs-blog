@@ -84,6 +84,12 @@ Powermode: Presets 设置效果
 Powermode: Enable Shake 去除代码抖动  
 -    Debugger for Chromes
 
+
+
+### React 插件
+
+-   ES7+ React/Redux/React-Native snippets   快速生成代码段（最下面 [Snippets](https://github.com/dsznajder/vscode-es7-javascript-react-snippets/blob/HEAD/docs/Snippets.md) 查看使用详情）
+
 ## 快捷键
 
 常用
