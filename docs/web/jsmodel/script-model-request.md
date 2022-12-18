@@ -120,7 +120,7 @@ title: 服务器请求
 			})
 		}
 
-        //封装
+        // 实现
         functioFn myAxios({
             url,
             method="GET",

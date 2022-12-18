@@ -27,6 +27,12 @@ title: react
 
 ---
 
+#### 对比vue
+
+react：用户手动 setState 的时候 去重新执行 render 函数
+
+vue：data数据改变直接劫持重新渲染模板
+
 ### 组件
 
 将页面**拆分**为无数个**小的组件**，每个组件完成自己的**独立功能**，**方便**页面的**关联**与**维护** 与 **复用**
@@ -162,9 +168,12 @@ export default App
 
 ####  组件通信
 
+##### 父子通信（props 由父到子）
+
 >   组件存在**嵌套关系**，**嵌进来**的组件称为**子组件**  
 
 ```react
+// App.js
 import React from 'react'
 import Headers from "./components/Headers"
 class App extends React.Component {
@@ -194,11 +203,16 @@ class App extends React.Component {
             <div>
                 {/* 父传子：向子组件传入一个title等数据 */}
                 {/* 子传父：向子组件传入回调，接收子组件发送的数据 childExec*/}
-                <Headers 
+                <Headers
                     title={this.state.title}
                     infos={this.state.infos}
                     list={this.state.list}
-                    childExec={(num) => this.changeCount(num)}>
+                    childExec={(num) => this.changeCount(num)}
+                    slotele={<div>传入React元素实现插槽</div>}
+                    sloteleArea={(text) => <div>{text}</div>}
+                >
+                    <div className='children-1'>通过子元素实现插槽效果</div>
+                    <div className='children-2'>通过 this.props.children 获取组件间的子元素</div>
                 </Headers>
                 <div>{this.state.count}</div>
             </div>
@@ -210,9 +224,10 @@ export default App;
 ```
 
 ```react
+/* App.js  =>  Headers.js */
 import React from "react"; // imr
 import PropTypes from 'prop-types' // impt 用来限制props数据类型
-// 子组件
+
 class Headers extends React.Component {
     constructor(props) {
         // props 接收父组件传入的所有数据
@@ -229,8 +244,15 @@ class Headers extends React.Component {
     render() {
         return (
             <div>
-                <div>父传子 {this.props.title}</div>
-                <div>子传父 <button onClick={e => this.changeData()}>+3</button></div>
+                <div>父传子 =》 {this.props.title}</div>
+                <div>子传父 =》 <button onClick={e => this.changeData()}>+3</button></div>
+                <div className="slot">
+                    <span className="left">子元素的使用 =》 left</span>
+                        {this.props.children[0]} {/* 弊端就是需要多个子元素的话，所有都在列表，位置无法固定 */}
+                        {this.props.slotele}
+                        {this.props.sloteleArea('作用域插槽，内容自定')}
+                    <span className="right">right</span>
+                </div>
             </div>
         );
     }
@@ -241,17 +263,82 @@ Headers.propTypes = {
     title: PropTypes.string.isRequired, // 字符串类型，并且必传
     infos: PropTypes.object,
     list: PropTypes.array,
+    slotele: PropTypes.element
 };
 
 // 设置默认值 
-Headers.defaultTypes = {
+Headers.defaultProps = {
     list: [],
-    infos: {}
+    infos: {},
+    slotele:<div>默认</div>
 }
 
 export default Headers;
 
+
 ```
+
+##### 非父子隔层通信
+
+>   官方提供的 Context ，数据共享，后期可以用redux代替
+
+```react
+/* App.js  =>  HeadersChild.js */
+```
+
+>   EventBus 事件总线，可以监听触发事件传值
+
+#### setState 详细使用
+
+```react
+/* 1、基本用法 */
+this.setState({
+	message: "hello word"
+})
+
+/* 2、回调函数 */
+this.setState((state,props)=>{
+    // 可以先处理 state,props
+    return {
+        message: "hello word"
+    }
+})
+
+/** 
+ * 3、setState 在 react 事件处理中默认是异步调用 
+ *    - 异步可以提升性能，获取同一阶段 多个setState改变，批量更新
+ *    - 如果是同步的，setState 后，render 还没有执行，state和要给子组件的props不能保存同步
+ *    - 
+ *    - 第二个参数回调中可以拿到最终结果
+ */
+
+this.setState({
+	message: "hello word"
+},()=>{
+     console.log("++++++:", this.state.message) // 拿到更新后的数据
+})
+
+/* 4、react 18 之前的同步做法，不是React事件的回调就能同步，之后全部setState做法都是异步的 */
+ setTimeout(() => {
+     // 在react18之前, setTimeout中setState操作, 是同步操作
+     // 在react18之后, setTimeout中setState异步操作(批处理)
+     this.setState({ message: "hello word 111" })
+     console.log(this.state.message)
+ }, 0);
+
+/* 5、偏要实现同步效果，使用官方的 flushSync*/
+import { flushSync } from 'react-dom'
+flushSync(() => {
+    this.setState({ message: "你好啊, 李银河" })
+})
+console.log(this.state.message) // 设置后先执行render，再执行这里
+```
+
+#### 优化
+
+
+
+
 
 
 
