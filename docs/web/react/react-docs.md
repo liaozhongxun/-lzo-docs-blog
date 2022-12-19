@@ -336,9 +336,59 @@ console.log(this.state.message) // 设置后先执行render，再执行这里
 
 #### 优化
 
+##### 更新机制
 
+![](../../../static/img/2022-12-19_075525.jpg)
 
+-   通过唯一的、不变的key对比新旧DOM树，尽量复用
+-   dom树中不会跨层比较
 
+##### render 函数被调用
+
+-   父组件 **setState** 被调用，即使**数据没变**， **render函数**会被**重新执行**，**所有子组件**都会重新渲染
+
+```react
+/* 原理通过生命周期 shouldComponentUpdate(nexeProps,newState) SCU拦截优化*/
+shouldComponentUpdate(newProps,newState){
+    if(this.state.message != newState.message){
+        return true
+    }
+    return false
+}
+
+/* 子组件 拦截*/
+shouldComponentUpdate(newProps,newState){
+    if(this.props.message != newProps.message){
+        return true
+    }
+    return false
+}
+
+/* 上面太繁琐，react提供的解决方案 */
+
+/* 类组件 Component 换成 PuerComponent 帮做我们浅层比较上面的朝操作*/
+import React from 'react'
+import Headers from "./components/Headers"
+class App extends React.PuerComponent {
+    constructor() {
+        super();
+        this.state = {}
+    }
+
+    render() {
+        return (
+            <div></div>
+        );
+    }
+}
+export default App;
+
+/* 函数组件 通过memo处理上面的问题*/
+const PropFile = memo(function(props){
+    return <h2>{prop.message}</h2>   
+})
+
+```
 
 
 
