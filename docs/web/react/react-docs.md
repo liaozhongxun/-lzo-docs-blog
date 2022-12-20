@@ -334,6 +334,10 @@ flushSync(() => {
 console.log(this.state.message) // 设置后先执行render，再执行这里
 ```
 
+>   数据不可变
+
+应用 类型数据不要去直接修改，如果有变化，解构出来，改好直接，全部替换过去，否则 **PuerComponent** 类组件里不会生效
+
 #### 优化
 
 ##### 更新机制
@@ -387,12 +391,103 @@ export default App;
 const PropFile = memo(function(props){
     return <h2>{prop.message}</h2>   
 })
+```
 
+##### react 获取 dom
+
+>   ref
+
+```react
+import React, { createRef, forwardRef } from 'react'
+import Headers from "./components/Headers"
+
+// 通过 forwardRef 定义一个函数组件
+const Headers2 = forwardRef(function(props,ref){
+    retrun (
+        <h1 ref={ref}>Headers2 h1</h1>
+    )
+})
+
+class App extends React.PuerComponent {
+    constructor() {
+        super();
+        this.state = {}
+        
+        this.titleRef = createRef();
+        this.titleEl = null;
+        this.headRef = createRef();
+        this.headRef2 = createRef();
+    }
+    
+    getNatDom(){
+        // 1、直接获取
+        console.log(this.refs.lzo);
+        
+        // 2、提前创建好ref对象，绑定到元素上
+        console.log(this.titleRef.current)
+        
+        // 3、通过回调得到元素 赋值给 this.titleEl
+        console.log(this.titleEl)
+        
+        // 4、类组件：通过 ref 获取，函数组件没有实例所有无法获取
+        console.log(this.headRef.current) 
+        
+        // 5、函数组件，需要forwardRef,拿到 里面的某个节点，如 h1
+        console.log(this.headRef2.current) // 得到 <h1>Headers2 h1</h1>
+
+    }
+
+    render() {
+        return (
+            <div ref='lzo'>1</div>
+            <div ref={this.titleRef}>2</div>
+            <div ref={el => this.titleEl = el}>3</div>
+            <Headers ref={this.headRef}/>
+            <Headers2 ref={this.headRef2}/>
+            <button onClick={e => this.getNatDom()}></button>
+        );
+    }
+}
+export default App;
+```
+
+##### 受控组件与非受控组件
+
+>   react 没有双向搬到，当表单元素绑定 value属性后就变成了 **受控组件**
+>
+>   受控组件是**无法输入**的，只能通过 **onChange** 事件来操作，通过事件对象拿到最新value，赋值到到state上
+
+```react
+import React, { Component } from 'react'
+
+export class BrotherOne extends Component {
+    constructor() {
+        super()
+        this.state = {
+            name: "default"
+        }
+    }
+
+    changeInput(e) {
+        console.log(e.target.value)
+        this.setState({
+            name: e.target.value
+        })
+    }
+
+    render() {
+        return (
+            <input value={this.state.name} onChange={e => this.changeInput(e)} />
+        )
+    }
+}
+
+export default BrotherOne
 ```
 
 
 
-###  JSX
+###  JSX 
 
 >   认识 JSX
 
