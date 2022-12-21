@@ -395,7 +395,7 @@ const PropFile = memo(function(props){
 })
 ```
 
-##### react 获取 dom
+##### React Refs 获取 dom
 
 >   ref
 
@@ -509,6 +509,54 @@ export default BrotherOne
 -   封装隔代传值的Context
 -   **memo**就是一个高阶函数，性能优化也是通过高阶组件方式实现的
 -   使用大量HOC，包裹太多层嵌套，也不好，然后出现了**Hooks**
+
+#### 高阶应用
+
+##### createPortal (vue3 Teleport)
+
+>   **createPortal**：将React元素挂载到 root 外的其他位置
+
+``` react
+import { createPortal } from "react-doc"
+
+// jsx中
+rendel(){
+    return createPortal(<h2>lzo</h2>,document.querySelector("#lzo")) 
+}
+```
+
+##### Fragment (vue3 Fragment)
+
+>   **Fragment**：包裹一段代码而不渲染到页面上，存在类**似 key的属性**无法使用
+
+```react
+import { Fragment } from "react";
+
+// jsx中
+rendel(){
+    return (
+        <Fragment>
+            <div>
+                <div>下面是 Fragment 语法糖，</div>
+                <>
+                </>
+            </div>
+        </Fragment>
+    )
+}
+```
+
+##### StrictMode
+
+>   StrictMode：仅在开发模式下生效的严格模式，也不会渲染到页面上
+
+检测范围，检测到报错提示
+
+-   识别不安全不推荐生命周期
+-   废弃API
+-   第一种过期的refs用法
+-   检测一些意外副作用
+    -   **开发环境**中 **constructor**，**生命周期** 会被**故意调用两次**，查看你的代码执行多次时是否会产生一些问题（如事件没有移除）
 
 ###  JSX 
 
@@ -661,6 +709,32 @@ React.createElement("div",null,
     )
 )
 ```
+
+### 过渡动画
+
+>   React 社区维护的动画库 `react-transition-group`
+
+```react
+// 1、需要额外安装  npm install react-transition-group -S
+
+/**
+ * CSSTransition：常用这个来完成过度动画
+ *	  动画进入的三个阶段 
+ *        1、开始状态初始化 xxxx-enter   如 opacity:0
+ *        2、执行动画阶段 xxxx-enter-active    如 opacity:1
+ *        3、执行完成阶段 xxxx-enter-done 
+ *    动画离开的三个阶段 
+ *        1、开始状态初始化 xxxx-exit         如 opacity:1
+ *        2、执行动画阶段 xxxx-exit-active    如 opacity:0
+ *        3、执行完成阶段 xxxx-exit-done 
+ * SwitchTransition：两个组件显示和隐藏
+ * TransitionGroup：包裹多个动画组件，一般用于列表中元素动画
+ *
+ *
+ */
+```
+
+
 
 ### React ClI
 
