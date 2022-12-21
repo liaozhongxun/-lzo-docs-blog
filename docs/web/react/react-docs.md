@@ -347,7 +347,9 @@ console.log(this.state.message) // 设置后先执行render，再执行这里
 -   通过唯一的、不变的key对比新旧DOM树，尽量复用
 -   dom树中不会跨层比较
 
-##### render 函数被调用
+##### shouldComponentUpdate （SCU）
+
+-   阻止 render 函数被随意执行
 
 -   父组件 **setState** 被调用，即使**数据没变**， **render函数**会被**重新执行**，**所有子组件**都会重新渲染
 
@@ -453,7 +455,7 @@ export default App;
 
 ##### 受控组件与非受控组件
 
->   react 没有双向搬到，当表单元素绑定 value属性后就变成了 **受控组件**
+>   react 没有双向搬到，当表单元素绑定 value属性后就变成了 **受控组件**，值交给react控制
 >
 >   受控组件是**无法输入**的，只能通过 **onChange** 事件来操作，通过事件对象拿到最新value，赋值到到state上
 
@@ -473,11 +475,19 @@ export class BrotherOne extends Component {
         this.setState({
             name: e.target.value
         })
+        // 或 批量写法
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
     render() {
         return (
-            <input value={this.state.name} onChange={e => this.changeInput(e)} />
+            <div>
+            	<input value={this.state.name} name='name' onChange={e => this.changeInput(e)} />
+                {/* 非受控组件 */}
+                <input defaultValue={this.state.name} />
+            </div>
         )
     }
 }
@@ -485,7 +495,20 @@ export class BrotherOne extends Component {
 export default BrotherOne
 ```
 
+#### 高阶组件（HOC）
 
+>   高阶函数：接收**另外一个函数**作为**参数** 或 **返回一个函数**作为**返回值** 的函数 
+>
+>   高阶组件：本身就是一个函数，接收一个**组件**作为**参数** 并且 **返回一个新的组件**，在渲染之前**拦截**，处理到新组件后返回
+
+应用场景
+
+-   代替了**Mixin**混入
+
+-   对组件注入数据 
+-   封装隔代传值的Context
+-   **memo**就是一个高阶函数，性能优化也是通过高阶组件方式实现的
+-   使用大量HOC，包裹太多层嵌套，也不好，然后出现了**Hooks**
 
 ###  JSX 
 

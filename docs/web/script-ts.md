@@ -10,7 +10,10 @@ tsc -v
 # vscode直接右键运行ts文件
 npm install -g ts-node
 ```
+>   解决了JavaScript类型缺失问题，错误发现的越早越好，开发阶段对类型进行校验
+
 ## 编译
+
 ### 手动直接编译
 ```shell
 tsc file.ts
