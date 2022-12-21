@@ -111,7 +111,7 @@ lxtd = 124; //报错了 推断成了字符串类型
 
 ```
 总结
-+ `number`、`string`、`boolean`、`null`、`undefined`、数组`number[]`、元祖`[string, number,xxx]`、枚举`enum`、`any`、`void`、`objec`t等十几类
++ `number`、`string`、`boolean`、`null`、`undefined`、数组`number[]`、元祖`[string, number,xxx]`、枚举`enum`、`any`、`void`、`object`等十几类
 + 联合类型： number | string
 + 类型断言： `<类型>变量`  或  `变量 as 类`，两种方式让编译器把变量当做指定的类型操作
 + 类型推断:  定义变量时`没有指定类型`,编译器会把根据变量的值推断出一个类型,没值就是any
@@ -136,7 +136,7 @@ let obj = {
     age: 22,
     xxx:'xxx'
 };
-showName(obj);
+showName(obj); // 类型推导为 Person 类型
 
 //====================================
 //定义一个接口,用来描述对象形状的interface类型
@@ -150,7 +150,7 @@ let per1: Person = {
     lastName: "zhongxun",
 };
 
-//类型断言,使Person中不存在的key属性不会报错
+//实例类型断言,使Person中不存在的key属性不会报错
 let per2: Person = {
     ...per1,
     key: ["xxx", 12],
@@ -161,7 +161,7 @@ let per2: Person = {
 //接口扩展,继承
 interface Persion2 extends Person {
     type: string;
-    [key: string]: any; //任意类型,创建对象时使Persion2中不存在的key属性不会报错
+    [key: string]: any; //定义接口设置，任意类型,创建对象时使Persion2中不存在的key属性不会报错
 }
 let per3: Persion2 = {
     ...per1,

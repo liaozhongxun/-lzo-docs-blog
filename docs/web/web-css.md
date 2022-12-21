@@ -36,7 +36,7 @@
      1.   `text-decoration` 装饰线
 
      2.   `text-align` 设置 `行内元素或内容`相对 `块父元素的` 水平对齐方式，块元素居中需要 `margin 0 auto`
-          1.   `justify` 两端对齐，中间平均分配 (最后一行不生效, 一段文字如果最后一行只有连个词，一个做一个右不好看)
+          1.   `justify` 两端对齐，中间平均分配 (最后一行不生效, 一段文字如果最后一行只有两个词，一个做一个右不好看)
           2.   `text-align-last:justify` 这样最后一行就能生效了
           3.   `letter-spacing   word-spacing`  字母或单词间距
 
@@ -50,6 +50,8 @@
                2.   [MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-size)  找搜索 font-size 到 `Percentages (百分比)` 查询 得到 `refer to the parent element's font size`
                     1.   font-size - 父级字体大小  ，width - 父级容器宽度 ，padding，margin - 父级容器宽度
           4.   rem
+          5.   vw/vh
+          6.   小程序 rpx
 
      4.   font-family
           1.   尽量设置多个，防止用户系统找不到相应字体而用 不可控的默认字体
@@ -58,7 +60,7 @@
 
           1.   设置一行文本所占用的高度，准确说是 `两行文本基线(baseline)之间的距离`
 
-               ![](D:\MyData\projects\lzo-docs-blog-2\static\img\2022-09-04_075115.jpg)
+               ![](../../static/img/2022-09-04_075115.jpg)
 
           2.   系统会将`行高大小 - 文字大小` ，剩下的`行距`  上面一半下面一半，可以起到居中的作用
 
@@ -117,12 +119,12 @@
 -   注意事项
     -   display 改变元素类型
     -   行内元素里面不要放块元素
-    -   一般情况块可以包含任何元素，但是`p元素`不能包含其他块元素 (不会保存，但是浏览器解析处理，会单独创建多个p元素处理)
+    -   一般情况块可以包含任何元素，但是`p元素`不能包含其他块元素 (不会报错，但是浏览器解析处理，会单独创建多个p元素处理)
 -   `内容 Content` `内边距 padding` `边框 border` `外边距 margin`
     -   **margin传递** : 如果`块元素顶部`和`父级顶部线`重叠，那么子元素设置的 m-t 会变成父元素的 m-t（除非父自己也设了，并且更大）
         -   1、`父元素`设置`边框`可以解决
         -   2、触发父级盒子 `BFC`
-        -   3、这种需求最后不要用子元素margin (设置兄弟之间的距离)，应该用父元素padding (设置父子之间的距离)
+        -   3、这种需求最好不要用子元素margin (设置兄弟之间的距离)，应该用父元素padding (设置父子之间的距离)
         -   4、父元素 height:auto; 的话，margin-bottom 也会传递 
 
     -   **margin折叠**
@@ -171,7 +173,7 @@
     background:color url 定位/尺寸 repeat local;
     
     /* 对比img */
-    img 是一个元素 占用空间 右键可看地址 不支持精灵图(CSS Sprite) 对搜索以前友好
+    img 是一个元素 占用空间 右键可看地址 不支持精灵图(CSS Sprite) 对搜索引擎友好
     background 相反
     
     图片作为网站重要组成部分，像logo，产品图等最好用img
