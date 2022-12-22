@@ -734,7 +734,49 @@ React.createElement("div",null,
  */
 ```
 
+### React 中的 CSS
 
+组件化的是**局部的**，而CSS的设**计是全局**的，所有组件化项目中，需要一个**CSS的解决方案**
+
+1.   编写局部CSS：让CSS具备自己的**作用域**，不会**随意污染**其他组件内的元素
+2.   编写动态CSS：获取当前组件的一些**状态**，**根据不同的状态** 来 **生成不同的CSS**
+
+#### 常用编写方案
+
+##### 内联样式
+
+>   在jsx中通过style接收一个小驼峰命名属性的样式表对象，并且可以应用state中的状态来设置相关样式
+
+```react
+ <h2 style={{color: "red", fontSize: `${titleSize}px`}}>呵呵呵呵</h2>
+```
+
+##### 普通css
+
+>   编写普通css文件，通过 import "xx/xx/xx.css" 映入到组件，缺点：一个组件引入过，其他组件也会生效
+
+```react
+import './index.css'
+```
+
+##### CSS modules
+
+>   CSS modules 并不是react特有的解决方案，而是**webpack提供**的，webpacd.config.js 中的 modules:true
+
+```react
+import CssIndex from './index.module.css' // 无论是css/scss/less 在正常名字上添加.module就可以
+
+ <h2 className={CssIndex.title}>呵呵呵呵</h2>
+
+/*
+	不能使用index-header 横杆写法
+	不方便动态修改
+*/
+```
+
+##### css in js
+
+>   CSS 由 JavaScript 生成，而不是外部引入，由第三方库提供
 
 ### React ClI
 
