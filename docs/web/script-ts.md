@@ -186,27 +186,34 @@ const searchFunc: ISearchFunc = (a: string, b: string): boolean => {
 console.log(searchFunc("123", "123"));
 
 //======================================================================
+//函数签名
+interface ISearchFunc {
+    //定义一个调用签名
+    (a: string, b: string): boolean;
+}
 //类接口
 interface IFly{
-    fly()
+    fly:ISearchFunc
 }
 interface IFly2{
-    fly2()
+    fly2:ISearchFunc
 }
 
 //类中 implements 的类接口都要实现
 class Person implements IFly,IFly2{
-    fly(){
-        console.log("实现IFly里的定义")
+    fly(a: string, b: string): boolean {
+        console.log("实现IFly里的定义");
+        return true;
     }
-    fly2(){
+    fly2(a: string, b: string): boolean {
         console.log("实现IFly2里的定义")
+        return true;
     }
 }
 
 let per1 = new Person()
-per1.fly()
-per1.fly2()
+per1.fly("1","2")
+per1.fly2("3","4")
 
 ```
 
@@ -233,7 +240,7 @@ let add: (a: string, b: string) => string = (a: string, b: string): string => a 
  * @param b  可选参数
  * @param ...args  剩余参数,必须放在最后面,如果参数够多，默认和可选一定会占一个
  */
-function test(a: number = 123, b?: number,...args:number[]): number {
+function test(a: number = 123, b: number,...args:number[]): number {
     console.log(a) //1
     console.log(b) //2
     console.log(args) //[3,4,5,6,7,8]
@@ -397,16 +404,25 @@ let test2: Sum = (a: string, b: string): string => a + b;
         name: string;
         age: number;
         gender: string; //性别
+        sum: any;
         //定义构造函数
         constructor(name: string, age: number, gender: string) {
             //更新属性
             this.name = name;
             this.age = age;
             this.gender = gender;
+            this.sum = (str:string) => { // 构造函数中的实例方法，每new一次都会创建
+                console.log(str);
+            };
         }
-        //定义实例方法
-        sayHi(str:string){
-            console.log(`我是${this.name}`,str)
+        //定义实例方法  prototype 的方法
+        sayHi(str: string) {
+            console.log(`我是${this.name}`, str);
+        }
+
+        // 静态方法
+        static staticTest(str: string) {
+            console.log("金泰" + str);
         }
     }
 
@@ -422,12 +438,11 @@ let test2: Sum = (a: string, b: string): string => a + b;
             console.log(`我是子类重写sayHi`)
             super.sayHi("我在调用父类的sayHi方法")
         }
-
-
     }
 
     let stu1 = new Student("aa",10,'男');
     stu1.sayHi();
+    Student.staticTest("Student");
 })();
 
 ```
@@ -560,7 +575,7 @@ let test2: Sum = (a: string, b: string): string => a + b;
     /**
      *  内置对象
      */
-    let str:string = "";
+    let str:string = "str";
     let str2:string = new String("str") //“string”是基元，但“String”是包装器对象会报错
     let str3:String = new String("str") //正确
     console.log(str,str2,str3)
