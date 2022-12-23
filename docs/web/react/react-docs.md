@@ -778,6 +778,90 @@ import CssIndex from './index.module.css' // 无论是css/scss/less 在正常名
 
 >   CSS 由 JavaScript 生成，而不是外部引入，由第三方库提供
 
+优点
+
+-   赋予CSS一些能力，样式嵌套、函数定义、逻辑复用动态修改
+-   CSS预处理器功能类似，这个**动态状态**更方便
+-   常见实现`css in js`库：`styled-components`、`emotion`、`glamorous`
+
+```react
+// 1、安装: npm install styled-components -S
+
+// 2、常见 style 组件
+import styled from "styled-components"
+import { largeSize } from "./style/variables" // 引入入全局变量,假设有 export const largeSize = "18px"
+
+// 2.1 标签模板字符串，调用styled的div方法，得到一个div组件
+// 2.2 可以接收外部传入的props
+// 2.3 styled.div.attrs({})``
+// 2.4 从变量文件导入全局的变量 largeSize ，并使用
+export const AppWrapper = styled.div` 
+	.select{
+		color:#f00;
+		font-size:${largeSize}
+	}
+	.title{
+		font-size:${props => props.size}px;
+		.left{
+			color:#f0f
+		}
+	}
+`
+
+// 3、jsx 中使用
+import { AppWarpper } from "./style"
+
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            size:30
+        }
+    }
+    render() {
+        const { size } = this.state;
+        retrun(
+            {/* div组件 会渲染成一个div标签，样式组件可以层层嵌套 */}
+            {/* 状态改变，样式自动更新 */}
+            <AppWarpper size={size}> 
+                <div className='select'></div>
+                <div className='title'>
+                    <div className='left'></div>
+                </div>
+            </AppWarpper>
+        )
+    }
+}
+
+// 4、vscode 安装 vscode-styled-components 插件高亮
+```
+
+>   标签模板字符串，函数的其他调用方式
+
+```javascript
+function tagTmpStr(...arg){
+    console.log(arg);
+}
+
+let num = 10;
+let tag = '学习'
+tagTmpStr(1,2);
+tagTmpStr`this is ${num} 个 ${tag}`  // [['this is','个',''], 10, 学习]
+```
+
+#### classnames 动态添加类
+
+```react
+import classNames from 'classnames'
+
+classNames('foo', 'bar'); // => 'foo bar'
+classNames('foo', { bar: true }); // => 'foo bar'
+classNames({ 'foo-bar': true }); // => 'foo-bar'
+classNames('a', ['b', { c: true, d: false }]); // => 'a b c'
+```
+
+
+
 ### React ClI
 
 >   建筑学的概念，表示搭建建筑物时，**临时搭建**出来的**一个框架**，处理里一些问题，
