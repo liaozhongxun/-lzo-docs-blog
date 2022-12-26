@@ -72,4 +72,12 @@ nvm version 查看当前的版本
 切换版本 npm config get prefix 得到的路径也会一起变化
 
 
+
+暂存
+
+scoop nvm node路径  D:\Scoop\persist\nvm-windows\nodejs
+
+nvm 路径 D:\SCOOP\SHIMS\NVM.EXE
+
+
 #### 类似工具 n
