@@ -882,7 +882,7 @@ Redux 必须通过 **派发（dispatch）action**来**更新数据**
 #### 使用
 
 ```react
-// yarn a
+// yarn add redux  //node 16.10.0 或 >=18.0.0
 ```
 
 
@@ -891,7 +891,7 @@ Redux 必须通过 **派发（dispatch）action**来**更新数据**
 
 #### Reducer
 
->   reducer 是一个纯函数，作用是将传入的state和action结合起来生成一个西的state
+>   reducer 是一个纯函数，作用是将传入的state和action结合起来生成一个新 的state
 
 ### React ClI
 
