@@ -152,6 +152,12 @@ title: 工作学习资源
 ## 题库
 -   [牛客](https://www.nowcoder.com/)
 -   [leetcode](https://leetcode.cn/)
+
+## 素材参考网址
+
+-   [镝数图表](https://dycharts.com/channel-inviteu/index.html)
+-   [稿定设计](https://www.gaoding.com/)
+
 ## 其他
 
 -   [total 手机投屏软件](http://tc.sigma-rt.com.cn/)
