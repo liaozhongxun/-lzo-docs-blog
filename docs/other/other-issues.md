@@ -103,10 +103,21 @@ v-if element控件 如果切换的内容相似错乱问题
 
 ### yarn 无法安装 node-sass
 ```shell
-yarn config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ -g
+yarn config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ -g  无效
 yarn install
 ```
+### vmin 和 vm
+
+>   把相对于viewport的宽度或高度中较小的那个分100份
+
+```shell
+font-size: 12px;	/*IE6-8*/
+font-size: 5vm;		/*IE9*/
+font-size: 5vmin;	/*其他浏览器*/
+```
+
 ### 谷歌控制台
+
 -   重复发送 => 点击已有接口,右键 `replay XHR`
 -   定位变量，右键复制，或右键添加为全局变量，后面可以在控制台直接使用
 -   `$_`:控制台上一次输出结果,通过 $_对上一次输出结果进行操作
