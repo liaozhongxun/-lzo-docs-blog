@@ -41,5 +41,8 @@ console.log(data);
 pm.globals.set("token",data.token)
 ```
 
+### 全局添加
+定位到结合添加，那么集合里所有接口都可以用
+
 ### 快捷键
  postman 控制台: `CTRL + ALT + C`

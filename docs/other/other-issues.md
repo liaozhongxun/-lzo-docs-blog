@@ -115,7 +115,20 @@ font-size: 12px;	/*IE6-8*/
 font-size: 5vm;		/*IE9*/
 font-size: 5vmin;	/*其他浏览器*/
 ```
+### 安全对象，安全数组
+> 确保使用的东西是一个对象，数组，使用他们的方法时不会报错
+```javascript
+const safeArray = (array) => {
+    return Array.isArray(array) ? array : []
+}
 
+// 首先要去判断 当前对象是否为有效对象 
+const isVaildObject = (obj) => {
+    return typeof obj === 'object' && !Array.isArray(obj) && Object.keys(obj).length
+}
+// 这里直接用上面的函数 如果有效就返回本身，无效就返回空对象
+const safeObject = obj => isVaildObject(obj) ? obj : {}
+```
 ### 谷歌控制台
 
 -   重复发送 => 点击已有接口,右键 `replay XHR`
