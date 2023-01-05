@@ -949,16 +949,25 @@ const router = createRouter({
             component:() => import(/* webpackChunkName: 'home' */ "../views/Home.vue"), 
             name:"home",
             mate:{},  // 自定义数据
+        },
+        {
+            path:"/pather",
             /**
              * 子路由 
-             * 访问: /home/profile 
+             * 访问: /pather/profile 
              * Profile 将被渲染到 Home 的 <router-view> 内部 
              * ???
              */
-            children:{ 
-                path:"profile",
-                component:Profile
-            }
+            children:[
+                {
+                    path:"",
+                    component:ChiMain
+                },
+                { 
+                    path:"profile",
+                    component:Profile
+                }
+            ]
         },
         {
             // 动态路由 js 中通过 $route.params.id 获取
