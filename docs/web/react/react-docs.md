@@ -914,6 +914,16 @@ store.constants.js
 
 >   reducer 是一个纯函数，作用是将传入的state和action结合起来生成一个新 的state
 
+#### 调试工具
+
+>   React Developer Tools
+
+
+
+>   Redux DevTools
+
+控制台 redux 数据默认是看不到的，建议开发环境开启，生产环境关闭
+
 ### React ClI
 
 >   建筑学的概念，表示搭建建筑物时，**临时搭建**出来的**一个框架**，处理里一些问题，
