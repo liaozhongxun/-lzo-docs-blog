@@ -914,6 +914,18 @@ store.constants.js
 
 >   reducer 是一个纯函数，作用是将传入的state和action结合起来生成一个新 的state
 
+#### toolkit
+
+```shell
+npm install @reduxjs/toolkit react-redux
+```
+
+>   Toolkit 核心API
+
+-   **configureStore**：包装`createStore`，提供**简化的配置选项**和**良好的默认值** ，自动组合 `slice reducer`、添加任何**Redux中间件**、`redux-thunk`默认包含、启用`Redux DevTools Extension`
+-   **createSlice**：接收reducer函数的对象、切片名称和初始状态。并自动生成reducer，并带有相应actions
+-   
+
 #### 调试工具
 
 >   React Developer Tools
