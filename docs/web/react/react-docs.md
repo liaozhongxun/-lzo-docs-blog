@@ -924,7 +924,7 @@ npm install @reduxjs/toolkit react-redux
 
 -   **configureStore**：包装`createStore`，提供**简化的配置选项**和**良好的默认值** ，自动组合 `slice reducer`、添加任何**Redux中间件**、`redux-thunk`默认包含、启用`Redux DevTools Extension`
 -   **createSlice**：接收reducer函数的对象、切片名称和初始状态。并自动生成reducer，并带有相应actions
--   
+-   **createAsyncThunk**：异步数据操作
 
 #### 调试工具
 
