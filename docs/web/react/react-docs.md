@@ -925,6 +925,10 @@ npm install @reduxjs/toolkit react-redux
 -   **configureStore**：包装`createStore`，提供**简化的配置选项**和**良好的默认值** ，自动组合 `slice reducer`、添加任何**Redux中间件**、`redux-thunk`默认包含、启用`Redux DevTools Extension`
 -   **createSlice**：接收reducer函数的对象、切片名称和初始状态。并自动生成reducer，并带有相应actions
 -   **createAsyncThunk**：异步数据操作
+####  Redux 中间件如何实现
+
+>   派发actions之前拦截，做一些事情（redux-thunk 拦截actions，判断内容是不是一个函数，如果是，就执行得到结果，再继续）
+
 
 #### 调试工具
 
@@ -935,6 +939,7 @@ npm install @reduxjs/toolkit react-redux
 >   Redux DevTools
 
 控制台 redux 数据默认是看不到的，建议开发环境开启，生产环境关闭
+
 
 ### React ClI
 
