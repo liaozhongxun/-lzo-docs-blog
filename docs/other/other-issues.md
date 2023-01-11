@@ -115,6 +115,10 @@ font-size: 12px;	/*IE6-8*/
 font-size: 5vm;		/*IE9*/
 font-size: 5vmin;	/*其他浏览器*/
 ```
+
+### 为什么不建议在mutation和reducers中异步操作
+因为异步操作是成功还是失败不可预测，什么时候进行异步操作也不可预测；当异步操作成功或失败时，如果不 commit(mutation) 或者 dispatch(action)，Vuex 和 Redux 就不能捕获到异步的结果从而进行相应的操作,数据无法正确追踪。并且reducer是纯函数，异步操作，产生副作用，就不是纯函数了
+
 ### 安全对象，安全数组
 > 确保使用的东西是一个对象，数组，使用他们的方法时不会报错
 ```javascript
