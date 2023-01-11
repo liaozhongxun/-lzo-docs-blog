@@ -950,7 +950,12 @@ export default function log(store){
 }
 ```
 
+#### 开发中如何管理state好
 
+1.   有些人，将所有状态放到redux，状态管理库中**方便追踪和共享**
+2.   有些人，将某些组件**自己的状态**放到组件内部进行关联
+3.   建议组件ui相关的一些状态，或自己的状态放到组件内部管理，共享状态，包括请求的数据可以交给redux维护 
+4.   ...具体情况具体评估
 
 
 #### 调试工具
@@ -961,6 +966,66 @@ export default function log(store){
 >   Redux DevTools
 
 控制台 redux 数据默认是看不到的，建议开发环境开启，生产环境关闭
+
+### ReactRouter6.x
+
+```shell
+npm install react-router-dom # react 社区维护
+```
+
+>   基本使用
+
+1.   配置路由类型 **BrowserRouter** 和 **HashRouter**
+
+```react
+// index.js 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { HashRouter } from 'react-router-dom'; // 使用配置 HashRouter
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+	<HashRouter>
+        <App />
+    </HashRouter>
+);
+
+```
+
+2.   路由映射路径
+
+``` react
+// App.js
+render() {
+    return (
+        <div>
+            <div>
+                <div>header</div>
+                <div className='nav'> {/* router3、Link方式跳转 */}
+                    <Link to="/home">首页</Link>
+                    <Link to="/about">关于</Link>
+                </div>
+                <hr/>
+            </div>
+            <div className='content'>
+                {/* router2、映射关系表：path => Component */}
+
+                <Routes>
+                    {/* 5.x  用 component 代替 element，还需要用属性 exact 精准匹配 */}
+                    <Route path='/' element={<Home></Home>}></Route>  
+                    <Route path='/home' element={<Home></Home>}></Route>
+                    <Route path='/about' element={<About></About>}></Route>
+                    {/* 其他属性: replace=true */}
+                </Routes>
+
+            </div>
+            <div>footer</div>
+        </div>
+    )
+}
+```
+
 
 
 ### React ClI
