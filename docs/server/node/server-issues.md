@@ -59,3 +59,6 @@ var params = [Math.floor(Math.random()*8999) + 1000];
 ssender.sendWithParam(86, phoneNumbers[0], templateId,
   params, smsSign, "", "", callback);  // 签名参数不能为空串
 ```
+
+#### node 适用 es 语法
+改后缀名为 .mjs 或 package.json 的 "type": "module"
