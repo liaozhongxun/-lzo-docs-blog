@@ -79,7 +79,26 @@ title: 数据可视化话 - svg
 ## 绘制SVG
 
 ### 方式一
-> 在一个单独svg文件中绘制，svg文件可直接在浏览器预览或嵌入到HTML中
+> 在一个单独svg文件中绘制，svg文件可直接在浏览器预览或嵌入到HTML中 
+
+步骤
+
+​	新建svg文件
+
+​    编写svg元素 ==> width/height  命名空间 **xmlns**
+
+​	svg元素添加图形
+
+​    浏览器预览
+
+```xml
+<!-- DTD 声明 -->
+<!-- standalone="no|yes"  no不是独立的，表示依赖外部DTD声明(外链)，yes独立的，不依赖  -->
+<!-- DTD声明 语法验证xml语法是否符合指定规范  -->
+<?xml version='1.0|1.1' encoding='UTF-8' standalone='on'?>
+```
+
+
 
 ### 方式二
 > 直接在HTML文件中使用svg元素绘制
