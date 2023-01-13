@@ -15,12 +15,13 @@ title: 常用第三方包
 -   day
 -   monent
 #### 动画库
-1.Animate.css
-2.Anime.js
-3.Hover.css
-4.wow.js
-5.scrollReveal.js
-6.Magic.css
-7.waves
-8.Velocity.js
+-   Animate.css
+-   Anime.js
+-   Hover.css
+-   wow.js
+-   scrollReveal.js
+-   Magic.css
+-   waves
+-   Velocity.js
 #### NPM项目插件
+-   [@svrx/cli (puer升级)](https://github.com/svrxjs/svrx/blob/master/README.zh-CN.md)
