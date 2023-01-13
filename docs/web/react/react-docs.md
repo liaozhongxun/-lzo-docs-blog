@@ -546,6 +546,23 @@ rendel(){
 }
 ```
 
+#####  Suspense
+
+>   异步加载未加载出来时，先使用fallback中的组件
+
+```react
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <HashRouter>
+        <Suspense fallback={<h3>Loading...</h3>}>
+            <App />
+        </Suspense>
+    </HashRouter>
+);
+```
+
+
+
 ##### StrictMode
 
 >   StrictMode：仅在开发模式下生效的严格模式，也不会渲染到页面上
@@ -993,40 +1010,141 @@ root.render(
 
 ```
 
-2.   路由映射路径
+2.   路由映射路径，与路由传参
 
 ``` react
-// App.js
-render() {
-    return (
-        <div>
+import React, { PureComponent } from 'react'
+import { Link, NavLink, Navigate, Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
+import About from './pages/About'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import HomeChild1 from './pages/HomeChild1'
+import HomeChild2 from './pages/HomeChild2'
+
+export class index extends PureComponent {
+    // constructor() {
+    //     super();
+    // }
+    render() {
+        return (
             <div>
-                <div>header</div>
-                <div className='nav'> {/* router3、Link方式跳转 */}
-                    <Link to="/home">首页</Link>
-                    <Link to="/about">关于</Link>
+                <div> 
+                    <div>header</div>
+                    <div className='nav'>
+                        {/* 1、不重要 */}
+                        <Link to="/home">首页</Link>
+                        <Link to="/about">关于</Link>
+                        <Link to="/login">登陆</Link>
+
+                        {/* 2、不重要  激活自动添加 active 类,动态加style 和 className */}
+                        <NavLink to="/home" style={({ isActive }) => ({ color: isActive ? "#f00" : "" })}>首页</NavLink>
+                        <NavLink to="/about" style={({ isActive }) => ({ color: isActive ? "#f00" : "" })}>关于</NavLink>
+                        <NavLink to="/login" style={({ isActive }) => ({ color: isActive ? "#f00" : "" })}>登陆</NavLink>
+
+                        {/* 3、Navigator 一出现，就会立刻跳转对应路径(配合逻辑判断使用) */}
+                        {/* <div>{isToLogin ? <Navigate to="/Login" /> : "暂不跳转"}</div> */}
+
+                        {/* 4、自己或通过js实现跳转 6.x版本类组件无法使用 hook useNavigate ,需要通过高阶组件*/} 
+                    </div>
+                    <hr />
                 </div>
-                <hr/>
-            </div>
-            <div className='content'>
-                {/* router2、映射关系表：path => Component */}
+                <div className='content'>
+                    {/* router2、映射关系表：path => Component */}
 
-                <Routes>
-                    {/* 5.x  用 component 代替 element，还需要用属性 exact 精准匹配 */}
-                    <Route path='/' element={<Home></Home>}></Route>  
-                    <Route path='/home' element={<Home></Home>}></Route>
-                    <Route path='/about' element={<About></About>}></Route>
-                    {/* 其他属性: replace=true */}
-                </Routes>
+                    <Routes>
+                        <Route path='/' element={<Navigate to="/home" />}></Route>  
+                        {/* 5.x  用 component 代替 element，还需要用属性 exact 精准匹配 */}
+                        <Route path='/home' element={<Home></Home>}>
+                            <Route path='/home' element={<Navigate to="/home/c1/456" />}></Route>
+                            {/*动态路由传参*/}
+                            <Route path='/home/c1/:id' element={<HomeChild1></HomeChild1>}></Route> 
+                            
+                            {/*用于query传参*/}
+                            <Route path='/home/c2' element={<HomeChild2></HomeChild2>}></Route> 
+                        </Route>
+                        <Route path='/about' element={<About></About>}></Route> 
+                        <Route path='/login' element={<Login></Login>}></Route>
+                        <Route path='*' element={<NotFound></NotFound>}></Route>
+                    </Routes>
 
+                </div>
+                <div>footer</div>
             </div>
-            <div>footer</div>
-        </div>
-    )
+        )
+    }
+}
+
+export default index
+```
+
+3.   封装高阶组件，时类组件也能用 react-router-dom 库提供的 hook
+
+```react
+// withRouter.js
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+
+// 高阶组件
+export default function withRouter(WarpperComponent) {
+    return function (props) {
+        // 导航跳转
+        const navigate = useNavigate();
+
+        // 获取动态路由参数
+        const params = useParams();
+
+        // 获取query参数(未解析)
+        const location = useLocation();
+
+        // 获取解析好的query参数 
+        const [searchParams] = useSearchParams() // 返回一个数组，数组里有一些方法
+        /**
+         *   URLSearchParams 接口定义了一些实用的方法来处理 URL 的查询字符串。
+         *      searchParams.get('a') 得到对象a属性的值
+         *      将 Object.fromEntries(searchParams.entries()) 数据转成对象
+         */
+        const query = Object.fromEntries(searchParams.entries());
+
+        const router = { navigate, params, location, query };
+        return <WarpperComponent {...props} router={router} />
+    }
 }
 ```
 
+```react
+// 使用
+import React, { PureComponent } from 'react'
+import { Link, Outlet } from 'react-router-dom'
+import { withRouter } from '../hoc'
+export class Home extends PureComponent {
+    navigateTo(path) {
+        let { navigate } = this.props.router; // useNavigate 类组件不能用，通过高阶函数返回函数组件，传递过来
+        navigate(path);
+    }
 
+    render() {
+        return (
+            <div>
+                <div className='home-header'>
+                    <Link to="/home/c1/123">子路由1</Link>
+                    <Link to="/home/c2?a=1&b=2">子路由2</Link>
+                    <button onClick={e => this.navigateTo("/about")}>js跳转</button>
+                </div>
+                <div className='home-centert'>
+                    {/* 占位组件 类似vue的 router-view */}
+                    <Outlet></Outlet>
+                </div>
+            </div>
+        )
+    }
+}
+
+
+export default withRouter(Home)
+```
+
+3.    路由配置
+     1.   router5.x 需要安装**react-router-config**才能提取单独配置文件，6.x 直接就能用
 
 ### React ClI
 
