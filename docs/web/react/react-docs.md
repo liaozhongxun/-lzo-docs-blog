@@ -1214,7 +1214,34 @@ useEffect(() => {
         // 清除机制，做一些取消定时器，销毁的操作
     }
 });
+
+useEffect(() => {})  // 可以多个 按顺序执行
 ```
+
+>   每次渲染组件，默认情况下都会走 effect，所以需要 effect 性能优化
+
+```react
+// 参数二 ，第二次渲染是，只有在数组中的状态发生改变，才会再次执行 回调(空数组说明，永远不会再次执行了)
+useEffect(()=>{
+    console.log('只执行一次，发生网络请求')
+    return () => { 
+        console.log('只有组件被卸载才会执行')
+    }
+},[])
+useEffect(()=>{
+    console.log('counter 发生变化就会执行')
+},[counter])
+```
+
+#### 特殊场景使用的hook
+
+#### 性能优化hook
+
+>   useCallback 和 useMemo
+
+#### 自定义hook
+
+#### React18 新增 hook
 
 
 
