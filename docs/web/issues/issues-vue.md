@@ -65,7 +65,71 @@ MyPlugin.install = function (Vue, options) {
 //使用
 Vue.use(MyPlugin, { someOption: true })
 ```
+### vue 模板处理本地图片路径问题
+
+```vue
+<!-- 固定图片 -->
+<template>
+    <div class="index-page">
+        <!-- 字符串直接引入是可以正常加载 -->
+        <img src="@/assets/images/head_g.png" />
+        
+        <!-- 如果是动态数据 -->
+        <img :src="imgurl" />
+    </div>
+</template>
+
+<script setup>
+    const imgurl="@/assets/images/head_g.png" // x
+    
+    <!-- webpack环境 直接使用无法加载的-->
+    const imgurl= require("@/assets/images/head_g.png") // √
+    
+     <!-- vite环境 和 webpack环境 -->
+    import imgurl from "@/assets/images/head_g.png" // √
+    
+</script>
+```
+
+```vue
+<!-- 变量中的图片 -->
+<template>
+    <div class="index-page">
+        <!-- webpack环境 -->
+        <div v-for="item in list">
+            <img :src="require(`../assets/images/${item}`)" alt="">
+        </div>
+        
+        <!-- vite环境 -->
+        <div v-for="item in list">
+            <img :src="getSrc(item)" alt="">
+        </div>
+    </div>
+</template>
+
+<script setup>
+    const list = ["head_g.png", "head_g.png"];
+	
+    
+    // vite 环境
+    const getSrc = (item) => {  // 错误
+        import imgurl from "xxx"; // 这个是有问题的，import 被Js解析的，执行逻辑代码的时候以及跳过了解析阶段
+        return imgurl
+    }
+    
+    const getSrc = (item) => { // 正确，必须要用相对路径
+        return new URL(`../assets/images/${item}`, import.meta.url).href;
+    }
+    
+</script>
+```
+
+
+
+
+
 ### 彻底关闭eslint
+
 ```shell
 "rules": {
     "no-console":  "off",

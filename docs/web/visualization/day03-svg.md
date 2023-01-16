@@ -76,6 +76,12 @@ title: 数据可视化话 - svg
 
 缩放不失真、任何分辨率高质量打印、复杂图像渲染更慢、结合代码更灵活  ====>  canvas相反
 
+## 坐标系
+
+>   和canvas类似，原点位于左上角，被称为**初始视口坐标系**
+
+>   svg 的 transform 属性 可以用来**移动**、**旋转**、**缩放**某个元素，变形后，该元素内部回建立一个**新的坐标系**，后续所有变化，默认**基于新创建的坐标系**
+
 ## 绘制SVG
 
 ### 方式一
@@ -95,7 +101,14 @@ title: 数据可视化话 - svg
 <!-- DTD 声明 -->
 <!-- standalone="no|yes"  no不是独立的，表示依赖外部DTD声明(外链)，yes独立的，不依赖  -->
 <!-- DTD声明 语法验证xml语法是否符合指定规范  -->
-<?xml version='1.0|1.1' encoding='UTF-8' standalone='on'?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!--上面都可以省略-->
+
+<svg version="1.0" baseProfile="full" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="100" height="100"></rect>
+    <title>我是svg title</title>
+</svg>
 ```
 
 
@@ -108,3 +121,4 @@ title: 数据可视化话 - svg
 
 ### 方式四
 > 通过矢量图编辑工具导出
+

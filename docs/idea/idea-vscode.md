@@ -145,6 +145,12 @@ Powermode: Enable Shake 去除代码抖动
 
 2、[生成](https://snippet-generator.app) 该网站生成
 
+>   ${1:home} 每次生成的时候，光标都会定位，可以直接修改
+
+>   如果 有 ${2:home} 生成后按 tab键 修改下一个
+
+![](../../static/img/2023-01-15_160614.jpg)
+
 3、vscode 首选项添加
 
-4、新建页面，输入 prefix 自动导入
+4、新建页面，输入 prefix 值自动导入

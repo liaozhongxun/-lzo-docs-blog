@@ -48,6 +48,9 @@ npm init vite-app <project-name>
 cd <project-name>
 npm i
 npm run dev
+
+
+或直接 npm init vue@latest
 ```
 
 ### vue-CLI 2
@@ -71,4 +74,4 @@ npm run dev
 
 ---
 [^①]:安装成功后能在命令行使用vue相关指令，如果使用vue3那么cli版本需要在4.3.1以上
-[^②]:@vue/cli是居于node的,如果删除不成功可以去node文件夹下直接删除vue相关文件
+[^②]:@vue/cli是居于node的,如果删除不成功可以去node文件夹下直接删除vue相关文件 

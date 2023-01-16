@@ -47,7 +47,7 @@ vue：data数据改变直接劫持重新渲染模板
 
 >   根据组件**职责**：**展示型 组件** 和 **容器型组件**
 
-#### 类组件
+#### 类组件 rpce
 
 ```react
 /**
@@ -150,18 +150,23 @@ react 生命周期的过程
     -   **getSnapshotBeforeUpdate**：处于 **render 到 更新DOM 之间**，获取或保存一写DOM更新前的一些信息
 
 
-#### 函数组件
+#### 函数组件  rfce，rmc
 
 ```react
 /**
  * 与类组件的差异（不包含hook）
  *     没有生命周期，没有生命周期函数，也会被更新并挂载
  *     this 关键字不能指向组件实例
- *     内部没有状态 state
+ *     内部没有状态 state,
+ * 函数组件存在的缺陷
+ * 		修改message之后，函数组件不知道自己要重新渲染
+ *      如果页面重新渲染，函数被重新执行，又会重新改变message
+ *      Hook 的出现时函数组件解决了没有state，没有生命周期等问题
  */
 function App(props){
+    let message = "lzoxun"
     // return 的东西与类组件的一致
-    return <h1>react元素</h1>
+    return <h1>react元素 {message}</h1>
 }
 export default App
 ```
@@ -984,7 +989,7 @@ export default function log(store){
 
 控制台 redux 数据默认是看不到的，建议开发环境开启，生产环境关闭
 
-### ReactRouter6.x
+### React Router 6.x
 
 ```shell
 npm install react-router-dom # react 社区维护
@@ -1145,6 +1150,73 @@ export default withRouter(Home)
 
 3.    路由配置
      1.   router5.x 需要安装**react-router-config**才能提取单独配置文件，6.x 直接就能用
+
+### React Hooks
+
+>   hook ( hook into ) 钩入，意思是可以从其他地方，将保存好的状态钩入进来（如useState钩入状态）
+
+1.   Hook解决了**类组件复杂的**的问题，弥补了 **函数组件**一些不足的地方
+2.   可以在不编写class的情况下使用state状态管理，什么周期以及其他React特性
+3.   是否使用Hook是可选的，完全向下兼容，不需要将旧代码重构成hook
+
+>   注意事项
+
+1.   Hook能在**函数组件**中，并且是**最外顶层**使用，不能在**类组件** 或者 **函数组件之外的地方**使用
+2.   Hook也能在自定义hook中使用（React中必须是  useXxx 格式的函数名）
+
+#### useState 
+
+>   设置与获取函数组件状态，从react中导入，是一个hook
+
+```react
+import React, { useState } from 'react'
+
+/**
+ *  useState
+ *      参数：只有一个参数，初始化值，不设置位undefined
+ *      返回值：数组，包含两个元素 [状态单前值，设置值的函数]
+ *      作用和 类组件的 this.state 是
+ *   
+ *  点击button后做两件事情，通过 setCounter 重新设置值，同时将新的值返回过来，渲染到页面上
+ */
+
+
+function CountHook() {
+    const [counter, setCounter] = useState(0); // 首次 counter 变量 默认为0
+    return (
+        <div>
+            <div>
+                counterVal: {counter}
+                <button onClick={e => setCounter(counter + 1)}>+1</button>
+                <button onClick={e => setCounter(counter - 1)}>-1</button>
+            </div>
+        </div>
+    )
+}
+
+export default CountHook
+```
+
+#### useEffect
+
+>   由于生命周期中某阶段**网路请求**、**手动更新DOM**、**事件监听**，都是**React更新DOM**的**副作用**（Dide Effects）
+
+>   所有完成这些功能的Hook 官方称为 Effect Hook
+
+```react
+// useEffect 主要是为了处理 以前生命周期的很多逻辑
+useEffect(() => {
+    // 当前回调函数绘制组件被渲染完成后，自动执行 （网络请求、DOM操作、事件监听）
+    document.title = counter;
+
+    // 返回值，需要返回一个回调函数 ==> 组件被重新渲染，或者组件被卸载的时候执行
+    return () => { 
+        // 清除机制，做一些取消定时器，销毁的操作
+    }
+});
+```
+
+
 
 ### React ClI
 

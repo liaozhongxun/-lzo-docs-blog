@@ -369,6 +369,16 @@ background-position:10px 10px; /* 通过这种方式将已近引入的雪碧背�
 
  
 
+### 全局变量
+
+```css
+/* 如果用 css 定义全局变量，比起scss的优势 不需要一直导入 */
+/* 使用 color:var(--main-bg); */
+:root {
+    --main-bg: #07C160;
+}
+```
+
 
 
 
