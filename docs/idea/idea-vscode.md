@@ -89,6 +89,7 @@ Powermode: Enable Shake 去除代码抖动
 ### React 插件
 
 -   ES7+ React/Redux/React-Native snippets   快速生成代码段（最下面 [Snippets](https://github.com/dsznajder/vscode-es7-javascript-react-snippets/blob/HEAD/docs/Snippets.md) 查看使用详情）
+-   vscode-styled-components  react==>css in js==>styled-components 结构高亮
 
 ## 快捷键
 

@@ -1287,6 +1287,12 @@ useEffect(()=>{
 
 
 
+###  配置
+
+>   sass 直接 `npm i sass` 安装就能使用
+
+
+
 
 
 
