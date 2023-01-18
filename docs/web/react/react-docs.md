@@ -395,6 +395,7 @@ class App extends React.PuerComponent {
 export default App;
 
 /* 函数组件 通过memo处理上面的问题*/
+/* 正常情况下，通过memo包裹的组件，只有props发生改变，组件才会重新渲染 */
 const PropFile = memo(function(props){
     return <h2>{prop.message}</h2>   
 })
@@ -1230,18 +1231,66 @@ useEffect(()=>{
 },[])
 useEffect(()=>{
     console.log('counter 发生变化就会执行')
-},[counter])
+},[counter]) // 有点像vue watch的 监听counter,状态发生改变就做一些事情
 ```
 
 #### 特殊场景使用的hook
 
+>   useContext (子子孙孙传参)
+
+>   useImperativeHandle(作用子组件暴露一些方法，给父组件通过ref使用)
+
+>   useLayoutEffect ( **useEffect** 组件**渲染完成**之后执行里面，这个是在渲染DOM更新之前（阻塞），先做一些事情，再更新DOM)
+
 #### 性能优化hook
 
->   useCallback 和 useMemo
+>   useRef（总是返回同一个对象，操作dom）、useCallback 和 useMemo
 
 #### 自定义hook
 
+>   本质上只是**函数代码逻辑的抽取**
+
 #### React18 新增 hook
+
+#### redux hook
+
+>   以前必须通过 react-redux 的 connect 编写 mapStateToProps 和 mapDispatchToProps 管理 react 和 redux
+
+##### useSelector
+
+>   可以将 state 映射到组件中
+
+```react
+// useSelector 代替 mapStateToProps
+// 默认情况下useSelect监听的是整个state，当某个组件状态发生改变时，所有使用useSelector的子组件都会重新渲染
+const { homename, banners } = useSelector((state) => {
+    return {
+        homename: state.home.homename,
+        banners: state.home.banners
+    }
+})
+
+// shallowEqual 比较数据是否发生改变，不受其他组件状态变化影响，比较自己的状态如果没变化，就不需要重新渲染
+const { homename, banners } = useSelector((state) => {
+    return {
+        homename: state.home.homename,
+        banners: state.home.banners
+    }
+},shallowEqual)
+```
+
+##### useDispatch
+
+>   直接获取dispatch函数
+
+```react
+// useDispatch 代替 mapDispatchToProps
+const dispatch = useDispatch();
+
+function view_change_name(name) {
+    dispatch(changeHomeNameAction(name))
+}
+```
 
 
 
