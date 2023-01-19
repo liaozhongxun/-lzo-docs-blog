@@ -315,7 +315,7 @@ title: JavaScript 基础
     document.documentElement.scrollTop //整个文档滚动了的距离
 
     // offset
-    div.offsetWidth  // 元素自己的宽高(包括 padding border 和 滚动条)
+    div.offsetWidth  // 元素自己的宽高(包括 内容+填充+边框 和 滚动条)
     div.offsetHeight 
     div.offsetTop // 获取自己上面，距离最近一个有定位父级的高度， 都没有就以浏览器左上角为准
     div.offsetLeft
@@ -323,7 +323,7 @@ title: JavaScript 基础
     // 与 window.outerWidth 类似
 
     // client
-    div.clientWidth // 获取元素可见部分宽高(只包括 padding)
+    div.clientWidth // 获取元素可见部分宽高(包括 padding-left + height + padding-right)
     div.clientHeight
     div.clientTop  // 返回的是元素上左边框的厚度（border）,无边框为0
     div.clientLeft

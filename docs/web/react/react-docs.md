@@ -516,6 +516,35 @@ export default BrotherOne
 -   **memo**就是一个高阶函数，性能优化也是通过高阶组件方式实现的
 -   使用大量HOC，包裹太多层嵌套，也不好，然后出现了**Hooks**
 
+```react
+// 高阶组件,给使用的组件添加上 title
+export default function setTitle(WarpperComponent) {
+    return function (props) { // 函数组件中操作
+        console.log({...props}); // 将父级本来就有的props 和 我们要新增的数据 一起传递给子组件将
+        return <WarpperComponent {...props} title='成功使用高阶组件 setTitle' />
+    }
+}
+
+// 使用
+import React, { PureComponent } from 'react'
+import setTitle from './my-hoc/setTitle'
+
+export class App extends PureComponent {
+    render() {
+        const { title } = this.props;
+        return (
+            <>
+                <div>App - {title}</div>
+            </>
+        )
+    }
+}
+
+export default setTitle(App)
+```
+
+
+
 #### 高阶应用
 
 ##### createPortal (vue3 Teleport)
@@ -523,11 +552,16 @@ export default BrotherOne
 >   **createPortal**：将React元素挂载到 root 外的其他位置
 
 ``` react
-import { createPortal } from "react-doc"
+import { createPortal } from 'react-dom'
 
 // jsx中
-rendel(){
-    return createPortal(<h2>lzo</h2>,document.querySelector("#lzo")) 
+export class CreatePortal extends PureComponent {
+  render() {
+    return (
+        createPortal(<div>createPortal</div>,document.querySelector("#lzo")) 
+        {/* lzo元素必须提前存在 */}
+    )
+  }
 }
 ```
 
