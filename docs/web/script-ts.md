@@ -1,14 +1,21 @@
 ---
 title: TypeScript 基础
 ---
+**JavaScript 的超级，在js es6 es6以上的js语法这个添加了 接口(interfaces)、强类型(Strongly Typed)、泛型(Generics)...** 
+
 ## 安装
+
 ```shell
 npm install -g typescript
 # 查看版本
 tsc -v
+tsc script.ts # 编译生成js文件
 
 # vscode直接右键运行ts文件
 npm install -g ts-node
+# ts-node 需要依赖  tslib @types/node 两个包
+npm install tslib @types/node -g
+ts-node script.ts # 直接运行 script.ts
 ```
 >   解决了JavaScript类型缺失问题，错误发现的越早越好，开发阶段对类型进行校验
 
@@ -40,6 +47,8 @@ tsc --init
 >  这是一种轻量的为函数或者变量提添加的约束，冒号后面的都是类型
 
 ```javascript
+// 完整格式 var/let/const 标识符:数据类型 = 赋值
+// 声明类型后，TypeScript 就会进行类型检测，声明类型称为 类型注解
 let age: number = 20;
 function tsfun(str: string) {
     console.log(str);
@@ -50,19 +59,34 @@ tsfun("str");
 ```
 ### 基础数据类型
 ```javascript
+// 常用基础类型
 let a: string = "str";
 let b: number = 20;
 let c: boolean = true;
 let d: string | number = 20; //联合类型
 
+// 数组
 let arr: number[] = [1, 2, 3]; //数组 指定数据类型，只能放数字
-let list: Array<number> = [1, 2, 3];
+let arr2: (string | number)[] = [1, 2, 3, "str"]; //数组 指定数据类型,可存放多种类型
+let list: Array<number> = [1, 2, 3]; // 泛型写法
 let list2: ReadonlyArray<number> = [1, 2, 3]; //list2的元素确保不会被修改
 
-let tuple: [string, number] = ["str", 20]; //元组：固定元素与类型
+// 对象,一般配合接口interface 或 type 使用
+let obj = {
+    name:'lzo',
+    age:18
+}
+// let obj: {
+//     name: string;
+//     age: number;
+// }
+
 //非严格模式下（配置文件strict：false）undefined和null是可以赋值给其他类型变量的
 let e: null = null;
 let f: undefined = undefined;
+
+let tuple: [string, number] = ["str", 20]; //元组：固定元素与类型
+
 
 //枚举
 enum USER_ENUM {
@@ -104,18 +128,49 @@ function getString(str:string|number):number{
 
 console.log(getString(12))
 
-//类型推断
+```
+#### 类型推导
+
+```typescript
+// 类型推导/类型推断
+// 声明标识符如果有赋值，会根据赋值的类型推导出标识符的类型注解
+let lxtd = "lxtd";    // 推导为 string
+let lxtd2 = 2.3;      // 推导为 number
+const lxtd3 = 2.3;    // 推导为 字面量类型2.3
+const lxtd4 = 'lxtd'; // 推导为 字面量类型lxtd
+
 let lxtd = "str";
 lxtd = 124; //报错了 推断成了字符串类型
-
-
 ```
+
 总结
+
 + `number`、`string`、`boolean`、`null`、`undefined`、数组`number[]`、元祖`[string, number,xxx]`、枚举`enum`、`any`、`void`、`object`等十几类
 + 联合类型： number | string
 + 类型断言： `<类型>变量`  或  `变量 as 类`，两种方式让编译器把变量当做指定的类型操作
 + 类型推断:  定义变量时`没有指定类型`,编译器会把根据变量的值推断出一个类型,没值就是any
-### 接口
+
+### Type 与 对象
+
+```typescript
+type PointType = {
+    x:number  // 逗号和封号都可以，如果有换行，可以不指定任何符号
+    y:number
+    z?:number // z可选
+ }
+
+function add(point:PointType){
+    console.log(point.x) // 放心的使用point
+    return point.x + point.y
+}
+
+add({x:1,y:2})
+```
+
+
+
+### interface 与 对象
+
 > 接口是一种能力或一种约束
 
 ```javascript
@@ -136,7 +191,7 @@ let obj = {
     age: 22,
     xxx:'xxx'
 };
-showName(obj); // 类型推导为 Person 类型
+showName(obj);
 
 //====================================
 //定义一个接口,用来描述对象形状的interface类型
@@ -227,6 +282,7 @@ per1.fly2("3","4")
  *  add变量:函数名
  *  (a: string, b: string) => string ==== add函数的类型
  *  (a: string, b: string): string => a + b ==== 符合这个类型的函数
+ *  最后面的 string 指定返回值的类型，写上去方便使用的人知道，得到的是什么样的值
  */
 let add: (a: string, b: string) => string = (a: string, b: string): string => a + b;
 ```
@@ -266,6 +322,14 @@ function getInfo(str:any):void{
     }
 }
 getInfo("zhangsan")
+```
+
+#### 匿名函数
+
+```typescript
+// 匿名函数最好不谣添加类型注解,例子中根据执行上下文推导出具体类型
+let arr = ["1","2"]
+arr.forEach((item,index)=>{}) // item:string,index:number
 ```
 
 #### 其他

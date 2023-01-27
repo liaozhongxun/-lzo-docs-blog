@@ -1286,6 +1286,10 @@ useEffect(()=>{
 
 #### React18 新增 hook
 
+>   useId （只有早SSR同构应用中使用，生成横跨客户端和服务端的唯一ID,并且避免 hydration 不匹配的问题）
+
+>   useTransition （）
+
 #### redux hook
 
 >   以前必须通过 react-redux 的 connect 编写 mapStateToProps 和 mapDispatchToProps 管理 react 和 redux
@@ -1368,7 +1372,41 @@ function view_change_name(name) {
 #     scripts
 ```
 
+### SSR
 
+>   服务端渲染，Vue/React   => nuxt/next
+
+xxx => 前后端分离 => SPA:单页面富应用 
+
+SPA应用存在的问题
+
+1、首屏的渲染速度
+
+早期SSR页面(JSP 那种)，在服务器将整个网站都渲染好，请求的时候拿到的就是完整的页面，有利于SEO优化
+
+SPA页面: 加载页面 -->下载页面中引入的bundle.js --> 浏览器执行下载的代码 --> 执行完成才能渲染处理 ，导致速度慢
+
+
+
+2、SEO优化问题
+
+当页面应用的数据都是通过js文件生成的，搜索引擎收入的只有index.html页面 ，只有数据顶级挂载点，和一些基础信息，SPA网站的内容是爬取不到的，所有被匹配到的东西很少，导致排名很靠后
+
+
+
+>   SSR 解决了 SPA 的这些问题
+
+借助node生成html页面，浏览器直接显示，浏览器不需要下载执行的步骤了 
+
+
+
+>   实现步骤
+
+-   SSR同构应用(可以运行在服务器，也能运行在客户端)
+
+    		-	在服务器获取网络资源，生成dom字符串（无法交互）
+
+    		-	客户端也会运行一次，将交互的操作匹配到服务器生成的dom字符串中（**hydration**）
 
 ###  配置
 
