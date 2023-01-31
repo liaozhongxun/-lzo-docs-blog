@@ -85,7 +85,23 @@ let obj = {
 let e: null = null;
 let f: undefined = undefined;
 
+// js 不存在的类型
+let anytype: any = "any"; // 值可以是任意类型，js的类型就是any
 let tuple: [string, number] = ["str", 20]; //元组：固定元素与类型
+let unknownType: unknown = 8; // 任意不确定类型，任意数据都是不合法的,只能在类型缩小后操作
+unknownType = "12"; // 赋值还是没问题的
+// console.log(unknownType.length) // 这样的操作就不行了
+if (typeof unknownType == "string") {
+  // 必须进行类型校验(缩小)，才能根据缩小后的类型进行对应操作
+  console.log(unknownType.length);
+}
+
+// void 表示函数没有返回值的时候，用void来表示
+// 用户指定函数返回void的时候，允许函数不返回 和 返回undefined(返回null不行)
+function summ(a: number, b: number): void {
+  return undefined;
+}
+// 用户没有指定void的时候，如果返回undefined，返回值类型部分，类型推导为 undefined类型
 
 
 //枚举
@@ -285,6 +301,11 @@ per1.fly2("3","4")
  *  最后面的 string 指定返回值的类型，写上去方便使用的人知道，得到的是什么样的值
  */
 let add: (a: string, b: string) => string = (a: string, b: string): string => a + b;
+
+// 提取
+type add2Type = (a: string, b: string) => string; // 指定返回值必须为string
+let add2: add2Type = (a: string, b: string): string => a + b;
+console.log(add("1", "211"));
 ```
 
 #### 参数
@@ -634,7 +655,7 @@ let test2: Sum = (a: string, b: string): string => a + b;
 
 ### 内置对象
 
-```javascript
+``` javascript
 (()=>{
     /**
      *  内置对象
