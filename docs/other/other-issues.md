@@ -101,10 +101,9 @@ v-if element控件 如果切换的内容相似错乱问题
 -   在不使用 class 的情况下，管理里面的状态数据，并且把里面逻辑思维的东西抽取出来，封装在一个可复用的功能函数中
 -   类似 vue2.x 中的 mixin 混入(有时很多个组件都有相同的方法或 created(){}做相同事情时，定义一个 mixin，后期合并到需要的组件中中)
 
-### yarn 无法安装 node-sass
+### 无法安装 node-sass
 ```shell
-yarn config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ -g  无效
-yarn install
+node-sass 升级到最新版
 ```
 ### vmin 和 vm
 

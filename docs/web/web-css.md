@@ -24,7 +24,7 @@
 
 1.   定位(position) 和布局(Layout)
 
-2.   展示(display)和可见(Visivbility)
+2.   展示(display:none 不占位置)和可见(Visivbility:none 任占据位置)
 
 3.   盒子模型
 
@@ -100,7 +100,7 @@
      3.   继承的注意事项
           1.   继承的是计算后的值，不一定是设置时手写上去那些字符；`font-size:2em  -> 继承后 font-size:32px`
      4.   强制继承
-          1.   子元素 `border:inherited` 强制继承父元素的 border
+          1.   子元素 `border:inherit` 强制继承父元素的 border
 2.   层叠，
      1.   对于`同一个`操作对象，它的样式可以通过`任何样式表`或`不同选择器`进行设置，最终`通过优先级`，拿到`优先级最高的设置`
      2.   优先级: `!important{1000} > 内联样式{1000} > ID{100} > Class|伪类|属性 {10} > 元素|伪元素 {1} > * {0}`
