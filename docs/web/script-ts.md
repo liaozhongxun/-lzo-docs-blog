@@ -1,5 +1,5 @@
 ---
-title: TypeScript 基础
+ title: TypeScript 基础
 ---
 **JavaScript 的超级，在js es6 es6以上的js语法这个添加了 接口(interfaces)、强类型(Strongly Typed)、泛型(Generics)...** 
 
@@ -87,7 +87,7 @@ let f: undefined = undefined;
 
 // js 不存在的类型
 let anytype: any = "any"; // 值可以是任意类型，js的类型就是any
-let tuple: [string, number] = ["str", 20]; //元组：固定元素与类型
+let tuple: [string, number] = ["str", 20]; //元组：固定元素个数与元素类型
 let unknownType: unknown = 8; // 任意不确定类型，任意数据都是不合法的,只能在类型缩小后操作
 unknownType = "12"; // 赋值还是没问题的
 // console.log(unknownType.length) // 这样的操作就不行了
@@ -102,6 +102,13 @@ function summ(a: number, b: number): void {
   return undefined;
 }
 // 用户没有指定void的时候，如果返回undefined，返回值类型部分，类型推导为 undefined类型
+
+// never类型
+// 函数不会返回任何东西时，报错或死循环，通常自动推导时可以出现
+// switch 用于到不了的case或default里面的变量，（可能出现的case，但是没有处理，直接报错，让用户意识到少处理了一些）
+function foo(){
+    return []
+}
 
 
 //枚举
