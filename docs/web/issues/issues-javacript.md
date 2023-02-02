@@ -347,6 +347,14 @@ Function.prototype.call = function (thisArg, args) {
     问题: 如何去除调用函数fn时内部this对象会出现fn自己的问题;
 };
 ```
+
+### js 删除对象属性
+
+```javascript
+delete obj.a
+Reflect.deleteProperty(obj,'a')
+```
+
 ### jQuery的链式操作
 
 ```javascript
