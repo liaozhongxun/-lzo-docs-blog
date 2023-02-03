@@ -12,7 +12,7 @@ http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
 > 在容器元素上使用的属性
 #### 容器
 ```javascript
-display:grid|inline-gird;
+display:grid|inline-gird; 使用说明
 ```
 #### 设置行
 -   `grid-template-rows:100px 100px 100px;`:设置为行，且每个宽度为100px
