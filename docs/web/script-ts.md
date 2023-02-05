@@ -1,5 +1,5 @@
 ---
- title: TypeScript 基础
+  title: TypeScript 基础
 ---
 **JavaScript 的超级，在js es6 es6以上的js语法这个添加了 接口(interfaces)、强类型(Strongly Typed)、泛型(Generics)...** 
 
@@ -63,19 +63,13 @@ tsfun("str");
 let a: string = "str";
 let b: number = 20;
 let c: boolean = true;
-let d: string | number = 20; //联合类型
+let d: string | number = 20; //联合类型 
 
-// 数组
-let arr: number[] = [1, 2, 3]; //数组 指定数据类型，只能放数字
-let arr2: (string | number)[] = [1, 2, 3, "str"]; //数组 指定数据类型,可存放多种类型
-let list: Array<number> = [1, 2, 3]; // 泛型写法
-let list2: ReadonlyArray<number> = [1, 2, 3]; //list2的元素确保不会被修改
-
-// 对象,一般配合接口interface 或 type 使用
+// 对象,一般配合接口interface使用
 let obj = {
-    name:'lzo',
-    age:18
-}
+  name: "lzo",
+  age: 18,
+};
 // let obj: {
 //     name: string;
 //     age: number;
@@ -92,7 +86,7 @@ let unknownType: unknown = 8; // 任意不确定类型，任意数据都是不�
 unknownType = "12"; // 赋值还是没问题的
 // console.log(unknownType.length) // 这样的操作就不行了
 if (typeof unknownType == "string") {
-  // 必须进行类型校验(缩小)，才能根据缩小后的类型进行对应操作
+  // 必须进行类型校验(缩小 将类型缩小到一定范围)，才能根据缩小后的类型进行对应操作
   console.log(unknownType.length);
 }
 
@@ -105,11 +99,13 @@ function summ(a: number, b: number): void {
 
 // never类型
 // 函数不会返回任何东西时，报错或死循环，通常自动推导时可以出现
+// 不可能有符合条件的地方，就会被推导为never （let aaa:number&string;）aaa就是never类型
 // switch 用于到不了的case或default里面的变量，（可能出现的case，但是没有处理，直接报错，让用户意识到少处理了一些）
 function foo(){
     return []
 }
 
+-----------------------------------------------------------------------
 
 //枚举
 enum USER_ENUM {
@@ -136,46 +132,14 @@ create([]);
 create({});
 create(() => {});
 create(String);
-
-//类型断言 
-function getString(str:string|number):number{
-    let num:number;
-    // 高速ts编译器我的str是什么类型，断言str为string就可以取length
-    // 前提是str类型可以是string
-    // 两种方式: <类型>变量  或  变量 as 类型
-    
-    // num = (<string>str).length
-    num = (str as string).length
-    return num;
-}
-
-console.log(getString(12))
-
 ```
-#### 类型推导
+#### 类型别名 Type
 
 ```typescript
-// 类型推导/类型推断
-// 声明标识符如果有赋值，会根据赋值的类型推导出标识符的类型注解
-let lxtd = "lxtd";    // 推导为 string
-let lxtd2 = 2.3;      // 推导为 number
-const lxtd3 = 2.3;    // 推导为 字面量类型2.3
-const lxtd4 = 'lxtd'; // 推导为 字面量类型lxtd
+type MyNumber = number
+const age:MyNumber = 16
 
-let lxtd = "str";
-lxtd = 124; //报错了 推断成了字符串类型
-```
-
-总结
-
-+ `number`、`string`、`boolean`、`null`、`undefined`、数组`number[]`、元祖`[string, number,xxx]`、枚举`enum`、`any`、`void`、`object`等十几类
-+ 联合类型： number | string
-+ 类型断言： `<类型>变量`  或  `变量 as 类`，两种方式让编译器把变量当做指定的类型操作
-+ 类型推断:  定义变量时`没有指定类型`,编译器会把根据变量的值推断出一个类型,没值就是any
-
-### Type 与 对象
-
-```typescript
+// 对象
 type PointType = {
     x:number  // 逗号和封号都可以，如果有换行，可以不指定任何符号
     y:number
@@ -190,13 +154,206 @@ function add(point:PointType){
 add({x:1,y:2})
 ```
 
+#### 类型推导
 
+```typescript
+// 类型推导/类型推断
+// 声明标识符如果有赋值，会根据赋值的类型推导出标识符的类型注解
+let lxtd = "lxtd";    // 推导为 string
+let lxtd2 = 2.3;      // 推导为 number
+const lxtd3 = 2.3;    // 推导为 字面量类型2.3
+const lxtd4 = 'lxtd'; // 推导为 字面量类型lxtd
+
+let lxtd = "str";
+lxtd = 124; //报错了 推断成了字符串类型
+```
+
+#### 类型断言
+
+>   告诉ts要操作的对象就是那个类型，可以对这个对象做那个类型可以做的事情 
+
+```typescript
+const imgEl = document.querySelector(".img") as HTMLImageElement
+imgEl.src = 'xxx' // 如果没有断言，ts不知道 imgEl 就是 图片对象，给设置src就会报错
+
+//类型断言 
+function getString(str:string|number):number{
+    let num:number;
+    // 高速ts编译器我的str是什么类型，断言str为string就可以取length
+    // 前提是str类型可以是string
+    // 两种方式: <类型>变量  或  变量 as 类型
+    
+    // num = (<string>str).length
+    num = (str as string).length
+    return num;
+}
+
+console.log(getString(12))
+```
+
+#### 非空类型断言 !
+
+```typescript
+// 非空类型断言
+interface IPersion {
+  name: string;
+  infos?: {
+    name: string;
+  };
+}
+const ematyInfo: IPersion = {
+  name: "lzo",
+};
+
+// 访问时可以用 可选链?. 避免infos.name不存在时
+console.log(ematyInfo.infos?.name)
+
+// 赋值时就不能使用 ?. 了
+// 方案1 利息缩小
+if(ematyInfo.infos){
+    ematyInfo.infos.name = 'xun'
+}
+
+// 方案2 非空类型断言（强制告诉ts infos一定不为空，危险如果断言错了，给undefined赋值，程序就出错了）
+ematyInfo.infos!.name = 'xun'
+```
+
+#### 字面量类型
+
+```typescript
+const name = 'lzo' // 具体值，const定义的变量，自动推导成字面量
+let age:18 = 18 // 指定为字面量类型
+
+// 使用场景
+type MethodType = "get" | "post";
+
+// 1
+const reqinfos = {
+  method: "post",
+};
+
+// 2
+const reqinfos2 = {
+  method: "post"
+} as const;
+
+// 3
+interface reqinfos3Inter {
+  method: MethodType;
+}
+const reqinfos3: reqinfos3Inter = {
+  method: "post",
+};
+
+function requet(url: string, method: MethodType) {
+  console.log(method);
+} // 使用 MethodType 比 string 更加合理
+
+requet("url", "post"); // 可以
+requet("url", reqinfos.method as MethodType); // reqinfos.method 是 string 类型 不能直接赋值到 MethodType 类型
+requet("url", reqinfos2.method); // 直接将 reqinfos2 所有属性变成字面量类型
+requet("url", reqinfos3.method); // 直接将 reqinfos3.method 变成字面量类型 
+
+```
+
+#### 函数类型
+
+```typescript
+// 函数类型（类型返回值用的是箭头）
+// 有些语言这个参数名称 a|b 是可以省略的，ts中是不可省略的，如果省略就变成 string:any 
+let add: (a: string, b: string) => string = (a: string, b: string): string => a + b;
+console.log(add("1", "211"));                                      
+ 
+// 提取
+type add2Type = (a: string, b: string) => string; // 指定返回值必须为string
+let add2: add2Type = (a: string, b: string): string => a + b;
+console.log(add("1", "211"));
+
+// 根据执行上下文自动推导匿名函数的类型
+let arr5 = ["1", "2", 3];
+arr5.forEach((item, index) => {});
+```
+
+#### 交叉类型
+
+```typescript
+// 交叉类型 （多种类型同时满足）
+interface Info {
+  name: string;
+}
+interface Info2 {
+  age: number;
+}
+const infos: Info & Info2 = {
+  name: "lzo",
+  age: 18,
+};
+
+// 数组
+let arr: number[] = [1, 2, 3]; //数组 指定数据类型，只能放数字
+let arr2: (string | number)[] = [1, 2, 3, "str"]; //数组 指定数据类型,可存放多种类型
+let list: Array<number> = [1, 2, 3]; // 泛型写法
+let list2: ReadonlyArray<number> = [1, 2, 3]; //list2的元素确保不会被修改
+```
+
+#### 类型缩小（类型保护）
+
+>   将需要使用的变量类型范围进行缩小
+
+```typescript
+// 联合类型案例
+// typeof
+let val:number|string = 10;
+if(typeof val == string){ // val 的类型可以是 number 和 string，这里缩小为string，直接就能使用string的方法
+    console.log(val.length)
+}
+
+// === or !==
+type Direction = "left" | "right"
+function switchdir(direction:Direction){
+    if(direction === 'left'){
+        console.log("这是left")
+    }
+}
+
+// instanceof
+let date:string|Date = "123"
+if(date instanceof Date){
+    console.log(date.getTime())
+}
+
+// in 判断是否有某个属性  （"name" in obj 判断obj对象是否存在name属性）
+
+
+// ....
+```
+
+
+
+总结
+
++ `number`、`string`、`boolean`、`null`、`undefined`、数组`number[]`、元祖`[string, number,xxx]`、枚举`enum`、`any`、`void`、`object`等十几类
++ 联合类型： number | string
++ 类型断言： `<类型>变量`  或  `变量 as 类`，两种方式让编译器把变量当做指定的类型操作
++ 类型推断:  定义变量时`没有指定类型`,编译器会把根据变量的值推断出一个类型,没值就是any
 
 ### interface 与 对象
 
 > 接口是一种能力或一种约束
 
 ```javascript
+
+/**
+ * type 与 interface 的区别 
+ *      1、type 对类型使用范围广，interface 只能声明对象（但对对象使用的范围更广）
+ *      2、声明对象时 interface 相同名称可以多次声明，属性叠加（使用别接口，扩展自己需要加入的东西），type不能声明两个相同名称的别名同时存在
+ *      3、interface 支持继承 interface Persion2 extends Person {加入Persion2 独有的属性} 
+ *      4、interface 可以被类实现 class Tree implements Person （Person 中所有属性方法都要被实现）
+ *      5、总结建议：非对象类型使用type，如果使用对象类型的声明使用interface
+ */
+
+----------------------------------------------------------------------------------------------
+
 //定义一个接口,如果类型不对||使用没有定义的属性||obj属性不够,ts会提示错误
 interface Person {
     firsName: string;
@@ -333,13 +490,84 @@ function test(a: number = 123, b: number,...args:number[]): number {
 
 test(1,2,3,4,5,6,7,8)
 ```
+#### 参数个数问题
 
-#### 重载
+>   TypeScript 对于传入的函数类型的参数个数，少于应有的个数是，不进行检测数量的（但会检测类型） 
+>
+>   因为js提供很多方法，有很多参数，有很多不常用的
+
+```typescript
+let arr = [1,2,3,4,5]
+arr.forEach((item,index)=>{}) // 比如这里，其实还有第三个参数 array数组本生，一般情况基本不会用，没必要强制写入
+```
+
+#### 函数调用签名
+
+>   调用签名（Call Signatures），函数除了可以被调用，**自己也**可以**拥有属性值**
+
+>   函数表达式并不支持声明属性，如果需要描述一个带属性的函数，就需要在对象类型中写一个**调用签名**了
+
+```typescript
+// 函数调用签名
+interface ISearchFunc {
+  //定义一个调用签名
+  (a: string, b: string): boolean; // 这边是冒号，前面的函数类型用的是 箭头=>
+  name: string; // 添加属性
+  age: number;
+}
+
+const bar: ISearchFunc = (a: string, b: string) => {
+  return false;
+};
+bar.name = "lzo";
+bar.age = 18;
+
+```
+
+#### 构造签名(了解) 
+
+>   描述某个函数式当做构造函数使用的
+
+```typescript
+class Person {}
+interface IPerson {
+    new (): Person     
+} 
+
+function factory(fn:IPerson){
+    return 123
+}
+console.log(factory(Date))
+```
+
+#### 可选/默认/剩余参数
+
+```typescript
+// 可选
+function bar(x:number,y?:number){ // 可选参数y的类型为 number|undefined 的联合类型
+    // 参数y需要缩小才能使用 
+}
+bar(10)
+bar(10,20)
+
+// 默认
+function bar2(x:number,y = 100){} // 类型注解可以省略
+bar(10)
+bar(10,undefined) // 可以接收undefined值，undefined和不传是一样的，内部发现是undefined才使用默认值100
+bar(10,20)
+
+// 剩余 
+function bar3(...args:number[]){}
+bar3(1,2,3,4)
+```
+
+#### 重载(了解)
+
 > 函数名字相同，但是参数类型或个数不同
 
 
 ```javascript
-function getInfo(name:string):void;
+function getInfo(name:string):void; // 重载签名
 function getInfo(age:number):void;
 function getInfo(str:any):void{
     if(typeof str == "string"){
