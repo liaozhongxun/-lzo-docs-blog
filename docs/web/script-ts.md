@@ -10,6 +10,7 @@ npm install -g typescript
 # 查看版本
 tsc -v
 tsc script.ts # 编译生成js文件
+tsc --init # 生成ts配置文件
 
 # vscode直接右键运行ts文件
 npm install -g ts-node
@@ -580,6 +581,34 @@ function getInfo(str:any):void{
 getInfo("zhangsan")
 ```
 
+#### 函数中的this类型
+
+```typescript
+const thobj = {
+  name: "lzo",
+  fn: function () {
+    // 没有ts配置文件时，默认 any 类型不报错
+    // 属性 noImplicitThis:true 根据上下文推导出this是谁
+    console.log(this.name);
+  },
+};
+
+function thobj2() {
+  //console.log(this) // noImplicitThis:true  这里就不行了，不能有模糊类型的this存在，需要明确指定
+}
+
+function thobj3(this: { name: string }, info: { name: string }) {
+  console.log(this); // 同过第一个参数指定this
+}
+
+thobj.fn();
+thobj3.call({ name: "lzo" }, { name: "lzo" });
+
+// ts还有很多this内置工具省略
+```
+
+
+
 #### 匿名函数
 
 ```typescript
@@ -697,7 +726,7 @@ let test2: Sum = (a: string, b: string): string => a + b;
  * 继承:类与类的关系
  * 继承后类与类之间的叫法:
  *      A类继承B类:那么A类叫子类，B类叫基类
- *           子类: -> 派生类
+ *           子类: -> 派生类 
  *           基类: -> 超类（父类）
  * 
  * 多态:子类重写父类结果 是不同子类实例调用父级可以产生不同的结果
