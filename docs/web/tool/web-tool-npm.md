@@ -19,7 +19,7 @@ npm init -y  # 生成package.json
 > npm安装包
 ```javascript
 npm install module-name --global | -g      //全局安装 一般是工具
-npm install module-name --save | -S      //自动把模块和版本号添加到dependencies(生产环境)部分
+npm install module-name --save | -S | 不加任何    //自动把模块和版本号添加到dependencies(生产环境)部分
 npm install module-name --save-dev | -D   //自动把模块和版本号添加到devDependencies(开发环境)部分,打包之后就没有用的依赖
 
 npm install||i //项目中 npm install 下载当前目录下package.json的所有包
