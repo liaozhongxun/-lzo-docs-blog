@@ -86,7 +86,7 @@ title: 微信小程序
                 </view>
             </view>
         </view>
-
+        
         <!--到达捕获的 v2tap 时直接终止，不继续捕获和后面的向上冒泡了-->
         <view class="v1" bindtap='v1tap' capture-bind:tap="v1tap">
             <view class="v2" bindtap='v2tap' capture-catch:tap="v2tap">
