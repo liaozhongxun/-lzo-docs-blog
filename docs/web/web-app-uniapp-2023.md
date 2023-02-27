@@ -54,6 +54,7 @@ uniapp
 -   运行到真机
     -   找到开发者模式，授权USB连接，adb桥接打开，就能直接从运行到Android App基座运行调试
     -   自动搜索到真机的标准基座
+    -   遇到问题: 连接usb不弹出授权弹窗，要去用户目录 找到 .android 下的 adbkey 删除，重启HBuilder X，再插入USB
 
 
 ## 目录结构
