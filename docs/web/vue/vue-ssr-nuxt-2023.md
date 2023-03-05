@@ -2,9 +2,7 @@
 title: nuxt
 ---
 
-[配套项目](https://github.com/liaozhongxun/lzo-nuxt-v2.0.git)
-
-### 概念
+## 概念
 -   单页面应用程序（SPA）在客户端呈现（术语称：CRS）
     -   **渲染原理：**先拿到空白页，**下载引入的 js 文件**，**通过 js 在客户端动态渲染数据**（包括**逻辑**、**UI**、以及**服务器通信相关数据**）
     -   **优点：**第一层请求时加载页面，页面切换不需要重新加载，仅更新变化的数据，体验更加流畅
@@ -45,3 +43,58 @@ title: nuxt
         -     门户网站、零售网站、、
 
 ​			
+
+## 手动实现方案
+
+[配套项目](https://github.com/liaozhongxun/lzo-vue3-ssr)
+
+>   服务端搭建
+
+```shell
+# 安装node环境，进入项目目录
+npm init -y
+npm install express -S
+npm install nodemon -D
+npm install webpack webpack-cli webpack-node-externals -D
+
+# 通过express创建node服务并启动
+# webpack配置，服务端打包生成 server_bundle.js 
+webpack --config ./config/webpack.config.js --watch #监听者，入口文件一发生变化，重新打包server_bundle.js
+
+# 通过 nodemon 执行 server_bundle.js 
+nodemon ./build/server/server_bundle.js # 当 webpack入口文件方式变化，这里执行的 server_bundle.js 跟着变化
+
+
+```
+
+>    加入 vue3 配置代码，将vue项目生成静态文件展示给用户
+
+```shell
+# 服务端配置的基础上加速vue的配置
+npm install vue 
+npm install vue-loader babel-loader @babel/preset-env -D
+
+# 通过 createSSRApp 创建app实例 导出，进入server入口文件中导入使用
+# 再使用 @vue/server-rendere 中将 vue 渲染成字符串的函数 renderToString
+# 替换测试用的 hello word 字符串
+# 去webpack配置文件中加入loader规则，再同时运行build:server 和 start指令
+```
+
+> 客户端 Hydration 水合激活静态页面的交互
+
+``` shell
+# 客户端需要重新将 App 组件 通过 createApp 创建app实例，
+# 通过配置客户端webpack配置文件，通过webpack打包成 client_bundle.js ( 同构应用，客户端和服务器同时构建 )
+# renderToString 渲染字符串那 html文件中直接引入 client_bundle.js
+
+# 将buuild 设置位静态文件夹
+```
+
+>   正常开发vue项目
+
+```shell
+# 安装 vue-roouter pinia，src下正常设置router，view等 生成多页面项目
+```
+
+
+

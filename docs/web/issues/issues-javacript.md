@@ -158,7 +158,7 @@ f3.constructor == F //true
         1、{} 调用toPrimitive()
         console.log({}.valueOf()) => {}
         console.log({}.toString()) => [object object]
-
+    
         2、[] 调用toPrimitive
         console.log([].valueOf()) => {}
         console.log([].toString()) => ""
@@ -388,11 +388,11 @@ function Person(name) {
     this.name = name;
 }
 
-
+ 
 function myNew(Con, ...args) {
     // 创建一个新的空对象
     let obj = {};
-    // 将这个空对象的__proto__指向构造函数的原型
+    //  
     // obj.__proto__ = Con.prototype;
     Object.setPrototypeOf(obj, Con.prototype);
 
@@ -644,6 +644,9 @@ arr = null; //手动赋值null， [1,2,3,4]这时没有被引用, 会被自动�
 > 和 Safari 之前一样，它想要那些为 Safari 编写的页面，于是它伪装成了 Safari
 > 于是 Chrome 使用 WebKit，并将自己伪装成 Safari，WebKit 伪装成 KHTML，KHTML 伪装成 Gecko，最后所有的浏览器都伪装成了 Mozilla
 > `因为网站开发者可能会因为你是某浏览器（这里是 Mozilla），所以输出一些特殊功能的程序代码（这里指好的特殊功能），所以当其它浏览器也支持这种好功能时，就试图去模仿 Mozilla 浏览器让网站输出跟 Mozilla 一样的内容，而不是输出被阉割功能的程序代码。大家都为了让网站输出最好的内容，都试图假装自己是 Mozilla，一个已经不存在的浏览器……`
+
+-   浏览器内核也叫"渲染引擎"，用来接收网页语法并渲染到页面上。内核绝对了浏览器如何显示网页，以及格式
+    -   比如不同浏览器初始化都会有margin padding,有的默认没有
 
 -   渲染引擎之间关系(内核也叫做排版引擎、渲染引擎、浏览器引擎等)
     -   Gecko 壁虎 (Firefox)  

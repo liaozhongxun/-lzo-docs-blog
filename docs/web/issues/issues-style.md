@@ -150,3 +150,20 @@ list-style:none|其他图形符号(例:decimal数字) inside(文本内侧) 自�
 }
 /* system-ui,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,具体字体族,sans-serif,可有可无随意;*/
 ```
+
+#### 对src和href的理解
+
+```shell
+# 它们都可以加载外部文件
+# href 是 link和a的属性， 遇到时并行下载，不会停止对文档的处理
+# src  是 js和img的属性， 会暂停其他资源的处理，处理完在继续
+```
+
+#### 常见的浏览器兼容问题
+
+```shell
+# 浏览器兼容问题产生的原因
+#    不同浏览器内核不同，渲染解析出的效果有时会又所差异，支持的API会有差异，就是浏览器兼容问题
+#    如：不同浏览器默认内边距不同  或 css3 新的api各个浏览器支持不一致等，早期都有加前缀
+```
+
