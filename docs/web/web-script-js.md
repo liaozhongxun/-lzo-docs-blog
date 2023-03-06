@@ -924,6 +924,49 @@ let nfn = new fn()
 
 实时计算有**多少个东西**在引用某个**空间的对象**，多一个+1，少一个-1，引用某个对象的**引用数量为0**，就能销毁
 
+### 手写 call-apply-bind
+
+ ```javascript
+ var name = "window";
+ var ob = {
+     name: "obj",
+ };
+ 
+ function getName(age) {
+     console.log(age);
+     console.log(this.name);
+     console.log(this);
+ }
+ 
+ Function.prototype.MyCall = function (obj, ...args) {
+     obj = obj == null || obj == undefined ? window : Object(obj);
+     obj.fn = this; // 这样简洁，但是用户到时会看到fn函数
+     obj.fn(...args);
+ };
+ Function.prototype.MyApply = function (obj, args) {
+     obj = obj == null || obj == undefined ? window : Object(obj);
+     obj.fn = this;
+     obj.fn(...args);
+ };
+ Function.prototype.MyBind = function (obj, ...beforeArgs) {
+     obj = obj == null || obj == undefined ? window : Object(obj);
+     obj.fn = this;
+     return function (...afterArgs) {
+         let args = [...beforeArgs, ...afterArgs];
+         obj.fn(...args);
+     };
+ };
+ 
+ getName.MyCall(ob, 18);
+ getName.MyApply(ob, [18]);
+ 
+ let bindGetName = getName.MyBind(ob);
+ bindGetName(19);
+ bindGetName(20);
+ ```
+
+
+
 ### JavaScript 函数增强
 
 #### 函数对象的属性
@@ -1100,11 +1143,36 @@ Object.defineProperty(obj, "name", {
 });
 ```
 
+#### 对象中的写法
+
+```javascript
+var obj = {
+    _name: "why",
+    // setter方法
+    set name(value) {
+        this._name = value;
+    },
+    // getter方法
+    get name() {
+        return this._name;
+    },
+};
+
+obj.name = "kobe";
+console.log(obj.name); 
+```
+
+
+
 ### 面向对象
+
+`函数.prototype 显示原型` -----`对象.__proto__ 隐式原型` -----`对象.__proto__.__proto__ 原型链`
 
 #### 原型
 
 >   每一个对象都有原型 [[Prototype]]
+
+对象原型
 
 ```javascript
 var obj = {
@@ -1117,21 +1185,290 @@ console.log(obj.__proto__); // 浏览器实现的，非标准
 console.log(Object.getPrototypeOf(obj)); 
 ```
 
+函数原型
 
+```javascript
+function Foo(name){
+    this.name = name;
+}
+
+// 将函数看做普通对象,有__proto__ 属性
+console.log(Foo.__proto__)
+
+// 原型自带属性 
+FOO.prototype.constructor
+
+// 将函数当做函数使用，new的时候，将prototype 赋值给实例对象的 __proto__，设置方法 
+FOO.prototype.getName(){
+    console.log(this.name)
+}
+
+// 属性保存在构造函数体，每new个实例都会执行构造函数，有自己的单独属性
+// 方法存在 prototype 原型中，每个实例共有
+let fo = new Foo('name')
+fo.getName(); // 这时候通过fo实例调用了方法，所以this就是fo实例，this.name 就是fo实例的name
+```
 
 #### 原型链
 
+一个对象查找一个属性或方法，自己身上找不到，就去__proto__中找，__proto__找不到，就去__proto__对象的__proto__中找，形成的路径就是**原型链**
+
+![](../..\static\img\2023-03-06_170053.jpg)
+
+#### new 实现原理
+
+```javascript
+// myNew
+function Dog(name, age) {
+    this.name = name;
+    this.age = age;
+}
+Dog.prototype.getName = function () {
+    console.log(this.name);
+};
+
+function myNew(Fun, ...args) {
+    let obj = {}; // 未来的实例对象
+    obj.__proto__ = Fun.prototype; // 使实例对象原型链 指向构造函数的 prototype
+    let res = Fun.apply(obj, args); // 调用一次构造函数，将this指向实例对象，时属性加到 obj 中
+    return res instanceof Object ? res : obj; // 所有构造函数不能返回对象，可以返回基本类型数据，但无效
+}
+
+let dog = myNew(Dog, "dog1", 1);
+let dog2 = myNew(Dog, "dog2", 1);
+dog.getName(); // this 就是 dog, new dog 时新创建的 obj
+dog2.getName(); // this 就是 dog2，new dog2 时新创建的 obj
+
+console.log(Fun.prototype.constructor); // 这个属性默认指向构造函数，所有实例可以通过__proto__拿到这个属性
+```
+
+#### 对象方法补充
+
+-   **hasOwnProperty：**判断对象自生是否存在某个属性，不包含原型，原型链
+-   `'name' in info`：判断`name`属性是否在 `info`对象上，或者在`info`对象的原型链上
+-    `for(var key in info){}`：`for in`变量的不只是对象自身的属性，还有原型上的属性（不查找不可枚举的属性）
+-   `实例 instanceof FOO `：判断某个实例是否是**FOO构造函数**的实例（去实例的原型链查找是否有 **constructor 为 FOO** 的原型）
+    -   实例原型链上所有 constructor 指向的类 都会为 true
+-   **isPrototypeOf：**
+
+#### 面向对象三大特性
+
+##### 封装
+
+-   将属性方法，封装到一个类中，也是封装的过程
+
+##### 继承
+
+-   将重复的代码逻辑抽取到父类中
+-   js 的继承就是基于原型链，把某个类的 prototype，的__proto__ 指向 哪个类的prototype，就是继承了那个类
+-   Object 构造函数，是所有类的父类
+
+```javascript
+// 父级
+function Parent(name) {
+    this.name = name;
+}
+Parent.prototype.msg = "父级 msg"; 
+Parent.prototype.go1 = function () {
+    console.log("go1");
+};
+
+// 子集
+function Subset(name) {
+    Parent.call(this, name); // 属性继承
+}
+// 如果不想直接用 __proto__，执行需要继承那个类的实例，这个实例，自然能通过__proto__指向 Parent.prototype
+// Subset.prototype = new Parent("父级name");
+// Subset.prototype.__proto__ = Parent.prototype; // 方法继承
+Object.setPrototypeOf(Subset.prototype, Parent.prototype); // Object.setPrototypeOf 兼容性更好一点
+
+Subset.prototype.go2 = function () {
+    console.log("go2");
+};
+
+let sub = new Subset("sub1");
+sub.go2();
+console.log(sub.name);
+console.log(sub.msg);
+```
+
+##### 多态
+
+```javascript
+// 其他语言严格的说法
+// 1.必须有继承(实现接口)
+// 2.必须有父类引用指向子类对象
+
+// 为不同数据类型，提供统一的接口
+// 使用单一的符号来表示不同的类型
+```
 
 
 
+### ES6 的 Class
 
+#### 对比构造函数
 
+>   相对于ES5 的写法**内聚性**更强 (**高内聚**就是说属于一个整体的东西尽量放在一起)
 
+```javascript
+// ES6 的 Class 就是 ES5构造函数的语法糖，是可以相互转换的
 
+// function定义类
+function Person1(name, age) {
+    this.name = name;
+    this.age = age; 
+}
 
+// 创建一个类方法
+Parent.staticFunction = staticFunction(){
+    console.log('类方法，静态方法')
+}
 
+Person1.prototype.running = function () {};
+Person1.prototype.eating = function () {};
 
- 
+var p1 = new Person1("why", 18);
+console.log(p1.__proto__ === Person1.prototype);
+console.log(Person1.prototype.constructor);
+console.log(typeof Person1); // function
+Person1.staticFunction() // 调用静态方法
+
+// 不同点: 作为普通函数去调用
+Person1("abc", 100);
+
+//==========================================================================
+
+// class定义类
+class Person2 {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    static staticFunction(){
+        console.log('类方法，静态方法')
+    }
+
+    running() {}
+    eating() {}
+}
+
+var p2 = new Person2("kobe", 30);
+console.log(p2.__proto__ === Person2.prototype);
+console.log(Person2.prototype.constructor);
+console.log(typeof Person2);
+Person2.staticFunction() // 调用静态方法
+
+// 不同点: class定义的类, 不能作为一个普通的函数进行调用
+Person2("cba", 0);
+```
+
+#### 类的描述符
+
+>   程序员**约定俗成**的规范，不让外部访问的属性就以下划线开头，ES13后**语言层面新增** #开头为私有属性
+
+```javascript
+// 访问器的应用场景
+class Rectangle {
+    constructor(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    get position() {
+        return { x: this.x, y: this.y };
+    }
+
+    get size() {
+        return { width: this.width, height: this.height };
+    }
+}
+
+var rect1 = new Rectangle(10, 20, 100, 200);
+console.log(rect1.position);
+console.log(rect1.size);
+```
+
+#### ES6 的继承
+
+>   super 可以在子类的构造函数、静态方法、原型方法中调用 
+
+>   js 只支持单继承
+
+```javascript
+// 定义父类
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    running() {
+        console.log("running~");
+    }
+}
+
+class Student extends Person {
+    constructor(name, age) {
+        super(name); //必须先调用super
+        this.age = age;
+    }
+    
+    running() { // 重写父类方法
+        super.running() // 调用父类的方法, 在父类基础上写上自己的东西
+        console.log("Student running~");
+    }
+
+    studying() {
+        console.log("studying~");
+    }
+}
+
+var stu = new Student("why", 18);
+stu.running();
+```
+
+>   继承内置方法，`MyArray` 扩展一些个人性，Array没有的东西
+
+```javascript
+class MyArray extends Array {
+    xxx
+}
+
+Array.prototype.xxx = function(){}
+```
+
+### ES6 增强
+
+#### 对象字面量
+
+```javascript
+var name = ' '; 
+var key = "address" + " city";
+var obj = {
+    name, // 1、属性
+    foo(){}, // 2、方法
+    [key]:'xx' //3、自定义变量名
+}
+```
+
+#### 解构
+
+```javascript
+// 数组结构
+let [a,b] = [1,2,3]
+let [c,,f] = [4,5,6]
+console.log(a,b) // 1,2
+console.log(c,f) // 4,6
+
+// 对象的结构
+let {name: myname, age,...other} = {name:"lzo",age:18,height:190,money:'more'}
+console.log(myname) // lzo
+console.log(age) // 18
+console.log(other) // {height:190,money:'more'}
+```
 
 
 
