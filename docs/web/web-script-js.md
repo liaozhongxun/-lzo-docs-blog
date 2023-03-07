@@ -1470,9 +1470,169 @@ console.log(age) // 18
 console.log(other) // {height:190,money:'more'}
 ```
 
+#### 新的ECMA代码执行描述
+
+[ecma-262](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/)  找到 Executable Code and Execution Contexts
+
+ES6 之前的代码描述
+
+-   **执行上下文栈：**`（Execution Context Stack）`用于执行上下文的**栈结构**
+-   **执行上下文：**`（Execution Context）`代码在执行前**会先创建**的执行上下文（`GEC、FEC`）
+    -   关联 VO对象 、作用域链、this
+
+-   **变量对象：**`（Variable Object）`上下文管理的**VO对象**，用于**记录函数**和**变量**的声明
+-   **全局对象：**`（Global Object）` **GO**是全局**执行上下文**关联的**VO对象**
+-   **激活对象：**`(Activation Object)` **AO**函数**执行上下文**管理的**VO对象**
+-   **作用域链：**`（scope chain）`用于关联指向上下文栈的变量查找
+
+ES6 的代码描述
+-   **执行上下文栈：**`（Execution Context Stack）`用于执行上下文的**栈结构**
+-   **执行上下文：**`（Execution Context）`代码在执行前**会先创建**的执行上下文（`GEC、FEC`）
+    -   关联第一个词法环境 `Lexical Environments` 处理 let/const 变量
+    -   关联第二个变量 环境 `Variable Environments`  处理 var 变量 ，会产生变量提升
+    -   它们初始化时时同一个值
+
+
+-   **词法环境：**`(Lexical Environments)` **环境记录** 和 **外部词法环境**组成
+
+    -   函数声明、代码块语句、try-catch语句 被执行是都会创建**局部词法环境**（**并不是EC**,而是**EC**中**变量或函数**的集合）
+    -   环境记录：`Environment Record`    
+        -   全局上下文 LE 的环境记录，与以前的 GO 类似，但不是window（定义全局的变量和函数标识符）
+            -   全局较特殊，包含 Window  **用于储存var变量**、和 声明式环境记录 **用于储存let/cost**
+        -   局部上下文 LE 的环境记录，与以前的 AO 类似 （定义局部的变量和函数标识符）
+        -   LE 创建就会**直接记录 let/count 的变量**，但是要等到**赋值才能访问**，称为**暂时性死区**
+    -   外部词法环境：`Outer LE`  全局词法环境这个为null 
+
+
+#### let/const
+
+-   不允许变量的**重复**声明
+
+-   没有变量提升，**词法环境创建时**let/const变量也**直接创建**，没赋值前有**暂时性死区**，无法访问
+
+    -   暂时性死区，变量被创建 到 被赋值之间的**区域**，与定义位置无关 
+
+-   全局var变量添加到**window**，let/const 的变量**不会添加到window**，而是另外一个对象，谷歌表现为Script
+
+-   let/const/function/class所在的 {} 中，对相关变量，会形成**块级作用域**，与执行上下文无关
+
+    -   ```javascript
+        foo(); // foo is not defined
+        {
+            let a = 1;
+            function foo() {
+                console.log("111");
+            }
+        }
+        foo(); // 不报错
+        console.log(a); // a is not defined
+        
+        // 外面无法访问a，函数做了特殊处理，可以在块级作用域后面后面使用
+        ```
 
 
 
 
 
+####  模板字符串
+
+```javascript
+// 基本使用
+let s  = '123456'
+let str = `this is a template ${s}`
+
+// 标签模板字符串，react的 css in js 就是这么调用的
+function foo(...args) {
+    console.log("参数:", args);
+}
+foo`my name is ${name}, age is ${age}, height is ${1.88}`; // 调用
+```
+
+
+
+#### ES6函数增强 
+
+```javascript
+// 默认参数
+function foo(a=1){}
+
+// 箭头函数，没有 prototype 但是有 __proto__ 
+// 不绑定this、argument、super
+```
+
+#### 展开
+
+```javascript
+// 一开始只能展开数组和字符串
+let array = [1,2,3]
+let newArray = [...array,4,5] // 1,2,3,4,5
+let str = [..."abc"] // a,b,c
+
+// ES9（ES2018）可以在构建字面量对象时，展开对象
+let obj = {
+    a:1,
+    b:2
+}
+let info = {
+    ...obj,
+    c:3
+} // {a: 1, b: 2, c: 3}
+
+// 合并两个对象，并且替换属性c
+let newInfo = {...obj,...info, c:4}
+```
+
+#### 数值表示
+
+>   规范类进制写法
+
+```shell
+# 规定 0b、0o、0x 开头代表二进制、八进制、十进制（以前0开头当做八进制）  
+
+# 新出的 过大的数字可以用下划线连接，任意位置 10_000_00_0
+```
+
+#### Symbol
+
+>   ES6 新增的基本数据类型
+
+-   Symbol 函数可以生成一个独一无二的值
+
+-   在别人传给你的对象添加新属性时，防止对象属性冲突
+
+```javascript
+// 生成唯一的值
+const sym = Symbol();
+const bol = Symbol();
+obj[sym] = 'xxx'
+obj[bol] = 'yyy'
+
+// 非要生成相同的 Symbol，通过 Symbol.for 传入相同的描述
+const s5 = Symbol.for("ddd");
+const s6 = Symbol.for("ddd");
+
+// 获取对象中 Symbol 的 key
+Object.getOwnPropertySymbols(obj) 
+```
+
+#### Set and Map 数据结构
+
+##### Set
+
+##### Map
+
+
+
+### 其他
+
+#### 拷贝
+
+##### 浅拷贝
+
+```javascript
+```
+
+
+
+##### 深拷贝
 
