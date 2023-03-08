@@ -1546,6 +1546,12 @@ function foo(...args) {
     console.log("参数:", args);
 }
 foo`my name is ${name}, age is ${age}, height is ${1.88}`; // 调用
+
+// 其他字符串操作
+let str = "123abc456";
+console.log(str.includes("abc")); // true
+console.log(str.startsWith("123")); // true
+console.log(str.endsWith("456")); // true
 ```
 
 
@@ -1619,7 +1625,351 @@ Object.getOwnPropertySymbols(obj)
 
 ##### Set
 
+>   与数组类似，但是元素不能重复，常用与数组去重
+
+```javascript
+// 1.创建Set
+const set = new Set();
+
+// 2.添加元素
+set.add(10); // 添加基本元素
+console.log(set);
+
+const info = {};
+const obj = { name: "obj" };
+set.add(info);
+set.add(obj); // 添加第二个对象地址
+set.add(obj); // 无法添加
+console.log(set);
+
+// 3.应用场景: 数组的去重,Set 接收一个可迭代对象
+const names = ["abc", "cba", "nba", "cba", "nba"];
+const newNames = Array.from(new Set(names)); // ["abc", "cba", "nba"];
+
+// 4.Set的其他属性和方法
+// 属性
+console.log(set.size);
+// 方法
+// 4.1. 添加元素
+set.add(100);
+// 4.2. 删除元素
+console.log(set) // 下一步才删除，这时打印已经展开是没有obj对象的，这时浏览器做的一些处理
+set.delete(obj);
+// 4.3. 判断是否存在
+set.has(info);
+// 4.4. 清除所有元素
+set.clear()
+// 4.5. forEach
+set.forEach((item) => console.log(item));
+
+// 5.set支持for...of
+for (const item of set) {
+    console.log(item);
+}
+```
+
+
+
 ##### Map
+
+>   用于存储映射关系
+
+-   和对象的差别
+    -   对象不能使用复制类型作为key，**{[info]:'xxx'}** 会被转换成 **[object object]**
+
+```javascript
+// 想用对象作为key 时就可以考虑不用对象使用Map
+const map = new Map();
+// 添加内容
+map.set(info, "aaaa"); 
+// 获取内容
+map.get(info))
+// delete方法, 删除内容
+map.delete(info)
+// has方法, 判断内容
+map.has(info)
+// clear方法, 清空内容
+map.clear()
+// forEach方法
+map.forEach(item => console.log(item))
+
+// for...of遍历
+for (const item of map) {
+    const [key, value] = item;
+    console.log(key, value);
+}
+```
+
+
+
+##### WeakSet
+
+>   Weak 开头都是弱引用，只添加到 WeakSet 的对象，**GC 遇到**还是会把它**当做垃圾回收**，虽然被WeakSet引用着
+
+-   对比 Set
+    -   WeakSet 只能存放对象类型
+    -   不能遍历，很有肯可能遍历的东西，突然被销毁了，很危险 
+
+```javascript
+// 应用，限制外部调用类中的方法，当实例被销毁时，由于这边是弱引用，依旧会被GC回收
+const pWeakSet = new WeakSet();
+class Person {
+    constructor() {
+        pWeakSet.add(this); // 添加每一个实例
+    }
+
+    running() {
+        if (!pWeakSet.has(this)) {
+            console.log("Type error: 调用的方式不对");
+            return;
+        }
+        console.log("running~");
+    }
+}
+
+let p = new Person();
+// p = null
+p.running();
+const runFn = p.running;
+runFn();
+const obj = { run: runFn };
+obj.run();
+```
+
+
+
+##### WeakMap
+
+```java
+let obj1 = { name: "why" };
+let obj2 = { name: "kobe" };
+
+// 1.WeakMap的基本使用
+const weakMap = new WeakMap();
+// weakMap.set(123, "aaa")
+weakMap.set(obj1, "aaa");
+weakMap.set(obj2, "bbb");
+
+obj1 = null;
+obj2 = null; // 因为weakMap是弱引用，这时，遇到GC，会被回收，如果换成Map 应用这obj2,GC就不会回收
+```
+
+#### Proxy/SReflect
+
+##### 回顾vue2响应式原理
+
+>   只能监听简单的get 和 set，后期新增删除的属性无法监听
+
+```javascript
+const obj = {
+    name: "why",
+    age: 18,
+    height: 1.88,
+};
+
+// 对每一个属性使用defineProperty
+const keys = Object.keys(obj);
+for (const key of keys) {
+    let value = obj[key];
+    Object.defineProperty(obj, key, {
+        set: function (newValue) {
+            console.log(`监听: 给${key}设置了新的值:`, newValue); // value改变做一些事情
+            value = newValue;
+        },
+        get: function () {
+            console.log(`监听: 获取${key}的值`);
+            return value;
+        },
+    });
+}
+console.log(obj.age);
+obj.age = 17;
+console.log(obj.age);
+```
+
+##### Proxy
+
+-   希望监听一个对象时，需要先创**建代理对象**
+-   之后都是**直接针对代理对象操作**
+-   监听整个对象，不针对于某个属性
+
+```javascript
+const obj = {
+    name: "why",
+    age: 18,
+    height: 1.88,
+};
+
+// 1.创建一个Proxy对象
+const objProxy = new Proxy(obj, {
+    set: function (target, key, newValue) {
+        console.log(`监听: 监听${key}的设置值: `, newValue);
+        // target[key] = newValue;
+        
+        // 可以检测操作是否成功
+        let isSuccess = Reflect.set(target, key, newValue)
+    },
+    get: function (target, key) {
+        console.log(`监听: 监听${key}的获取`);
+        return target[key];
+    },
+
+    deleteProperty: function (target, key) {
+        console.log(`监听: 监听删除${key}属性`);
+        delete obj.name;
+    },
+
+    has: function (target, key) {
+        console.log(`监听: 监听in判断 ${key}属性`);
+        return key in  target;
+    },
+   ...
+}); 
+```
+
+##### Reflect（反射）
+
+>   和Math类似，本身就是一个对象，不需要new直接使用
+
+-   提供很多**操作 JavaScript对象的方法**
+    -   Reflect.defineProperty  和 Object.defineProperty
+-   Object本身是一个构造函数，又是JS的顶级类，不适合太多方法
+-   将一些对象本身的一些方法**迁移到 Reflect** 中
+-   Proxy 有的方法， Reflect中也有
+
+#### Promise
+
+#### ES Module
+
+### ES7 ~ ES13新特性
+
+#### ES8(ES2017) 
+
+```javascript
+// 对象方法
+Object.keys(obj); // [key,key,key]
+Object.values(obj); // [value,value,value]
+Object.entries(obj); // [[key,value],[key,value],[key,value]]
+
+//对数组/字符串操作(了解)
+console.log(Object.entries(["abc", "cba"])); // [[0,'abc'],[1,[cba]]
+console.log(Object.entries("Hello"));
+
+// 字符串填充
+const minute = "15".padStart(2, "0") // 不足两位，从前面用0 填充
+const second = "6".padStart(2, "0") // 不足两位，从前面用0 填充
+const pend = "6".padEnd(3, "0") //  // 不足三位，从后面用0 填充
+console.log(`${minute}:${second}`)
+
+// Trailing Commas 允许尾部逗号
+function(a,b,){} 
+
+// 获取属性描述符
+Object.getOwnPropertyDescriptors()
+```
+
+##### async/await
+
+```javascript
+```
+
+
+
+#### ES9(ES2018)
+
+##### 异步迭代器 
+
+##### 对象展开运算
+
+##### Promise finallly
+
+#### ES10(ES2019)
+
+```javascript
+// flat 按照指定深度，数组扁平化
+const nums = [10, 20, [111, 222], [333, 444], [[123, 321], [231, 312]]]
+const newNums1 = nums.flat(1) // 扁平化一层
+
+// flatMap
+let list = [
+    'hello word',
+    'aaa bbb'
+]
+const finalMessages = list.flatMap((item) => item.split(" "));
+console.log(finalMessages); // [hello,word,aaa,bbb]
+
+// trimStart、trimEnd
+console.log(' msg ms '.trimStart()) // 去除前面的空格
+
+// 将ES8的 对象方法 Object.entries(obj) 二维数组反转回对象
+Object.fromEntries(entries)
+```
+
+#### ES11(ES2020)
+
+##### BigInt||?.||??
+
+>   表示超过number范围的大整数
+
+```javascript
+// BigInt 
+console.log(Number.MAX_SAFE_INTEGER); // number能表示的最大安全整数 9007199254740991
+const num1 = 9007199254740992n;
+const num2 = 9007199254740993n;
+console.log(num1, num2);
+
+// 其他
+// 空值合并运算符，如果data 为 null或undefined时 将 默认值赋值给info
+let info = data ?? '默认值'
+
+// 可选链
+let obj = {
+    info:{
+        innerInfo:function(){
+            console.log('')
+        }
+    }
+}
+// 如果 obj存在info,info存在innerInfo时，才调用
+obj?.inof?.innerInfo?.()
+
+// for in 遍历对象标准化
+```
+
+
+
+#### ES12(ES2021)
+
+##### FinalizationRegistry
+
+>   将某个对象注册进去，被GC回收时产生回调
+
+```javascript
+let obj = { name: "why", age: 18 };
+let info = { name: "kobe", age: 30 };
+
+const finalRegistry = new FinalizationRegistry((value) => {
+    console.log("某一个对象被回收了:", value);
+});
+
+finalRegistry.register(obj, "why");
+finalRegistry.register(info, "kobe");
+
+// obj = null
+info = null;
+```
+
+##### WeakRefs
+
+```javascript
+let info = { name: "why", age: 18 };
+let obj = new WeakRef(info); // 弱引用的方式指向 info 指向的地址 ，只要info=null
+let obj2 = new WeakRef(info);
+```
+
+
+
+#### ES13(ES2022)
 
 
 
