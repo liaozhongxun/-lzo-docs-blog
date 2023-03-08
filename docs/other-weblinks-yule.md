@@ -1,5 +1,5 @@
 ---
-title: 非学习资源
+title: Favorites
 ---
 
 ### 壁纸

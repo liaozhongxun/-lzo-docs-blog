@@ -2,7 +2,7 @@
 title: mumu 手机模拟器】
 ---
 
-[下载](mumu.163.com)
+[下载](https://mumu.163.com)
 
 ### 安装
 

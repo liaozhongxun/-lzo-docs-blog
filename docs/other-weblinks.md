@@ -1,5 +1,5 @@
 ---
-title: 工作学习资源
+title: Favorites
 ---
 
 ## 工具网站
