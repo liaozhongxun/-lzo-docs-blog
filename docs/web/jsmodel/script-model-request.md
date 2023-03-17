@@ -68,14 +68,14 @@ title: 服务器请求
 				               1  open()之后
 							   2  send()之后
 							   3  请求中
-							   4  所有结果全部返回
+							   4  所有结果全部返回  === XMLHttpRequest.DONE 
 			*/
             //当readyState发生改变时触发
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if (xhr.status >= 200 && xhr.status < 300) {
                         //状态码
-                        //响应行
+                        //响应行 
                         console.log(xhr.status);
                         console.log(xhr.statusText); //状态字符串
                         console.log(xhr.getResponseHeaders("name")); //指定名称的响应头

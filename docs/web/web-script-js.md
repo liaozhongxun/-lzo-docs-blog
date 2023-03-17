@@ -1,5 +1,5 @@
 ---
-title: JavaScript 基础
+ title: JavaScript 基础
 
 ---
 
@@ -1554,6 +1554,12 @@ console.log(str.startsWith("123")); // true
 console.log(str.endsWith("456")); // true
 ```
 
+### 对象
+
+```javascript
+let info = Object.create(null) // 创建info对象，并且让对象的原型指向null
+```
+
 
 
 #### ES6函数增强 
@@ -1802,12 +1808,9 @@ const obj = {
 
 // 1.创建一个Proxy对象
 const objProxy = new Proxy(obj, {
-    set: function (target, key, newValue) {
+    set: function (target, key, newValue) { 
         console.log(`监听: 监听${key}的设置值: `, newValue);
-        // target[key] = newValue;
-        
-        // 可以检测操作是否成功
-        let isSuccess = Reflect.set(target, key, newValue)
+        target[key] = newValue;
     },
     get: function (target, key) {
         console.log(`监听: 监听${key}的获取`);
@@ -1837,7 +1840,229 @@ const objProxy = new Proxy(obj, {
 -   将一些对象本身的一些方法**迁移到 Reflect** 中
 -   Proxy 有的方法， Reflect中也有
 
+>   Reflect 一般与 Proxy 共同完成代理
+
+```javascript
+const obj = {
+    _name: "why",
+    set name(newValue) { // 下划线防止递归选好设置
+        console.log("this:", this); // 默认是obj
+        this._name = newValue;
+    },
+    get name() {
+        return this._name;
+    },
+};
+
+// 1.创建一个Proxy对象
+const objProxy = new Proxy(obj, {
+    set: function (target, key, newValue,receiver) { // receiver 就是 objProxy
+        console.log(`监听: 监听${key}的设置值: `, newValue);
+        // target[key] = newValue;
+        
+        
+        // 1、代理的目的是不直接操作原对象，通过Reflect 简介操作
+        // 2、可以检测操作是否成功
+        // 3、receiver，让 target里的getset 的 this 指向 receiver 就是 objProxy
+        let isSuccess = Reflect.set(target, key, newValue，receiver) 
+    },
+}); 
+console.log(objProxy.name);
+```
+
+
+
 #### Promise
+
+>   三种状态
+
+```javascript
+// 1.创建一个Promise对象, 传入一个会立即执行的 executor 回调函数
+const promise = new Promise((resolve, reject) => {
+    // 1.待定状态 pending
+    console.log("111111");
+
+    // 注意: Promise的状态一旦被确定下来, 就不会再更改, 也不能再执行某一个回调函数来改变状态
+    // 2.兑现状态 fulfilled
+    resolve();
+
+    // 3.拒绝状态 rejected
+    reject();
+});
+
+// 第一个.then 返回的是promise，then的回调中如果有返回值，下一个then得到的数据就是返回值,抛出throw异常，就会走catch
+promise.then((value) => {
+    console.log("成功的回调");
+}).catch((err) => { // catch也有return，也能得到一个promise，又能.then
+    console.log("失败的回调");
+});
+```
+
+>   传值
+
+```javascript
+// 1.普通值
+resolve([
+   {name: "macbook", price: 9998, intro: "有点贵"},
+   {name: "iPhone", price: 9.9, intro: "有点便宜"},
+])
+
+// 2.resolve(promise)
+// 如果resolve的值本身Promise对象, 那么当前的Promise的状态会有传入的Promise来决定
+resolve(p)
+```
+
+>   then 的两种写法
+
+```javascript
+promise.then((value) => {
+    console.log("成功的回调");
+}).catch((err) => {
+    console.log("失败的回调");
+});
+
+promise.then((value) => {
+    console.log("成功的回调");
+},(err) => {
+    console.log("失败的回调");
+})
+```
+
+>   ES9 finally
+
+无论是`resolve`，还是`reject`，都活走`finally`
+
+##### 类方法
+
+```javascript
+Promise.resolve('hello').then((res)=>{}) // 将数据转换为promise数据
+Promise.reject('err msg').catch((err)=>{})
+promise.all([p1,p2,p3]).then((res)=>{
+    //当所有promise的都走成功状态时进入，res是所有promise的resolve的数据列表
+}).catch((err)=>{
+    // 只要有一个reject，那么就会来的catch
+})
+
+promise.rect([p1,p2,p3]).then((res)=>{
+    // 谁的结果最快，就是谁的then 和 catch
+})
+promise.any([p1,p2,p3]).then((res)=>{
+    // 谁的结果最快，并且是成功状态，就是谁的then，所有都是rejected时，就会走catch
+})
+
+// ES11
+promise.allSettled([p1,p2,p3]).then((res)=>{
+    //不管状态时什么，只要有结果都会进入，返回对应的对象
+    //[{status:rejected,reason:"异常值"},{status:fulfilled,value:"返回值"}]
+})
+```
+
+#### Iterator 迭代器
+
+-   很多语言都有**迭代器**，迭代器是让**用户**可以**遍历访问**数组、链表、哈希表。。。这些**容器对象** 的 对象
+    -   这些容器对象就是**可迭代对象**
+    
+-   JS中：迭代器是一个具体对象，这个**对象符合迭代器协议**，JS的标准就是 **next**
+    -   **要求一：**必须是**参数个数小于等于1**的函数
+    -   **要求二：**必须返回存在 `done` 和 `value` 的对象
+        -   **done(是否结束):** 如果迭代器可以产生下一个值，`done` 为 `false`，如果是最后一个，`done`  为 `true`
+        -   **value:** `done`为`true`时可以省略
+    
+-   **可迭代对象**
+
+    -   然有一个**[Symbol.iterator]**函数
+    -   执行 **[Symbol.iterator]** 得到一个**迭代器函数**，这个迭代器函数就有next() 方法
+    -   原生可迭代对象：`String、Array、Map、Set、argument、NodeList`
+
+-   **应用场景**  可迭代对象才能用的语法
+
+    -   可以用**for of** 变量
+
+        -   拿到变量那个可迭代对象的 [Symbol.iterator] 并执行 得到迭代器，执行next() 返回 value，直到 done 为 true 结束
+
+    -   展开语法 (ES9 对象内部展开，是js做了特殊处理，不是迭代器做的)
+
+    -   结构赋值
+
+    -   yield*
+
+    -   构造函数参数：new Map( iterator )、new Set() 、new WeakSet()、new WeakMap() 参数都有是可迭代对象
+
+    -   Promise.all( iterator )、Array.from()
+
+        
+
+
+对象迭代器
+
+```javascript
+/*
+      将infos变成一个可迭代对象
+      1.必须实现一个特定的函数: [Symbol.iterator]
+      2.这个函数需要返回一个迭代器(这个迭代器用于 迭代当前的对象)
+*/
+const infoss = {
+    friends: ["kobe", "james", "curry"],
+    a:1,
+    b:2,
+    [Symbol.iterator]: function () {
+        let index = 0;
+        let item = Object.entries(this);
+        const infosIterator = {
+            next: () => {
+                if (index < item.length) {
+                    return {
+                        done: false,
+                        value: item[index++],
+                    };
+                } else {
+                    return { done: true };
+                }
+            },
+        };
+        return infosIterator;
+    },
+};
+
+for(const item of infoss){
+    if (item[1] == "kobe") {
+        break; // 可以用 break 或 continue 终断
+    }
+    console.log(item)
+}
+
+let inter = infoss[Symbol.iterator]()
+console.log(inter.next())
+console.log(inter.next());
+console.log(inter.next());
+```
+
+>   让对象变成可迭代对象
+
+```javascript
+Object.prototype[Symbol.iterator] = function () {
+    // const keys = Object.keys(this)
+    // const values = Object.values(this)
+    const entries = Object.entries(this);
+    let index = 0;
+    const iterator = {
+        next: function () {
+            if (index < entries.length) {
+                return { done: false, value: entries[index++] };
+            } else {
+                return { done: true };
+            }
+        },
+    };
+    return iterator;
+};
+```
+
+
+
+#### Generator 生成器
+
+
 
 #### ES Module
 
@@ -1936,7 +2161,7 @@ obj?.inof?.innerInfo?.()
 // for in 遍历对象标准化
 ```
 
-
+##### Promise.allSettled
 
 #### ES12(ES2021)
 
@@ -1967,9 +2192,105 @@ let obj = new WeakRef(info); // 弱引用的方式指向 info 指向的地址 �
 let obj2 = new WeakRef(info);
 ```
 
+##### 逻辑赋值运算符
 
+```javascript
+// 逻辑赋值运算符
+function foo(message) {
+    // 1.||逻辑赋值运算符
+    // message = message || "默认值"
+    // message ||= "默认值"
+
+    // 2.??逻辑赋值运算符
+    // message = message ?? "默认值"
+    message ??= "默认值";
+    console.log(message);
+    
+    obj &&= obj.name  // 如果obj对象的name存在，就把obj的name赋值个obj
+}
+```
+
+##### 大数字分隔符
+
+```javascript
+// 用下划线分割很大的而书中
+let a = 100000000
+let b = 100_000_000
+```
+
+##### replaceAll
+
+```javascript
+const msg = 'aaa_aaa_bbb_ccc';
+msg.replace("aaa","ddd") // 只替换第一个aaa
+msg.replaceAll("aaa","ddd") // 全部aaa都替换
+```
 
 #### ES13(ES2022)
+
+##### at方法
+
+>   通过at方法从数组或字符串中取值
+
+```javascript
+let list = ['aaa','bbb','ccc']
+console.log(list.at(1)) // 获取数组索引为1的元素 bbb
+console.log(list.at(-1)) // 数组最后一位，ccc
+
+let str = 'hello'
+console.log(str.at(1))
+console.log(str.at(-1))
+```
+
+##### Object.hasOwn
+
+>   判断对象上是否有自己的指定属性
+
+```javascript
+// 防止重写，用户自己的obj对象中也有 hasOwnProperty 这个方法
+obj.hasOwnProperty(obj)  // 判断obj对象上是否有name属性，不包含原型链的name，写在prototype原型上
+Object.hasOwn(obj,name)  //  替代 obj.hasOwnProperty
+```
+
+##### Class 添加新成员
+
+```javascript
+class Person {
+    // 1.实例属性
+    // 对象属性: public 公共 -> public instance fields
+    // 所有实例都可以使用
+    height = 1.88;
+
+    // 对象属性: private 私有: 程序员之间的约定，还是能通过 p._intro 访问的
+    _intro = "name is why"; // p._intro 访问
+
+    // ES13对象属性: private 私有，外面无法访问
+    #intro = "name is why";
+
+    // 2.类属性(static)
+    // 类属性: public
+    static totalCount = "70亿"; // 通过 Person.totalCount 访问属性
+
+    // 类属性: private
+    static #maleTotalCount = "20亿";
+
+    constructor(name, age) {
+        // 对象中的属性: 在constructor通过this设置
+        this.name = name;
+        this.age = age;
+        this.address = "广州市";
+    }
+
+    // 3.静态代码块，第一次加载类的时候自动执行，用于初始化一些东西
+    static {
+        console.log("Hello World");
+        console.log("Hello Person");
+    }
+}
+
+const p = new Person("why", 18);
+console.log(p);
+```
 
 
 
@@ -1979,10 +2300,237 @@ let obj2 = new WeakRef(info);
 
 ##### 浅拷贝
 
+>   只能拷贝一层，遇到引用类型的数据拷贝的也是引用地址
+
 ```javascript
+const obj2 = { ...obj }
+const obj2 = Object.assign({},obj)
+
+const obj2 = {}
+for (const key in obj) {
+    obj2[key] = obj[key];
+}
+```
+
+##### 深拷贝
+
+>   遇到引用类型的数据拷贝的，不是引用地址，而是会创建新的对象，对**性能很不友好**
+
+JSON方式
+
+```javascript
+/**
+ *  JSON.parse(JSON.stringify(info));
+ *      1、函数引用无法添加到新对象 
+ *      2、无法拷贝值为 undefined 的属性
+ *      3、无法拷贝 [Symbol()] 
+ *      4、如果有对自己循环引用的对象，会报错
+ */
+```
+
+自定义
+
+```javascript
+function deepCopy(originValue) {
+    // 1.如果是原始类型, 直接返回
+
+    
+    // 3、其他特殊类型 
+    //      Object.prototype.toString.call(originValue) == '[object Set]' // 做自己的操作 
+    //      Object.prototype.toString.call(originValue) == '[object Function]' // 直接返回
+    //      
+    // 2、如果不是原始类型和特殊类型，判断是对象就创建{}，数组就创建[]
+    // 3.通过遍历实现拷贝
+    // 4.其实就是在浅拷贝的基础上加一层判断，不是直接赋值，而是赋 deepCopy 过的值
+    // 5.返回新对象
+}
+
+
+
+
+// 深拷贝
+function isObject(value) {
+  const valueType = typeof value
+  return (value !== null) && ( valueType === "object" || valueType === "function" )
+}
+// 深拷贝核心 
+function deepCopy(originValue) {
+    
+    // 1.如果是原始类型, 直接返回
+    if (!isObject(originValue)) {
+        return originValue;
+    }
+
+    // 2.如果是函数function类型, 不需要进行深拷贝，其实可以直接从 isObject 取代
+    if (typeof originValue === "function") {
+        return originValue;
+    }
+
+    // 3.如果是对象类型, 才需要创建对象
+    const newObj = Array.isArray(originValue) ? [] : {};
+    for (const key in originValue) { // 数组的k是索引，可以和对象一样 for in 判断
+        newObj[key] = deepCopy(originValue[key]);
+    }
+    
+    return newObj;
+}
+
+
+
+// 深拷贝详细
+function deepCopy(originValue,map = new WeakMap()) {
+    // 0.如果值是Symbol的类型
+    if (typeof originValue === "symbol") {
+        return Symbol(originValue.description);
+    }
+    
+    // 1.如果是原始类型, 直接返回
+    if (!isObject(originValue)) {
+        return originValue;
+    }
+    
+    // 2.如果是set类型
+    if (originValue instanceof Set) {
+        const newSet = new Set();
+        for (const setItem of originValue) {
+            newSet.add(deepCopy(setItem));
+        }
+        return newSet;
+    }
+    
+    // 3.如果是函数function类型, 不需要进行深拷贝，其实可以直接从 isObject 取代
+    if (typeof originValue === "function") {
+        return originValue;
+    }
+
+    // 4-1.如果是对象类型, 才需要创建对象
+   if (map.get(originValue)) { // map为了解决循环引用问题
+       return map.get(originValue);
+   }
+    const newObj = Array.isArray(originValue) ? [] : {};
+    map.set(originValue, newObj);
+    
+    for (const key in originValue) { // 数组的k是索引，可以和对象一样 for in 判断
+        newObj[key] = deepCopy(originValue[key],map);
+    }
+    
+    // 4-1 单独遍历symbol，for in 变量不到 symbol
+    const symbolKeys = Object.getOwnPropertySymbols(originValue);
+    for (const symbolKey of symbolKeys) {
+        newObj[Symbol(symbolKey.description)] = deepCopy(
+            originValue[symbolKey],
+            map
+        );
+    }
+    
+    return newObj;
+}
+
+```
+
+#### 事件总线
+
+>   用于跨组件的数据传递
+
+##### Vue2 的 EventBus
+
+```javascript
+import Vue from 'vue'
+const EventBus = new Vue() // 全局使用
+
+Vue.prototype.$EventBus = new Vue() // 不需要导入导出
+
+// 组件中发送事件
+this.$EventBus.$emit("event",'hello') 
+// 组件中监听数据的触发
+this.$EventBus.$on("event",(data)=>{})
+
+// Vue3 删除推荐使用 miss 第三方库
+```
+
+##### 手写事件总线
+
+```javascript
+class EventBus {
+    constructor() {
+        this.events = {};
+    }
+    emit(event, data) {
+        if (this.events[event].length > 0) {
+            this.events[event].forEach((fn) => {
+                fn(data);
+            });  
+        }
+    }
+    on(event, callback) {
+        if (!this.events[event]) {
+            this.events[event] = [];
+        }
+        this.events[event].push(callback);
+    }
+    off(event, callback) {
+        if (this.events[event]) {
+            this.events[event].forEach((fn, index) => {
+                if (fn == callback) {
+                    this.events[event].splice(index, 1);
+                }
+            });
+        }
+    }
+    clear(event) {
+        this.events[event] = null;
+    }
+}
+const Evb = new EventBus();
+
+// 监听
+Evb.on("eventClick", (data) => {
+    console.log(data);
+});
+Evb.on("eventClick", (data) => {
+    console.log("第二次", data);
+});
+
+Evb.on("lick", (data) => {
+    console.log(data);
+});
+
+// 触发
+setTimeout(() => {
+    Evb.emit("eventClick", "触发了 eventClick 的 emit");
+}, 5000);
+
+setTimeout(() => {
+    Evb.emit("lick", "触发了 lick 的 emit");
+}, 6000);
+
+```
+
+#### 网络请求
+
+##### HTTP
+
+##### XHR
+
+```javascript
+// 1. 创建XMLHttpRequest对象
+const xhr = new XMLHttpRequest()
+
+// 2. 监听状态改变
+xhr.onreadystatechange = function(){
+    console.log(xhr.readyStat)
+    console.log(xhr.response) // 拿到结果 字符串
+    const resJSON = JSON.parse(xhr.response) // 解析结果成对象
+}
+// 3. 配置请求 open
+// method 请求方式
+xhr.open("get","http://xxxx/xxx")
+
+// 4. 发送请求
+xhr.send()
 ```
 
 
 
-##### 深拷贝
+##### Fetch
 
