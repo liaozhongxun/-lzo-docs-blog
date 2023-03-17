@@ -3,6 +3,31 @@ title: wsl
 ---
 
 ## WSL
+### 配置
+```shell
+# 商店安装 Windows Subsystem for Linux
+
+# 1、出现无法解析服务器的名称或地址，需要配置DNS114.114.114.114 / 备用 8.8.8.8
+
+# 2、查看wsl环境是否就绪，否则需要去 启用或关闭Window功能那里，勾选Linux子系统和虚拟化平台
+wsl --install  
+
+# 3、查看可使用的Linux系统，
+wsl --list --online
+
+# 4、安装，win11之前只能去微软商店安装
+wsl --install -d <DistroName>
+wsl --install -d kali-linux
+
+# 5、查看 分发的系统，以及wsl版本
+wsl -l -v
+
+# 6、将某个Linux版本设置为 wsl2
+wsl --set-version <distro name> 2
+
+# 7、重启终端，自动添加到win11 Windows终端
+```
+
 ### 使用
 -  win `\\wsl$\kali-linux` :直接范围wsl文件
 -  wsl `code //wsl$/kali-linux` :直接通过win编辑器操作wsl文件

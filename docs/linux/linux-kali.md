@@ -12,7 +12,6 @@ title: kali
 -   安装
     -   找到 Graphical installer 图形安装
 -   基本配置
-
     -   国内源 
 
         -   `/etc/apt/sources.list`
@@ -54,32 +53,11 @@ apt-file search -F bin/ls
 
 -   `lsof -i:22`:查看 22 端口的服务
 
-```shell
-#中科大
-deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
-deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
-
-#阿里云
-deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
-deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
-
-#清华大学
-#deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
-#deb-src https://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
-
-#浙大
-#deb http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
-#deb-src http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
-
-#东软大学
-#deb http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
-#deb-src http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
-
-#官方源
-#deb http://http.kali.org/kali kali-rolling main non-free contrib
-#deb-src http://http.kali.org/kali kali-rolling main non-free contrib
-
-#重庆大学
-#deb http://http.kali.org/kali kali-rolling main non-free contrib
-#deb-src http://http.kali.org/kali kali-rolling main non-free contrib
-```
+### python
+-   先安装好 gcc make 
+-   下载、解压、编译、软连接指令、查看版本
+    -   `sudo wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz`
+    -   `sudo tar -zxvf Python-3.8.0.tgz`
+    -   `sudo ./configure --enable-optimizations --prefix=/usr/local/Python3/ && make && make install`
+    -   `sudo ln -s /usr/local/Python3/python /usr/bin/python`  将安装位的的python软连接到bin下
+    -   `python -V`

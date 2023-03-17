@@ -393,8 +393,8 @@ PREFIX + CTRL r：加载会话
 -   `jo <dir-name>`:在终端直接打开包含 foo 字符串`目录`的`文件管理器`
 -   `jc <dir-name>`:进入字符串目录的`子目录`
 -   `joc <dir-name>`:进入字符串目录的`子目录`的`文件管理器`
--   手动安装
-    -   git clone git://github.com/joelthelion/autojump.git
+-   手动安装（必须先安装好 python）
+    -   git clone https://github.com/wting/autojump.git
     -   ./install.py
     -   按照提示 [[-s ~/.autojump/etc/profile.d/autojump.zsh]] && . ~/.autojump/etc/profile.d/autojump.zsh
     -   source .zshrc
