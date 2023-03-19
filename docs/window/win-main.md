@@ -176,7 +176,7 @@ Set-PoshPrompt Paradox #主 题
 Paradox、robbyrussell、Agnoster、Avit、Fish、Darkblood、Honukai +、PowerLine、Sorin +、tehrob 等
 
 #字体无法显示(https://www.nerdfonts.com/font-downloads)
-#下载喜欢的Nerd字体然后右键选择`为所有用户安装`后更改PowerShell窗口的字体即可
+#下载喜欢的Nerd字体 如：DroidSansMono Nerd Font ，然后右键选择`为所有用户安装`后更改PowerShell窗口的字体即可
 
 linux其他终端 `DroidSansMono Nerd Font Blod`效果步长
 ···

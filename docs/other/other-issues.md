@@ -178,8 +178,11 @@ Google Public DNS：8.8.8.8/8.8.4.4
 
 lzoxun@gmail.com / ablzxyu23zs350001689
 
-huaweibyun 114.115.212.129 l...16.
+huaweibyun 114.115.212.xxx l...16.
 
-密码管理器？？？？
 
-Navicat mongo : lzoxun  ->  4233 -> lzx123456.XUN
+Navicat mongo : lzoxun  ->  4233 -> lzx123456.XUN => mongoroot123456
+
+ruanfan z lzoxun m lzx123xxx....@
+
+hwymysql rootlzx123xxx,user-1lzx123xxx

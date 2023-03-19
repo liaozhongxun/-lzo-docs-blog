@@ -1209,7 +1209,9 @@ ONBOOT="yes" # 开机读取
         -   ssh username@IP 连接进目标机器
         -   如果目标IP端口改了通过 -p xxx 指定
         -   ssh username@IP "free -m" 控制远程服务器发送 free -m 这条指令
-       `scp`:命令用于 Linux 之间复制文件和目录(全量完整复制，效率不太好)
+    -   `ssh-copy-id`
+        -   连接主机 `ssh-copy-id -i ./id_rsa.pub root@114.115.212.xxx` 向目标主机114 上传公钥, 就可以不需要密码直连
+-   `scp`:命令用于 Linux 之间复制文件和目录(全量完整复制，效率不太好)
     -   scp -P 22 本机文件 root@对面IP:对面位置 => 文件上传
     -   scp -r -P 22 本机文件夹 root@对面IP:对面位置 => 文件夹上传
     -   scp -P 22 root@对面IP:对面文件位置 本机位置 => 文件下载

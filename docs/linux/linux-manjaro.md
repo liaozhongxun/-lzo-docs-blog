@@ -124,13 +124,16 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 
 -   基本配置
     -   查看本地 `/etc/shells` 是否有 zsh (没有就安装)
-    -   安装 `oh-my-zsh`
+    -   安装 `ohmyzsh`
         -   centos安装
         ```shell
         wget https://gitee.com/heyuanfly/install-oh-my-zsh/raw/master/centos-install-oh-my-zsh.sh
         chmod +x centos-install-oh-my-zsh.sh
         ./centos-install-oh-my-zsh.sh
         ```
+        -   官方源码安装
+            -   `wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh`
+            -   `sh install.sh`  如果.zshrc有改动，需要先备份，可能会自动覆盖掉原有的.zshrc
     -   根据提示将 .zshrc 复制到本地 ~/.zshrc
     -   将 shell 切换到 /bin/zsh `chsh -s /bin/zsh`
     -   重启
@@ -142,12 +145,13 @@ sudo pacman -Sy #安装 archlinuxcn、antergos、arch4edu
 -   zsh vi 模式(使用 vim 快捷键)
     -   .zshrc 添加 bindkey -v
 -   [插件扩展 powerlevel10k](https://github.com/romkatv/powerlevel10k/blob/master/README.md#oh-my-zsh)
+    -   ` sudo git clone https://github.com/romkatv/powerlevel10k.git /usr/share/powerlevel10k`
     -   `p10k configure`:第一次需要配置，这样重新配置
 -   命令行高亮
-    -   yay -S zsh-syntax-highlighting zsh-autosuggestions
+    -   yay -S zsh-syntax-highlighting zsh-autosuggestions  或 github 下载
     -   如果不生效
         -   sudo ln -s /usr/share/zsh/plugins/zsh-syntax-highlighting /usr/share/oh-my-zsh/custom/plugins/
-        -   sudo ln -s /usr/share/zsh/plugins/zsh-autosuggestions /usr/share/oh-my-zsh/custom/plugins/
+        -   sudo ln -s /usr/share/zsh/plugins/zsh-autosuggestions /usr/share/oh-my-zsh/custom/plugins/  （zsh-autosuggestions 放入.zshrc plugins中）
 
 ### 安装程序
 
