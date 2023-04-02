@@ -161,12 +161,13 @@ const safeObject = obj => isVaildObject(obj) ? obj : {}
 -   样式通过 @import ""转移到 App.vue 中
 
 
-yunbanf:liaozx/liao123
+yunbanf:liaozxliao12345
 内网f:内网f:SFTP - Root账号 , path:home/www
+yunbaniot:liaozxliao123@
+215:liaozx
+sv: lzx/lzx_12345
 
-sv: lzx/lzx_123
-
-local:liaozx/liaozx123
+local:liaozx/liaozx12345
 
 阿里云：223.5.5.5
 
