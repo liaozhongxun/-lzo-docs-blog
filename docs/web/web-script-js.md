@@ -659,7 +659,7 @@ let nfn = new fn()
 # 进行 Display 显示
 ```
 
-![](D:\MyData\projects\lzo-docs-blog\static\img\2023-03-03_183614.jpg)
+![](../..\static\img\2023-03-03_183614.jpg)
 
 >   引起回流的场景（reflow）
 
@@ -807,7 +807,7 @@ let nfn = new fn()
 
 -   接下来开始执行**全局代码**
 
-    -   需要构建一个 **全局执行上下文**`Global Execution Context（GEC）` 来执行**js引擎翻译好的** -**全局代码**
+    -   需要构建一个 **全局执行上下文**`Global Execution Context（GEC）` 来执行**js引擎翻译好的** -**全局代码**  
 
     -   **全局执行上下文** 会**最先**放入到 **执行上下文栈**中，处于最底部
 
@@ -1250,6 +1250,7 @@ console.log(Fun.prototype.constructor); // 这个属性默认指向构造函数�
 -   `实例 instanceof FOO `：判断某个实例是否是**FOO构造函数**的实例（去实例的原型链查找是否有 **constructor 为 FOO** 的原型）
     -   实例原型链上所有 constructor 指向的类 都会为 true
 -   **isPrototypeOf：**
+-   Object.setPrototypeOf(obj, Con.prototype);
 
 #### 面向对象三大特性
 
