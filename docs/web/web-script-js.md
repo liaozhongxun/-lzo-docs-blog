@@ -2509,7 +2509,7 @@ setTimeout(() => {
 
 #### 网络请求
 
-##### HTTP
+##### HTTP 
 
 ##### XHR
 
@@ -2521,17 +2521,126 @@ const xhr = new XMLHttpRequest()
 xhr.onreadystatechange = function(){
     console.log(xhr.readyStat)
     console.log(xhr.response) // 拿到结果 字符串
-    const resJSON = JSON.parse(xhr.response) // 解析结果成对象
+    const resJSON = JSON.parse(xhr.response) // 解析结果成对象，responseType 默认是text
+    
+    //xhr.responseText/xhr.responseXML
 }
+
+// 其他事件监听
+xhr.onloadstart = function(){} // 开始请求
+xhr.onprogress = function(){}  // 一个响应数据表到达，一般用于展示文件上传进度
+xhr.onabort = function(){} // 取消请求
+xhr.ontimeout
+xhr.onerror
+xhr.onload = function(){} // 请求成功，xhr.onreadystatechange 并且 xhr.readyStat == 4
+xhr.loadend  // load、error、timeout、abort之后触发
+
+
+// 告知xhr等会获取到的数据的类型
+// 如已知拿到的是JSON数据，后端也会通过Response Headers 的 Content-Type 告知前端该怎么处理他返回的数据
+// get
+xhr.responseType = 'json' // 后不需要JSON解析 
+
 // 3. 配置请求 open
 // method 请求方式
-xhr.open("get","http://xxxx/xxx")
+xhr.open("get","http://xxxx/xxx?a=1&b=2")
 
-// 4. 发送请求
+// 4-1. get请求 发送, 通过query传递数据
 xhr.send()
+
+// 4-2 post请求 发送
+// 告诉服务器，用什么样的方式解析我前端给你的数据 
+xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+xhr.send("a=1&b=2")
+
+// 4-3 post请求 发送FormData数据
+const formData = new FormData(formElement) // 将表单元素转FormData
+xhr.send(formData)
+
+// 4-4 post请求 json 数据
+xhr.setRequestHeader("Content-Type","application/json")
+xhr.send(JSON.stringify({a:1,b:2}))
+
+// 1.超市时间的设置，浏览器达到过期时间还没有获取结果时，自动取消本次请求
+xhr.timeout = 3000
+xhr.ontimeout = function() { // 当超时的时候
+    console.log("请求过期: timeout")
+}
+// 手动取消请求，某个事件中
+xhr.abort() // 取消请求
+xhr.onabort = function(){
+    console.log('请求被取消')
+}
 ```
 
 
 
 ##### Fetch
+
+XHR的优化方案
+
+- 类似封装好的XHR，直接返回值是一个promise（发送成功调用resolve，失败调用reject）
+- 不同XML，所有操作到在一个对象上
+
+```javascript
+// 基本使用
+fetch("http://123.207.32.32:8000/home/multidata")
+    .then((res) => {
+    // 1.获取到response，是一个流
+    const response = res;
+    // 2.获取具体的结果，如果是json数据，就用json()
+    return response.json();
+})
+    .then((res) => {
+    console.log("res:", res);
+})
+    .catch((err) => {
+    console.log("err:", err);
+});
+
+// 优化
+async function getData() {
+    const response = await fetch("http://123.207.32.32:8000/home/multidata");
+    const res = await response.json();
+    console.log("res:", res);
+}
+getData();
+
+// 参数
+async function getData() {
+    // const response = await fetch(
+    // 	"http://123.207.32.32:1888/02_param/postjson",
+    // 	{
+    // 		method: "post",
+    // 		// headers: {
+    // 		//   "Content-type": "application/json"
+    // 		// },
+    // 		body: JSON.stringify({
+    // 			name: "why",
+    // 			age: 18,
+    // 		}),
+    // 	}
+    // );
+
+    const formData = new FormData();
+    formData.append("name", "why");
+    formData.append("age", 18);
+    const response = await fetch(
+        "http://123.207.32.32:1888/02_param/postform",
+        {
+            method: "post",
+            body: formData,
+        }
+    );
+
+    // 获取response状态，ok == 200-299
+    console.log(response.ok, response.status, response.statusText);
+
+    const res = await response.json();
+    console.log("res:", res);
+}
+getData();
+```
+
+
 
