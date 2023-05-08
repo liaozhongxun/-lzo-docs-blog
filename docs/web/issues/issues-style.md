@@ -49,8 +49,20 @@ overflow:auto;
 }
 ```
 ####  格式化上下文 BFC ?
-BFC全称是`Block Formatting Context`，意思就是块级格式化上下文。你可以把BFC看做一个容器，容器里边的元素不会影响到容器外部的元素。
--   定位、overflow、dispaly
+BFC全称是`Block Formatting Context`，意思就是块级格式化上下文。
+
+你可以把BFC看做一个容器，容器里边的子元素不会影响到容器外部的元素。
+
+- 触发方式：父级设置 position、overflow、dispaly、float  这些属性不为默认值
+
+-   解决问题：
+    - margin 塌陷/重绘/重叠，
+    
+    - 子元素设置margintop，父元素一起下去
+    
+    - 清除浮动
+    
+      
 #### 顶线、中线、基线...
 > 顶线、中线、基线、底线、行高、行距、半行距 
 

@@ -10,6 +10,7 @@ title: Favorites
     -   [破解码生成](https://www.zzzmode.com/mytools/charles/) 
 -   [Mongodb MySql 等多数据库管理工具](http://www.navicat.com.cn/)
 -   [FreeFileSync](https://freefilesync.com/)
+-   [产品原型业务流程](https://www.axureshop.com/)
 
 [^①]: 包含内网穿透、学习文档....
 

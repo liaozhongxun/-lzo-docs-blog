@@ -67,7 +67,7 @@ title: VsCode 编辑器
 - Vue VSCode Snippets(vue文件 输入`vbase` 快速生成各种版本的基本模板)
     -   更多模板生成 [指令](https://marketplace.visualstudio.com/items?itemName=sdras.vue-vscode-snippets)
 - EditorConfig (是一种被各种编辑器广泛支持的配置 .editorconfig)
-- live server (可运行的静态文件右键直接开启服务 电脑上也要全局安装)
+- live server (可运行的静态文件右键直接开启服务 电脑上也要全局安装)  >> mi g pro
 - open in browser (静态资源方式打开网页)
 - Better Comments (! * todo //美化注释)
 - Autoprefixer  2.2.0 (前缀 shift+ctrl+p 选择 autoprefixer CSS,电脑上也要全局安装)
