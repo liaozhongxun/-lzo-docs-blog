@@ -234,6 +234,52 @@ onLoad(option) {
 
 >   打包文件存放路径
 
+### 分包
+
+```javascript
+// 1、manifest.js > 源码视图
+ "mp-weixin" : {
+		... 
+        "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ],
+		"optimization":{"subPackages":true} // 开启分包
+    },
+// 2、新建pagesA 将登录页面从pages移动到pagesA中
+// 3、pages.json
+"subPackages":[
+    {
+        "root":"pagesA", //子包根目录
+        "pages":[
+            {
+                "path" : "login/login",
+                "style" :                                                                                   
+                {
+                    "navigationBarBackgroundColor": "#fff",
+                    "navigationBarTitleText": "登录",
+                    "enablePullDownRefresh": false
+                }
+        	}
+        ]
+    },
+    {
+        "root":"pagesB", //如果有第二个子包
+        "pages":[
+            {
+                "path" : "login/login",
+                "style" :                                                                                   
+                {
+                    "navigationBarBackgroundColor": "#fff",
+                    "navigationBarTitleText": "登录",
+                    "enablePullDownRefresh": false
+                }
+        	}
+        ]
+    },
+]
+
+```
+
+
+
 ## UI库
 
 #### [uni-ui](https://uniapp.dcloud.net.cn/component/uniui/quickstart.html)

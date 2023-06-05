@@ -200,6 +200,7 @@ git push origin -d <branch name> # 删除远程分支
 
 ```shell
 git tag <tag name> # 创建标签
+git tag -a v1.4 -m "my version 1.4"
 git show <tag name> # 查看标签
 git push origin <tag name> # 将指定标签推送到远程
 git checkout -b <branch name> <tag name> # 检出指定分支 指定标签的代码

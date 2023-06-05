@@ -114,12 +114,19 @@ Powermode: Enable Shake 去除代码抖动
 -   Home/End 行头行尾
 -   ctrl+Home/End 页头页尾
 -   shift + (ctrl?) + Home/End/上下左右 选择行头到行尾或页头到页尾
--   
-[参考资料](https://www.cnblogs.com/jpfss/p/10956650.html)
+-   [参考资料](https://www.cnblogs.com/jpfss/p/10956650.html)
 
 ## editorconfig 配置
 
 [参考资料](https://juejin.cn/post/6860440041039069191#heading-10)
+
+## 重启vscode
+
+`ctrl + shift + p`  输入 `Reload Window`    
+
+
+
+
 
 ## Markdown
 - Markdown All in One (快捷键自动不全编写markdown文档)
