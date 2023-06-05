@@ -62,3 +62,12 @@ ssender.sendWithParam(86, phoneNumbers[0], templateId,
 
 #### node 适用 es 语法
 改后缀名为 .mjs 或 package.json 的 "type": "module"
+
+#### node 版本太高
+> cli 报错 `Error: error:0308010C:digital envelope routines::unsupported` 一般locl中 @achrinza/node-ipc 导致
+```json
+// 添加 set NODE_OPTIONS=--openssl-legacy-provider
+ "scripts": {
+    "dev": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
+  },
+```
