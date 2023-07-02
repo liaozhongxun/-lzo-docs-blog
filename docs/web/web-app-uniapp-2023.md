@@ -278,7 +278,17 @@ onLoad(option) {
 
 ```
 
+## UNI push
 
+manifest.json/APP模块配置 勾选 Push(消息推送)
+
+应用详情，各平台信息添加公共证书 [公共证书](https://ask.dcloud.net.cn/article/36522)
+
+去uniPush 管理 [添加应用](https://dev.dcloud.net.cn/pages/app/push2/info)
+
+关联服务空间，需要实名认证
+
+开通 uniPush 2.0
 
 ## UI库
 
@@ -299,3 +309,9 @@ onLoad(option) {
 2、微信小程序本地背景图片
 
 >   要么使用**服务器上的图片**，要么使用**base64**当做背景图片，uni中小于40kb运行到小程序会自动转base64, 如果用太大的本地图片单做背景，小程序端将无法显示
+
+
+
+## 资源
+
+[掘金1](https://juejin.cn/post/7132272611366535182#heading-8)
