@@ -284,8 +284,6 @@ Plug 'junegunn/fzf.vim'
 
 -   结合 ranger
 
-### nvme
-
 ### tmux 终端复用
 
 -   配置文件:`~/.tmux.conf`

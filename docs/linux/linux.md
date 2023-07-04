@@ -4,7 +4,7 @@ title: linux
 
 ## 基础简介
 
--   安装[国内阿里云镜像](http://mirrors.aliyun.com/centos/)
+-   安装[国内阿里云镜像](http://mirrors.aliyun.com/centos/)     [7 iso](http://mirrors.aliyun.com/centos/7/isos/x86_64/)
 -   安装[国内阿里云镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
 -   安装[国内搜狐镜像](http://mirrors.sohu.com/)
     -   比较老版本可能不提供下载，需找较新的版本
