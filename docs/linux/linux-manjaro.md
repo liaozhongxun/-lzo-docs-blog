@@ -286,74 +286,67 @@ Plug 'junegunn/fzf.vim'
 
 ### tmux 终端复用
 
--   配置文件:`~/.tmux.conf`
+配置文件：`~/.tmux.conf`
 
-    -   `unbind C-b,set-option -g prefix C-c`:跟换激活键为 Ctrl+c
-    -   跟换分屏键
-        -   bind h split-windwo -h
-        -   bind v split-windwo -v
-        -   unbind '"'
-        -   unbind %
-    -   主题包 oh-my-tmux
+```shell
 
-    ```shell
-    $ cd #进入用户主目录
-    $ git clone https://github.com/gpakosz/.tmux.git
-    $ ln -s -f .tmux/.tmux.conf  #创建软连接
-    $ cp .tmux/.tmux.conf.local . #复制local文件到当前文件夹 可以覆盖默认配置
-    # tmux source-file ~/.tmux.conf  从新加载配置
-    ```
+```
 
--   终端-编辑-首选项-勾选运行一个自定义命令-填写 tmux(默认直接打开 tmux)
--   作用分屏、托管进程、复用终端
--   会话
+-   `unbind C-b,set-option -g prefix C-c`:跟换激活键为 Ctrl+c
+-   跟换分屏键
+    -   bind h split-windwo -h
+    -   bind v split-windwo -v
+    -   unbind '"'
+    -   unbind %
 
-    -   `tmux new -s flask` :新建会话
-    -   `ctrl+b`:进入激活状态，习惯设置 ctrl+a
-        -   会话快捷键
-            -   `d`:分离会话
-            -   `s`:会话列表
-            -   `$`:重命名会话
-        -   窗口(新建会话进入窗口)
-            -   `c`:新建窗口
-            -   `&`:关闭窗口
-            -   `l`:切换窗口
-            -   `n`:切换下一个窗口
-            -   `p`:切换上一个窗口
-            -   `<number>`:指定编号窗口
-            -   `w`:窗口菜单列表
-            -   `,`:重命名窗口
-        -   窗格|面板(分屏之后产生窗格)
-            -   `%`:水平分屏
-            -   `" 、-`:垂直分屏
-            -   `x`:关闭窗格
-            -   `;`:切换窗格
-            -   `!`:拆为独立窗格,变窗口
-            -   `z`:全屏显示窗格,隐藏其他
-            -   `q`:窗格编号
-            -   `o`:逆时针切换窗格
-            -   `Ctrl+o`:把其他窗格切换到当前窗格位置
-        -   `:`:输入指令
-        -   保存
-            -   激活状态 -> d 关闭会话 -> 任意终端`tmux attach -t 会话名称`启用
-            -   可以多用户共享同时操作
-        -   `Ctrl+d`:不用激活，退出并关闭
-        -   其他
-            -   `tmux ls`:查看 tmux 列表
-            -   `tmux kill-session -t <session-name>`:彻底杀死会话
-            -   `set -g mouse on`:允许鼠标操作
-            -   `set -g mode-mouse on`:开启鼠标模式
-            -   `set -g mouse-select-pane on`:允许鼠标选择窗格
+- 会话
 
--   面板
-    -   分屏之后产生窗格
--   复制粘贴
-    -   `ctrl+b+[`:进入复制模式，选择内容直接复制
-    -   `ctrl+b+]|c+s+v`:粘贴
-    -   ctrl+b,[ 进入复制模式，此时可以鼠标选择，松开复制，ctrl+b, ] 粘贴
--   设置窗格大小
-    -   `ctrl+b,H J K L`,不能停顿太久
-        
+  -   `tmux new -s flask` :新建会话
+  -   `ctrl+b`:进入激活状态，习惯设置 ctrl+a
+      -   会话快捷键
+          -   `d`:分离会话
+          -   `s`:会话列表
+          -   `$`:重命名会话
+      -   窗口(新建会话进入窗口)
+          -   `c`:新建窗口
+          -   `&`:关闭窗口
+          -   `l`:切换窗口
+          -   `n`:切换下一个窗口
+          -   `p`:切换上一个窗口
+          -   `<number>`:指定编号窗口
+          -   `w`:窗口菜单列表
+          -   `,`:重命名窗口
+      -   窗格|面板(分屏之后产生窗格)
+          -   `%`:水平分屏
+          -   `" 、-`:垂直分屏
+          -   `x`:关闭窗格
+          -   `;`:切换窗格
+          -   `!`:拆为独立窗格,变窗口
+          -   `z`:全屏显示窗格,隐藏其他
+          -   `q`:窗格编号
+          -   `o`:逆时针切换窗格
+          -   `Ctrl+o`:把其他窗格切换到当前窗格位置
+      -   `:`:输入指令
+      -   保存
+          -   激活状态 -> d 关闭会话 -> 任意终端`tmux attach -t 会话名称`启用
+          -   可以多用户共享同时操作
+      -   `Ctrl+d`:不用激活，退出并关闭
+      -   其他
+          -   `tmux ls`:查看 tmux 列表
+          -   `tmux kill-session -t <session-name>`:彻底杀死会话
+          -   `set -g mouse on`:允许鼠标操作
+          -   `set -g mode-mouse on`:开启鼠标模式
+          -   `set -g mouse-select-pane on`:允许鼠标选择窗格
+- 面板
+  -   分屏之后产生窗格
+- 复制粘贴
+  -   `ctrl+b+[`:进入复制模式，选择内容直接复制
+  -   `ctrl+b+]|c+s+v`:粘贴
+  -   ctrl+b,[ 进入复制模式，此时可以鼠标选择，松开复制，ctrl+b, ] 粘贴
+- 设置窗格大小
+  -   `ctrl+b,H J K L`,不能停顿太久
+      
+
 #### tmux 插件管理
 -   保存会话
 ```shell
@@ -380,12 +373,6 @@ PREFIX + CTRL r：加载会话
 
 -   在终端输入 seahorse 打开管理密钥环的软件，视图->根据密码环 在密码区会有一个“登录”为名字的密钥环，右击将其删除。
     -  如果无效:右键默认秘钥环，修改密码，输入旧密码，新密码留空直接继续再继续
-
-### dwm 动态窗口管理器
-
--   `/etc/X11/xinit/xinitrc` exec 设置默认启动
--   下载 `http://dwm.suckless.org/`
-    -   `Development clone addr`
 
 ### autojump 快速进入搜索到的目录
 
@@ -475,53 +462,37 @@ PREFIX + CTRL r：加载会话
     -   填写备注信息 -> 点击Create pull request按钮
     -   原作者的`pull requests`标签中就多出来刚刚的提交，点进去Converseation点击Merge pull request通过请求
     -   自己项目可以这样通过gui合并，但是自己的可以直接在项目中合并
-### plank || latte-dock
-
-### 实时资源监控插件 conky
+    ### 
 
 ### 终端文件管理器 ranger
 
--   基础操作
-    -   上下左右
-    -   vim 快捷键
-    -   [、]:上下切换所在目录`上级目录`的 `文件或目录`
-    -   退出
-        -   `q`:退出到打开的位置
-        -   `shift+S`:终端进入当前选择的目录 并 退出
--   功能
-    -   `o` 排序模式(`当前文件夹`)
-        -   `os`：文件从大到小
-        -   `on`：文件名排序
-        -   `oc`：修改日期排序
-    -   `/`:搜索
-        -   `n/N`:向下或上查找
-    -   `cw|a|A`:重命名
-    -   复制粘贴删除
-        -   `dd`:剪切
-        -   `dD`:删除
-        -   `yy`:复制
-        -   `pp`:粘贴https://github.com/ranger/ranger/wiki/Plugins
-            ranger - `po`:粘贴并覆盖
-        -   `yp`:复制路径
-        -   `dU`:查看文件大小
-    -   `v`:选择目录下文件
-    -   `w`任务管理器
-    -   `zh`:显示隐藏文件
-    -   `r`:选择当前文件打开方式，或者`:code `这样动态指定打开方式
--   书签
-    -   `m` 加 任意键创建
-    -   \` 打开
-    -   `um` 删除
+基础操作
+
+```shell
+# vim 快捷键 上下左右
+# 退出：q 、shift+S
+# 功能：
+#   常用 => 复制(yy) 粘贴(pp) 覆盖(po) 剪切(dd) 删除(dD) 复制路径(yp) 查看文件大小(dU)
+#       => 多选(v) 任务管理器(w) 显示隐藏(zh) 指定打开文件方式(r)
+#
+#	排序 => 按大小(os)  按名称(on) 按修改日期(oc)
+#   搜索 => 符号(/)  按 n/N 查找下一个/上一个
+#   书签 => 创建(m + key) 打开(`) 删除(um)
+#   命令 => 符号(:cmmder)
+#		=> `!`: `:shell`快捷键，更多shell命令,:shell mv dir1 dir2, %s 代表选择的文件
+#    
+#   默认目录 => 家目录(gh) 根目录(gr)
+#
+#   重命名 => 单文件 cw
+#         => 批量命名 V或空格多选 > :bulkrename 进入vim编辑 > 修改保存退出
+#         => 批量操作 ctrl+v 选择行数，(shift+i/a/o)进入插入模式，修改，esc 
+#   
+```
+
 -   标签(窗口)
     -   `gn|ctrl+n`:创建
     -   `gt|gT`:切换
     -   `gc|ctrl+w`:关闭 eeep
--   其他
-    -   gh:用户主目录
-    -   gr:根目录
--   特殊功能
-    -   `:`: 命令操作
-    -   `!`: `:shell`快捷键，更多shell命令,:shell mv dir1 dir2, %s 代表选择的文件
 -   配置文件夹`~/.config/ranger`
 
     -   如果要用自己的配置文件,环境变量设置: RANGER_LOAD_DEFAULT_RC=FALSE
@@ -534,23 +505,12 @@ PREFIX + CTRL r：加载会话
         -   `set vcs_aware true`:显示 git 状态符号
         -   `set preview_已经写死了，需images true && set preview_images_method w3m`:用 w3m 预览图片(需要安 w3m)
         -   `map f console scout -ftsea%space`:f 搜索 X
-
 -   修改默认文本编辑器
 
     -   echo export EDITOR=/usr/bin/vim >> ~/.bashrc
     -   echo export EDITOR=/usr/bin/vim >> ~/.zshrc
 
--   批量操作文件
-    -   批量重命名
-        -   按 v 全选文件，或按空格选择单个文件
-        -   :bulkrename 回车 进入 vim 编辑模式
-        -   修改文件名
-        -   保存退出
-        -   cw 单个文件命名
-    -   批量删除
-        -   按空格选定多个dD 回车 y 回车
-
-#### 异常
+#### Root预览异常
 默认情况下root账号是不能预览的,注释python源码
 ```shell
 # /usr/local/lib/python3.6/site-packages/ranger/core/main.py
@@ -665,6 +625,8 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   `aria2`:下载工具
 -   `FreeFileSync`: [数据备份软件](https://freefilesync.com/)
 -   `nmon`:监控当前系统性能
+-   plank || latte-dock
+-   实时资源监控插件 conky
 
 ### 网上存储
 
@@ -685,19 +647,9 @@ sudo pacman -Syu || sudo pacman -Syudd(-dd 跳过全部检测)\_
 -   yay -S acroread #pdf 阅读
 -   yay -S pdfsam #pdf 编辑
 -   yay -S masterpdfeditor #pdf 阅读编辑
-
 -   yay -s deepin-wine
--   yay -S deepin-wxwork #企业微信
--   yay -S deepin-wine-wechat #微信
--   yay -S deepin-qq-eim #QQ
--   yay -S deepin-baidu-pan #百度网盘
 -   yay -S deepin-wine-tim #TIM
 -   yay -S deepin-screenshot #截屏软件
--   ###另外：安装 QQ 可以参考[https://aur.archlinux.org/packages/deepin.com.qq.office/]
--   yay -S deepin.com.qq.office ##TIM
--   yay -S deepin.com.qq.im ## QQ
-
-### 娱乐性工具
 
 -   sl
 -
