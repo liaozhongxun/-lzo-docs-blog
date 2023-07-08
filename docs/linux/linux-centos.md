@@ -525,6 +525,29 @@ export FZF_DEFAULT_OPTS="--border --preview '(highlight -O ansi {} || cat {}) 3>
 export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f --hidden"
 ```
 
+#### 安装 htop
+
+```shell
+# 通过上下左右控制，不能HJKL
+-   `F1`:帮助
+-	`F2`:设置
+-   `F3`:搜索
+-   `F4`:过滤(隐藏不匹配的进程)
+-   `F5`:进程树
+-	`F6`:排序
+-   `F9`:杀死选中的进程
+
+# 快捷键
+# u         选择用户，查看指定用户相关的进程
+# shift+p   按CPU占用大小排序
+# shift+m   按占用内存大小排序
+# shift+i   反转排序
+# 空格       标记进程，批量操作
+
+```
+
+
+
 #### 安装 screenFetch
 
 ```shell
@@ -537,14 +560,14 @@ chmod 755 /usr/local/bin/screenfetch
 
 ### 指令
 
-#### 查看磁盘挂载
+#### 磁盘占用
 
 ```shell
 df -h # 人性化显示大小
 df -T # 查看文件系统格式
 ```
 
-#### 查看目录文件大小
+#### 文件大小
 
 ```shell
 du -h # 人性化显示
@@ -596,13 +619,21 @@ sed -i "s#https#http#g" `grep http -rl VERO` # 将 VERO 下所有子目录所有
 sed -i "s#456#789#g" `grep 456 -rl ./lianxi` # 将 lianxi 下所有子目录所有文件里的 456 替换成 789
 ```
 
-> 查询目录下哪些文件具有指定内容
+> 查询存在指定内容的文件
 
 ```shell
 grep 456 -rl ./lianxi # 找到 lianxi 下所有存在 456 的文件
 ```
 
-端口
+> 查询存在指定内容的文件并打印
+
+```shell
+grep 456 -r ./lianxi
+```
+
+
+
+#### 通过端口查数据
 
 > 通过端口，查看占用的程序名称
 
@@ -611,6 +642,37 @@ grep 456 -rl ./lianxi # 找到 lianxi 下所有存在 456 的文件
 netstat -anp | grep 3306
 # 有程序名、pid进程号
 lsof -i :3306
+```
+
+#### 通过PID查数据
+
+```shell
+netstat -antup|grep pid
+```
+
+#### 通过进程名查数据
+
+```shell
+netstat -antup|grep nginx
+```
+
+#### 查看进程关联的文件
+
+```shell
+lsof -c Pid # 打印指定进程使用到的文件
+```
+
+#### 通过域名查IP
+
+```shell
+nslookup github.com
+```
+
+#### 统计文件行数
+
+```shell
+# grep 找到当前文件夹下所有文件 | 排除不需要统计的目录或文件 | 输出所有文件空行取反 | 查看内容行数
+grep . -rl --exclude-dir={node_modules,dist} --exclude={yarn.lock} ./|xargs grep -v "^$"|wc -l
 ```
 
 #### 查看系统信息
@@ -628,7 +690,7 @@ lsb_release -a
 
 #### 连接工具
 
-终端 SSH 指令 [MobaXterm](https://mobaxterm.mobatek.net/) [FinalShell](http://www.hostbuf.com/t/988.html) [WindTerm](https://github.com/kingToolbox/WindTerm/releases)
+ [MobaXterm](https://mobaxterm.mobatek.net/) [FinalShell](http://www.hostbuf.com/t/988.html) [WindTerm](https://github.com/kingToolbox/WindTerm/releases)
 
 #### 文件上传下载
 
@@ -642,6 +704,46 @@ rz
 sz <file-name>
 ```
 
+#### ncdu 
+
+> 树结构统计文件大小，du 指令优化
+
+#### tldr
+
+> 简洁文档
+
+#### cloc
+
+> 文件数(files)、空白行数(blank)、注释行数(comment)和代码行数(code)
+
+```shell
+cloc ./dist
+```
+
+
+
+#### asciinema
+
+> 终端下非常棒的录屏和回放软件
+
+```shell
+# 录制
+asciinema rec
+
+# 结束录制
+ctrl+d 或 exit
+
+# Enter 上传，生成地址
+# Ctrl+c 取消
+
+# 播放
+asciinema play https://asciinema.org/a/aJ8I9rH4Ob5wbNAywiskRu0cz 
+
+```
+
+
+
 #### 包下载器
 
 `yum`、`dnf`、`wget`、`curl`
+

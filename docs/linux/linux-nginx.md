@@ -4,69 +4,104 @@ title: nginx
 
 ## 开启 nginx
 
-### 安装
+###  安装
 
--   arch:`yay -S nginx`
--   CentOS
-    -   [下载](http://nginx.org/en/download.html)
-    -   依赖:`make zlib zlib-devel gcc-c++ libtool openssl openssl-devel pcre`
-    -   位置:nginx 安装完成后目录`/usr/local/nginx `或`/usr/share/nginx`
-    -   开启
-        -   `systemctl start nginx.service`:pacman 直接安装的可以用
-        -   执行 xxx/sbin 下 ./nginx 指令
-    -   问题
-        -   端口 :如果有防火墙,配置指定的是 80 端口 `firewall-cmd --add-port=80/tcp --permanent`:开放 80 端口，重启墙
-    -   nginx 常用命令 `需要有管理员权限`
-        -   进入 nginx/sbin 目录(上面位置)|rach 直接在全局了任何位置都可以
-        -   开启 `./nginx`
-        -   停止 `./nginx -s stop`
-        -   安全退出 `./nginx -s quit`
-        -   重新加载 `./nginx -s reload`:配置文件修改时使用
-        -   一般通过 `systemctl` 操作
-    -   nginx 配置文件
-        -   `/usr/local/nginx/conf/nginx.conf`
-        -   或 `/etc/nginx/nginx.conf`
--   nginx源   
-    ```shell
-    # 安装 yum-utils，此插件可让我们自主选择 yum 源
-    yum install yum-utils -y
+[下载](http://nginx.org/en/download.html)
 
-    # 添加
-    vim /etc/yum.repos.d/nginx.repo
-    [nginx-stable]
-    name=nginx stable repo
-    baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
-    gpgcheck=0
-    enabled=1
-    module_hotfixes=true
+```shell
+# 随便找个位置
+wget http://nginx.org/download/nginx-1.24.0.tar.gz
+tar -xf http://nginx.org/download/nginx-1.24.0.tar.gz
+cd nginx-1.24.0
+chmod +x configure
 
-    [nginx-mainline]
-    name=nginx mainline repo
-    baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
-    gpgcheck=0
-    enabled=0
-    module_hotfixes=true
+# 依赖环境
+# c编译器
+yum -y install gcc gcc-c++ autoconf automake make
+# 解析正则的pcre库
+yum install -y pcre pcre-devel
+# 添加对gzip的支持
+yum install -y zlib zlib-devel
+# SSL
+yum -y install pcre  pcre-devel zlib  zlib-devel openssl openssl-devel
 
-    # 切换 yum 源为 Nginx 稳定版本的 yum 源
-    yum-config-manager --enable nginx-stable
+# 开始安装
+./configure --with-stream # 同时安装stream模块，后期处理tcp转发
+# 安装完成之后编译
+make
+# 安装编译后的文件（成功后位置 `/usr/local/nginx `或`/usr/share/nginx`）
+make install
+# 将ng的sbin位置也添加到PATH环境变量中
+export PATH="/usr/local/nginx/sbin/:$PATH"
+# 查看版本
+nginx -v
+```
+### 配置 systemctl
 
-    # 查看yum上的Nginx版本
-    yum info nginx
+```shell
+# 创建 nginx.service
+vim /lib/systemd/system/nginx.service
 
-    # 安装
-    yum install nginx -y 
+# 配置内容
+[Unit]
+Description=nginx service   # 描述服务
+After=network.target  # 描述服务类别
 
-    # 启动服务，关闭防火墙或开发80端口，与服务器还需要去安全组开放80端口
-    xx.xx.xx.xx:80 
-    ```
+[Service]
+Type=forking  # 是后台运行的形式
+ExecStart=/usr/local/nginx/sbin/nginx         # nginx的可执行路径
+ExecReload=/usr/local/nginx/sbin/nginx -s reload 
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
+PrivateTmp=true # 表示给服务分配独立的临时空间
 
--   tomcat 安装
-    -   [下载](https://tomcat.apache.org/download-70.cgi)
-    -   解压进入`bin`
-    -   运行:`./startup.sh` :如果有防火墙 `firewall-cmd --add-port=8080/tcp --permanent`:开放 8080 端口
-    -   成功:`Tomcat started.`,再通过 `http://192.168.1.xxx:8080/` 测试是否开启成功
-    -   日志:`../logs/catalina.out`
+[Install]
+WantedBy=multi-user.target  # 运行级别 自启
 
+# 测试
+systemctl start nginx.service # 启动
+systemctl list-unit-files | grep nginx #查看是否自启
+
+# 将/usr/local/nginx 软连接到 /etc下
+ln -s /usr/local/nginx /etc/nginx
+```
+
+
+
+### nginx源   
+
+  ```shell
+  # 安装 yum-utils，此插件可让我们自主选择 yum 源
+  yum install yum-utils -y
+  
+  # 添加
+  vim /etc/yum.repos.d/nginx.repo
+  [nginx-stable]
+  name=nginx stable repo
+  baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+  gpgcheck=0
+  enabled=1
+  module_hotfixes=true
+  
+  [nginx-mainline]
+  name=nginx mainline repo
+  baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
+  gpgcheck=0
+  enabled=0
+  module_hotfixes=true
+  
+  # 切换 yum 源为 Nginx 稳定版本的 yum 源
+  yum-config-manager --enable nginx-stable
+  
+  # 查看yum上的Nginx版本
+  yum info nginx
+  
+  # 安装
+  yum install nginx -y 
+  
+  # 启动服务，关闭防火墙或开发80端口，与服务器还需要去安全组开放80端口
+  xx.xx.xx.xx:80 
+  ```
+## 配置
 ```shell
 # 配置文件解析
 # 第一部分全局配置
@@ -389,7 +424,16 @@ fi
 
 
 ### 内网穿透工具
-    - natapp
+
+#### natapp
+
+1、[natapp](https://natapp.cn) 注册账号、实名认证、创建免费隧道、得到一个 **authtoken**
+
+2、[下载](https://natapp.cn/#download)、指令传到 `/usr/local/natapp`
+
+3、执行 `./natapp -authtoken=712a064e3b816dd9lzo`  得到域名
+
+4、后台执行 `nohup ./natapp -authtoken=712a064e3b816dd9lzo -log=stdout &`
 
 
 
