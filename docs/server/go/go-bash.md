@@ -6,8 +6,8 @@ title: go
 ####  安装
 
 ```shell
-wget https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
-tar -C /usr/local -zxvf  go1.10.3.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.18.6.linux-amd64.tar.gz
+tar -C /usr/local -zxvf  go1.18.6.linux-amd64.tar.gz
 ```
 
 #### 配置环境
@@ -17,12 +17,16 @@ tar -C /usr/local -zxvf  go1.10.3.linux-amd64.tar.gz
 mkdir -p /usr/local/gocode/{src,bin,pkg}
 
 # /etc/profile
+export GO111MODULE=on
+export GOROOT=/usr/local/go
+export GOPATH=/usr/local/gocode
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+或
 export GOROOT=/usr/local/go           #Golang源代码目录，安装目录
 export GOPATH=/usr/local/gocode        #Golang项目代码目录（工作空间）
 export PATH=$GOROOT/bin:$PATH    #Linux环境变量
 export PATH=$GOPATH/bin:$PATH    #Linux环境变量
 export GOBIN=$GOPATH/bin        #go install后生成的可执行命令存放路径
-
 # source /etc/profile 就安装好了
 ```
 #### 查看安装专题
