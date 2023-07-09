@@ -106,9 +106,12 @@ let result = findAndAdd('I like banana', 'a', '<','>'); // "I like b<a>n<a>n<a>"
 
 #### 反转字符串
 
--   通过数组**reverse**
-
 ```javascript
+/**
+ * 通过数组 reverse
+ *
+ */
+
 const reverseString = str => [...str].reverse().join("");
 let a = reverseString('Have a nice day!'); // !yad ecin a eva
 ```
@@ -195,9 +198,8 @@ tuc("follow for more")
 
 #### 指定范围随机数
 
->   通过最小范围 + 最大减最小所得到的随机数
-
 ```javascript
+// 通过最小范围 + 最大减最小所得到的随机数
 const randomNum = (min, max) => {
    return Math.floor(min + Math.random() * (max - min));
 }
