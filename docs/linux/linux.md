@@ -4,11 +4,12 @@ title: linux
 
 ## 基础简介
 
--   安装[国内阿里云镜像](http://mirrors.aliyun.com/centos/)     [7 iso](http://mirrors.aliyun.com/centos/7/isos/x86_64/)
--   安装[国内阿里云镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
--   安装[国内搜狐镜像](http://mirrors.sohu.com/)
+- 安装[国内阿里云镜像](http://mirrors.aliyun.com/centos/) [7 iso](http://mirrors.aliyun.com/centos/7/isos/x86_64/)
+- 安装[国内阿里云镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
+- 安装[国内搜狐镜像](http://mirrors.sohu.com/)
 
 ### 系统
+
 ```javascript
 -   虚拟机
     -   快照：保持当前状态，后期玩坏了随时可回到这里
@@ -54,14 +55,18 @@ title: linux
     -   $ ：普通用户
     -   \# ：root 用户
 ```
+
 ## 指令
+
 ```javascript
 -   格式 ： 命令 + [选项] + [参数]
 -   参数 ： 命令要`处理的对象`
 -   选项 ： `调节`命令的具体功能，带 - 前缀
 -   tab 补全目录| ；多个命令用分号隔离
 ```
+
 ### 基本操作命令
+
 ```javascript
 -   `pwd` ：查看当前所在路径
     -   `-P`: 对于软连接文件 显示真实所在的路径 并非快捷方式的路径
@@ -96,8 +101,12 @@ title: linux
         -   输出重定向 `<` 或 `<<` ,将键盘的输入重定向到指定文件，详单与查看文件内容如：cat
             -   `cat > /etc/passwd`
             -   `cat >> xxx`:进入一个输入模式，无限输入，输入 xxx 后生成文件，结束此状态
+-   查找指令已经相关文件位置
+    -   `whereis`,`where`,`which`
 ```
+
 ### 文件操作
+
 ```javascript
 -   `cd` ：进入
     -   `cd -` ：进入之前所在目录
@@ -187,7 +196,9 @@ title: linux
             -   分 : `-amin`(访问时间) 、`-mmin`(更改内容时间)、`-cmin`(改动时间)
                 -   find /etc -amin -7 (七分钟内被访问过的文件)
 ```
-### 文件内容操作 
+
+### 文件内容操作
+
 ```javascript
 -   `cat`：查看文本文件内容
     -   `-n`：显示行号
@@ -227,7 +238,9 @@ title: linux
     -   `modify time`:文件内容改变的时候（通过这个可以指定有人改了文件内容）
     -   `change time`:文件元数据改变的时候
 ```
+
 ### 常用模块
+
 ```javascript
 -   时间操作
     -   `date`: 系统时间
@@ -236,7 +249,9 @@ title: linux
     -   `cat`:日历
     -   `sudo timedatectl set-local-rtc 1`:同步系统时间
 ```
+
 ### 基本系统运用指令
+
 ```javascript
 -   `ifconfig` ：查看 ip （ens33 格式、lo、virbr0 虚拟网卡）等网卡
     -   `watch -n 1 ifconfig` 实时查看网络状态，RX:接收，TX:发送 => (KB = 数值/1000)
@@ -249,7 +264,9 @@ title: linux
     -   -r +15 "给其他在线用户发送信息" ：一段时间后重启
     -   -c ：取消之前 shutdown 的操作
 ```
+
 ### 字符
+
 ```javascript
 -   通配符(一般文件路径操作是通配符,文件内容操作用正则)
     -   `*`：匹配任意数量任意字符 -> 正则 `.*`
@@ -259,8 +276,11 @@ title: linux
 -   `|`:管道（将管道左边的执行结果作为管道右边命令的输入）
     -   将很多命令链接起来执行
 ```
+
 ## 系统管理
+
 ### 用户、组
+
 ```javascript
 -   用户(`/etc/passwd`)
     -   基础信息
@@ -329,7 +349,9 @@ title: linux
         -   属性:`root:x:1001:lzoxun`
         -   解析:`组名:密码占位符:GID(组ID):哪些用户以root组作为附属组`
 ```
+
 ### 文件的权限与归属
+
 ```javascript
 -   权限（以下限制对 root 无效）
 
@@ -352,7 +374,7 @@ title: linux
                 -   `chmod o=r-x path`:指定其他用户只有读和执行权限
                 -   `chmod a+w path`:所有用户添加可写权限`a可省略`
             -   chmod -Rf 777 path:强制递归授权
-    
+
 -   归属
 
     -   `chown`:更改文件或目录的所有者、所属组
@@ -396,11 +418,15 @@ title: linux
         -   如果当前用户`umask`为`022`,那么创建文件夹默认权限是`777去掉022=755`，文件默认`666去掉022=644`
         -   `umask xxx`:临时修改 umask 值，就是修改默认文件的权限, (永久修改需要在启动文件执行该命令)
 ```
+
 ### 其他特殊权限 （暂时跳过 课程 1 66~75 ）
 
 ## 文件
+
 > ls -l 查看文件详情
+
 ### 文件详情
+
 ```javascript
 -   `第一组 权限`：[类型][rwx rwx rwx]
     -   第一位代表类型
@@ -426,8 +452,11 @@ title: linux
 -   `第六组`：创建或最后一次修改时间
 -   `第七组`：文件名（.当前目录、.. 上级目录）
 ```
+
 ### 目录信息
+
 > 一切皆文件 、绝对路径、相对路径
+
 ```javascript
 -   `/`：跟目录(所以文件的起点)
 -   `/boot`：存系统启动相关文件，Kernel 内核的位置，通常独立划分区
@@ -450,7 +479,9 @@ title: linux
 -   `sys`
 -   `/opt`:第三方应用程序
 ```
+
 ## vi 与 vim
+
 ```javascript
 -   vi 老版本编辑器，功能不齐全
 -   vim
@@ -503,8 +534,11 @@ title: linux
     -   常用设置
         -   `:set nu |:set nu` 设置行号
 ```
+
 ## 磁盘管理与文件管理系统
+
 ### 磁盘分区与格式化
+
 ```javascript
 -   存储设备
     -   硬盘接口 IDE(I)、SCSI(S)(服务器常用)、SATA(A)、NVMe(V)等
@@ -583,7 +617,9 @@ title: linux
     -   8G - 无挂载 - linuxswap:虚拟内存交互分区
     -   其他 - 挂载 /home - ext4
 ```
+
 ### quota 磁盘配额
+
 ```javascript
 -   对磁盘容量或文件数量进行限制
 -   磁盘配额需要手动启用,只在指定的分区中有效
@@ -619,9 +655,11 @@ title: linux
 
     -   `edquota -g GroupName`: 如果挂载选择存在 gquota
 ```
+
 ### RAID 磁盘阵列（暂时跳过 课程 1 92~104 ）
 
 > RAID 将多块`独立的硬盘`按照`不同方式`组合起来形成一个`硬盘组`，从而提供比单个硬盘`更高的储存性能`和`提供数据备份`的技术
+
 ```javascript
 -   组合方式一 | `READ0`
     -   优点:将`数据`保持到`多块`硬盘，多块硬盘`同时`进行工作，从而`提升效率`
@@ -633,8 +671,11 @@ title: linux
     -   至少需要四块硬盘，合并前面两种
 -   组合方式四 | `READ5`
 ```
+
 ## 软件安装
+
 ### 预备知识
+
 ```javascript
 -   知识点
     -   block:Linux 基本存储单位，大小是 8 个扇区(512B)组合而成,大小 4k
@@ -678,8 +719,11 @@ title: linux
         -   `unzip -l abc.zip`:查看zip简洁信息，不解压
 
 ```
+
 ### 源码安装
+
 > 用户获得源代码之后,需要自行编译代码并解决许多软件依赖关系，比较困难，`适合所有发行版`
+
 ```javascript
 -   必须存在编译软件 如:gcc
     -   `wget`:将程序源码下载到本地
@@ -696,7 +740,9 @@ title: linux
     -   进入`/usr/local/xxxxx/bin
     -   执行 ./xxxxx.probe 主程序
 ```
+
 ### rpm(RedHat Packet Manager)
+
 ```javascript
 -   红帽公司将源码`编译好了`,可以直接使用的`.rpm`软件包
 -   只能在红帽派系发行版本中使用
@@ -711,7 +757,9 @@ title: linux
         `-qc`:查看`服务配置文件`位置
         `-qf file`:查看`文件属于哪个服务安装`的
 ```
+
 ### yum 安装
+
 ```javascript
 -   自动解决 rpm 的依赖问题(自动安装需要的依赖，不需要手动安装)
 -   配置 yum 源或 yum 仓库(yum repo)
@@ -758,6 +806,7 @@ title: linux
         -   wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
         -   sudo yum install ./google-chrome-stable_current_*.rpm
 ```
+
 ```shell
 # 案例
 # 下载新的repo文件
@@ -765,19 +814,22 @@ wget https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo -O /etc/yum.repo
 wget https://mirrors.aliyun.com/repo/epel-archive-8.repo -O /etc/yum.repos.d/epel-archive-8.repo
 
 # 替换源地址
-sed -i 's/mirrors.cloud.aliyuncs.com/mirrors.aliyun.com/g'  /etc/yum.repos.d/Centos-vault-8.5.2111.repo 
+sed -i 's/mirrors.cloud.aliyuncs.com/mirrors.aliyun.com/g'  /etc/yum.repos.d/Centos-vault-8.5.2111.repo
 sed -i 's/mirrors.cloud.aliyuncs.com/mirrors.aliyun.com/g'  /etc/yum.repos.d/epel-archive-8.repo
 
-yum clean all 
+yum clean all
 yum makecache
 ```
-### DNF (新的yum)
-> 新一代的RPM软件包管理器
+
+### DNF (新的 yum)
+
+> 新一代的 RPM 软件包管理器
 
 [文档](https://wangchujiang.com/linux-command/c/dnf.html)
-http://mirrors.aliyun.com/repo/  阿里云源下载列表
+http://mirrors.aliyun.com/repo/ 阿里云源下载列表
 
-centos8添加 epel源
+centos8 添加 epel 源
+
 ```shell
 dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
 
@@ -786,17 +838,20 @@ dnf repolist epel
 dnf repolist epel -v
 
 # 建立元数据缓存
-dnf makecache  
+dnf makecache
 ```
 
 指令
+
 ```javascript
 dnf search mysql-server // 查询包
 dnf info mysql-server // 查看它提供包的版本信息
 ```
+
 ## 进程与服务管理
 
 ### 进程（PID）
+
 ```javascript
     -   概念
         -   程序与进程的差别
@@ -890,7 +945,9 @@ dnf info mysql-server // 查看它提供包的版本信息
                 -   available:可用容量，大于空闲分区 free，不够用可以从缓存中取一部分
                 -   如果用户从来没使用过交换分区(used 0),说明物理内存充足
 ```
+
 ### 服务
+
 ```javascript
     -   概念
         -   服务实在系统后台运行、并等待用户或其他软件调用的一类特殊程序
@@ -933,8 +990,11 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   常用服务以及作用
         -   `vsftpd`:作用:使远程通过 ftp 上传下载
 ```
+
 ### 运行级别（目标）
+
 > 指定级别可启动的特定服务类型（os7 以前用 init 表示，现在 runlevel[0~6]）表示 ctrl+alt+f3
+
 ```javascript
 -   目标(`/usr/lib/systemd/system`)
     -   `runlevel0.target`: poweroff.target(`不运行服务 关机`)
@@ -959,10 +1019,12 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   找到 LANG=zh_CN.UTF-8
     -   后面+ 空格 + rd.break 进入救援模式
     -   按 ctrl+x 重新进入系统
-        ![操作](../../static/img/resetrootpwd.png)
 ```
 
+![操作](../../static/img/resetrootpwd.png)
+
 ### 计划任务(从未设置成功)
+
 ```javascript
 -   一次性计划任务`at`
     -   设置：
@@ -994,9 +1056,9 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   时间周期格式
         -   分钟 0-59
         -   小时 0-23
-        -   日期 0-31
-        -   月份 0-12
-        -   星期 0-7，linux 的 0 和 7 都代表星期天(程序中cron表达式有的1-7，1-星期天)
+        -   日期 1-31
+        -   月份 1-12
+        -   星期 0-6，linux 的 0 和 7 都代表星期天(程序中cron表达式有的1-7，1-星期天)
         -   特殊符号:
             -   `*` 该范围任何时间
             -   `,` 多个选择 1，2，3
@@ -1009,20 +1071,24 @@ dnf info mysql-server // 查看它提供包的版本信息
         -   任务与终端无关，无法获取到环境变量
     -   案例
         -   `30 20 12 4 * /usr/bin/cat /etc/passwd`
-    
+        -   `30 * * * * * /usr/bin/cat /etc/passwd`
+
     -   高级(Linux cron 可能不支持)
         -   cron的字符:'* , - / # ? L W C'
         -   2#3:周0-6:某月第三个星期二,1-7表示第三个星期一
-        -   2W:天段，表示某月第二个工作日,LW,某月最后一个工作日  
+        -   2W:天段，表示某月第二个工作日,LW,某月最后一个工作日
         -   L:天段,某月最后一天·,周段，5L某月最后一个星期五
         -   C: 天段, 5C,某月5号后的第一天 或 某月从第一天开始的后五天
         -   C: 周段,1C,某月星期一后第一天
 
 ```
+
 ## 配置文件
+
 ### .bashrc
 
 > bash 在每次启动时都会加载 `.bashrc` 文件内容
+
 ```javascript
 -   别名
     -   `alias ll = "ls -lha"`:执行`ll`就相当于执行`ls -lha`
@@ -1031,6 +1097,7 @@ dnf info mysql-server // 查看它提供包的版本信息
         -   `echo "PS1='\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\h \[\e[35;40m\]\W\[\e[0m\]]\$'" >> ~/.bashrc`
         -   https://blog.csdn.net/woshizhangliang999/article/details/103553567
 ```
+
 函数
 
 ```shell
@@ -1044,13 +1111,16 @@ dnf info mysql-server // 查看它提供包的版本信息
 ## 其他
 
 ### 提升效率
+
 ```javascript
 -   `tab` 补全目录
 -   `history`：查看历史命令
 -   `esc + .`：快速得到上一次指令中的路径
 -   `--help`：查看指令详细信息
 ```
+
 ### 不重要
+
 ```javascript
 -   `$SHELL` :一般全大写的系统自带环境变量
 -   `echo $PATH` :查看环境变量
@@ -1072,7 +1142,9 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   which
     -   whereis
 ```
+
 ### 查看系统信息
+
 ```javascript
 -   `uname -a` :查看系统信息
 -   `cat /proc/version` :查看当前操作系统版本信息
@@ -1085,26 +1157,31 @@ dnf info mysql-server // 查看它提供包的版本信息
 -   `netstat -lntp`：查看监听的端口
 -   `cut -d: -f1 /etc/passwd`:查看所有用户
 ```
+
 ### 不常用
+
 ```javascript
 -   `chsh -s /bin/zsh`:切换 shell
 -   `whereis cmmand`:查询指令的可执行文件,源码文件,帮助文件的位置
 -   `ntpdate -u ntp.api.bz`:矫正时间
 -   `/etc/os-release`:操作系统表示
 ```
+
 ### 网络相关
+
 学习网络协议是计算机网络的核心概念
 协议是计算机网络进行数据交互而建立的一种规则、约定、或标准的集合
-网络协议与语言一样多种多样，后面出现了 TCP/IP网络协议标准已经是internet中的标准语言了（类似普通话）
+网络协议与语言一样多种多样，后面出现了 TCP/IP 网络协议标准已经是 internet 中的标准语言了（类似普通话）
 
-> 为了让不同计算机厂家的计算机能够进行沟通，在大范围进行网络同学，（ISO国际标准化组织）划分成了七层 - ISO七层模型
+> 为了让不同计算机厂家的计算机能够进行沟通，在大范围进行网络同学，（ISO 国际标准化组织）划分成了七层 - ISO 七层模型
+
 ```javascript
 - 1、物理层
-- 2、数据链路层 
+- 2、数据链路层
     -   1,2 -> 物理链路层
     -   功能：以二进制的数据形式在物理媒介上进行传输数据
     -   协议：ISO@2100
-- 3、网络层 
+- 3、网络层
     -   3   -> 网络
     -   功能：为数据包选择路由(最快的路线)
     -   协议：IP、ICMP、BGP、OSPF等
@@ -1112,7 +1189,7 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   4   -> 传输
     -   功能：提供端对端的接口 IP Port
     -   协议：TCP、UDP
-- 5、会话层 
+- 5、会话层
 - 6、表示层
 - 7、应用层
     -   5,6,7 -> 最接近用户的使用的三层
@@ -1137,7 +1214,7 @@ dnf info mysql-server // 查看它提供包的版本信息
 > 传输层
 向两台主机直接的进程进行提供数据传输,主要有两种(UDP/TCP)
 
--   TCP 传输控制协议 
+-   TCP 传输控制协议
     -   提供面向连接**可靠的**而数据传输协议
     -   会与对方确认，没问题在给
     -   可靠报文数据不重复不丢失
@@ -1147,8 +1224,11 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   没有报文的
 
 ```
+
 ### 修改网络信息
+
 > ifconfig 临时修改, 配置文件中才能永久修改
+
 ```shell
 # 进入/etc/sysconfig/network-script,打开网卡文件
 BOOTPROTO="dhcp/static" # 动态/静态吗，static可以设置固定内网IP
@@ -1157,8 +1237,9 @@ ONBOOT="yes" # 开机读取
 ```
 
 ### 网络命令
+
 ```javascript
--   ifconfig:可能要自己安装 
+-   ifconfig:可能要自己安装
     -   `ifconfig`
         -   yum install net-tools 就有了
         -   /etc/sysconfig/network-script 网卡文件位置
@@ -1201,11 +1282,11 @@ ONBOOT="yes" # 开机读取
     -   wget url：直接下载
     -   wget -o path/name url：下载并改名
     -   wget --limit-rate=1k url：限制下载速度
-    -   wget -c --limit-rate=1k 下到一半的url：断点续传 
+    -   wget -c --limit-rate=1k 下到一半的url：断点续传
     -   wget -b url：后台下载
 -   `telnet`:用于登入远程主机，以及监测远程端口是否打开，采用名文传输，安全性低，后来被ssh取代
     -   telnet 111.111.111.111 8080
-    
+
 -   `ping`:`ping www.baidu.com -c 6 -i 0.6` ,ping6次 间隔0.6秒
 -   `curl url`:获取网站源码
     -   curl url > xxx.html 下载网页源码
@@ -1215,8 +1296,11 @@ ONBOOT="yes" # 开机读取
     -   curl -O xxxx.png 直接下载文件
 
 ```
+
 #### 端口服务进程号配置查询
+
 > 服务器中端口需要开放才能访问
+
 ```javascript
 -   `ps`
     -   `ps -aux|-af |grep <server-name>`
@@ -1233,7 +1317,9 @@ ONBOOT="yes" # 开机读取
     -   lsof -i :22  查看22端口现在运行什么程序
 -   `nslookup lzoxun.top`：根据域名查询IP
 ```
+
 ### xshell 中文设置
+
 ```javascript
 -   `echo $LANG`:查看当前编码
 -   `locale`:查看系统拥有的编码
@@ -1244,7 +1330,9 @@ ONBOOT="yes" # 开机读取
 -   `/etc/locale.conf`:centos7 语言配置文件
 -   /etc/locale.gen - 配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
 ```
-###  去除 centos 滴滴提示音
+
+### 去除 centos 滴滴提示音
+
 ```shell
 # 1.执行
 vi /etc/inputrc
@@ -1254,6 +1342,7 @@ vim ~/.bashrc | /etc/profile
 # 添加：setterm –blength 0
 3、执行：reboot
 ```
+
 ```javascript
 -   新系统需要的一些设置
     -   设置中文编码
@@ -1261,13 +1350,14 @@ vim ~/.bashrc | /etc/profile
     -   开启网卡（最小化安装时没开的 不能使用 ifconfig 指令）
         -   echo ONBOOT=yes >> /etc/sysconfig/network-scripts/ifcfg-ens33
 ```
+
 [管理平台-宝塔](https://www.bt.cn/)
 
--   `bt default`:获取密码
-    [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
-    [发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
-    [国内 deepin](https://www.deepin.org/zh/)
-    [国内优麒麟](https://www.ubuntukylin.com/downloads/)
-    [manjaro](https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/m/ma/manjaro/xfce/21.0-pre1/)
-    [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
-    [archlinux](https://wiki.archlinux.org/)
+- `bt default`:获取密码
+  [课程 1](https://www.bilibili.com/video/BV1uZ4y1u7Ca?p=104&spm_id_from=pageDriver)
+  [发行版排行](https://distrowatch.com/dwres.php?resource=popularity)
+  [国内 deepin](https://www.deepin.org/zh/)
+  [国内优麒麟](https://www.ubuntukylin.com/downloads/)
+  [manjaro](https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/m/ma/manjaro/xfce/21.0-pre1/)
+  [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
+  [archlinux](https://wiki.archlinux.org/)

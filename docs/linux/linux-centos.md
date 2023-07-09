@@ -2,7 +2,7 @@
 title: centos 安装 配置 使用
 ---
 
-### 安装
+## 安装
 
 [VMware](https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html)
 
@@ -10,9 +10,9 @@ title: centos 安装 配置 使用
 
 选择语言 => 选择安装模式等 => 开始安装 => 设置 root 密码
 
-### 配置
+## 配置
 
-#### 网络配置
+### 网络配置
 
 > vim /etc/sysconfig/network-scripts/ifcfg-enp7s0（或 ifcfg-ens33）
 
@@ -38,7 +38,7 @@ title: centos 安装 配置 使用
 
 ![](D:\lzo-project\lzo-docs-blog\static\img\2023-07-06_083630.jpg)
 
-#### 配置 yum / dnf
+### 配置 yum / dnf
 
 > RPM 软件包管理器，配置一些 yum 源
 
@@ -83,7 +83,7 @@ epel的全称叫 Extra Packages for Enterprise Linux 。epel是由 Fedora 社区
 epel相当于一个第三方源。为什么需要 epel？因为 CentOS 官方源包含的大多数的库都是比较旧的。并且很多流行的库也不存在。当然这样做也是无可厚非的，毕竟服务器版本安全稳定是重点。
 ```
 
-#### 配置 git
+### 配置 git
 
 ```shell
 # 如果版本太低
@@ -96,9 +96,9 @@ rpm -ivh http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release
 yum install
 ```
 
-#### 配置 nginx
+### 配置 nginx
 
-#### 配置 zsh
+### 配置 zsh
 
 ```shell
 yum install zsh
@@ -107,7 +107,7 @@ yum install zsh
 # echo $SHELL 查看当前使用的shell
 ```
 
-#### 配置 ssh
+### 配置 ssh
 
 ```shell
 # 两个主机都生成公钥私钥
@@ -118,7 +118,7 @@ yum install zsh
 # 远程主机直接将客户端的公钥加入 ~/.ssh/authorized_keys 文件中
 ```
 
-#### 配置 nvm
+### 配置 nvm
 
 ```shell
 # git
@@ -138,7 +138,7 @@ yum install zsh
 npm cnpm yarn pnpm
 ```
 
-#### 配置 pm2
+### 配置 pm2
 
 ```shell
 cnpm install pm2 -g
@@ -199,7 +199,7 @@ pm2 start app.js -i 4
 netstat -lntp
 ```
 
-#### 设置 firewall-cmd
+### 设置 firewall-cmd
 
 > 开启防火墙后远程无法访问服务器的，开放对应端口才能访问 (相当于云服务器的安全组)
 
@@ -265,7 +265,7 @@ firewall-cmd --list-service # 查看已开通的服务
 
 > 扩展 iptables
 
-#### 配置 mysql
+### 配置 mysql
 
 ```shell
 # 下载MySQL安装包 并安装
@@ -281,7 +281,7 @@ yum install mysql mysql-server mysql-deve
 systemctl start/enable mysqld
 ```
 
-#### 配置 NFS
+### 配置 NFS
 
 > 文件共享（window 上可以访问 linux 系统的共享的目录）
 
@@ -309,8 +309,9 @@ systemctl start nfs-server.service
 showmount -e 127.0.0.1
 
 # 7、检测共享参数
-/var/lib/nfs/etab
+cat /var/lib/nfs/etab
 
+# 已经分享成功，后面可以省略
 # 8、本地挂载测试
 mount -t nfs 192.168.203.132:/root/nfsshare /mnt
 umount /mnt # 取消挂载
@@ -344,10 +345,10 @@ showmount -e 192.168.203.132
 \\192.168.203.132\root\nfsshare
 
 # 将文件夹挂载到window某个目录
-。。。
+window 网络右键 > 映射驱动器 > 选择盘符，选择远程地址 \\192.168.203.132\root\nfsshare
 ```
 
-#### 配置 cifs-utils
+### 配置 cifs-utils
 
 > 将 window 共享的远程文件夹挂载到 linux
 
@@ -365,9 +366,22 @@ showmount -e 192.168.203.132
 mount -t cifs -o username="xun lzo",password="lzx123456" //172.22.112.1/lzo-redmi-share /mnt/lzo-redmi-share
 ```
 
-### 应用
+### 配置 cron
 
-#### 安装 autojump
+```shell
+yum install cronie
+
+# 配置文件位置 vim /etc/crontab
+
+# 设置 crontab -e
+# 查看 crontab -l
+```
+
+
+
+## 应用
+
+### 安装 autojump
 
 ```shell
 git clone https://github.com/wting/autojump.git
@@ -377,7 +391,7 @@ cd autojump&&./install.py
 # 缓存数据库位置:`~/.local/shart/autojump/autojump.txt`
 ```
 
-#### 安装 oh-my-zsh
+### 安装 oh-my-zsh
 
 > 必须 zsh shell 下
 
@@ -406,7 +420,7 @@ chmod +x centos-install-oh-my-zsh.sh
 #     sudo ln -s /usr/share/zsh/plugins/zsh-autosuggestions /usr/share/oh-my-zsh/custom/plugins/  （zsh-autosuggestions 放入.zshrc plugins中）
 ```
 
-#### 安装 lazygit
+### 安装 lazygit
 
 ```shell
 # 先安装 go /docs/server/go/go-bash.md
@@ -416,7 +430,16 @@ cd lazygit
 go install
 ```
 
-#### 安装 ranger
+### 安装 tig（ing...）
+
+```shell
+# git 分支数查看
+yum install tig
+```
+
+
+
+### 安装 ranger
 
 ```shell
 # 安装python3和pip3
@@ -424,7 +447,7 @@ yum install python3 python3-devel -y
 pip3 install ranger-fm -i https://mirrors.aliyun.com/pypi/simple/
 ```
 
-#### 安装 tmux
+### 安装 tmux
 
 安装 libevent
 
@@ -475,7 +498,7 @@ cp .tmux/.tmux.conf.local . #复制local文件到当前文件夹 可以覆盖默
 # tmux source-file ~/.tmux.conf  从新加载配置
 ```
 
-#### 安装 vim
+### 安装 vim
 
 ```shell
 # vim 包管理工具 vimplus
@@ -496,7 +519,7 @@ cd ~/.vimplus
 # `~/.vimrc.custom.config`为用户自定义配置文件，一般性配置请放入该文件，可覆盖~/.vimrc 里的配置
 ```
 
-#### 安装 fzf
+### 安装 fzf
 
 ```shell
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -525,7 +548,7 @@ export FZF_DEFAULT_OPTS="--border --preview '(highlight -O ansi {} || cat {}) 3>
 export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f --hidden"
 ```
 
-#### 安装 htop
+### 安装 htop
 
 ```shell
 # 通过上下左右控制，不能HJKL
@@ -546,9 +569,20 @@ export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_mo
 
 ```
 
+### 安装 SHC
+
+> 加密工具
+
+```shell
+# 将脚本加密，同意可以运行，打开查看的缺少密文
+yum install shc
+
+shc -f test.sh # 成功后生成 test.sh.x ,可执行的密文
+```
 
 
-#### 安装 screenFetch
+
+### 安装 screenFetch
 
 ```shell
 CentOS screenfetch
@@ -558,23 +592,23 @@ cp screenFetch/screenfetch-dev /usr/local/bin/screenfetch
 chmod 755 /usr/local/bin/screenfetch
 ```
 
-### 指令
+## 指令
 
-#### 磁盘占用
+### 磁盘占用
 
 ```shell
 df -h # 人性化显示大小
 df -T # 查看文件系统格式
 ```
 
-#### 文件大小
+### 文件大小
 
 ```shell
 du -h # 人性化显示
 du -s # 汇总，查看目录所有文件占用磁盘空间
 ```
 
-#### 压缩包
+### 压缩包
 
 ```shell
 # tar 压缩
@@ -593,9 +627,9 @@ unzip fileName.zip -d /home/xxx # -d 解压文件到当指定目录，-n 不覆�
 unzip -v fileName.zip # 查看信息不解压
 ```
 
-### 功能
+## 功能
 
-#### 文件锁
+### 文件锁
 
 ```shell
 # 保存文件时 :X
@@ -603,7 +637,7 @@ unzip -v fileName.zip # 查看信息不解压
 # :wq 退出
 ```
 
-#### 文件操作
+### 文件操作
 
 > 删除指定文件外的所有
 
@@ -629,11 +663,13 @@ grep 456 -rl ./lianxi # 找到 lianxi 下所有存在 456 的文件
 
 ```shell
 grep 456 -r ./lianxi
+
+grep -2 -r '456' ./     # 输出查找内容前后五行
+grep -A 2 -r '456' ./   # 输出查找内容后五行
+grep -B 2 -r '456' ./   # 输出查找内容前五行
 ```
 
-
-
-#### 通过端口查数据
+### 通过端口查数据
 
 > 通过端口，查看占用的程序名称
 
@@ -644,38 +680,38 @@ netstat -anp | grep 3306
 lsof -i :3306
 ```
 
-#### 通过PID查数据
+### 通过 PID 查数据
 
 ```shell
 netstat -antup|grep pid
 ```
 
-#### 通过进程名查数据
+### 通过进程名查数据
 
 ```shell
 netstat -antup|grep nginx
 ```
 
-#### 查看进程关联的文件
+### 查看进程关联的文件
 
 ```shell
 lsof -c Pid # 打印指定进程使用到的文件
 ```
 
-#### 通过域名查IP
+### 通过域名查 IP
 
 ```shell
 nslookup github.com
 ```
 
-#### 统计文件行数
+### 统计文件行数
 
 ```shell
 # grep 找到当前文件夹下所有文件 | 排除不需要统计的目录或文件 | 输出所有文件空行取反 | 查看内容行数
 grep . -rl --exclude-dir={node_modules,dist} --exclude={yarn.lock} ./|xargs grep -v "^$"|wc -l
 ```
 
-#### 查看系统信息
+### 查看系统信息
 
 ```shell
 # 通过lsb
@@ -686,13 +722,34 @@ lsb_release -a
 # 通过 top/htop
 ```
 
-### 工具
+### 运行级别
 
-#### 连接工具
+```javascript
+ls -la /usr/lib/systemd/system|grep runlevel
 
- [MobaXterm](https://mobaxterm.mobatek.net/) [FinalShell](http://www.hostbuf.com/t/988.html) [WindTerm](https://github.com/kingToolbox/WindTerm/releases)
+ -   `runlevel0.target`: poweroff.target(`不运行服务 关机`)
+ -   `runlevel1.target`: resuce.target(`救援|单例|安全模式`)
+ -   `runlevel2.target`: multi-user.target
+ -   `runlevel3.target`: multi-user.target
+ -   `runlevel4.target`: multi-user.target(`2，3，4多用户模式`，不运行图形界面级相关服务，字符界面)
+ -   `runlevel5.target`: graphical.target(`图形相关服务`)
+ -   `runlevel6.target`: reboot.target(`重启`)
 
-#### 文件上传下载
+systemctl get-default   // 查看默认运行级别
+systemctl set-default multi-user.target
+runlevel // 查看单前级别
+init n // 临时切换运行级别
+```
+
+
+
+## 工具
+
+### 连接工具
+
+[MobaXterm](https://mobaxterm.mobatek.net/) [FinalShell](http://www.hostbuf.com/t/988.html) [WindTerm](https://github.com/kingToolbox/WindTerm/releases)
+
+### 文件上传下载
 
 > 用上传下载的 SSH 连接工具，终端直连无效
 
@@ -704,15 +761,15 @@ rz
 sz <file-name>
 ```
 
-#### ncdu 
+### ncdu
 
 > 树结构统计文件大小，du 指令优化
 
-#### tldr
+### tldr
 
 > 简洁文档
 
-#### cloc
+### cloc
 
 > 文件数(files)、空白行数(blank)、注释行数(comment)和代码行数(code)
 
@@ -720,9 +777,7 @@ sz <file-name>
 cloc ./dist
 ```
 
-
-
-#### asciinema
+### asciinema
 
 > 终端下非常棒的录屏和回放软件
 
@@ -737,13 +792,43 @@ ctrl+d 或 exit
 # Ctrl+c 取消
 
 # 播放
-asciinema play https://asciinema.org/a/aJ8I9rH4Ob5wbNAywiskRu0cz 
+asciinema play https://asciinema.org/a/aJ8I9rH4Ob5wbNAywiskRu0cz
 
 ```
 
-
-
-#### 包下载器
+### 包下载器
 
 `yum`、`dnf`、`wget`、`curl`
+
+## 个人配置
+
+### linux alias
+
+```shell
+alias jsr="systemctl restart"
+alias jss="systemctl start"
+alias jst="systemctl stop"
+alias jse="systemctl enable"
+
+alias tm="tmux new -t tm"
+
+alias lg="lazygit"
+alias ll='ls -la'
+alias n='npm run dev'
+alias nse='npm run serve'
+alias nst='npm run start'
+alias nb='npm run build'
+
+alias gs='git status'
+alias ga='git add .'
+alias gcm='git commit -m'
+alias gph='git push origin'
+alias gpl='git pull origin'
+alias gl='git log'
+alias gb='git branch'
+alias gc='git checkout'
+bindkey -v
+```
+
+### window alias
 

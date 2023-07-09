@@ -65,6 +65,23 @@ systemctl list-unit-files | grep nginx #查看是否自启
 ln -s /usr/local/nginx /etc/nginx
 ```
 
+### 添加模块
+
+```shell
+# 查看当时安装时的参数
+nginx -V
+
+# 进入nginx 安装包位置，重新安装
+./configure --with-stream --with-http_ssl_module
+
+# make 编译，不要make install，不然会覆盖你的nginx目录
+make
+
+# 备份 /usr/local/nginx/sbin/nginx
+# nginx-1.24.x/objs 下的 nginx 覆盖到 /usr/local/nginx/sbin/
+
+```
+
 
 
 ### nginx源   
