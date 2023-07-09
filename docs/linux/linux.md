@@ -7,8 +7,9 @@ title: linux
 -   安装[国内阿里云镜像](http://mirrors.aliyun.com/centos/)     [7 iso](http://mirrors.aliyun.com/centos/7/isos/x86_64/)
 -   安装[国内阿里云镜像](http://mirrors.aliyun.com/ubuntu-releases/20.10/)
 -   安装[国内搜狐镜像](http://mirrors.sohu.com/)
-    -   比较老版本可能不提供下载，需找较新的版本
-    -   选择软件，默认最小安装，初学者建议选择带 GUI 的服务器
+
+### 系统
+```javascript
 -   虚拟机
     -   快照：保持当前状态，后期玩坏了随时可回到这里
     -   克隆：完全克隆与连接克隆，链接克隆相当于创建一个子系统，只要父系统没事，子系统就能随便搞
@@ -52,16 +53,16 @@ title: linux
     -   ~ ：指用户家目录，每个用户都不一样
     -   $ ：普通用户
     -   \# ：root 用户
-
+```
 ## 指令
-
+```javascript
 -   格式 ： 命令 + [选项] + [参数]
 -   参数 ： 命令要`处理的对象`
 -   选项 ： `调节`命令的具体功能，带 - 前缀
 -   tab 补全目录| ；多个命令用分号隔离
-
+```
 ### 基本操作命令
-
+```javascript
 -   `pwd` ：查看当前所在路径
     -   `-P`: 对于软连接文件 显示真实所在的路径 并非快捷方式的路径
 -   `su <user-name>` ： 切换用户
@@ -85,29 +86,29 @@ title: linux
     -   `Stdout`:标准输出，文件面描述符号 1，显示器
     -   `Stderr`:错误输出，文件面描述符号 2，显示器
     -   重定向
-        -   输入重定向 > 或 >>,将输出到屏幕的内容转到指定文件中
-            -   cat 1.txt 2.txt > 3.txt :合并文件 1 与文件 2
-            -   cat > 4.txt:编辑文件，回车进入输入模式，ctrl+d结束保存数据
-        -   错误信息从定向 2> ;将错误信息从定向到指定文件
-            -   cmd xxxxxx 2> filepath
-            -   cmd xxxxxx 2> /dev/null :将错误信息不存储不打印
-        -   &> 错误和正确的全部从定向
-        -   输出重定向 < 或 << ,将键盘的输入重定向到指定文件，详单与查看文件内容如：cat
+        -   输入重定向 `>` 或 `>>`,将输出到屏幕的内容转到指定文件中
+            -   `cat 1.txt 2.txt > 3.txt` :合并文件 1 与文件 2
+            -   `cat > 4.txt`:编辑文件，回车进入输入模式，ctrl+d结束保存数据
+        -   错误信息从定向 `2>` ;将错误信息从定向到指定文件
+            -   `cmd xxxxxx 2> filepath`
+            -   `cmd xxxxxx 2> /dev/null` :将错误信息不存储不打印
+        -   `&>` 错误和正确的全部从定向
+        -   输出重定向 `<` 或 `<<` ,将键盘的输入重定向到指定文件，详单与查看文件内容如：cat
             -   `cat > /etc/passwd`
             -   `cat >> xxx`:进入一个输入模式，无限输入，输入 xxx 后生成文件，结束此状态
-
+```
 ### 文件操作
-
+```javascript
 -   `cd` ：进入
     -   `cd -` ：进入之前所在目录
 -   `ls`：查看目录的文件
-    -   -l ：查看详细信息
-    -   -a ： 查看所以文件包括隐藏文件
-    -   -d ： 查看目录`自己的`信息
-    -   -h ： 以 k、M 格式显示文件大小
-    -   -R ：当前目录为根节点，列出所有子节点
-    -   -i:查看文件唯一编号 inode
-    -   --help ：单词一般都有两个杠
+    -   `-l` ：查看详细信息
+    -   `-a` ： 查看所以文件包括隐藏文件
+    -   `-d` ： 查看目录`自己的`信息
+    -   `-h` ： 以 k、M 格式显示文件大小
+    -   `-R` ：当前目录为根节点，列出所有子节点
+    -   `-i` : 查看文件唯一编号 inode
+    -   `--help` ：单词一般都有两个杠
 -   `touch <file-name>`：创建空文件
 -   `mkdir <name1> <name2>`：创建空文件夹
     -   `-p a/b/c` ：创建多级目录
@@ -127,9 +128,9 @@ title: linux
     -   `-u`：只复制修改过的文件
 -   `mv <old-file> <new-file> `： 剪切（剪切目录不要 -r）
     -   安装 mmv
-    -   mmv '_._._._' '#1.#2'
-    -   mmv 'file\*.rar' 'text#1.zip'
-    -   #1 代表第一个*号匹配的内容，#2 代表第二个*号代表的内容
+    -   `mmv '_._._._' '#1.#2'`
+    -   `mmv 'file\*.rar' 'text#1.zip'`
+    -   #1 代表第一个`*`号匹配的内容，#2 代表第二个*号代表的内容
 -   `dd if=/dev/zero of=/tmp/test bs=1M count=60`:构造一个 60 个 1M 大小的文件，从/dev/zero 文件放到/tmp/
 -   文件属性设置
 
@@ -147,10 +148,8 @@ title: linux
 
     -   `locate <file name>`:返回文件所在路径,根据索引数据库查找，一段时间后数据库自动更新
     -   `find`: find <查找起始路径> <选项> <查找条件> <处理动作>
-
         -   `起始路径`:
         -   `选项`:
-
             -   `-name` :按文件名查找
             -   `-empty` :空文件或文件夹
             -   `-type 文件类型` :查找指定类型的文件(f、d、l、b、c) f 代替 - 普通文件
@@ -174,7 +173,7 @@ title: linux
 
         -   `查找条件`:文件名称是什么、文件大小、文件类型、从属关系、权限等（通配符）
         -   `处理动作`:对找到的文件 进行指令操作
-            -   find 找到的是文本信息内容可以直接 | 加指令操作
+            -   `find` 找到的是文本信息内容可以直接 | 加指令操作
             -   -exec ls xxx {} \; 找到结果当做文件处理，但是指令后面需要加 {} \;结尾,| {} 代表找到的文件 \结束
             -   | xargs ls xxx 通过管道使用，功能与-exec 类似
                 -   | xargs -i cp {} /root 加-i 可以用{}的功能
@@ -187,9 +186,9 @@ title: linux
                 -   find /etc -atime -7 (七天内被访问过的文件)
             -   分 : `-amin`(访问时间) 、`-mmin`(更改内容时间)、`-cmin`(改动时间)
                 -   find /etc -amin -7 (七分钟内被访问过的文件)
-
-### 文件内容操作 stop
-
+```
+### 文件内容操作 
+```javascript
 -   `cat`：查看文本文件内容
     -   `-n`：显示行号
 -   `more`：查看文本文件内容，分页功能满屏幕自动暂停，底部自动退出
@@ -227,18 +226,18 @@ title: linux
 -   `stat`:查看文件元数据（文件自生的属性权限时间）
     -   `modify time`:文件内容改变的时候（通过这个可以指定有人改了文件内容）
     -   `change time`:文件元数据改变的时候
-
+```
 ### 常用模块
-
+```javascript
 -   时间操作
     -   `date`: 系统时间
         -   `+"%F %T"`:2020-09-10 10:00:00
     -   `hwclock`:硬件 BIOS 时间
     -   `cat`:日历
     -   `sudo timedatectl set-local-rtc 1`:同步系统时间
-
+```
 ### 基本系统运用指令
-
+```javascript
 -   `ifconfig` ：查看 ip （ens33 格式、lo、virbr0 虚拟网卡）等网卡
     -   `watch -n 1 ifconfig` 实时查看网络状态，RX:接收，TX:发送 => (KB = 数值/1000)
 -   `reboot|init 6` ：重启
@@ -249,9 +248,9 @@ title: linux
     -   -r now ：立即重启
     -   -r +15 "给其他在线用户发送信息" ：一段时间后重启
     -   -c ：取消之前 shutdown 的操作
-
+```
 ### 字符
-
+```javascript
 -   通配符(一般文件路径操作是通配符,文件内容操作用正则)
     -   `*`：匹配任意数量任意字符 -> 正则 `.*`
     -   `?`：匹配单个任意字符 -> 正则 `.`
@@ -259,15 +258,12 @@ title: linux
 -   `{}`：可展开如：mkdir /home/{a,b,c} 创建三个文件
 -   `|`:管道（将管道左边的执行结果作为管道右边命令的输入）
     -   将很多命令链接起来执行
-
+```
 ## 系统管理
-
 ### 用户、组
-
+```javascript
 -   用户(`/etc/passwd`)
-
     -   基础信息
-
         -   `id UserName`:查看用户 ID，组 ID 信息
         -   `useradd UserName`:添加用户
             -   `-u 1110`:指定 UID
@@ -332,9 +328,9 @@ title: linux
     -   配置文件属性
         -   属性:`root:x:1001:lzoxun`
         -   解析:`组名:密码占位符:GID(组ID):哪些用户以root组作为附属组`
-
+```
 ### 文件的权限与归属
-
+```javascript
 -   权限（以下限制对 root 无效）
 
     -   文件
@@ -399,15 +395,13 @@ title: linux
         -   普通目录权限`最大值777`，普通文件不能执行的`最大权限666`
         -   如果当前用户`umask`为`022`,那么创建文件夹默认权限是`777去掉022=755`，文件默认`666去掉022=644`
         -   `umask xxx`:临时修改 umask 值，就是修改默认文件的权限, (永久修改需要在启动文件执行该命令)
-
+```
 ### 其他特殊权限 （暂时跳过 课程 1 66~75 ）
 
 ## 文件
-
 > ls -l 查看文件详情
-
 ### 文件详情
-
+```javascript
 -   `第一组 权限`：[类型][rwx rwx rwx]
     -   第一位代表类型
         -   `-`：普通文件
@@ -431,11 +425,10 @@ title: linux
 -   `第五组`：文件大小
 -   `第六组`：创建或最后一次修改时间
 -   `第七组`：文件名（.当前目录、.. 上级目录）
-
+```
 ### 目录信息
-
 > 一切皆文件 、绝对路径、相对路径
-
+```javascript
 -   `/`：跟目录(所以文件的起点)
 -   `/boot`：存系统启动相关文件，Kernel 内核的位置，通常独立划分区
 -   `/etc`：存各种配置文件，类似 window 注册表
@@ -456,9 +449,9 @@ title: linux
 -   `tmp`
 -   `sys`
 -   `/opt`:第三方应用程序
-
+```
 ## vi 与 vim
-
+```javascript
 -   vi 老版本编辑器，功能不齐全
 -   vim
     -   工作模式
@@ -509,13 +502,11 @@ title: linux
             -   `:1,10 s/word/newword/gc`
     -   常用设置
         -   `:set nu |:set nu` 设置行号
-
+```
 ## 磁盘管理与文件管理系统
-
 ### 磁盘分区与格式化
-
+```javascript
 -   存储设备
-
     -   硬盘接口 IDE(I)、SCSI(S)(服务器常用)、SATA(A)、NVMe(V)等
     -   分区：早期硬盘只能有四个主分区，后面越来越多，四个不够，就可以拿一个变成扩展分区,扩展分区里可以创建很多的逻辑分区（如果需要的分区不超过四个就没必要使用逻辑分区）
     -   Linux 中每个磁盘，以及磁盘中的每个分区都是用`文件表示`的
@@ -591,9 +582,9 @@ title: linux
     -   20G+ - 挂载 / - ext4
     -   8G - 无挂载 - linuxswap:虚拟内存交互分区
     -   其他 - 挂载 /home - ext4
-
+```
 ### quota 磁盘配额
-
+```javascript
 -   对磁盘容量或文件数量进行限制
 -   磁盘配额需要手动启用,只在指定的分区中有效
 -   主要针对系统中指定的`用户`，`组`进行限制，没指定的不受影响
@@ -627,11 +618,11 @@ title: linux
             -   `hard`:硬限制(手动输入限制个数,单位个)
 
     -   `edquota -g GroupName`: 如果挂载选择存在 gquota
-
+```
 ### RAID 磁盘阵列（暂时跳过 课程 1 92~104 ）
 
 > RAID 将多块`独立的硬盘`按照`不同方式`组合起来形成一个`硬盘组`，从而提供比单个硬盘`更高的储存性能`和`提供数据备份`的技术
-
+```javascript
 -   组合方式一 | `READ0`
     -   优点:将`数据`保持到`多块`硬盘，多块硬盘`同时`进行工作，从而`提升效率`
     -   缺点:一块硬盘坏了，数据就没用了
@@ -641,11 +632,10 @@ title: linux
 -   组合方式三 | `READ1 + 0`
     -   至少需要四块硬盘，合并前面两种
 -   组合方式四 | `READ5`
-
+```
 ## 软件安装
-
 ### 预备知识
-
+```javascript
 -   知识点
     -   block:Linux 基本存储单位，大小是 8 个扇区(512B)组合而成,大小 4k
 -   `du`:查看文件占用磁盘空间（ll 查看的是文件的大小）
@@ -687,11 +677,10 @@ title: linux
         -   `unzip -v abc.zip`:查看zip信息，不解压
         -   `unzip -l abc.zip`:查看zip简洁信息，不解压
 
-
+```
 ### 源码安装
-
 > 用户获得源代码之后,需要自行编译代码并解决许多软件依赖关系，比较困难，`适合所有发行版`
-
+```javascript
 -   必须存在编译软件 如:gcc
     -   `wget`:将程序源码下载到本地
 -   步骤
@@ -706,9 +695,9 @@ title: linux
 -   使用
     -   进入`/usr/local/xxxxx/bin
     -   执行 ./xxxxx.probe 主程序
-
+```
 ### rpm(RedHat Packet Manager)
-
+```javascript
 -   红帽公司将源码`编译好了`,可以直接使用的`.rpm`软件包
 -   只能在红帽派系发行版本中使用
 -   rpm 软件包直接存在着复杂的依赖关系
@@ -721,9 +710,9 @@ title: linux
     -   `-ql`:查看服务各个文件的安装目录（安装之后系统的相关文件）
         `-qc`:查看`服务配置文件`位置
         `-qf file`:查看`文件属于哪个服务安装`的
-
+```
 ### yum 安装
-
+```javascript
 -   自动解决 rpm 的依赖问题(自动安装需要的依赖，不需要手动安装)
 -   配置 yum 源或 yum 仓库(yum repo)
     -   仓库中存放大量 rpm 软件包，以及软件包相关的元数据文件（repodata 目录下）
@@ -768,7 +757,7 @@ title: linux
     -   安装rpm
         -   wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
         -   sudo yum install ./google-chrome-stable_current_*.rpm
-
+```
 ```shell
 # 案例
 # 下载新的repo文件
@@ -805,17 +794,10 @@ dnf makecache
 dnf search mysql-server // 查询包
 dnf info mysql-server // 查看它提供包的版本信息
 ```
-### debian 包安装
-
--   `apt`
-    -   `apt install 服务`:安装
-    -   `apt remove 服务`:卸载
-    -   `apt upgrade`:更新已安装的服务
--   `sl、htop 、`
-
 ## 进程与服务管理
 
--   进程（PID）
+### 进程（PID）
+```javascript
     -   概念
         -   程序与进程的差别
             -   程序:静态的，放在磁盘上的可执行文件
@@ -907,8 +889,9 @@ dnf info mysql-server // 查看它提供包的版本信息
                 -   `-s 3`:动态显示 3 秒更新
                 -   available:可用容量，大于空闲分区 free，不够用可以从缓存中取一部分
                 -   如果用户从来没使用过交换分区(used 0),说明物理内存充足
--   服务
-
+```
+### 服务
+```javascript
     -   概念
         -   服务实在系统后台运行、并等待用户或其他软件调用的一类特殊程序
         -   父进程是初始化进程 PPID 为 1，与终端无关 ,0 一般为调度进程(交换进程)
@@ -949,12 +932,11 @@ dnf info mysql-server // 查看它提供包的版本信息
         -   重启或者从新加载服务
     -   常用服务以及作用
         -   `vsftpd`:作用:使远程通过 ftp 上传下载
-
+```
 ### 运行级别（目标）
-
 > 指定级别可启动的特定服务类型（os7 以前用 init 表示，现在 runlevel[0~6]）表示 ctrl+alt+f3
-
--   目标(/usr/lib/systemd/system)
+```javascript
+-   目标(`/usr/lib/systemd/system`)
     -   `runlevel0.target`: poweroff.target(`不运行服务 关机`)
     -   `runlevel1.target`: resuce.target(`救援|单例|安全模式`)
     -   `runlevel2.target`: multi-user.target
@@ -969,7 +951,7 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   `systemctl set-default graphical.target`:默认图像界面启动
     -   `runlevel`:查看当前运行级别（N 5,从 Null 到 5）
     -   `init 运行级别数字`:临时切换运行级别
-    -   os7 中 本质是将：/etc/systemd/system/default.target 软连接指向 运行级别所在的文件
+    -   os7 中 本质是将：`/etc/systemd/system/default.target` 软连接指向 运行级别所在的文件
 -   通过救援模式重置 root 密码
     -   只能在本地登录才能使用，不能通过远程操作
     -   启动是按 e 进入引导界面
@@ -978,13 +960,12 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   后面+ 空格 + rd.break 进入救援模式
     -   按 ctrl+x 重新进入系统
         ![操作](../../static/img/resetrootpwd.png)
+```
 
 ### 计划任务(从未设置成功)
-
+```javascript
 -   一次性计划任务`at`
-
     -   设置：
-
         -   `at 时间14:00`
         -   回车进入 at 交互模式,设置指定时间要做的事情
         -   `ctrl+d` 保存退出
@@ -1036,19 +1017,21 @@ dnf info mysql-server // 查看它提供包的版本信息
         -   L:天段,某月最后一天·,周段，5L某月最后一个星期五
         -   C: 天段, 5C,某月5号后的第一天 或 某月从第一天开始的后五天
         -   C: 周段,1C,某月星期一后第一天
-## 配置文件
 
+```
+## 配置文件
 ### .bashrc
 
 > bash 在每次启动时都会加载 `.bashrc` 文件内容
-
+```javascript
 -   别名
     -   `alias ll = "ls -lha"`:执行`ll`就相当于执行`ls -lha`
 -   颜色设置
     -   用户名颜色
         -   `echo "PS1='\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\h \[\e[35;40m\]\W\[\e[0m\]]\$'" >> ~/.bashrc`
         -   https://blog.csdn.net/woshizhangliang999/article/details/103553567
--   函数
+```
+函数
 
 ```shell
     # 执行 md dir 创建dir并进入
@@ -1058,19 +1041,17 @@ dnf info mysql-server // 查看它提供包的版本信息
     }
 ```
 
-### .vimrc
-
 ## 其他
 
 ### 提升效率
-
+```javascript
 -   `tab` 补全目录
 -   `history`：查看历史命令
 -   `esc + .`：快速得到上一次指令中的路径
 -   `--help`：查看指令详细信息
-
+```
 ### 不重要
-
+```javascript
 -   `$SHELL` :一般全大写的系统自带环境变量
 -   `echo $PATH` :查看环境变量
 -   `echo $?` :查看上一条命令执行结果的对错(0:正确，非 0:错误)
@@ -1090,10 +1071,9 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   who
     -   which
     -   whereis
-
-
-
+```
 ### 查看系统信息
+```javascript
 -   `uname -a` :查看系统信息
 -   `cat /proc/version` :查看当前操作系统版本信息
 -   `cat /etc/issue`:查看当前操作系统发行版信息
@@ -1104,21 +1084,21 @@ dnf info mysql-server // 查看它提供包的版本信息
 -   `free -mh`:查看内存信息
 -   `netstat -lntp`：查看监听的端口
 -   `cut -d: -f1 /etc/passwd`:查看所有用户
-
+```
 ### 不常用
-
+```javascript
 -   `chsh -s /bin/zsh`:切换 shell
 -   `whereis cmmand`:查询指令的可执行文件,源码文件,帮助文件的位置
 -   `ntpdate -u ntp.api.bz`:矫正时间
 -   `/etc/os-release`:操作系统表示
-
+```
 ### 网络相关
 学习网络协议是计算机网络的核心概念
 协议是计算机网络进行数据交互而建立的一种规则、约定、或标准的集合
 网络协议与语言一样多种多样，后面出现了 TCP/IP网络协议标准已经是internet中的标准语言了（类似普通话）
 
 > 为了让不同计算机厂家的计算机能够进行沟通，在大范围进行网络同学，（ISO国际标准化组织）划分成了七层 - ISO七层模型
-
+```javascript
 - 1、物理层
 - 2、数据链路层 
     -   1,2 -> 物理链路层
@@ -1166,11 +1146,9 @@ dnf info mysql-server // 查看它提供包的版本信息
     -   不会确认，直接把数据仍给他
     -   没有报文的
 
-
-> 修改网络信息
-
-ifconfig 临时修改
-配置文件中才能永久修改
+```
+### 修改网络信息
+> ifconfig 临时修改, 配置文件中才能永久修改
 ```shell
 # 进入/etc/sysconfig/network-script,打开网卡文件
 BOOTPROTO="dhcp/static" # 动态/静态吗，static可以设置固定内网IP
@@ -1178,8 +1156,8 @@ ONBOOT="yes" # 开机读取
 
 ```
 
-> 网络命令
-
+### 网络命令
+```javascript
 -   ifconfig:可能要自己安装 
     -   `ifconfig`
         -   yum install net-tools 就有了
@@ -1235,9 +1213,11 @@ ONBOOT="yes" # 开机读取
     -   curl -o /dev/null -s -w %{http_code} url 测试网页是否存活,返回状态码(echo $?测试是执行成功，0就说明成功了)
     -   curl -o /dev/null -s -c xxx.txt url 获取指定网址提供的cookie保存到xxx中
     -   curl -O xxxx.png 直接下载文件
+
+```
 #### 端口服务进程号配置查询
 > 服务器中端口需要开放才能访问
-
+```javascript
 -   `ps`
     -   `ps -aux|-af |grep <server-name>`
 -   `netstat`
@@ -1252,12 +1232,9 @@ ONBOOT="yes" # 开机读取
     -   lsof -c abc 显示abc进程现在打开的文件
     -   lsof -i :22  查看22端口现在运行什么程序
 -   `nslookup lzoxun.top`：根据域名查询IP
-
-### 查看设备信息指令
-### 注意事项
-
+```
 ### xshell 中文设置
-
+```javascript
 -   `echo $LANG`:查看当前编码
 -   `locale`:查看系统拥有的编码
 -   `yum groupinstall chinese-support`:安装中文包
@@ -1266,9 +1243,8 @@ ONBOOT="yes" # 开机读取
 -   `yum-langpacks`:语言包
 -   `/etc/locale.conf`:centos7 语言配置文件
 -   /etc/locale.gen - 配置文件: `/etc/yum/pluginconf.d/langpacks.conf`
-
--   去除 centos 滴滴提示音
-
+```
+###  去除 centos 滴滴提示音
 ```shell
 # 1.执行
 vi /etc/inputrc
@@ -1278,13 +1254,13 @@ vim ~/.bashrc | /etc/profile
 # 添加：setterm –blength 0
 3、执行：reboot
 ```
-
+```javascript
 -   新系统需要的一些设置
     -   设置中文编码
         -   echo LANG="zh_CN.gbk" >> /etc/locale.conf
     -   开启网卡（最小化安装时没开的 不能使用 ifconfig 指令）
         -   echo ONBOOT=yes >> /etc/sysconfig/network-scripts/ifcfg-ens33
-
+```
 [管理平台-宝塔](https://www.bt.cn/)
 
 -   `bt default`:获取密码

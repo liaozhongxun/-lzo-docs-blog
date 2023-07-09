@@ -85,7 +85,7 @@ FLUSH PRIVILEGES;
 2.   排序规则：数据库排序操作时，ASC DSC的实现规则
 
 #### 表字段的数据类型
-
+```javascript
 -   数字类型：`TINYINT` 1 , `SMALLINT` 2 , `MEDIUMINT` 3 ，`INT`4,`BINGINT`8
 -   浮点数字类型：`FLOAT`4 , `DOUBLE`8 , ` DECIAML(大小,小数个数)`
 -   日期类型：
@@ -100,7 +100,7 @@ FLUSH PRIVILEGES;
     -   BLOB：用于储存大的二进制类型
     -   TEXT：用于储存大的字符串类型
 -   ....不常用
-
+```
 #### 表约束
 
 >   永远不要将**业务的信息字段**作为唯一性主键
@@ -152,13 +152,13 @@ select * from users; # 查询users表中所有信息
 ```
 
 ### SQL语句
-
+```javascript
 -   SQL语句操作数据库，常见关系数据库SQL语句都是比较相似的
 -   常见规范
     -   通常大写关键字 如 CREATE
     -   语句以封号结尾
     -   如果关键字作为表名或字段名可以使用引号包裹
-
+```
 #### DDL 库或表 创建、删除、修改
 
 DDL 对数据库的操作
@@ -427,7 +427,7 @@ UNION
 #### ORM
 
 >   **对象映射关系 ** `ORM` 是一种程序设计方案
-
+```javascript
 -   效果上，他提供了一个可在变成语言中 使用虚拟对象数据库的效果
 
 -   Node 常用的：`sequelize` ...
@@ -442,7 +442,7 @@ UNION
     -   使用ORM的操作方式
         -    不用变形SQL语句，操作ORM库提供的 类 的 方法
         -   ORM库会将你的操作转换成 SQL语句，传到数据库处理，返回得到的结果到ORM，再经过处理返回给用户
-
+```
 #### GUR工具
 
 [Navicat](http://www.navicat.com.cn/download/direct-download?product=navicat_premium_cs_x64.exe&location=1)
@@ -463,7 +463,7 @@ UNION
 1、导出的服务器 右键数据库 -> 转储 SQL 文件到本地 -> 生成一个 数据库名.sql 的文件
 2、导入的服务器 右键运行 SQL 文件 -> 选择刚刚导出的 sql 文件 -> 开始，
 
-
+```javascript
 工具快捷键
 -   `Ctrl + q`：打开查询界面
 -   `Ctrl + r`：运行当前查询界面的sql语句
@@ -471,7 +471,7 @@ UNION
 -   `Ctrl + d`：复制当前行
 -   `Ctrl + l`：历史日志
 -   `F6`：命令行界面
-
+```
 
 
 MySql报错only_full_group_by
