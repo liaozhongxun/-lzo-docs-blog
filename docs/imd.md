@@ -32,17 +32,19 @@
 
 4、[API-管理平台](http://192.168.0.70:8981/doc.html#/default/%E6%A1%A3%E6%A1%88%E7%AE%A1%E7%90%86/listUsingPOST)
 
-
+http://192.168.0.70:9699/doc.html
 
 沙县项目
 
-1、[沙县监管项目原型](https://app.mockplus.cn/s/bruOsdO_cCb)  =>   [沙县接口文档](http://192.168.0.70:8781/doc.html#/home)
+1、[沙县监管项目原型](https://app.mockplus.cn/s/bruOsdO_cCb)  =>   [沙县接口文档](http://192.168.0.70:8781/doc.html#/home) =>  [音视频h5API文档](http://192.168.0.70:8780/doc.html#/home)
 
 2、[腾讯音视频](https://cloud.tencent.com/document/product/647/32398) [项目地址](http://192.168.0.113:8888/yanglao/yl-calls)
 
 3、[GIT-沙县监管平台项目地址](http://192.168.0.113:8888/yanglao/yl-supervise-ui)
 
 4、[GIT-养老可视化大屏项目地址](http://192.168.0.113:8888/yanglao/yl-visual-ui)
+
+5、[原型-儿童大屏](https://app.mockplus.cn/s/UKSPc-NJvE_)  => [API-文档](http://192.168.0.70:9699/doc.html)
 
 ```markdown
 通用可视化 

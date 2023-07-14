@@ -711,6 +711,24 @@ nslookup github.com
 grep . -rl --exclude-dir={node_modules,dist} --exclude={yarn.lock} ./|xargs grep -v "^$"|wc -l
 ```
 
+### 排除某个文件的批量操作
+
+```shell
+# 复制单前目录下除了bak文件夹的其他所有文件到 bak目录
+ls | grep -v bak | xargs -i cp -r {} bak/
+```
+
+
+
+### 通配符
+
+| 字符 |                            通配符                            | 正则             | 同效 |
+| ---- | :----------------------------------------------------------: | ---------------- | ---- |
+| *    | 匹配任意数量（包括0个字符） 如：ls *.txt (列出所有以.txt结尾的文件) | 前面分组0或多个  | .*   |
+| ?    |      匹配单个字符  如： ls ?.txt   (1.txt/a.txt/n.txt)       | 前面分组可有可无 | .    |
+| []   |        匹配括号内给定的任何一个字符 如：ls [abc].txt         | 相同             | []   |
+| {}   | 指定可选项集合 如：cp file{1,2}.txt dir (将file1.txt 和file2.txt 放入dir目录中) | 前面分组个数限定 | \|   |
+
 ### 查看系统信息
 
 ```shell
