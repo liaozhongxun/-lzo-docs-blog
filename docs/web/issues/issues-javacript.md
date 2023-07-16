@@ -1816,6 +1816,34 @@ let digitUppercase = (n) => {
 console.log(digitUppercase(86534.63));
 ```
 
+### H5 获取经纬度
+
+```javascript
+// h5 获取经纬度
+const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+};
+
+function success(pos) {
+    const crd = pos.coords;
+
+    console.log("Your current position is:");
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
+    console.log(`More or less ${crd.accuracy} meters.`);
+}
+
+function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+// 谷歌浏览器中，navigator.geolocation 只有在https环境下生效, 可以在火狐，edge下调试
+navigator.geolocation.getCurrentPosition(success, error, options);
+```
+
+
+
 ### 小技巧
 
 -   必传参数 ，把函数必传那个参数的默认值 设置成一个函数，函数的作用是抛出一个异常

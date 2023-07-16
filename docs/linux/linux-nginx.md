@@ -9,6 +9,15 @@ title: nginx
 [下载](http://nginx.org/en/download.html)
 
 ```shell
+# 版本
+Nginx 开源版
+
+# 在开源版上添加扩展很多功能
+Nginx Plus 商业版 https://www.nginx.com
+Openresty 其他开源版 http://openresty.org
+tengine 其他开源版 http://tengine.taobao.org
+
+# 开源版
 # 随便找个位置
 wget http://nginx.org/download/nginx-1.24.0.tar.gz
 tar -xf http://nginx.org/download/nginx-1.24.0.tar.gz
@@ -27,6 +36,9 @@ yum -y install pcre  pcre-devel zlib  zlib-devel openssl openssl-devel
 
 # 开始安装
 ./configure --with-stream # 同时安装stream模块，后期处理tcp转发
+# 其他参数
+--prefix=/usr/local/nginx # 指定安装目录，默认就是这里
+
 # 安装完成之后编译
 make
 # 安装编译后的文件（成功后位置 `/usr/local/nginx `或`/usr/share/nginx`）
@@ -52,6 +64,7 @@ Type=forking  # 是后台运行的形式
 ExecStart=/usr/local/nginx/sbin/nginx         # nginx的可执行路径
 ExecReload=/usr/local/nginx/sbin/nginx -s reload 
 ExecStop=/usr/local/nginx/sbin/nginx -s stop
+ExecQuit=/usr/local/nginx/sbin/nginx -s quit # 优雅关闭，连接的存在工作中的，等待完成再关闭
 PrivateTmp=true # 表示给服务分配独立的临时空间
 
 [Install]
@@ -118,12 +131,25 @@ make
   # 启动服务，关闭防火墙或开发80端口，与服务器还需要去安全组开放80端口
   xx.xx.xx.xx:80 
   ```
+### 目录结构
+
+```shell
+conf  # 配置文件
+html  # 默认静态文件
+logs  # 日志
+	  # 每个人的范围都会写到日志里，无限扩增，一定大小会写到其他文件，如果磁盘满了，就会有各种问题
+sbin  # 执行指令
+```
+
+
+
 ## 配置
+
 ```shell
 # 配置文件解析
 # 第一部分全局配置
 # 作用:从文件开始到events直接的部分，主要处理一些影响nginx服务器整体运行的配置指令
-worker_processes  1; # nginx处理并发的数量
+worker_processes  1; # nginx处理并发的数量（一般 最多设置内核线程数）
 
 #error_log  logs/error.log;
 #error_log  logs/error.log  notice;
@@ -140,8 +166,8 @@ events {
 # 第三部分http配置
 # 包括http全局块、server块
 http {
-    include       mime.types;
-    default_type  application/octet-stream;
+    include       mime.types; # 引入其他文件（用于服务器告诉客户端，响应的数据是什么类型，可以自己加）
+    default_type  application/octet-stream;# mime.types 中没有的类型 就用这个默认类型
 
     #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
     #                  '$status $body_bytes_sent "$http_referer" '
@@ -149,10 +175,9 @@ http {
 
     #access_log  logs/access.log  main;
 
-    sendfile        on;
+    sendfile        on; # 数据 0 拷贝(用户请求数据，Nginx 不从硬盘复制数据转给用户，直接让操作系统从硬盘把数据发给用户)
     #tcp_nopush     on;
 
-    #keepalive_timeout  0;
     keepalive_timeout  65;
 
     #gzip  on;
@@ -163,7 +188,7 @@ http {
     	server 192.168.1.104:8080;
     }
 
-    # 配置虚拟主机相关信息(重要)
+    # 配置虚拟主机相关信息，可以很多个，互不干扰(重要)
     server {
         listen       80; # 防火墙要开通80端口
         server_name  192.168.1.104;
@@ -173,7 +198,7 @@ http {
         #access_log  logs/host.access.log  main;
 
 
-        location / { # 访问路径符合该正则时做的事情
+        location / { # 访问路径（URI 资源，不包括域名端口）符合该正则时做的事情
             root   html;
             proxy_pass http://myserver; # 上面定义的名称
             index  index.html index.htm;
@@ -183,7 +208,7 @@ http {
 
         # redirect server error pages to the static page /50x.html
         #
-        error_page   500 502 503 504  /50x.html;
+        error_page   500 502 503 504  /50x.html; # 500 502 503 504 这些错误码都会到 50x.html 页面
         location = /50x.html {
             root   html;
         }
