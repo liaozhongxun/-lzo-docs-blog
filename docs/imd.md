@@ -36,13 +36,13 @@ http://192.168.0.70:9699/doc.html
 
 沙县项目
 
-1、[沙县监管项目原型](https://app.mockplus.cn/s/bruOsdO_cCb)  =>   [沙县接口文档](http://192.168.0.70:8781/doc.html#/home) =>  [音视频h5API文档](http://192.168.0.70:8780/doc.html#/home)
+1、[沙县监管项目原型](https://app.mockplus.cn/s/bruOsdO_cCb)  =>   [沙县接口文档](http://192.168.0.70:8781/doc.html#/home) =>  [音视频h5API文档](http://192.168.0.70:8780/doc.html#/home) => [管理平台0.70测试环境地址](https://192.168.0.70:9697/ylSuperviseManage/admin/login)
 
 2、[腾讯音视频](https://cloud.tencent.com/document/product/647/32398) [项目地址](http://192.168.0.113:8888/yanglao/yl-calls)
 
 3、[GIT-沙县监管平台项目地址](http://192.168.0.113:8888/yanglao/yl-supervise-ui)
 
-4、[GIT-养老可视化大屏项目地址](http://192.168.0.113:8888/yanglao/yl-visual-ui)
+4、[GIT-养老可视化大屏项目地址](http://192.168.0.113:8888/yanglao/yl-visual-ui)  => [API-养老可视化](http://192.168.0.70:8784/doc.html#/home)
 
 5、[原型-儿童大屏](https://app.mockplus.cn/s/UKSPc-NJvE_)  => [API-文档](http://192.168.0.70:9699/doc.html)
 

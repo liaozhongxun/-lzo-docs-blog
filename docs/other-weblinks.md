@@ -170,3 +170,7 @@ title: Favorites
 
 
 
+## win 软件
+
+- [Everything 文件查找](https://www.voidtools.com/zh-cn/)
+

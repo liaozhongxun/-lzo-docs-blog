@@ -378,6 +378,12 @@ yum install cronie
 
 # 设置 crontab -e
 # 查看 crontab -l
+
+# 执行记录
+cat /var/log/cron
+
+# vimrc 报错，.zshrc 加入
+export EDITOR=/usr/bin/vim
 ```
 
 
@@ -449,6 +455,50 @@ yum install tig
 yum install python3 python3-devel -y
 pip3 install ranger-fm -i https://mirrors.aliyun.com/pypi/simple/
 ```
+
+#### 配置
+
+```shell
+# 1、
+ranger --copy-config=all
+
+# 2、
+~/.config/ranger
+    rc.conf-选项设置和快捷键
+    commands.py-能通过:执行的命令
+    commands_full.py-全套命令
+    rifle.conf-指定不同类型的文件的默认打开程序
+    scope.conf-负责各种文件预览
+
+# 3、
+echo "export RANGER_LOAD_DEFAULT_RC=false">>~/.zshrc
+
+# 4、操作
+修改配置文件~/.config/ranger/rc.conf
+显示边框set draw_borders both
+显示序号set line_numbers true
+序号从1开始set one_indexed true
+```
+
+#### 插件
+
+> 图标
+
+```shell
+# myfork https://hub.fgit.ml/liaozhongxun/ranger_devicons.git
+git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+echo "default_linemode devicons" >> $HOME/.config/ranger/rc.conf
+
+# 乱码 https://github.com/ryanoasis/nerd-fonts
+```
+
+> 压缩包预览
+
+```shell
+yum install atool
+```
+
+
 
 ### 安装 tmux
 
@@ -808,12 +858,17 @@ init n // 临时切换运行级别
 
 
 ## 工具
+### nikto 
 
-### 连接工具
+> 网站检测
 
-[MobaXterm](https://mobaxterm.mobatek.net/) [FinalShell](http://www.hostbuf.com/t/988.html) [WindTerm](https://github.com/kingToolbox/WindTerm/releases)
+```shell
+nikto -h www.lzoxun.top
+```
 
-### 文件上传下载
+![](../../static/img/2023-07-22_003615.jpg)
+
+### lrzsz
 
 > 用上传下载的 SSH 连接工具，终端直连无效
 
@@ -874,7 +929,12 @@ asciinema play https://asciinema.org/a/aJ8I9rH4Ob5wbNAywiskRu0cz
 
 ### 包下载器
 
-`yum`、`dnf`、`wget`、`curl`
+`yum`、 `pip3`、`dnf`、`wget`、`curl`
+
+
+### 连接工具
+
+[MobaXterm](https://mobaxterm.mobatek.net/) [FinalShell](http://www.hostbuf.com/t/988.html) [WindTerm](https://github.com/kingToolbox/WindTerm/releases)
 
 ## 个人配置
 

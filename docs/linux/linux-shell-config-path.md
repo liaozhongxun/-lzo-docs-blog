@@ -2,26 +2,11 @@
 title: 配置路径
 ---
 
-> 系统函数库
-```shell
-cat /etc/init.d/functions
-```
+## 配置文件
 
-> 开机挂载
 ```shell
-cat /etc/fstab
-```
+cat /etc/selinux/config  # selinux
+cat /etc/fstab # 磁盘开机挂载
 
-> 运行级别信息
-```shell
-cd /usr/lib/systemd/system
-ls -la|grep runlevel   => runlevel{0-7}.target => 其中234命令行 5图形
-
-ls -la /usr/lib/systemd/system|grep runlevel
-systemctl set-default multi-user.target  #社区默认启动为敏玲模式
-```
-
-> selinux
-```shell
-cat /etc/selinux/config
+ls -la /usr/lib/systemd/system|grep runlevel # 运行级别
 ```

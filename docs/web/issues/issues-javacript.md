@@ -4,56 +4,62 @@ title: javascript
 
 ## 早期 js 存在的一些问题
 
-> -   var 定义变量没有作用域
-> -   不能像常规语言一样使用 class，js 原型链方式是基于很早以前的`Self`语言的
-> -   没有模块化
-> -   无类型检测
-> -   typeof null 为什么是 object
+> - var 定义变量没有作用域
+> - 不能像常规语言一样使用 class，js 原型链方式是基于很早以前的`Self`语言的
+> - 没有模块化
+> - 无类型检测
+> - typeof null 为什么是 object
 
 ## JS 概念性问题
 
 ### 数据类型
+
 基础知识
+
 > - 弱类型或者说动态语言（一个变量可以保存不同的数据类型）
 > - 原始类型 Boolean、Null、Undefined、Number、String、Bigint（ecma 2020）、Symbols（ecma 2015）
 > - 一组属性的集合 对象 Object （Object、Array、Function、Date、）
 
 1、数据类型判断 - typeof
->  返回一个字符串，代表检测数据的类型
+
+> 返回一个字符串，代表检测数据的类型
+
 ```javascript
 // 正常情况返回数据类型小写单词，一下特殊情况
-typeof Infinity === 'number';
-typeof NaN === 'number'
-typeof Number(1) === 'number';
+typeof Infinity === "number";
+typeof NaN === "number";
+typeof Number(1) === "number";
 
-typeof 42n === 'bigint';
+typeof 42n === "bigint";
 
-typeof Symbol() === 'symbol';
+typeof Symbol() === "symbol";
 
 // 应用类型对象包含[[call]]方法 结果就返回function
-typeof function() {} === 'function';
-typeof Array === 'function';
+typeof function () {} === "function";
+typeof Array === "function";
 
-typeof {a: 1} === 'object';
-typeof [1, 2, 4] === 'object';
-typeof new Date() === 'object';
-typeof /regex/ === 'object'; // 历史结果请参阅正则表达式部分
-typeof new Boolean(true) === 'object';
-typeof new Number(1) === 'object';
-typeof new String('abc') === 'object'; //String {0:a,1:b,3:c,length:3,....}
+typeof { a: 1 } === "object";
+typeof [1, 2, 4] === "object";
+typeof new Date() === "object";
+typeof /regex/ === "object"; // 历史结果请参阅正则表达式部分
+typeof new Boolean(true) === "object";
+typeof new Number(1) === "object";
+typeof new String("abc") === "object"; //String {0:a,1:b,3:c,length:3,....}
 
 // 对象的类型标签是 0。由于 null 代表的是空指针（大多数平台下值为 0x00），因此，null 的类型标签是 0
-typeof null === 'object';
+typeof null === "object";
 ```
+
 2、数据类型判断 - instanceof
 
 > - object instanceof constructor
 > - instanceof 运算符用来检测 constructor.prototype 是否存在于参数 object 的原型链上。上级没有找上上级
 > - 返回 true false
 > - 可以判断 Array、Object、Data 等
+
 ```javascript
-function C(){}
-function D(){}
+function C() {}
+function D() {}
 
 var o = new C();
 o instanceof C; // true，因为 Object.getPrototypeOf(o) === C.prototype
@@ -64,7 +70,9 @@ D instanceof Function; // true
 ```
 
 3、数据类型判断 - prototype.toString
-> 各个类型自己和自己prototype的toStrig结果不同意，有些是函数，有些是字面量，Math.toString()正常，所以统一用对象原型的
+
+> 各个类型自己和自己 prototype 的 toStrig 结果不同意，有些是函数，有些是字面量，Math.toString()正常，所以统一用对象原型的
+
 ```javascript
 Object.prototype.toString.call('') ;   // [object String]
 Object.prototype.toString.call(1) ;    // [object Number]
@@ -85,28 +93,29 @@ Object.prototype.toString.call(window) ; //[object global] window 是全局对�
 4、数据类型判断 - constructor
 
 > - null 和 undefined 是无效的对象
-> -  constructor 是不稳定的，这个主要体现在自定义对象上，当开发者重写 prototype 后
+> - constructor 是不稳定的，这个主要体现在自定义对象上，当开发者重写 prototype 后
+
 ```javascript
-const o = {}
-o.constructor === Object // true
+const o = {};
+o.constructor === Object; // true
 
-const o = new Object
-o.constructor === Object // true
+const o = new Object();
+o.constructor === Object; // true
 
-const a = []
-a.constructor === Array // true
+const a = [];
+a.constructor === Array; // true
 
-const a = new Array
-a.constructor === Array // true
+const a = new Array();
+a.constructor === Array; // true
 
-const n = new Number(3)
-n.constructor === Number // true
+const n = new Number(3);
+n.constructor === Number; // true
 
 // ========================================
 
-function F(){}
+function F() {}
 let f = new F();
-f.constructor == F //true
+f.constructor == F; //true
 /*
     F.prototype = {
         constructor: ƒ F()
@@ -114,9 +123,9 @@ f.constructor == F //true
     }
 */
 
-f.prototype = {a:1}
+f.prototype = { a: 1 };
 let f2 = new F();
-f2.constructor == F //false
+f2.constructor == F; //false
 /*
     F.prototype = {
         a:1
@@ -126,7 +135,7 @@ f2.constructor == F //false
 
 F.prototype.constructor = F;
 let f3 = new F();
-f3.constructor == F //true
+f3.constructor == F; //true
 /*
     F.prototype = {
         a:1
@@ -138,37 +147,35 @@ f3.constructor == F //true
 
 5、jquery.type('xxx')
 
+### js 常见的内置对象
 
-### js常见的内置对象
-
-3中包装对象 **Number** **String** **Boolean**
+3 中包装对象 **Number** **String** **Boolean**
 
 包装对象的装箱与拆箱
-    装箱:把基本数据类型转化为对应引用数据类型的操作
-        通过new的方式得到实例
-    拆箱:把引用数据类型转化为对应基本数据类型的操作(数组对象也有拆箱)
-        调用实例的 valueOf()和toString() 实现拆箱
+装箱:把基本数据类型转化为对应引用数据类型的操作
+通过 new 的方式得到实例
+拆箱:把引用数据类型转化为对应基本数据类型的操作(数组对象也有拆箱)
+调用实例的 valueOf()和 toString() 实现拆箱
 
         js内部有一个toPrimitive(input,type) 方法 判断传入的值是否为原始类型，是返回，不是就调用valueOf方法，结果还不是就掉toString方法
-        valueOf()  判断是否有基本类型值，有就返回，没有则返回对象本身 
+        valueOf()  判断是否有基本类型值，有就返回，没有则返回对象本身
         toString() 得到的都是字符串类型 "123",valueOf 可以得到正常的 123
         ```javascript
-        
+
         console.log({} + []) [object object]
         1、{} 调用toPrimitive()
         console.log({}.valueOf()) => {}
         console.log({}.toString()) => [object object]
-    
+
         2、[] 调用toPrimitive
         console.log([].valueOf()) => {}
         console.log([].toString()) => ""
-        
+
         3、有些浏览器 会把前面的 {} 当做代码块 识别为 console.log(0 + []) 结果就是0，非[object object]
         ```
 
+字面量可以调用方法的原因 'abc'.indexOf('a') (隐式装箱)
 
-
-字面量可以调用方法的原因 'abc'.indexOf('a') (隐式装箱) 
 ```javascript
 # 1
 var str = new String('abc');
@@ -178,11 +185,13 @@ str.indexOf("a");
 str = null;
 
 ```
-(1)实际上，每当读取一个基本类型的时候，js内部会自动创建一个基本包装类型对象，可以让我们调用一些方法来操作
-(2)'a'.indexOf('a')在调用过程中会先let str = new String('a')，然后调用indexOf，调用完毕str = null, 销毁该对象
+
+(1)实际上，每当读取一个基本类型的时候，js 内部会自动创建一个基本包装类型对象，可以让我们调用一些方法来操作
+(2)'a'.indexOf('a')在调用过程中会先 let str = new String('a')，然后调用 indexOf，调用完毕 str = null, 销毁该对象
 
 其他内置对象
-    Date、Math、Function、Array、
+Date、Math、Function、Array、
+
 ### 数据存储形式
 
 > - 栈 计算机为原始数据类型开辟了一块内存空间 number string
@@ -194,32 +203,31 @@ str = null;
 #### 存储空间
 
 硬件
-    内存：访问速度快、容量小、临时存在
-    硬盘：访问速度慢、容量大、永久存在
+内存：访问速度快、容量小、临时存在
+硬盘：访问速度慢、容量大、永久存在
 软件
-    App 下载 硬盘
-    App 运行 内存
+App 下载 硬盘
+App 运行 内存
 运行
-    函数申明（函数体）：占用内存空间，运行期间永久存在
-    函数运行（执行上下文）：临时占用存储空间
-
-
+函数申明（函数体）：占用内存空间，运行期间永久存在
+函数运行（执行上下文）：临时占用存储空间
 
 程序运行，计算机或浏览器会给程序`分配`一段连续的内存（以使用方式的不同分成 栈内存和堆内存）
 
 如果分配了 0-1000 段的内存
-    栈内存 --> 管理函数执行，程序上下文执行，执行栈, 从高地址位向下使用(1000,999,998...)
-        主要为了管理函数的执行顺序
-    堆内存 --> 存储对象，从低地址位向上使用(0,1,2...)
-        ?? 对象里面的原始类型是存在堆中的
-        执行栈中如果入栈的是对象，那么进入的是对象地地址，对象存放堆内存中，对象内的原始类型数据也在堆中
-    
+栈内存 --> 管理函数执行，程序上下文执行，执行栈, 从高地址位向下使用(1000,999,998...)
+主要为了管理函数的执行顺序
+堆内存 --> 存储对象，从低地址位向上使用(0,1,2...)
+?? 对象里面的原始类型是存在堆中的
+执行栈中如果入栈的是对象，那么进入的是对象地地址，对象存放堆内存中，对象内的原始类型数据也在堆中
+
 内存溢出：当程序运行使用的内存超过`分配来的`这些，就会`内存溢出`（一般设定栈内存比较小的，大部分情况也是`栈溢出`）
 内存泄漏：当某一段内存我们失去了对它的控制、失去引用、回收机制也管理不了的情况
 
 #### 垃圾回收机制
+
 哪些被分配的内存确实已经不再需要了，自动回收
-JS会周期性遍历内存空间，发现没有被引用的对象就会自动回收
+JS 会周期性遍历内存空间，发现没有被引用的对象就会自动回收
 
 ```javascript
 a=1    a=1
@@ -239,70 +247,70 @@ js 变量名是否存在内存中??
 ```
 
 标记 - 清除算法
-    这个算法把“对象是否不再需要”简化定义为“对象是否可以获得”。
+这个算法把“对象是否不再需要”简化定义为“对象是否可以获得”。
 
-v8的垃圾回收机制
-
+v8 的垃圾回收机制
 
 ### 跨域方案总结
 
 ### 事件循环 EventLoop
+
 正常情况下一个应用程序会有一个进程，包含着非常多线程，但是浏览器时多进程的
-主线程 与 任务队列 里代码的不断循环执行，异步任务未完成之前(在 web 异步API操作的地方等待)是不会加入任务队列的
+主线程 与 任务队列 里代码的不断循环执行，异步任务未完成之前(在 web 异步 API 操作的地方等待)是不会加入任务队列的
 
 浏览器的事件循环
 
--   浏览器`渲染进程`、网络进程、GPU 进程....
--   重点`渲染进程`包含`js引擎进程`、`HTTP请求进程`、`定时器触发进程`、`事件触发进程`、`GUI进程`等
--   浏览器与`NodeJS`异步任务执行原理，背后是通过`事件驱动`完成的
--   事件驱动包括`事件触发`、`任务选择`、`任务执行`
--   由特定的事件触发特定的任务（如用户 click 事件，自动的定时器事件）
--   事件循环就是在事件驱动模式中，管理和执行事件的流程
--   在事件驱动中，当有事件触发后吧，被触发的事件会按顺序，暂时存在一个队列中，等待 js 同步任务执行完成，再从队列中取出`要处理的事件处理` - 事件循环来控制什么时候取事件，或优先取的事件
-    浏览器与 js
-    > 浏览器多线程，只会给 js 一个线程,所有 js 是单线程
-    > js 单线程，所以只能通过浏览器的多线程来执行`异步任务`
-    > js 执行代码的`主线程`只有一个,`浏览器提供的JS引擎线程`,主线程执行同步任务
-    > 此外还有`定时器线程`、`HTTP请求线程`、`Promise线程`等,来执行其他任务
-    > 当开定时器或调用接口时，这些任务将分配给他们对应的线程来做，完成了再回到住线程
-    > 执行步骤
--   运行首先执行主线程(将同步代码按顺序排在`执行栈`中)，当遇到 Promise 或定时器时会(保存挂起，时间到了或 ajax 的 success 等的时候)丢到任务列队(Event Quque)里,继续执行主线程的内容
--   主线程完了才会走任务列队(已完成的)的微任务(await，Promise 等)，再走宏任务(Ajax、定时器,事件绑定等),加入执行栈继续执行,宏任务完了就运行结束了
-    -   微任务(micro task):`微任务队列`先，包含:Promise、new MutaionObserver()、`queueMicrotask(()=>{}) 自定义微任务`
-        -   微任务不会有浏览器进线帮忙处理，类似将`.then`的代放到`主线程尾部(或叫微任务队列)`，当前循环执行，能执行的微任务`都执行完`，才会执行宏任务
-        -   `new Promise(()=>{})`这里的回调会和住线程一起执行，resolve 或 reject 的时候才有微任务的 then
-        -   `await` 后面的函数就相当于`new Promise`的回调，会直接执行，async 函数里 await 下面的相当于.then 的微任务
-    -   宏任务(macro task):`宏任务队列`后，包含:定时器相关、Ajax、I/O ,事件监听（load,click,...）...操作
-        -   宏任务有浏览器线程帮忙异步处理，下次循环，如有结果再通过回调执行，宏任务执行完一个，都会先查看是否有微任务执行，没有才执行下一个
-    -   其他：requestAnimationFrame
-        -   事件周期最后是页面渲染，二页面渲染之前调用 requestAnimationFrame 回调，当前周期执行的，如果说宏任务是下次 tick 执行的话，那么就不属于宏任务
-        -   但是 window.requestAnimationFrame 即使在`Promise`前面调用，也是渲染页面前最后执行，微任务顺序不定
-        -   window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，时间是下次重绘之前。
--   主线程执行完后去找一个个的微宏任务，找到一个拿到主线程继续执行执行完再`不断循环`去找。。。，就叫做 Event Loop 事件循环
--   每次循环就是一个事件周期(tick)
--   每个周期结束之后浏览器才会对页面进行渲染，所以有时操作 DOM 不一定会立马刷新视图
--   视图重汇之前会执行`requestAnimationFrame`回调
--   主线程(执行栈)每次执行方法，会生成一个独有的执行环境(上下文 context)，执行结束，销毁独有环境，并从栈弹出此方法，继续下面代码
--   宏任务误差延迟问题:如果将定时器设置 100ms 后执行，首先会挂掉任务列队，100ms 时间到了,如果主线程还在执行中，定时器只能等待，同步代码越长，误差将会越大
+- 浏览器`渲染进程`、网络进程、GPU 进程....
+- 重点`渲染进程`包含`js引擎进程`、`HTTP请求进程`、`定时器触发进程`、`事件触发进程`、`GUI进程`等
+- 浏览器与`NodeJS`异步任务执行原理，背后是通过`事件驱动`完成的
+- 事件驱动包括`事件触发`、`任务选择`、`任务执行`
+- 由特定的事件触发特定的任务（如用户 click 事件，自动的定时器事件）
+- 事件循环就是在事件驱动模式中，管理和执行事件的流程
+- 在事件驱动中，当有事件触发后吧，被触发的事件会按顺序，暂时存在一个队列中，等待 js 同步任务执行完成，再从队列中取出`要处理的事件处理` - 事件循环来控制什么时候取事件，或优先取的事件
+  浏览器与 js
+  > 浏览器多线程，只会给 js 一个线程,所有 js 是单线程
+  > js 单线程，所以只能通过浏览器的多线程来执行`异步任务`
+  > js 执行代码的`主线程`只有一个,`浏览器提供的JS引擎线程`,主线程执行同步任务
+  > 此外还有`定时器线程`、`HTTP请求线程`、`Promise线程`等,来执行其他任务
+  > 当开定时器或调用接口时，这些任务将分配给他们对应的线程来做，完成了再回到住线程
+  > 执行步骤
+- 运行首先执行主线程(将同步代码按顺序排在`执行栈`中)，当遇到 Promise 或定时器时会(保存挂起，时间到了或 ajax 的 success 等的时候)丢到任务列队(Event Quque)里,继续执行主线程的内容
+- 主线程完了才会走任务列队(已完成的)的微任务(await，Promise 等)，再走宏任务(Ajax、定时器,事件绑定等),加入执行栈继续执行,宏任务完了就运行结束了
+  - 微任务(micro task):`微任务队列`先，包含:Promise、new MutaionObserver()、`queueMicrotask(()=>{}) 自定义微任务`
+    - 微任务不会有浏览器进线帮忙处理，类似将`.then`的代放到`主线程尾部(或叫微任务队列)`，当前循环执行，能执行的微任务`都执行完`，才会执行宏任务
+    - `new Promise(()=>{})`这里的回调会和住线程一起执行，resolve 或 reject 的时候才有微任务的 then
+    - `await` 后面的函数就相当于`new Promise`的回调，会直接执行，async 函数里 await 下面的相当于.then 的微任务
+  - 宏任务(macro task):`宏任务队列`后，包含:定时器相关、Ajax、I/O ,事件监听（load,click,...）...操作
+    - 宏任务有浏览器线程帮忙异步处理，下次循环，如有结果再通过回调执行，宏任务执行完一个，都会先查看是否有微任务执行，没有才执行下一个
+  - 其他：requestAnimationFrame
+    - 事件周期最后是页面渲染，二页面渲染之前调用 requestAnimationFrame 回调，当前周期执行的，如果说宏任务是下次 tick 执行的话，那么就不属于宏任务
+    - 但是 window.requestAnimationFrame 即使在`Promise`前面调用，也是渲染页面前最后执行，微任务顺序不定
+    - window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，时间是下次重绘之前。
+- 主线程执行完后去找一个个的微宏任务，找到一个拿到主线程继续执行执行完再`不断循环`去找。。。，就叫做 Event Loop 事件循环
+- 每次循环就是一个事件周期(tick)
+- 每个周期结束之后浏览器才会对页面进行渲染，所以有时操作 DOM 不一定会立马刷新视图
+- 视图重汇之前会执行`requestAnimationFrame`回调
+- 主线程(执行栈)每次执行方法，会生成一个独有的执行环境(上下文 context)，执行结束，销毁独有环境，并从栈弹出此方法，继续下面代码
+- 宏任务误差延迟问题:如果将定时器设置 100ms 后执行，首先会挂掉任务列队，100ms 时间到了,如果主线程还在执行中，定时器只能等待，同步代码越长，误差将会越大
 
 Node 的事件循环
 
--   浏览器的事件循环时由 html5 定义的规范来实现的，node 的事件是有`libuv`实现的
+- 浏览器的事件循环时由 html5 定义的规范来实现的，node 的事件是有`libuv`实现的
 
 [学习](https://www.bilibili.com/video/BV1gb4y1U7Un?spm_id_from=333.999.0.0)
 
 ### call、apply、bind
 
--   共同点
-    -   都能改变函数内部 this 指向
--   使用
+- 共同点
+  - 都能改变函数内部 this 指向
+- 使用
 
 ```javascript
 function fu(a, b) {
-    console.log(this);
+  console.log(this);
 }
 let obj = {
-    c: 10,
+  c: 10,
 };
 
 //fu函数调用call,通过原型链机制，找到fu.prototype上的call函数进行调用
@@ -328,86 +336,83 @@ fu.apply(obj, [1, 2]);
 fu.bind(obj, 1, 2)();
 ```
 
--   实现 call
+- 实现 call
 
-    > 三点：修改 this、执行函数、返回行数返回值
+  > 三点：修改 this、执行函数、返回行数返回值
 
 ```javascript
 Function.prototype.call = function (thisArg, args) {
-    // this指向调用call的对象
-    if (typeof this !== "function") {
-        // 调用call的若不是函数则报错
-        throw new TypeError("Error");
-    }
-    thisArg = thisArg || window;
-    thisArg.fn = this; // 将调用call函数的对象添加到thisArg的属性中
-    const result = thisArg.fn(...[...arguments].slice(1)); // 执行该属性
-    delete thisArg.fn; // 删除该属性,执行的fn内部this中依然存在该函数，这个删除是函数执行后才做的
-    return result;
-    问题: 如何去除调用函数fn时内部this对象会出现fn自己的问题;
+  // this指向调用call的对象
+  if (typeof this !== "function") {
+    // 调用call的若不是函数则报错
+    throw new TypeError("Error");
+  }
+  thisArg = thisArg || window;
+  thisArg.fn = this; // 将调用call函数的对象添加到thisArg的属性中
+  const result = thisArg.fn(...[...arguments].slice(1)); // 执行该属性
+  delete thisArg.fn; // 删除该属性,执行的fn内部this中依然存在该函数，这个删除是函数执行后才做的
+  return result;
+  问题: 如何去除调用函数fn时内部this对象会出现fn自己的问题;
 };
 ```
 
 ### js 删除对象属性
 
 ```javascript
-delete obj.a
-Reflect.deleteProperty(obj,'a')
+delete obj.a;
+Reflect.deleteProperty(obj, "a");
 ```
 
-### jQuery的链式操作
+### jQuery 的链式操作
 
 ```javascript
-function jQuery( selector, context) {
-    return new jQuery.fn.init( selector, context);
+function jQuery(selector, context) {
+  return new jQuery.fn.init(selector, context);
 }
-jQuery.fn = jQuery.prototype = { //fn即对应prototype
-    constructor: jQuery,
-    init: function( selector, context ) {
-        console.log(selector, context)
-        return this;
-    },
-    then:function(par){
-        console.log(par);
-        return this;
-    },
-}
+jQuery.fn = jQuery.prototype = {
+  //fn即对应prototype
+  constructor: jQuery,
+  init: function (selector, context) {
+    console.log(selector, context);
+    return this;
+  },
+  then: function (par) {
+    console.log(par);
+    return this;
+  },
+};
 jQuery.fn.init.prototype = jQuery.fn;
 
-jQuery(1,2).then(4).then(5);
-
+jQuery(1, 2).then(4).then(5);
 ```
+
 ### new 内部做了什么？
 
 1、创建新对象
-2、将新对象的原型链执行 我们new那个构造函数的prototype
+2、将新对象的原型链执行 我们 new 那个构造函数的 prototype
 3、判断构造函数是否有返对象，如果有，那么构造函数有问题，直接返回他要返回的东西
-                             如果没有，返回刚刚创建的对象
+如果没有，返回刚刚创建的对象
+
 ```javascript
 function Person(name) {
-    this.name = name;
+  this.name = name;
 }
 
- 
 function myNew(Con, ...args) {
-    // 创建一个新的空对象
-    let obj = {};
-    //  
-    // obj.__proto__ = Con.prototype;
-    Object.setPrototypeOf(obj, Con.prototype);
+  // 创建一个新的空对象
+  let obj = {};
+  //
+  // obj.__proto__ = Con.prototype;
+  Object.setPrototypeOf(obj, Con.prototype);
 
-    // 将构造函数里的属性方法复制一份给 obj
-    // 设置构造函数内 this指向，不然默认指向window，this.name 就变成window name了
-    let res = Con.apply(obj, args);
-    // 对构造函数返回值做判断，然后返回对应的值（所以构造函数不能返回对象，可以返回this，也可以返回基本类型，但是基本类型没什么作用）
-    // 构造函数中默认隐式返回this了的
-    return res instanceof Object ? res : obj;
-
+  // 将构造函数里的属性方法复制一份给 obj
+  // 设置构造函数内 this指向，不然默认指向window，this.name 就变成window name了
+  let res = Con.apply(obj, args);
+  // 对构造函数返回值做判断，然后返回对应的值（所以构造函数不能返回对象，可以返回this，也可以返回基本类型，但是基本类型没什么作用）
+  // 构造函数中默认隐式返回this了的
+  return res instanceof Object ? res : obj;
 }
-
 ```
-
-
 
 ### 作用域
 
@@ -421,12 +426,12 @@ function myNew(Con, ...args) {
 
 ```javascript
 function fun(n, o) {
-    console.log(n, o);
-    return {
-        fun2: function (m) {
-            return fun(m, n);
-        },
-    };
+  console.log(n, o);
+  return {
+    fun2: function (m) {
+      return fun(m, n);
+    },
+  };
 }
 
 var a = fun(0); // ?0
@@ -440,19 +445,20 @@ c.fun2(2); // ?
 c.fun2(3);
 ```
 
-
 ### IIFE 匿名函数
+
 ```javascript
 var b = 10;
 (function b() {
-   // 内部作用域，会先去查找是有已有变量b的声明，有就直接赋值20，确实有了呀。发现了具名函数 function b(){}，拿此b做赋值；
-   // IIFE的函数无法进行赋值（内部机制，类似const定义的常量），所以无效。
+  // 内部作用域，会先去查找是有已有变量b的声明，有就直接赋值20，确实有了呀。发现了具名函数 function b(){}，拿此b做赋值；
+  // IIFE的函数无法进行赋值（内部机制，类似const定义的常量），所以无效。
   // （这里说的“内部机制”，想搞清楚，需要去查阅一些资料，弄明白IIFE在JS引擎的工作方式，堆栈存储IIFE的方式等）
-    b = 20;
-    console.log(b); // [Function b]
-    console.log(window.b); // 10，不是20
+  b = 20;
+  console.log(b); // [Function b]
+  console.log(window.b); // 10，不是20
 })();
 ```
+
 ### Memoization
 
 > 算法技巧叫做`记忆华搜索`，目的:`为了减少重复计算`,如递归或其他重复计算多的场景适合使用
@@ -460,65 +466,66 @@ var b = 10;
 ```javascript
 // 获取函数运行时间
 function getTime(fn, ...args) {
-    const now = Date.now();
-    const result = fn.apply(null, args);
-    console.log(`用时：${Date.now() - now}毫秒，结果：${result}`);
+  const now = Date.now();
+  const result = fn.apply(null, args);
+  console.log(`用时：${Date.now() - now}毫秒，结果：${result}`);
 }
 
 // 斐波那契数列
 function fibonacci(n) {
-    if (n === 0) return 0;
-    else if (n === 1) return 1;
-    else return fibonacci(n - 1) + fibonacci(n - 2);
+  if (n === 0) return 0;
+  else if (n === 1) return 1;
+  else return fibonacci(n - 1) + fibonacci(n - 2);
 }
 getTime(fibonacci, 40);
 
 // memoization化斐波那契数列
 const fibonacciWithCache = (function () {
-    // 设置缓存队列
-    const cacheList = [0, 1, 1, 2];
-    return function _fibonacciWithCache(n) {
-        // 如果缓存队列中没有该运算结果，则计算出结果并加入缓存队列中
-        if (!cacheList[n])
-            cacheList[n] =
-                _fibonacciWithCache(n - 1) + _fibonacciWithCache(n - 2);
-        return cacheList[n];
-    };
+  // 设置缓存队列
+  const cacheList = [0, 1, 1, 2];
+  return function _fibonacciWithCache(n) {
+    // 如果缓存队列中没有该运算结果，则计算出结果并加入缓存队列中
+    if (!cacheList[n])
+      cacheList[n] = _fibonacciWithCache(n - 1) + _fibonacciWithCache(n - 2);
+    return cacheList[n];
+  };
 })();
 
 getTime(fibonacciWithCache, 40);
 ```
 
--   两者对比
-    用时：2830 毫秒，结果：102334155
-    用时：0 毫秒，结果：102334155
+- 两者对比
+  用时：2830 毫秒，结果：102334155
+  用时：0 毫秒，结果：102334155
 
 ### URI URL URN
+
 ```javascript
-// 
-// 
-// 
+//
+//
+//
 /**
  * URI = Uniform Resource Identifier 统一资源标志符
  *      定位方式表示 URL
  *          URL = Uniform Resource Locator 统一资源定位符
  *      名字方式表示 URN
  *          URN = Uniform Resource Name 统一资源名称
- * 
+ *
  * /
 
 // 去村子找个具体的人（URI），如果用地址：某村多少号房子第几间房的主人 就是URL， 如果用身份证号+名字 去找就是URN了。
 // 原来uri包括url和urn，后来urn没流行起来，导致几乎目前所有的uri都是url
 ```
+
 ### 柯里化、偏函数、Compose、Pipe
 
 > 收集函数多次调用的参数了列表
 
--   作用
-    -   参数复用
-        -   就是利用闭包的原理，让我们前面传输过来的参数不要被释放掉
-    -   提前确认
-    -   延迟运行
+- 作用
+  - 参数复用
+    - 就是利用闭包的原理，让我们前面传输过来的参数不要被释放掉
+  - 提前确认
+  - 延迟运行
 
 ```javascript
 /**
@@ -529,26 +536,26 @@ getTime(fibonacciWithCache, 40);
  * @returns
  */
 const curry = (func, ...args) => {
-    // 获取函数的参数个数,不调用
-    const fnLen = func.length;
+  // 获取函数的参数个数,不调用
+  const fnLen = func.length;
 
-    //利用闭包与递归收集所有小括号参数个数,如果func参数列表用到的少，后面的小括号都是白写
-    return function (...innerArgs) {
-        // 每个小括号调用的参数...innerArgs加上前面调用过储存的参数，拿来与func的参数比较
-        innerArgs = args.concat(innerArgs);
-        // 参数未搜集足的话，继续递归搜集
-        if (innerArgs.length < fnLen) {
-            return curry.call(this, func, ...innerArgs); //...innerArgs至少从第二个小阔号调用开始
-        } else {
-            // 否则拿着搜集的参数调用func,这时开始调用func回调
-            func.call(this, innerArgs);
-        }
-    };
+  //利用闭包与递归收集所有小括号参数个数,如果func参数列表用到的少，后面的小括号都是白写
+  return function (...innerArgs) {
+    // 每个小括号调用的参数...innerArgs加上前面调用过储存的参数，拿来与func的参数比较
+    innerArgs = args.concat(innerArgs);
+    // 参数未搜集足的话，继续递归搜集
+    if (innerArgs.length < fnLen) {
+      return curry.call(this, func, ...innerArgs); //...innerArgs至少从第二个小阔号调用开始
+    } else {
+      // 否则拿着搜集的参数调用func,这时开始调用func回调
+      func.call(this, innerArgs);
+    }
+  };
 };
 // 测试
 const add = curry((num1, num2, num3) => {
-    console.log(num1);
-    // console.log(num1, num2, num3, num1 + num2 + num3);
+  console.log(num1);
+  // console.log(num1, num2, num3, num1 + num2 + num3);
 });
 
 add(1)(2)(3); // 1 2 3 6
@@ -558,48 +565,48 @@ add(1)(2, 3); // 1 2 3 6
 
 //============================================
 function curry2() {
-    // 第一次执行时，定义一个数组专门用来存储所有的参数
-    var _args = Array.prototype.slice.call(arguments);
+  // 第一次执行时，定义一个数组专门用来存储所有的参数
+  var _args = Array.prototype.slice.call(arguments);
 
-    //arguments类数组Array.prototype.slice.call(arguments)将有length的对象转数组
-    console.log(arguments.length);
+  //arguments类数组Array.prototype.slice.call(arguments)将有length的对象转数组
+  console.log(arguments.length);
 
-    // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
-    var _adder = function () {
-        _args.push(...arguments);
-        return _adder; //第二次调用执行_adder，返回_adder给第三次执行用
-    };
+  // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
+  var _adder = function () {
+    _args.push(...arguments);
+    return _adder; //第二次调用执行_adder，返回_adder给第三次执行用
+  };
 
-    // 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
-    _adder.toString = function (func) {
-        return func(_args);
-    };
+  // 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+  _adder.toString = function (func) {
+    return func(_args);
+  };
 
-    //外部回调操作
-    _adder.toString1 = function (callback) {
-        callback(_args);
-    };
+  //外部回调操作
+  _adder.toString1 = function (callback) {
+    callback(_args);
+  };
 
-    //将内部函数返回出去
-    return _adder; //第一次调用curry2执行得到_adder函数
+  //将内部函数返回出去
+  return _adder; //第一次调用curry2执行得到_adder函数
 }
 
 //获取操作列表自定义函数操作
 function func(_args) {
-    console.log(
-        _args.reduce(function (a, b) {
-            return a + b;
-        })
-    );
+  console.log(
+    _args.reduce(function (a, b) {
+      return a + b;
+    })
+  );
 }
 curry2(1, 2, 3)(4)(9).toString(func);
 
 curry2(
-    1,
-    2,
-    3
+  1,
+  2,
+  3
 )(4)(9).toString1((list) => {
-    console.log(list);
+  console.log(list);
 });
 ```
 
@@ -645,168 +652,169 @@ arr = null; //手动赋值null， [1,2,3,4]这时没有被引用, 会被自动�
 > 于是 Chrome 使用 WebKit，并将自己伪装成 Safari，WebKit 伪装成 KHTML，KHTML 伪装成 Gecko，最后所有的浏览器都伪装成了 Mozilla
 > `因为网站开发者可能会因为你是某浏览器（这里是 Mozilla），所以输出一些特殊功能的程序代码（这里指好的特殊功能），所以当其它浏览器也支持这种好功能时，就试图去模仿 Mozilla 浏览器让网站输出跟 Mozilla 一样的内容，而不是输出被阉割功能的程序代码。大家都为了让网站输出最好的内容，都试图假装自己是 Mozilla，一个已经不存在的浏览器……`
 
--   浏览器内核也叫"渲染引擎"，用来接收网页语法并渲染到页面上。内核绝对了浏览器如何显示网页，以及格式
-    -   比如不同浏览器初始化都会有margin padding,有的默认没有
+- 浏览器内核也叫"渲染引擎"，用来接收网页语法并渲染到页面上。内核绝对了浏览器如何显示网页，以及格式
 
--   渲染引擎之间关系(内核也叫做排版引擎、渲染引擎、浏览器引擎等)
-    -   Gecko 壁虎 (Firefox)  
-    -   KHTML(linux Konqueror)
-    -   KHTML --> Webkit(Safari、移动端浏览器)
-    -   KHTML --> Webkit --> Blink(chrome)
-    -   Presto 急板乐曲(欧鹏) -> 欧鹏 Presto 后期被 Blink 代替
-    -   Trident 三叉戟 (IE 360 搜狗 百度 uc)
-    -   EdgeHTML(Edge 浏览器) --> 后期被 Blink 代替
+  - 比如不同浏览器初始化都会有 margin padding,有的默认没有
+
+- 渲染引擎之间关系(内核也叫做排版引擎、渲染引擎、浏览器引擎等)
+  - Gecko 壁虎 (Firefox)
+  - KHTML(linux Konqueror)
+  - KHTML --> Webkit(Safari、移动端浏览器)
+  - KHTML --> Webkit --> Blink(chrome)
+  - Presto 急板乐曲(欧鹏) -> 欧鹏 Presto 后期被 Blink 代替
+  - Trident 三叉戟 (IE 360 搜狗 百度 uc)
+  - EdgeHTML(Edge 浏览器) --> 后期被 Blink 代替
 
 ### 禁止通过控制台查看代码
 
 ```javascript
 //https://www.mk2048.com/blog/blog_hjjahikh2hjaa.html
 var forbidDebug = function () {
-    try {
-        (function () {
-            var callbacks = [],
-                timeLimit = 50,
-                open = false;
-            setInterval(loop, 1);
-            return {
-                addListener: function (fn) {
-                    callbacks.push(fn);
-                },
-                cancleListenr: function (fn) {
-                    callbacks = callbacks.filter(function (v) {
-                        return v !== fn;
-                    });
-                },
-            };
+  try {
+    (function () {
+      var callbacks = [],
+        timeLimit = 50,
+        open = false;
+      setInterval(loop, 1);
+      return {
+        addListener: function (fn) {
+          callbacks.push(fn);
+        },
+        cancleListenr: function (fn) {
+          callbacks = callbacks.filter(function (v) {
+            return v !== fn;
+          });
+        },
+      };
 
-            function loop() {
-                // alert('=======================================')
-                var startTime = new Date();
-                debugger;
-                if (new Date() - startTime > timeLimit) {
-                    if (!open) {
-                        callbacks.forEach(function (fn) {
-                            fn.call(null);
-                        });
-                    }
-                    open = true;
-                    window.stop();
-                    alert("扒的话，劳烦您尊重一下劳动成果！");
-                    document.body.innerHTML = "";
-                } else {
-                    open = false;
-                }
-            }
-        })().addListener(function () {
-            window.location.reload();
-        });
-    } catch (e) {}
-    try {
-        document.onkeydown = function () {
-            var e = window.event || arguments[0];
-            if (e.keyCode == 123) {
-                alert("扒的话，劳烦您尊重一下劳动成果2！");
-                return false;
-            } else if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
-                alert("扒的话，劳烦您尊重一下劳动成果2！");
-                return false;
-            } else if (e.ctrlKey && e.keyCode == 85) {
-                alert("扒的话，劳烦您尊重一下劳动成果4！");
-                return false;
-            } else if (e.ctrlKey && e.keyCode == 83) {
-                alert("扒的话，劳烦您尊重一下劳动成果5！");
-                return false;
-            }
-        };
-    } catch (e) {}
+      function loop() {
+        // alert('=======================================')
+        var startTime = new Date();
+        debugger;
+        if (new Date() - startTime > timeLimit) {
+          if (!open) {
+            callbacks.forEach(function (fn) {
+              fn.call(null);
+            });
+          }
+          open = true;
+          window.stop();
+          alert("扒的话，劳烦您尊重一下劳动成果！");
+          document.body.innerHTML = "";
+        } else {
+          open = false;
+        }
+      }
+    })().addListener(function () {
+      window.location.reload();
+    });
+  } catch (e) {}
+  try {
+    document.onkeydown = function () {
+      var e = window.event || arguments[0];
+      if (e.keyCode == 123) {
+        alert("扒的话，劳烦您尊重一下劳动成果2！");
+        return false;
+      } else if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+        alert("扒的话，劳烦您尊重一下劳动成果2！");
+        return false;
+      } else if (e.ctrlKey && e.keyCode == 85) {
+        alert("扒的话，劳烦您尊重一下劳动成果4！");
+        return false;
+      } else if (e.ctrlKey && e.keyCode == 83) {
+        alert("扒的话，劳烦您尊重一下劳动成果5！");
+        return false;
+      }
+    };
+  } catch (e) {}
 };
 forbidDebug();
 
 //==========================第一次输入密码查看======
 function forbidDebug() {
-    let intarv = null;
-    try {
-        (function () {
-            var callbacks = [],
-                timeLimit = 50,
-                open = false;
-            intarv = setInterval(loop, 3000);
+  let intarv = null;
+  try {
+    (function () {
+      var callbacks = [],
+        timeLimit = 50,
+        open = false;
+      intarv = setInterval(loop, 3000);
 
-            return {
-                addListener: function (fn) {
-                    callbacks.push(fn);
-                },
-                cancleListenr: function (fn) {
-                    callbacks = callbacks.filter(function (v) {
-                        return v !== fn;
-                    });
-                },
-            };
+      return {
+        addListener: function (fn) {
+          callbacks.push(fn);
+        },
+        cancleListenr: function (fn) {
+          callbacks = callbacks.filter(function (v) {
+            return v !== fn;
+          });
+        },
+      };
 
-            function loop() {
-                var startTime = new Date();
-                console.log(1);
-                debugger;
-                if (new Date() - startTime > timeLimit) {
-                    if (window.prompt("请输入密码") == 1) {
-                        //右键进入
-                        clearInterval(intarv);
-                        open = false;
-                        localStorage.setItem("console", "xxxx");
-                    } else {
-                        if (!open) {
-                            callbacks.forEach(function (fn) {
-                                fn.call(null);
-                            });
-                        }
-                        open = true;
-                        window.stop();
-                        alert("请您尊重一下劳动成果！");
-                        document.body.innerHTML = "";
-                    }
-                } else {
-                    open = false;
-                }
+      function loop() {
+        var startTime = new Date();
+        console.log(1);
+        debugger;
+        if (new Date() - startTime > timeLimit) {
+          if (window.prompt("请输入密码") == 1) {
+            //右键进入
+            clearInterval(intarv);
+            open = false;
+            localStorage.setItem("console", "xxxx");
+          } else {
+            if (!open) {
+              callbacks.forEach(function (fn) {
+                fn.call(null);
+              });
             }
-        })().addListener(function () {
-            window.location.reload();
-        });
-    } catch (e) {}
-    try {
-        document.onkeydown = function () {
-            var e = window.event || arguments[0];
-            if (
-                e.keyCode == 123 ||
-                (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||
-                (e.ctrlKey && e.keyCode == 85) ||
-                (e.ctrlKey && e.keyCode == 83)
-            ) {
-                if (window.prompt("请输入密码") == 1) {
-                    clearInterval(intarv);
-                    open = false;
-                    localStorage.setItem("console", "xxxx");
-                } else {
-                    alert("请您尊重一下劳动成果！");
-                    return false;
-                }
-            }
-            // else if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
-            //     alert("禁止打开控制台");
-            //     return false;
-            // }
-            // else if (e.ctrlKey && e.keyCode == 85) {
-            //     alert("禁止查看源码页面");
-            //     return false;
-            // }
-            // else if (e.ctrlKey && e.keyCode == 83) {
-            //     alert("禁止下载页面");
-            //     return false;
-            // }
-        };
-    } catch (e) {}
+            open = true;
+            window.stop();
+            alert("请您尊重一下劳动成果！");
+            document.body.innerHTML = "";
+          }
+        } else {
+          open = false;
+        }
+      }
+    })().addListener(function () {
+      window.location.reload();
+    });
+  } catch (e) {}
+  try {
+    document.onkeydown = function () {
+      var e = window.event || arguments[0];
+      if (
+        e.keyCode == 123 ||
+        (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||
+        (e.ctrlKey && e.keyCode == 85) ||
+        (e.ctrlKey && e.keyCode == 83)
+      ) {
+        if (window.prompt("请输入密码") == 1) {
+          clearInterval(intarv);
+          open = false;
+          localStorage.setItem("console", "xxxx");
+        } else {
+          alert("请您尊重一下劳动成果！");
+          return false;
+        }
+      }
+      // else if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+      //     alert("禁止打开控制台");
+      //     return false;
+      // }
+      // else if (e.ctrlKey && e.keyCode == 85) {
+      //     alert("禁止查看源码页面");
+      //     return false;
+      // }
+      // else if (e.ctrlKey && e.keyCode == 83) {
+      //     alert("禁止下载页面");
+      //     return false;
+      // }
+    };
+  } catch (e) {}
 }
 if (localStorage.getItem("console") != "xxxx") {
-    forbidDebug();
+  forbidDebug();
 }
 ```
 
@@ -840,7 +848,7 @@ console.log(new Date("2021-11-04T10:10:10")); //Thu Nov 04 2021 10:10:10 GMT+080
 console.log(new Date("2021-11-04T10:10:10")); //2021-11-04T02:10:10.000Z
 
 //获取当前时间(从格林威治1970.1.1 00:00:00 [国内 1970.1.1 08:00:00] 开始的毫秒数)
-console.log(new Date().getTime(),+new Date(),Date.now()); // 三种方式
+console.log(new Date().getTime(), +new Date(), Date.now()); // 三种方式
 //获取当前毫秒数(0-999)
 console.log(new Date().getMilliseconds());
 //获取一分钟后的毫秒数目
@@ -896,14 +904,14 @@ console.log("========end=============");
 > js number 表示的最大值 `Number.MAX_VALUE == (2**53 - 1)*(2**971)`,52 是浮点数部分 1 是整数默认部分
 > IEEE754 标准的双精度 64 = `sign bit（符号1）` + `exponent（指数11）`+ `mantissa（尾数52）`
 
--   Number.MAX_VALUE 运算过程
-    -   11 位指数为(2^0~2^10 => 2^11-1 => 2047)
-    -   IEEE 标准需要 1023 偏移量(除了最高位其他全为 1 的时)
-    -   默认整数位 1+52 位浮点数
-        -   `1.1111111111111111111111111111111111111111111111111111 * 2^(2046 - 1023)`，[0 到 2046 次]
-        -   `1.1111111111111111111111111111111111111111111111111111 * 2^1023`
-        -   `11111111111111111111111111111111111111111111111111111 * 2^(1023-52)`
-        -   `(2**53 - 1)*2^971`
+- Number.MAX_VALUE 运算过程
+  - 11 位指数为(2^0~2^10 => 2^11-1 => 2047)
+  - IEEE 标准需要 1023 偏移量(除了最高位其他全为 1 的时)
+  - 默认整数位 1+52 位浮点数
+    - `1.1111111111111111111111111111111111111111111111111111 * 2^(2046 - 1023)`，[0 到 2046 次]
+    - `1.1111111111111111111111111111111111111111111111111111 * 2^1023`
+    - `11111111111111111111111111111111111111111111111111111 * 2^(1023-52)`
+    - `(2**53 - 1)*2^971`
 
 #### Number.MAX_SAFE_INTEGER
 
@@ -955,86 +963,88 @@ console.log("========end=============");
 
 #### 原码、反码、补码
 
--   十进制转二进制原码，最高位是`符号位`,0 为正，1 为负
--   原码转反码
-    -   `正数(最高位为0的) 原码就是反码`
-    -   `负数(最高位为1的) 符号位不变，其余取反`
-        -   如果`定义为有符号数值的类型`为四个字节，那么最高位就是第 32 位
--   反码转成补码 - `正数(最高位为0的) 原码还是补码` - `负数(最高位为1的) 补码就是在反码的基础上+1`
+- 十进制转二进制原码，最高位是`符号位`,0 为正，1 为负
+- 原码转反码
+  - `正数(最高位为0的) 原码就是反码`
+  - `负数(最高位为1的) 符号位不变，其余取反`
+    - 如果`定义为有符号数值的类型`为四个字节，那么最高位就是第 32 位
+- 反码转成补码 - `正数(最高位为0的) 原码还是补码` - `负数(最高位为1的) 补码就是在反码的基础上+1`
 <!-- 二进制间运算先要转成补码，得到结果再转回原码 -->
 
 #### 小数的二进制
 
 > 公式: \*2 如果<1 就为 0，基数=基数；大于 1,就为 1,基数=基数-1，直至小数点后为 0
 
--   `0.6`
-    -   0.6\*2 => 1.2 1
-    -   0.2\*2 => 0.4 0
-    -   0.4\*2 => 0.8 0
-    -   0.8\*2 => 1.6 1
-    -   0.6\*2 => 1.2 1 0.100110011001....无限循环
+- `0.6`
+  - 0.6\*2 => 1.2 1
+  - 0.2\*2 => 0.4 0
+  - 0.4\*2 => 0.8 0
+  - 0.8\*2 => 1.6 1
+  - 0.6\*2 => 1.2 1 0.100110011001....无限循环
 
 #### 位运算符
 
--   `+`
-    -   在计算机中，`负数`以原码的`补码形式`表达(负数绝对值原码最高位变 1=>除最高位取反=>+1)
-    -   `3 + 8`
-        -   `0000 0011` + `0000 1000` = `0000 1011` => `11`;
-    -   `3 + (-8)`
-        -   正数补码 + 负数补码 = 负数补码 => 转原码 = 转十进制
-        -   `0000 0011` + `(1000 1000 => 1111 0111 => 1111 1000)` = `1111 1011` =(负转原 减 1 取反)=> `1000 0101` = -5
-    -   `3 + (-1)`
-        -   `0000 0011` + `(1000 0001 => 1111 1110 => 1111 1111)` = `0000 0010` =(正转原)=> `0000 0010` = 2
--   `3 << 8` : 按位左移动 ==> 3\*(2^8)
-    -   将 3 转为二进制，再整体向左移动八位(右边添加 8 个 0)
-    -   程序中运算结果会将移动好的二进制再转十进制显示，`(3 << 8).toString(2)` 可以还原
-    -   (3 << 8) == 0011 0000 0000
--   `3 >> 8` : 按位右移动,,则高位补 0,若为负数,则高位补 1（>>> 无符号右移，不论正负最高位都补 0）
-    -   将 3 转为二进制，再整体从右边删除八位
-    -   (3 >> 1) == 0001
--   `|`: 按位或
-    -   相同位相加 不为 0 则为 1
--   `&`：按位与
-    -   相同位都为 1 则为 1
--   `^`：按位异或
-    -   相同为零不同为一
--   `~5`:按位取反
+- `+`
+  - 在计算机中，`负数`以原码的`补码形式`表达(负数绝对值原码最高位变 1=>除最高位取反=>+1)
+  - `3 + 8`
+    - `0000 0011` + `0000 1000` = `0000 1011` => `11`;
+  - `3 + (-8)`
+    - 正数补码 + 负数补码 = 负数补码 => 转原码 = 转十进制
+    - `0000 0011` + `(1000 1000 => 1111 0111 => 1111 1000)` = `1111 1011` =(负转原 减 1 取反)=> `1000 0101` = -5
+  - `3 + (-1)`
+    - `0000 0011` + `(1000 0001 => 1111 1110 => 1111 1111)` = `0000 0010` =(正转原)=> `0000 0010` = 2
+- `3 << 8` : 按位左移动 ==> 3\*(2^8)
+  - 将 3 转为二进制，再整体向左移动八位(右边添加 8 个 0)
+  - 程序中运算结果会将移动好的二进制再转十进制显示，`(3 << 8).toString(2)` 可以还原
+  - (3 << 8) == 0011 0000 0000
+- `3 >> 8` : 按位右移动,,则高位补 0,若为负数,则高位补 1（>>> 无符号右移，不论正负最高位都补 0）
+  - 将 3 转为二进制，再整体从右边删除八位
+  - (3 >> 1) == 0001
+- `|`: 按位或
+  - 相同位相加 不为 0 则为 1
+- `&`：按位与
+  - 相同位都为 1 则为 1
+- `^`：按位异或
+  - 相同为零不同为一
+- `~5`:按位取反
 
-    -   规则 `转数值原码` => `转反码` => `转补码` => `补码全部取反`(**~关键作用步骤**) ==> `转反码` => `转原码`(最终值得原码)
-        -   `~5`:0000 0101(原、反、补) => 1111 1010(补码取反) => 1111 1001(减 1 变反码) => 1000 0110(变原码) => -6
-    -   位数的运算
+  - 规则 `转数值原码` => `转反码` => `转补码` => `补码全部取反`(**~关键作用步骤**) ==> `转反码` => `转原码`(最终值得原码)
+    - `~5`:0000 0101(原、反、补) => 1111 1010(补码取反) => 1111 1001(减 1 变反码) => 1000 0110(变原码) => -6
+  - 位数的运算
 
-        -   8 位 最大值是 255 => 1+2+4+8+16+32+64+128 => 2^0 ~ 2^7 => 2^8 - 1 的结果
-        -   32 位 最大值是 2^0 ~ 2^31 值之和 => 2^32 -1
-        -   2^32 - 1 的 4294967295 是 32 位能表示的最大值
-        -   2^31 的 2147483648 的大小是 32 位中最小的（1 31 个 0）
+    - 8 位 最大值是 255 => 1+2+4+8+16+32+64+128 => 2^0 ~ 2^7 => 2^8 - 1 的结果
+    - 32 位 最大值是 2^0 ~ 2^31 值之和 => 2^32 -1
+    - 2^32 - 1 的 4294967295 是 32 位能表示的最大值
+    - 2^31 的 2147483648 的大小是 32 位中最小的（1 31 个 0）
 
-    -   操作数被转换为 32 位二进制表示（0 和 1）。超过 32 位的数字将丢弃
-        -   范围内 任何数字 x 的运算结果都是`-(x + 1)`
-            -   上述 2^31 的 2147483648 涉及到 32 位了（大于等于它的数值在~中都不存在符号了）,不能用公式
-            -   大于等于 2147483648 的数值 x,~x => 4294967295 - x;
-            -   总结
-                -   达到最高 32 位的正数 与 ~最终结果之和要等于 4294967295
-                -   未达到最高 32 的正数 与 ~最终结果之和要等于 -1
-                -   大于等于 -2147483648 的负数 与 ~最终结果之和要等于-1
-                -   小于 -2147483648 的负数 与 ~最终结果之和要等于 -4294967297
+  - 操作数被转换为 32 位二进制表示（0 和 1）。超过 32 位的数字将丢弃
+    - 范围内 任何数字 x 的运算结果都是`-(x + 1)`
+      - 上述 2^31 的 2147483648 涉及到 32 位了（大于等于它的数值在~中都不存在符号了）,不能用公式
+      - 大于等于 2147483648 的数值 x,~x => 4294967295 - x;
+      - 总结
+        - 达到最高 32 位的正数 与 ~最终结果之和要等于 4294967295
+        - 未达到最高 32 的正数 与 ~最终结果之和要等于 -1
+        - 大于等于 -2147483648 的负数 与 ~最终结果之和要等于-1
+        - 小于 -2147483648 的负数 与 ~最终结果之和要等于 -4294967297
 
 #### Set、Map、weakSet、weakMap
+
 Set
+
 1. 成员不能重复
 2. 只有健值，没有健名，有点类似数组。
-3. 可以遍历，方法有add, delete,has
-weakSet
-1. 成员都是对象
-2. 成员都是弱引用，随时可以消失。 可以用来保存DOM节点，不容易造成内存泄漏
-3. 不能遍历，方法有add, delete,has
-Map
-1. 本质上是健值对的集合，类似集合
-2. 可以遍历，方法很多，可以干跟各种数据格式转换
-weakMap
-1. 直接受对象作为健名（null除外），不接受其他类型的值作为健名
-健名所指向的对象，不计入垃圾回收机制
-2. 不能遍历，方法同get,set,has,delete
+3. 可以遍历，方法有 add, delete,has
+   weakSet
+4. 成员都是对象
+5. 成员都是弱引用，随时可以消失。 可以用来保存 DOM 节点，不容易造成内存泄漏
+6. 不能遍历，方法有 add, delete,has
+   Map
+7. 本质上是健值对的集合，类似集合
+8. 可以遍历，方法很多，可以干跟各种数据格式转换
+   weakMap
+9. 直接受对象作为健名（null 除外），不接受其他类型的值作为健名
+   健名所指向的对象，不计入垃圾回收机制
+10. 不能遍历，方法同 get,set,has,delete
 
 ### js 代码整洁之道
 
@@ -1065,10 +1075,10 @@ weakMap
 var ImgObj = new Image(); //判断图片是否存在
 ImgObj.src = "xxxx.png";
 ImgObj.onload = function () {
-    console.log("图片存在");
+  console.log("图片存在");
 };
 ImgObj.onerror = function () {
-    console.log("图片不存在");
+  console.log("图片不存在");
 };
 ```
 
@@ -1085,33 +1095,43 @@ document.getElementsByTagName("head")[0].appendChild(ele.firstElementChild);
 
 ```javascript
 function getArray() {
-    console.log(arguments);
-    //1. 原理是数组的slice()方法可以从已有数组中返回一个新数组，它可以接受两个参数arr.slice(start,end),如果不传参将返回原数组的一个副本，但该方法不会修改原数组，而是返回截取的新数组
-    console.log(Array.prototype.slice.call(arguments));
-    //2. splice(start,count,item) 改变原数组
-    console.log(Array.prototype.splice.call(arguments, 0));
-    //3. Array.from(arguments)
-    console.log(Array.from(arguments));
-    //4. Array.apply(null, arguments)
-    console.log(Array.apply(null, arguments));
-    //5. [].concat.apply([], arguments)
-    console.log([].concat.apply([], arguments));
-    //6. 循环遍历类数组对象，push到新创建的数组对象里
+  console.log(arguments);
+  //1. 原理是数组的slice()方法可以从已有数组中返回一个新数组，它可以接受两个参数arr.slice(start,end),如果不传参将返回原数组的一个副本，但该方法不会修改原数组，而是返回截取的新数组
+  console.log(Array.prototype.slice.call(arguments));
+  //2. splice(start,count,item) 改变原数组
+  console.log(Array.prototype.splice.call(arguments, 0));
+  //3. Array.from(arguments)
+  console.log(Array.from(arguments));
+  //4. Array.apply(null, arguments)
+  console.log(Array.apply(null, arguments));
+  //5. [].concat.apply([], arguments)
+  console.log([].concat.apply([], arguments));
+  //6. 循环遍历类数组对象，push到新创建的数组对象里
 }
 
 getArray(1, 2, 3);
 ```
+
 ### 根据对象某属性去重
-> 通过reduce,判断list列表每一项的a属性,是否含有与next中a相等的，如果有不添加next，否则添加next
+
+> 通过 reduce,判断 list 列表每一项的 a 属性,是否含有与 next 中 a 相等的，如果有不添加 next，否则添加 next
+
 ```javascript
 let objList = [
-    { a: 3, b: 2 },
-    { a: 1, b: 2 },
-    { a: 2, b: 2 },
-    { a: 3, b: 2 },
+  { a: 3, b: 2 },
+  { a: 1, b: 2 },
+  { a: 2, b: 2 },
+  { a: 3, b: 2 },
 ];
-console.log(objList.reduce((list,next)=>list.some((item)=>item["a"]==next["a"])?list:[...list,next],[]));
+console.log(
+  objList.reduce(
+    (list, next) =>
+      list.some((item) => item["a"] == next["a"]) ? list : [...list, next],
+    []
+  )
+);
 ```
+
 ### 数组扁平化
 
 ```javascript
@@ -1119,35 +1139,35 @@ console.log(objList.reduce((list,next)=>list.some((item)=>item["a"]==next["a"])?
 let arr = [1, 2, [3, 4], 5, [8, [9, 10]]];
 
 let m_concat = (...arg) => {
-    // 1、扁平化 flat
-    return arg.flat(Infinity)
+  // 1、扁平化 flat
+  return arg.flat(Infinity);
 
-    // 2、reduct
-    // if (arg.length == 1) {
-    //     arg = arg[0];
-    // }
-    // return arg.reduce((a, next) => {
-    //     return a.concat(Array.isArray(next) ? m_concat(next) : next);
-    // }, []);
+  // 2、reduct
+  // if (arg.length == 1) {
+  //     arg = arg[0];
+  // }
+  // return arg.reduce((a, next) => {
+  //     return a.concat(Array.isArray(next) ? m_concat(next) : next);
+  // }, []);
 
-    // 3、正则
-    // return JSON.stringify(arg).replace(/\[|\]/g,"").split(",");
+  // 3、正则
+  // return JSON.stringify(arg).replace(/\[|\]/g,"").split(",");
 
-    // 4、数值变字符串，并将字符串数值变为number， arg+"" 一样
-    // return arg.toString().split(",").map((item) => (/^\d+$/.test(item) ? Number(item) : item));
+  // 4、数值变字符串，并将字符串数值变为number， arg+"" 一样
+  // return arg.toString().split(",").map((item) => (/^\d+$/.test(item) ? Number(item) : item));
 
-    // 5、while some
-    // while (arg.some((item) => Array.isArray(item))) {
-    //     arg = [].concat(...arg);
-    // }
-    // return arg;
+  // 5、while some
+  // while (arg.some((item) => Array.isArray(item))) {
+  //     arg = [].concat(...arg);
+  // }
+  // return arg;
 };
 
 const flatten = (array) => {
-    array.reduce((acc, cur) => {
-        return Array.isArray(cur) ? [...acc, ...flatten(cur)] : [...acc, cur];
-    }, []);
-}
+  array.reduce((acc, cur) => {
+    return Array.isArray(cur) ? [...acc, ...flatten(cur)] : [...acc, cur];
+  }, []);
+};
 console.log(flatten(arr));
 ```
 
@@ -1200,8 +1220,8 @@ console.log(myBlob.type);
 let fr = new FileReader();
 fr.readAsDataURL(file | blob);
 fr.onloadend = function (e) {
-    let base64 = e.target.result;
-    console.log(base64);
+  let base64 = e.target.result;
+  console.log(base64);
 };
 
 // 把blob转化成当前页面的一个blob:xxxx内存地址
@@ -1210,29 +1230,29 @@ console.log(src);
 img.src = src;
 ```
 
--   URL.createObjectURL(file|blob) 可以获取当前文件的一个内存 URL
-    -   得到 blob:http://127.0.0.1:5500/xxxxxxxx 格式地址，不是 base64 的
-    -   比 base64 地址小节约空间
-    -   立即执行的同步生成，FileReader 需要在 onload 下异步获取 base64
-    -   URL.revokeObjectURL 释放该地址
-    -   data://URL 会对内容进行编码。blob://URL 只是对浏览器存储在内存中或者磁盘上的 Blob 的一个简单引用
+- URL.createObjectURL(file|blob) 可以获取当前文件的一个内存 URL
+  - 得到 blob:http://127.0.0.1:5500/xxxxxxxx 格式地址，不是 base64 的
+  - 比 base64 地址小节约空间
+  - 立即执行的同步生成，FileReader 需要在 onload 下异步获取 base64
+  - URL.revokeObjectURL 释放该地址
+  - data://URL 会对内容进行编码。blob://URL 只是对浏览器存储在内存中或者磁盘上的 Blob 的一个简单引用
 
 ### JS 获取 base64 的方式
 
 > base64 是二进制数据的一个编码格式
 
--   JS 通过 FileReader 获取 base64
+- JS 通过 FileReader 获取 base64
 
 ```javascript
 let fileReader = new FileReader();
 fileReader.readAsDataURL(file | Blob); // base64形式 读取图片
 fileReader.onload = (e) => {
-    //图片读取完成
-    console.log(e.target.result);
+  //图片读取完成
+  console.log(e.target.result);
 };
 ```
 
--   JS 通过 canvas 获取 base64
+- JS 通过 canvas 获取 base64
 
 ```javascript
 // 这个image就是输入
@@ -1256,7 +1276,9 @@ image.onload = function () {
 // 这个src可以是本地路径，服务器图片地址，也可以是上面fileReader的base64
 image.src = "xxx.jpg";
 ```
+
 ### 输入框光标
+
 ```javascript
 let Input = document.getElementById("input");
 //vue ref => Input = this.$refs.exprInput.getInput()
@@ -1267,27 +1289,27 @@ let end = Input.selectionEnd; //获取结束位置
 
 //设置 vue需要 this.$nextTick(() => {}) 中,当dom都加载完毕再执行
 this.$nextTick(() => {
-    Input.setSelectionRange(1,3);
-    //或
-    start.selectionStart = 1; // 设置光标开始的位置
-    end.selectionEnd = 3;// 设置光标结束的位置
-})
+  Input.setSelectionRange(1, 3);
+  //或
+  start.selectionStart = 1; // 设置光标开始的位置
+  end.selectionEnd = 3; // 设置光标结束的位置
+});
 
 // 案例 光标位置插入数据
-let inputval = "123456"
-let before = inputval.substring(0,start);
+let inputval = "123456";
+let before = inputval.substring(0, start);
 let after = inputval.substring(end);
-let data = before +"newvalue" +after;
+let data = before + "newvalue" + after;
 ```
 
 ### 图片上传
 
 [xxxx](https://www.cnblogs.com/pengdt/p/12037986.html)
 
--   多选:multiple
--   指定类型:accept="image/\*"
--   类数组 input.flies 返回一个 FileList 选择的图片数据
--   capture 调用摄像头
+- 多选:multiple
+- 指定类型:accept="image/\*"
+- 类数组 input.flies 返回一个 FileList 选择的图片数据
+- capture 调用摄像头
 
 ```html
 <input id="uploadFile" type="file" accept="image/*" />
@@ -1298,12 +1320,12 @@ let data = before +"newvalue" +after;
 
 > FileReader 是用来读取内存中的文件的 API，支持 File 和 Blob 两种格式。
 
--   FileReader.readyState
-    -   0：EMPTY/还没有加载任何数据
-    -   1：LOADING/数据正在被加载
-    -   2：DONE/已完成全部的读取请求
--   FileReader.result
--   FileReader.error
+- FileReader.readyState
+  - 0：EMPTY/还没有加载任何数据
+  - 1：LOADING/数据正在被加载
+  - 2：DONE/已完成全部的读取请求
+- FileReader.result
+- FileReader.error
 
 ```javascript
 // readAsArrayBuffer(file) :按字节读取文件内容，结果用ArrayBuffer对象表示
@@ -1322,16 +1344,16 @@ let data = before +"newvalue" +after;
 let fileReader = new FileReader();
 fileReader.readAsDataURL(file); // base64形式 读取图片
 fileReader.onload = (e) => {
-    //图片读取完成
-    console.log(e.target.result);
+  //图片读取完成
+  console.log(e.target.result);
 };
 //或
 let fileReader = new FileReader();
 fileReader.readAsDataURL(file);
 fileReader.addEventListener("load", function () {
-    // 读取完成
-    let res = fileReader.result;
-    // res是base64格式的图片
+  // 读取完成
+  let res = fileReader.result;
+  // res是base64格式的图片
 });
 ```
 
@@ -1356,18 +1378,18 @@ formData.append(name, value, filename);
 
 ```javascript
 let config = {
-    headers: {
-        "Content-Type": "multipart/form-data",
-    },
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
 };
 axios
-    .post("url/load", formDate, config)
-    .then((res) => {
-        console.log(res);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+  .post("url/load", formDate, config)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 ```
 
 #### 大文件上传
@@ -1383,7 +1405,9 @@ axios
     -	通过 canvas.toDataURL('image/jpeg') 上传base64上传
 
 ### 字符集
-ASCII码字符集、Unicode 字符集
+
+ASCII 码字符集、Unicode 字符集
+
 ### 字符串编码
 
 ```javascript
@@ -1430,7 +1454,7 @@ UTF-8:统一编码 汉字占三个字节
 ```javascript
 //变化的时候
 this.$nextTick(() => {
-    this.$refs.overflow容器.scrollTop = this.$refs.overflow容器.scrollHeight;
+  this.$refs.overflow容器.scrollTop = this.$refs.overflow容器.scrollHeight;
 });
 ```
 
@@ -1446,23 +1470,23 @@ const ListenerTime = 1000 * 60 * 2; //监控的执行间隔时间   每小时
 var StartTime = 1000 * 60 * 60 * 24; //正式启动后的执行间隔时间   每天 24小时
 
 var RunInterval,
-    runTime,
-    hh = 11,
-    mm = 34;
+  runTime,
+  hh = 11,
+  mm = 34;
 
 /**
  *	启动的入口
  */
 function run() {
-    console.log("正在启动监听....");
-    //直接符合条件不开定时器
-    if (runCode()) {
-        return false;
-    }
+  console.log("正在启动监听....");
+  //直接符合条件不开定时器
+  if (runCode()) {
+    return false;
+  }
 
-    runTime = setInterval(function () {
-        runCode();
-    }, ListenerTime);
+  runTime = setInterval(function () {
+    runCode();
+  }, ListenerTime);
 }
 
 /**
@@ -1470,44 +1494,44 @@ function run() {
  */
 
 function runCode() {
-    console.log(
-        "监听中....第" +
-            getTime("hh") +
-            "小时" +
-            ",当前是第 " +
-            getTime("mm") +
-            " 分," +
-            getTime("ss") +
-            " 秒"
-    );
-    if (getTime("hh") == hh) {
-        //当系统时间是中午12点启动，如果是特定的其他时间可按需改动
-        if (getTime("mm") == mm || getTime("mm") == mm + 1) {
-            runTime && clearInterval(runTime); //清除监控的定时器
-            console.log(
-                "找到执行时间,当前过 1000 * 60 * 60 * 24 毫秒再次执行,已关闭监听"
-            );
-            StartInterval(); //启动要执行的方法
-            return true;
-        }
+  console.log(
+    "监听中....第" +
+      getTime("hh") +
+      "小时" +
+      ",当前是第 " +
+      getTime("mm") +
+      " 分," +
+      getTime("ss") +
+      " 秒"
+  );
+  if (getTime("hh") == hh) {
+    //当系统时间是中午12点启动，如果是特定的其他时间可按需改动
+    if (getTime("mm") == mm || getTime("mm") == mm + 1) {
+      runTime && clearInterval(runTime); //清除监控的定时器
+      console.log(
+        "找到执行时间,当前过 1000 * 60 * 60 * 24 毫秒再次执行,已关闭监听"
+      );
+      StartInterval(); //启动要执行的方法
+      return true;
     }
+  }
 }
 
 /**
  *  到监控时间后所要启动的定时器
  */
 function StartInterval() {
+  main();
+  RunInterval = setInterval(function () {
     main();
-    RunInterval = setInterval(function () {
-        main();
-    }, StartTime);
+  }, StartTime);
 }
 
 /**
  *  主要执行的函数内容
  */
 function main() {
-    console.log(new Date() + "正式执行");
+  console.log(new Date() + "正式执行");
 }
 
 /**
@@ -1515,8 +1539,8 @@ function main() {
  * 	需要额外调用来关闭主程序
  */
 function closeInterval() {
-    clearInterval(RunInterval);
-    console.log("已关闭执行程序");
+  clearInterval(RunInterval);
+  console.log("已关闭执行程序");
 }
 
 /** 获取系统时间的方法  **/
@@ -1529,36 +1553,36 @@ function closeInterval() {
  * return   返回类型为Number型,若参数正确，返回-1
  */
 function getTime(time) {
-    var datetime = new Date();
-    var year = datetime.getFullYear();
-    var month = datetime.getMonth() + 1;
-    var day = datetime.getDate();
-    var Hours = datetime.getHours();
-    var Minutes = datetime.getMinutes();
-    var Seconds = datetime.getSeconds();
+  var datetime = new Date();
+  var year = datetime.getFullYear();
+  var month = datetime.getMonth() + 1;
+  var day = datetime.getDate();
+  var Hours = datetime.getHours();
+  var Minutes = datetime.getMinutes();
+  var Seconds = datetime.getSeconds();
 
-    switch (time) {
-        case "YY":
-            return year;
-            break;
-        case "MM":
-            return month;
-            break;
-        case "DD":
-            return day;
-            break;
-        case "hh":
-            return Hours;
-            break;
-        case "mm":
-            return Minutes;
-            break;
-        case "ss":
-            return Seconds;
-            break;
-        default:
-            return -1;
-    }
+  switch (time) {
+    case "YY":
+      return year;
+      break;
+    case "MM":
+      return month;
+      break;
+    case "DD":
+      return day;
+      break;
+    case "hh":
+      return Hours;
+      break;
+    case "mm":
+      return Minutes;
+      break;
+    case "ss":
+      return Seconds;
+      break;
+    default:
+      return -1;
+  }
 }
 
 //模拟启动
@@ -1575,54 +1599,54 @@ run();
 var progress = 0;
 //回调函数
 function render() {
-    progress += 1; //修改图像的位置
-    console.log(progress);
-    if (progress < 100) {
-        //在动画没有结束前，递归渲染
-        window.requestAnimationFrame(render);
-    }
+  progress += 1; //修改图像的位置
+  console.log(progress);
+  if (progress < 100) {
+    //在动画没有结束前，递归渲染
+    window.requestAnimationFrame(render);
+  }
 }
 //第一帧渲染
 window.requestAnimationFrame(render);
 ```
 
--   大数据操作
-> 如何操作优化注意的用掉的数据删除，避免下次又要查，和找到目标后直接跳出
+- 大数据操作
+  > 如何操作优化注意的用掉的数据删除，避免下次又要查，和找到目标后直接跳出
 
 ```javascript
 setTimeout(() => {
-    // 插入十万条数据
-    const total = 1000000;
-    // 一次插入的数据
-    const once = 20;
-    // 插入数据需要的次数
-    const loopCount = Math.ceil(total / once);
-    let countOfRender = 0;
-    const ul = document.querySelector("ul");
-    // 添加数据的方法
-    function add() {
-        const fragment = document.createDocumentFragment();
-        for (let i = 0; i < once; i++) {
-            const li = document.createElement("li");
-            li.innerText = Math.floor(Math.random() * total);
-            fragment.appendChild(li);
-        }
-        ul.appendChild(fragment);
-        countOfRender += 1;
-        loop();
+  // 插入十万条数据
+  const total = 1000000;
+  // 一次插入的数据
+  const once = 20;
+  // 插入数据需要的次数
+  const loopCount = Math.ceil(total / once);
+  let countOfRender = 0;
+  const ul = document.querySelector("ul");
+  // 添加数据的方法
+  function add() {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < once; i++) {
+      const li = document.createElement("li");
+      li.innerText = Math.floor(Math.random() * total);
+      fragment.appendChild(li);
     }
-    function loop() {
-        if (countOfRender < loopCount) {
-            window.requestAnimationFrame(add);
-        }
-    }
+    ul.appendChild(fragment);
+    countOfRender += 1;
     loop();
+  }
+  function loop() {
+    if (countOfRender < loopCount) {
+      window.requestAnimationFrame(add);
+    }
+  }
+  loop();
 }, 0);
 ```
 
 #### 特点
 
--   CPU 节能：页面隐藏(不可见)时停止
+- CPU 节能：页面隐藏(不可见)时停止
 
 ### iframe 详细
 
@@ -1714,103 +1738,103 @@ let iframe = document.getElementById("iframe");
  * 描述: scrollTo(x,y) 通过横纵坐标位置
  */
 const scrollToTop = () => {
-    const t = document.documentElement.scrollTop || document.body.scrollTop; //获取滚动高度
-    if (t > 0) {
-        window.requestAnimationFrame(scrollToTop); //浏览器自动判断动画完成之后执行回调
-        window.scrollTo(0, t - t / 8);
-    }
+  const t = document.documentElement.scrollTop || document.body.scrollTop; //获取滚动高度
+  if (t > 0) {
+    window.requestAnimationFrame(scrollToTop); //浏览器自动判断动画完成之后执行回调
+    window.scrollTo(0, t - t / 8);
+  }
 };
 scrollToTop();
 ```
 
 ### 点击复制
+
 ```javascript
 // 1、 input 复制
-this.inputvmodel = 'xxxxxx';
-this.$nextTick(()=>{
-    this.$refs.inputref.select();
-    document.execCommand('copy'); //只能复制显示的input
-})
+this.inputvmodel = "xxxxxx";
+this.$nextTick(() => {
+  this.$refs.inputref.select();
+  document.execCommand("copy"); //只能复制显示的input
+});
 
-
-/** 
+/**
  * 2、 直接复制元素内容
  *  getSelection 表示用户选择的文本范围或光标的当前位置
  *  selectAllChildren 选中 操作元素所有子节点的innerHTML
  *  document.execCommand 即将废弃 用 clipboard 代替
  *
  */
-if(navigator.clipboard.writeText){
-    navigator.clipboard.writeText(e.target.innerText); // 复制，写入剪切板
-    console.log('clipboard')
-}else{
-    window.getSelection().selectAllChildren(e.target);
-    document.execCommand("copy");
-    //console.log(window.getSelection().toString()); // 获取选择内容
-    window.getSelection().removeAllRanges(); //清除选择的内容
-    console.log('execCommand')
+if (navigator.clipboard.writeText) {
+  navigator.clipboard.writeText(e.target.innerText); // 复制，写入剪切板
+  console.log("clipboard");
+} else {
+  window.getSelection().selectAllChildren(e.target);
+  document.execCommand("copy");
+  //console.log(window.getSelection().toString()); // 获取选择内容
+  window.getSelection().removeAllRanges(); //清除选择的内容
+  console.log("execCommand");
 }
-this.$message.success({showClose: true, message: '复制成功', duration: 1500});
+this.$message.success({ showClose: true, message: "复制成功", duration: 1500 });
 
 // 粘贴
 navigator.clipboard
-    .readText()
-    .then((clipText) => (e.target.innerText = clipText));
+  .readText()
+  .then((clipText) => (e.target.innerText = clipText));
 ```
 
 ### 数字转大写
 
 ```javascript
 let digitUppercase = (n) => {
-    var fraction = ["角", "分"];
-    var digit = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"];
-    var unit = [
-        //unit[2]均分unit[1], 如:佰元、佰万、佰亿
-        ["元", "万", "亿"],
-        ["", "拾", "佰", "仟"],
-    ];
+  var fraction = ["角", "分"];
+  var digit = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"];
+  var unit = [
+    //unit[2]均分unit[1], 如:佰元、佰万、佰亿
+    ["元", "万", "亿"],
+    ["", "拾", "佰", "仟"],
+  ];
 
-    //算前:判断是否为负数
-    var head = n < 0 ? "欠" : "";
-    n = Math.abs(n);
+  //算前:判断是否为负数
+  var head = n < 0 ? "欠" : "";
+  n = Math.abs(n);
 
-    //算小数点后
-    var s = "";
-    for (var i = 0; i < fraction.length; i++) {
-        //角位置 n*10 => 移一位小数 => floor去小数 => 取除10余数 => 拼接上角
-        //分位置 m*10*10 => 移两位小数=> floor去小数 => 取除10余数 => 拼接上角分
-        s += (
-            digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]
-        ).replace(/零./, "");
+  //算小数点后
+  var s = "";
+  for (var i = 0; i < fraction.length; i++) {
+    //角位置 n*10 => 移一位小数 => floor去小数 => 取除10余数 => 拼接上角
+    //分位置 m*10*10 => 移两位小数=> floor去小数 => 取除10余数 => 拼接上角分
+    s += (
+      digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]
+    ).replace(/零./, "");
+  }
+  //是否有角与分
+  s = s || "整";
+
+  //算整数部分
+  n = Math.floor(n);
+  //遍历 ["元", "万", "亿"]
+  for (var i = 0; i < unit[0].length && n > 0; i++) {
+    var p = "";
+    //遍历 ["", "拾", "佰", "仟"]
+    for (var j = 0; j < unit[1].length && n > 0; j++) {
+      //  digit[4]        ""
+      //  digit[3]        拾
+      //  digit[5]        佰
+      //  digit[6]        仟
+      //  结束循环添加单位，p保存到s中，进入下一循环
+      //  digit[8]        仟
+      p = digit[n % 10] + unit[1][j] + p;
+      n = Math.floor(n / 10);
     }
-    //是否有角与分
-    s = s || "整";
-
-    //算整数部分
-    n = Math.floor(n);
-    //遍历 ["元", "万", "亿"]
-    for (var i = 0; i < unit[0].length && n > 0; i++) {
-        var p = "";
-        //遍历 ["", "拾", "佰", "仟"]
-        for (var j = 0; j < unit[1].length && n > 0; j++) {
-            //  digit[4]        ""
-            //  digit[3]        拾
-            //  digit[5]        佰
-            //  digit[6]        仟
-            //  结束循环添加单位，p保存到s中，进入下一循环
-            //  digit[8]        仟
-            p = digit[n % 10] + unit[1][j] + p;
-            n = Math.floor(n / 10);
-        }
-        s = p.replace(/(零.)*零$/, "").replace(/^$/, "零") + unit[0][i] + s;
-    }
-    return (
-        head +
-        s
-            .replace(/(零.)*零元/, "元")
-            .replace(/(零.)+/g, "零")
-            .replace(/^整$/, "零元整")
-    );
+    s = p.replace(/(零.)*零$/, "").replace(/^$/, "零") + unit[0][i] + s;
+  }
+  return (
+    head +
+    s
+      .replace(/(零.)*零元/, "元")
+      .replace(/(零.)+/g, "零")
+      .replace(/^整$/, "零元整")
+  );
 };
 
 console.log(digitUppercase(86534.63));
@@ -1821,48 +1845,45 @@ console.log(digitUppercase(86534.63));
 ```javascript
 // h5 获取经纬度
 const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0,
 };
 
 function success(pos) {
-    const crd = pos.coords;
+  const crd = pos.coords;
 
-    console.log("Your current position is:");
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
+  console.log("Your current position is:");
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
 }
 
 function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
+  console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 // 谷歌浏览器中，navigator.geolocation 只有在https环境下生效, 可以在火狐，edge下调试
 navigator.geolocation.getCurrentPosition(success, error, options);
 ```
 
-
-
 ### 小技巧
 
--   必传参数 ，把函数必传那个参数的默认值 设置成一个函数，函数的作用是抛出一个异常
--   数字千分位格式化
+- 必传参数 ，把函数必传那个参数的默认值 设置成一个函数，函数的作用是抛出一个异常
+- 数字千分位格式化
+
 ```javascript
 let num = 123456.78901;
-let formNum = num.toLocaleString("en-US",{
-    minimumFractionDigits:5  // 小数点后取五位
+let formNum = num.toLocaleString("en-US", {
+  minimumFractionDigits: 5, // 小数点后取五位
 });
-console.log(formNum)
-
+console.log(formNum);
 ```
-
 
 ## 请求与响应
 
 ### 响应参数
 
--   **X-Frame-Options**：iframe 权限参数
--   **Content-Security-Policy**:服务器通过发送一个 CSP 头部，来告诉浏览器什么是`被授权执行的`与`什么是需要被禁止的`
+- **X-Frame-Options**：iframe 权限参数
+- **Content-Security-Policy**:服务器通过发送一个 CSP 头部，来告诉浏览器什么是`被授权执行的`与`什么是需要被禁止的`
 
 ### 请求参数

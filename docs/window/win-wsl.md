@@ -68,3 +68,20 @@ alias cmd="cmd.exe"
 
 ### [升级wsl2](https://docs.microsoft.com/zh-cn/windows/wsl/install-win10)
 - dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+## 服务
+
+### Nginx
+
+```shell
+# kali
+sudo apt install nginx
+
+# 查看状态
+service --status-all
+
+# 启动
+sudo service nginx start
+sudo service nginx restart
+```
+

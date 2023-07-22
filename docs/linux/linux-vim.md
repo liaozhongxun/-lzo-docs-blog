@@ -277,3 +277,13 @@ title: vim
 -   保存 `ctrl + o`
 -   退出 `ctrl + x`
 ```
+
+### 换行符号
+
+```shell
+set ff=unix ，就是告诉 vi 编辑器，使用unix换行符(linux,\n)
+set ff=dos ，就是告诉 vi 编辑器，使用dos换行符(win,\n\r)
+
+win 比 linux 多了\r
+```
+
